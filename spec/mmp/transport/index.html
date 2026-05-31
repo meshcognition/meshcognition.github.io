@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>4. Transport (Layer 1) — MMP Specification</title><meta name="description" content="MMP Layer 1 — wire format, TCP (LAN), WebSocket relay (WAN), IPC, multi-transport per peer with priority-based failover."><link rel="canonical" href="https://meshcognition.org/spec/mmp/transport/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-user sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="4. Transport (Layer 1) — MMP Specification"><meta property="og:description" content="MMP Layer 1 — wire format, TCP (LAN), WebSocket relay (WAN), IPC, multi-transport per peer with priority-based failover."><meta property="og:url" content="https://meshcognition.org/spec/mmp/transport/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="4. Transport (Layer 1) — MMP Specification"><meta name="twitter:description" content="MMP Layer 1 — wire format, TCP (LAN), WebSocket relay (WAN), IPC, multi-transport per peer with priority-based failover."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition — distributed intelligence with per-user sovereignty, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition. The Mesh Memory Protocol specification and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.D-X1eC4h.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
+MMP Specification v1.0
+</a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> Overview </a><a href="/spec/mmp/conventions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 1. Conventions </a><a href="/spec/mmp/architecture" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 2. Architecture </a><a href="/spec/mmp/identity" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 3. Identity (L0) </a><a href="/spec/mmp/transport" class="text-xs py-1 px-2 rounded transition-colors text-purple-400 bg-purple-500/10" title=""> 4. Transport (L1) </a><a href="/spec/mmp/connection" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 5. Connection (L2) </a><a href="/spec/mmp/memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 6. Memory (L3) </a><a href="/spec/mmp/frames" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 7. Frame Types </a><a href="/spec/mmp/cmb" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8. CMBs (CAT7) </a><a href="/spec/mmp/coupling" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 9. Coupling &amp; SVAF (L4) </a><a href="/spec/mmp/blending" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 10. State Blending </a><a href="/spec/mmp/feedback" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 11. Feedback Modulation </a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 12. Synthetic Memory (L5) </a><a href="/spec/mmp/xmesh" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 13. xMesh (L6) </a><a href="/spec/mmp/application" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 14. Application (L7) </a><a href="/spec/mmp/remix" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 15. Remix </a><a href="/spec/mmp/extensions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 16. Extensions </a><a href="/spec/mmp/conformance" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 17. Conformance </a><a href="/spec/mmp/security" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 18. Security </a><a href="/spec/mmp/constants" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 19. Configuration </a><a href="/spec/mmp/schema" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 20. JSON Schema </a><a href="/spec/mmp/references" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 21. References </a> </div> </nav> <div class="flex justify-between text-xs"> <a href="/spec/mmp/identity" class="text-white/40 hover:text-purple-400 transition-colors">
+← 3. Identity (L0) </a> <a href="/spec/mmp/connection" class="text-white/40 hover:text-purple-400 transition-colors"> 5. Connection (L2) →
+</a> </div>  <div class="flex gap-2 pt-2"> <a href="/spec/mmp-v1.0.md" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page Markdown">
+.md
+</a> <a href="/spec/mmp-v1.0.html" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page HTML">
+.html
+</a> </div> </div> </div> </aside> <article class="flex-1 min-w-0"> <div class="space-y-10 text-white/70 leading-relaxed text-[15px]">  <section> <h2 class="font-display text-xl text-white mb-4" id="transport">4. Layer 1: Transport</h2> <h3 class="font-display text-base text-white/90 mb-3" id="wire-format">4.1 Wire Format</h3> <p class="mb-4">
+Frames are length-prefixed JSON over TCP. Each frame consists of:
+</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-sm text-purple-300 overflow-x-auto"> <pre>+-------------------+---------------------------+
+| 4 bytes           | N bytes                   |
+| UInt32BE (length) | UTF-8 JSON payload        |
++-------------------+---------------------------+</pre> </div> <ul class="space-y-2 mb-6 text-sm"> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span>The length field is a 4-byte big-endian unsigned 32-bit integer encoding the byte length of the JSON payload.</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span>Implementations <span class="text-red-400 font-mono text-xs">MUST</span> reject frames with length 0 or length exceeding 1,048,576 bytes (1 MiB). Rejection <span class="text-red-400 font-mono text-xs">MUST</span> close the transport connection.</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span>The JSON payload <span class="text-red-400 font-mono text-xs">MUST</span> be a valid JSON object with a <code class="text-purple-300/80">type</code> field (string). Frames that fail JSON parsing or lack a <code class="text-purple-300/80">type</code> field <span class="text-red-400 font-mono text-xs">MUST</span> be silently discarded.</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span>Implementations <span class="text-red-400 font-mono text-xs">MUST</span> handle partial reads (TCP stream reassembly).</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span>Implementations <span class="text-red-400 font-mono text-xs">MUST</span> silently ignore frames with unrecognised <code class="text-purple-300/80">type</code> values (forward compatibility).</li> </ul> <p class="mb-4 text-sm"> <span class="text-white/90">Frame size.</span> Senders <span class="text-red-400 font-mono text-xs">MUST NOT</span> produce frames exceeding MAX_FRAME_SIZE bytes (default: 1,048,576).
+      Receivers <span class="text-red-400 font-mono text-xs">MUST</span> close the connection with error code 1003 (FRAME_TOO_LARGE) if a received frame exceeds this limit.
+</p> <p class="mb-2 text-sm">
+ABNF grammar (RFC 5234):
+</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-sm text-purple-300 overflow-x-auto"> <pre>frame        = frame-length LF json-object LF
+frame-length = 1*DIGIT                    ; decimal byte count of json-object
+json-object  = &quot;{&quot; *( json-member ) &quot;}&quot;   ; RFC 8259 JSON object
+LF           = %x0A                       ; newline delimiter</pre> </div> <p class="mb-6 text-sm">
+Each frame is a single JSON object preceded by its byte length as a decimal string, delimited by newline characters.
+</p> <h3 class="font-display text-base text-white/90 mb-3" id="wire-examples">4.2 Wire Examples</h3> <p class="mb-3 text-sm">Handshake frame:</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-xs text-white/50 overflow-x-auto"> <pre>Length prefix: 00 00 00 57 (87 bytes)
+Payload:
+{
+  &quot;type&quot;: &quot;handshake&quot;,
+  &quot;nodeId&quot;: &quot;a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d&quot;,
+  &quot;name&quot;: &quot;my-agent&quot;,
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;extensions&quot;: []
+}</pre> </div> <p class="mb-3 text-sm">Ping frame:</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-xs text-white/50 overflow-x-auto"> <pre>Length prefix: 00 00 00 11 (17 bytes)
+Payload: {&quot;type&quot;:&quot;ping&quot;}</pre> </div> <p class="mb-3 text-sm">CMB frame:</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-6 font-mono text-xs text-white/50 overflow-x-auto"> <pre>{
+  &quot;type&quot;: &quot;cmb&quot;,
+  &quot;timestamp&quot;: 1711540800000,
+  &quot;cmb&quot;: {
+    &quot;key&quot;: &quot;cmb-b2c3d4e5f6a7b8c9&quot;,
+    &quot;createdBy&quot;: &quot;melomove&quot;,
+    &quot;createdAt&quot;: 1711540800000,
+    &quot;fields&quot;: {
+      &quot;focus&quot;:       { &quot;text&quot;: &quot;user coding for 3 hours, energy declining&quot; },
+      &quot;issue&quot;:       { &quot;text&quot;: &quot;sedentary since morning, skipping lunch&quot; },
+      &quot;intent&quot;:      { &quot;text&quot;: &quot;recommend movement break before fatigue worsens&quot; },
+      &quot;motivation&quot;:  { &quot;text&quot;: &quot;3 agents reported declining energy in last hour&quot; },
+      &quot;commitment&quot;:  { &quot;text&quot;: &quot;fitness monitoring active, 10min stretch queued&quot; },
+      &quot;perspective&quot;: { &quot;text&quot;: &quot;fitness agent, afternoon session, home office&quot; },
+      &quot;mood&quot;:        { &quot;text&quot;: &quot;concerned, low energy&quot;, &quot;valence&quot;: -0.3, &quot;arousal&quot;: -0.4 }
+    },
+    &quot;lineage&quot;: {
+      &quot;parents&quot;: [&quot;cmb-a1b2c3d4e5f6&quot;],
+      &quot;ancestors&quot;: [&quot;cmb-a1b2c3d4e5f6&quot;],
+      &quot;method&quot;: &quot;SVAF-v2&quot;
+    }
+  }
+}</pre> </div> <h3 class="font-display text-base text-white/90 mb-3" id="tcp">4.3 TCP Transport (LAN)</h3> <p class="mb-4 text-sm">
+The primary LAN transport. Nodes <span class="text-red-400 font-mono text-xs">MUST</span> listen on a TCP port and advertise it via DNS-SD (Section 5.1).
+      Connection timeout <span class="text-red-400 font-mono text-xs">MUST</span> be no longer than 10,000 ms.
+</p> <h3 class="font-display text-base text-white/90 mb-3" id="relay">4.4 WebSocket Relay Transport (WAN)</h3> <p class="mb-4 text-sm">
+A relay is an <span class="text-white/90">optional</span> WebSocket intermediary that enables connectivity between peers on different
+      networks. Peers on the same LAN discover each other directly via Bonjour mDNS (&sect;4.2) and do not
+      require a relay. The relay provides internet-scale routing between peers behind NAT, a peer directory
+      with wake-channel gossip, and per-token channel isolation for multi-tenant deployments.
+</p> <p class="mb-6 text-sm">
+A relay is pure routing infrastructure. It does not store CMBs, evaluate SVAF, or participate in
+      mesh cognition. Payloads are opaque to the relay. The relay <span class="text-red-400 font-mono text-xs">MUST NOT</span> inspect or modify frame payloads.
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-auth">4.4.1 Authentication</h4> <p class="mb-4 text-sm">
+Clients connect via WebSocket (RFC 6455) and <span class="text-red-400 font-mono text-xs">MUST</span> send
+      a <code class="text-purple-300/80">relay-auth</code> frame within 10 seconds. Failure results in
+      close code 4001.
+</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-sm text-purple-300 overflow-x-auto"> <pre>{
+  &quot;type&quot;: &quot;relay-auth&quot;,
+  &quot;nodeId&quot;: &quot;&lt;uuid-v7&gt;&quot;,
+  &quot;name&quot;: &quot;&lt;display-name&gt;&quot;,
+  &quot;token&quot;: &quot;&lt;channel-token&gt;&quot;,
+  &quot;wakeChannel&quot;: {
+    &quot;platform&quot;: &quot;apns&quot;,
+    &quot;token&quot;: &quot;&lt;push-token&gt;&quot;,
+    &quot;environment&quot;: &quot;production&quot;
+  }
+}</pre> </div> <ul class="space-y-2 mb-6 text-sm"> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><code class="text-purple-300/80">nodeId</code>, <code class="text-purple-300/80">name</code>: <span class="text-red-400 font-mono text-xs">MUST</span> be present. Missing fields result in close code 4002.</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><code class="text-purple-300/80">token</code>: <span class="text-yellow-400 font-mono text-xs">SHOULD</span> be present if the relay requires authentication. Invalid token results in close code 4003.</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><code class="text-purple-300/80">wakeChannel</code>: <span class="text-green-400 font-mono text-xs">MAY</span> be present. Registers push notification credentials for waking this peer when offline (&sect;5.5).</li> </ul> <p class="mb-6 text-sm">
+On success, the relay registers the connection, sends a <code class="text-purple-300/80">relay-peers</code> response,
+      and broadcasts <code class="text-purple-300/80">relay-peer-joined</code> to all other clients on the same channel.
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-peers">4.4.2 Peer List</h4> <p class="mb-4 text-sm">
+Immediately after authentication, the relay sends the current peer list:
+</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-sm text-purple-300 overflow-x-auto"> <pre>{
+  &quot;type&quot;: &quot;relay-peers&quot;,
+  &quot;peers&quot;: [
+    { &quot;nodeId&quot;: &quot;&lt;uuid&gt;&quot;, &quot;name&quot;: &quot;&lt;name&gt;&quot;, &quot;wakeChannel&quot;: {...}, &quot;offline&quot;: false }
+  ]
+}</pre> </div> <p class="mb-6 text-sm">
+The array includes all connected peers on the same channel (excluding the requester) plus
+      offline peers with registered wake channels (<code class="text-purple-300/80">offline: true</code>).
+      Clients <span class="text-yellow-400 font-mono text-xs">SHOULD</span> treat each non-offline entry as a peer-joined event.
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-presence">4.4.3 Peer Presence</h4> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-sm text-purple-300 overflow-x-auto"> <pre>{ &quot;type&quot;: &quot;relay-peer-joined&quot;, &quot;nodeId&quot;: &quot;&lt;uuid&gt;&quot;, &quot;name&quot;: &quot;&lt;name&gt;&quot; }
+{ &quot;type&quot;: &quot;relay-peer-left&quot;,   &quot;nodeId&quot;: &quot;&lt;uuid&gt;&quot;, &quot;name&quot;: &quot;&lt;name&gt;&quot; }</pre> </div> <p class="mb-6 text-sm">
+Broadcast to all peers on the same channel when a peer joins or leaves.
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-routing">4.4.4 Message Routing</h4> <p class="mb-4 text-sm">
+Clients send frames with a routing envelope:
+</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-sm text-purple-300 overflow-x-auto"> <pre>{ &quot;to&quot;: &quot;&lt;target-nodeId&gt;&quot;, &quot;payload&quot;: { &quot;type&quot;: &quot;cmb&quot;, ... } }</pre> </div> <p class="mb-6 text-sm">
+If <code class="text-purple-300/80">to</code> is present, the relay forwards to that peer only.
+      If absent, the relay broadcasts to all peers on the same channel.
+      The relay adds <code class="text-purple-300/80">from</code> and <code class="text-purple-300/80">fromName</code> to
+      forwarded frames. The relay <span class="text-red-400 font-mono text-xs">MUST NOT</span> route frames across channels.
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-keepalive">4.4.5 Keepalive</h4> <p class="mb-6 text-sm">
+The relay sends <code class="text-purple-300/80">relay-ping</code> at a regular interval
+      (<span class="text-yellow-400 font-mono text-xs">RECOMMENDED</span>: 10 seconds). Clients <span class="text-red-400 font-mono text-xs">MUST</span> respond
+      with <code class="text-purple-300/80">relay-pong</code>. A client that misses two consecutive pings
+      is closed with code 4005. Clients <span class="text-green-400 font-mono text-xs">MAY</span> send unsolicited <code class="text-purple-300/80">relay-pong</code> frames;
+      the relay <span class="text-red-400 font-mono text-xs">MUST</span> accept them.
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-reauth">4.4.6 Re-authentication</h4> <p class="mb-6 text-sm">
+If the relay loses a client&rsquo;s registration (e.g. relay restart behind a TLS proxy), it
+      sends <code class="text-purple-300/80">{ &quot;type&quot;: &quot;relay-reauth&quot; }</code>. The
+      client <span class="text-red-400 font-mono text-xs">MUST</span> re-send <code class="text-purple-300/80">relay-auth</code> in response.
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-duplicate">4.4.7 Duplicate Identity</h4> <p class="mb-4 text-sm">
+When a client authenticates with a <code class="text-purple-300/80">nodeId</code> already held by an existing connection:
+</p> <ul class="space-y-2 mb-6 text-sm"> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><span class="text-white/90">Fresh existing (&lt; 5s):</span> the relay <span class="text-red-400 font-mono text-xs">MUST</span> reject the newcomer with close code 4006. This prevents ping-pong loops where two processes with the same identity kick each other.</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><span class="text-white/90">Stale existing (&ge; 5s):</span> the relay <span class="text-green-400 font-mono text-xs">MAY</span> replace the existing connection by closing it with code 4004. The relay <span class="text-red-400 font-mono text-xs">MUST NOT</span> broadcast <code class="text-purple-300/80">relay-peer-left</code> for the replaced connection.</li> </ul> <p class="mb-6 text-sm">
+Clients receiving code 4004 <span class="text-yellow-400 font-mono text-xs">SHOULD</span> log the collision and <span class="text-red-400 font-mono text-xs">MUST NOT</span> automatically reconnect (&sect;5.3).
+      Clients receiving code 4006 <span class="text-yellow-400 font-mono text-xs">SHOULD NOT</span> reconnect &mdash; the existing holder is the legitimate one.
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-channels">4.4.8 Channel Isolation</h4> <p class="mb-4 text-sm">
+A relay <span class="text-green-400 font-mono text-xs">MAY</span> support multiple isolated channels. Each authentication token maps to exactly one channel.
+      Cross-channel routing <span class="text-red-400 font-mono text-xs">MUST NOT</span> occur: frames, peer lists, and presence notifications are scoped to the channel.
+      A relay with no token configured operates in open mode (single default channel, no authentication).
+</p> <h4 class="text-sm font-semibold text-white/80 mb-2" id="relay-close-codes">4.4.9 Close Codes</h4> <div class="overflow-x-auto mb-6"> <table class="w-full text-sm border-collapse"> <thead> <tr class="border-b border-white/10"> <th class="text-left py-2 pr-4 text-white/70 font-medium">Code</th> <th class="text-left py-2 pr-4 text-white/70 font-medium">Name</th> <th class="text-left py-2 text-white/70 font-medium">Client Action</th> </tr> </thead> <tbody class="text-white/50"> <tr class="border-b border-white/5"><td class="py-2 pr-4 font-mono text-purple-300/80">4001</td><td class="py-2 pr-4">Auth timeout</td><td class="py-2">Retry with auth</td></tr> <tr class="border-b border-white/5"><td class="py-2 pr-4 font-mono text-purple-300/80">4002</td><td class="py-2 pr-4">Auth invalid</td><td class="py-2">Fix auth frame</td></tr> <tr class="border-b border-white/5"><td class="py-2 pr-4 font-mono text-purple-300/80">4003</td><td class="py-2 pr-4">Invalid token</td><td class="py-2">Check token config</td></tr> <tr class="border-b border-white/5"><td class="py-2 pr-4 font-mono text-purple-300/80">4004</td><td class="py-2 pr-4">Replaced</td><td class="py-2">Log collision, do NOT reconnect</td></tr> <tr class="border-b border-white/5"><td class="py-2 pr-4 font-mono text-purple-300/80">4005</td><td class="py-2 pr-4">Heartbeat timeout</td><td class="py-2">Reconnect with backoff</td></tr> <tr><td class="py-2 pr-4 font-mono text-purple-300/80">4006</td><td class="py-2 pr-4">Duplicate rejected</td><td class="py-2">Do NOT reconnect</td></tr> </tbody> </table> </div> <h3 class="font-display text-base text-white/90 mb-3" id="ipc">4.5 IPC Transport (Local)</h3> <p class="mb-4 text-sm">
+Local tools <span class="text-green-400 font-mono text-xs">MAY</span> connect to a node via IPC (Unix domain socket, named pipe, or localhost TCP)
+      to query mesh state. The framing is identical to TCP transport. IPC is an implementation convenience
+      for local tooling (dashboards, CLI, monitoring) &mdash; it is not a substitute for peer-to-peer
+      transport. Agents that participate in coupling <span class="text-red-400 font-mono text-xs">MUST</span> connect as full peer nodes via TCP or WebSocket.
+</p> <p class="mb-4 text-sm">
+Implementations <span class="text-red-400 font-mono text-xs">MUST</span> support a persistent IPC socket at a well-known path.
+      The socket <span class="text-red-400 font-mono text-xs">MUST</span> accept multiple simultaneous connections. Each IPC connection <span class="text-yellow-400 font-mono text-xs">SHOULD</span> remain
+      open for the lifetime of the client application &mdash; short-lived connections (one query, then disconnect)
+      are permitted but <span class="text-yellow-400 font-mono text-xs">SHOULD</span> be avoided by applications that query frequently.
+</p> <p class="mb-4 text-sm">
+Well-known IPC path: <code class="text-purple-300/80">~/.sym/daemon.sock</code> (Unix domain socket)
+      or <code class="text-purple-300/80">localhost:19517</code> (TCP fallback).
+</p> <h3 class="font-display text-base text-white/90 mb-3" id="multi-transport">4.6 Multi-Transport Per Peer</h3> <p class="mb-4 text-sm">
+A peer <span class="text-green-400 font-mono text-xs">MAY</span> be reachable via multiple transports simultaneously (e.g. LAN TCP + WAN relay).
+      Implementations <span class="text-red-400 font-mono text-xs">MUST</span> support maintaining multiple active transports for the same peer
+      and select the highest-priority healthy transport for sending:
+</p> <div class="overflow-x-auto mb-4"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Priority</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Transport</th><th class="text-left font-mono text-xs text-white/40 pb-2">Rationale</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1 (highest)</td><td class="py-2 pr-4">TCP (LAN)</td><td class="py-2">Lowest latency, no intermediary, no cloud dependency</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">2</td><td class="py-2 pr-4">WebSocket Relay (WAN)</td><td class="py-2">Cross-network, higher latency, relay dependency</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">3 (lowest)</td><td class="py-2 pr-4">Wake (push)</td><td class="py-2">Last resort &mdash; wake the peer, then connect via 1 or 2</td></tr> </tbody> </table> </div> <p class="mb-4 text-sm">
+When a node receives an inbound connection from a peer that is already connected via a different transport,
+      it <span class="text-red-400 font-mono text-xs">MUST NOT</span> reject the new connection. Instead it <span class="text-red-400 font-mono text-xs">MUST</span> add the new transport as a secondary path.
+      Frames <span class="text-yellow-400 font-mono text-xs">SHOULD</span> be sent via the highest-priority healthy transport.
+</p> <p class="mb-4 text-sm">
+A transport is <span class="text-white/90">healthy</span> if it has received a frame (including <code class="text-purple-300/80">pong</code>)
+      within the heartbeat timeout (Section 5.4). An unhealthy transport <span class="text-yellow-400 font-mono text-xs">SHOULD</span> be closed after the timeout.
+      The peer is only removed (peer-left event) when <span class="text-white/90">all</span> transports for that peer are closed &mdash;
+      not when a single transport drops.
+</p> <p class="mb-6 text-sm">
+This enables graceful failover: if a relay drops, the LAN transport continues. If LAN drops, the relay
+      takes over. The peer remains connected throughout &mdash; only the active transport changes.
+</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8">Q&amp;A</h3> <div class="space-y-3 mb-6"> <div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">Why must each agent run its own transport?</p> <p class="text-xs text-white/50">Coupling is per-node. SVAF field weights (αf) are per-node. Memory stores are per-node. An agent that shares another node’s transport and identity cannot have independent coupling decisions. Multiple agents on the same device each run their own Bonjour advertisement, relay connection, and TCP listener. They discover each other the same way agents on different devices do — there is no special local path.</p> </div><div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">Is the resource cost of N agents acceptable?</p> <p class="text-xs text-white/50">N agents on one device means N Bonjour advertisements and N relay connections. For small N (4–8 agents), this is well within OS limits. Bonjour is designed for many services per host. Relay WebSocket connections are lightweight. The protocol correctness benefit (per-agent coupling) outweighs the marginal resource cost.</p> </div> </div> </section>  </div> </article> </div> </div>  <footer class="footer" style="padding: 40px 64px;"><div class="footer-inner" style="grid-template-columns: 1fr;"><div class="legal" style="margin-top: 0; padding-top: 0; border-top: 0;"><span>© 2026 SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0.</span><span>SYMBOT LTD · Scotland, United Kingdom</span></div></div></footer> </body></html>

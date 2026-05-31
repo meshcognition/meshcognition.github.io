@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>11. Feedback Modulation — MMP Specification</title><meta name="description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><link rel="canonical" href="https://meshcognition.org/spec/mmp/feedback/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-user sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="11. Feedback Modulation — MMP Specification"><meta property="og:description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><meta property="og:url" content="https://meshcognition.org/spec/mmp/feedback/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="11. Feedback Modulation — MMP Specification"><meta name="twitter:description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition — distributed intelligence with per-user sovereignty, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition. The Mesh Memory Protocol specification and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.D-X1eC4h.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
+MMP Specification v1.0
+</a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> Overview </a><a href="/spec/mmp/conventions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 1. Conventions </a><a href="/spec/mmp/architecture" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 2. Architecture </a><a href="/spec/mmp/identity" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 3. Identity (L0) </a><a href="/spec/mmp/transport" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 4. Transport (L1) </a><a href="/spec/mmp/connection" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 5. Connection (L2) </a><a href="/spec/mmp/memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 6. Memory (L3) </a><a href="/spec/mmp/frames" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 7. Frame Types </a><a href="/spec/mmp/cmb" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8. CMBs (CAT7) </a><a href="/spec/mmp/coupling" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 9. Coupling &amp; SVAF (L4) </a><a href="/spec/mmp/blending" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 10. State Blending </a><a href="/spec/mmp/feedback" class="text-xs py-1 px-2 rounded transition-colors text-purple-400 bg-purple-500/10" title=""> 11. Feedback Modulation </a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 12. Synthetic Memory (L5) </a><a href="/spec/mmp/xmesh" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 13. xMesh (L6) </a><a href="/spec/mmp/application" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 14. Application (L7) </a><a href="/spec/mmp/remix" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 15. Remix </a><a href="/spec/mmp/extensions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 16. Extensions </a><a href="/spec/mmp/conformance" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 17. Conformance </a><a href="/spec/mmp/security" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 18. Security </a><a href="/spec/mmp/constants" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 19. Configuration </a><a href="/spec/mmp/schema" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 20. JSON Schema </a><a href="/spec/mmp/references" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 21. References </a> </div> </nav> <div class="flex justify-between text-xs"> <a href="/spec/mmp/blending" class="text-white/40 hover:text-purple-400 transition-colors">
+← 10. State Blending </a> <a href="/spec/mmp/synthetic-memory" class="text-white/40 hover:text-purple-400 transition-colors"> 12. Synthetic Memory (L5) →
+</a> </div>  <div class="flex gap-2 pt-2"> <a href="/spec/mmp-v1.0.md" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page Markdown">
+.md
+</a> <a href="/spec/mmp-v1.0.html" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page HTML">
+.html
+</a> </div> </div> </div> </aside> <article class="flex-1 min-w-0"> <div class="space-y-10 text-white/70 leading-relaxed text-[15px]">  <section> <h2 class="font-display text-xl text-white mb-4">11. Feedback Modulation</h2> <p class="mb-6">
+Feedback modulation is the mechanism by which collective intelligence becomes self-correcting.
+      It is not a separate system &mdash; it is the mesh cognition loop (Section 10.6) processing a
+      specific class of signals: human judgment expressed as CMBs with validator authority and per-field
+      reasoning. Teaching is as fundamental to collective intelligence as coupling. Without it, the mesh
+      can think together but cannot learn together.
+</p>  <h3 class="font-display text-base text-white/90 mb-3">11.1 Feedback Neuromodulation</h3> <p class="mb-4 text-sm">
+The mesh cognition loop (<a href="/spec/mmp/blending" class="text-purple-400 hover:text-purple-300 transition-colors">Section 10.6</a>) describes how agents learn from each other.
+      Feedback neuromodulation describes how the mesh learns from <span class="text-white/90">human judgment</span> &mdash;
+      using the same loop, not a separate channel.
+</p> <p class="mb-4 text-sm">
+In biological neural networks, learning is not driven by content transmission but by <span class="text-white/90">neuromodulation</span> &mdash;
+      diffuse chemical signals (dopamine, norepinephrine, serotonin) that modulate how existing circuits
+      process future inputs. A dopaminergic prediction error signal does not carry the correct answer.
+      It carries the <span class="text-white/90">direction and magnitude</span> of the error, which adjusts synaptic weights across
+      multiple brain regions simultaneously. The signal is cross-cutting &mdash; it is not a layer in the
+      cortical hierarchy, but a modulation of all layers at once.
+</p> <p class="mb-4 text-sm">
+MMP feedback follows the same principle. When a <a href="/spec/mmp/memory" class="text-purple-400 hover:text-purple-300 transition-colors">validator node</a> (Section 6.5)
+      produces a validation or dismissal CMB, it is not issuing a command. It is producing a
+<span class="text-white/90">neuromodulatory signal</span> &mdash; a CMB with validator authority, rich per-field content,
+      and lineage pointing to the signal being evaluated. This CMB enters the mesh cognition loop
+      like any other signal, but its effects are amplified by three mechanisms:
+</p> <div class="space-y-4 mb-6 pl-4 border-l-2 border-purple-500/20"> <div> <p class="text-sm font-medium text-white/80 mb-1">1. Anchor weight (Section 6.4)</p> <p class="text-sm text-white/60">
+Validated CMBs have weight 2.0, dismissed CMBs have weight 0.5. These weights influence
+          future SVAF evaluations: validated knowledge shapes future anchors more than unvalidated signals;
+          dismissed knowledge shapes them less.
+</p> </div> <div> <p class="text-sm font-medium text-white/80 mb-1">2. Per-field content (Section 9.2)</p> <p class="text-sm text-white/60">
+SVAF already computes per-field drift for every incoming CMB. No new computation is needed.
+          What changes is the input quality: when the feedback CMB carries rich per-field reasoning,
+          the resulting anchor vectors encode directional information. The mesh learns not just that
+          a signal was wrong, but <span class="text-white/90">which dimension was wrong and in what direction</span> &mdash;
+          through the same SVAF evaluation path that processes all CMBs.
+</p> </div> <div> <p class="text-sm font-medium text-white/80 mb-1">3. &tau;-modulated adaptation (Section 10.3)</p> <p class="text-sm text-white/60">
+The feedback signal enters the agent&rsquo;s CfC cell (Layer 6) through the Synthetic Memory pipeline.
+          Fast-&tau; neurons integrate the feedback immediately (affective corrections: &ldquo;tone down the alarm&rdquo;).
+          Slow-&tau; neurons integrate gradually (strategic corrections: &ldquo;this analytical frame is wrong&rdquo;).
+          A single dismissal produces a small shift in slow-&tau; neurons. Repeated similar feedback compounds &mdash;
+          the agent&rsquo;s cognitive baseline shifts until the lesson is encoded in the CfC hidden state itself,
+          not recalled as a stored rule.
+</p> </div> </div> <p class="mb-4 text-sm">
+This is how the mesh becomes self-correcting. The human does not retrain the agent, reconfigure
+      its weights, or edit its prompt. The human produces a CMB. The mesh cognition loop does the rest.
+</p> <p class="mb-4 text-sm"> <span class="text-white/90">Feedback recognition.</span> When a node receives a feedback CMB (a CMB with <code class="text-purple-300/80">lineage.parents</code> from
+      a validator/anchor node), the receiving node <span class="text-yellow-400 font-mono text-xs">SHOULD</span> check whether any of the parent keys match CMBs
+      it produced. If a match is found, the feedback is about the receiving agent&rsquo;s own prior output.
+      Implementations <span class="text-yellow-400 font-mono text-xs">SHOULD</span> surface this in the LLM reasoning context so the LLM can adjust its analytical
+      approach. This check is O(1) against the node&rsquo;s local memory index.
+</p> <p class="mb-4 text-sm font-medium text-white/80">Neuroscience grounding</p> <div class="overflow-x-auto mb-6"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Biological mechanism</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">MMP mechanism</th> <th class="text-left font-mono text-xs text-white/40 pb-2">Effect</th> </tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 text-xs">Dopaminergic prediction error &mdash; direction + magnitude</td><td class="py-2 pr-4 text-xs">Per-field drift in feedback CMB vs. producing agent&rsquo;s anchors</td><td class="py-2 text-xs">Agent learns WHICH fields were miscalibrated</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 text-xs">Fast-adapting circuits (amygdala, ~100ms)</td><td class="py-2 pr-4 text-xs">Fast-&tau; CfC neurons (&lt; 5s)</td><td class="py-2 text-xs">Affect corrections land immediately</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 text-xs">Slow-adapting circuits (prefrontal cortex, hours-days)</td><td class="py-2 pr-4 text-xs">Slow-&tau; CfC neurons (&gt; 30s)</td><td class="py-2 text-xs">Strategic corrections compound over repeated feedback</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 text-xs">Hebbian plasticity gated by neuromodulators</td><td class="py-2 pr-4 text-xs">Anchor weight modulating SVAF evaluation</td><td class="py-2 text-xs">Validated knowledge strengthens future coupling</td></tr> <tr><td class="py-2 pr-4 text-xs">Prefrontal top-down control</td><td class="py-2 pr-4 text-xs">Validator authority (Section 6.5)</td><td class="py-2 text-xs">Human modulates agent processing without replacing function</td></tr> </tbody> </table> </div>  <h3 class="font-display text-base text-white/90 mb-3 mt-10">11.2 Feedback CMB Requirements</h3> <p class="mb-4 text-sm">
+The effectiveness of feedback neuromodulation depends entirely on the content quality of the
+      feedback CMB. A dismissal that says &ldquo;not actionable&rdquo; in every field produces a neuromodulatory
+      signal with no direction &mdash; the equivalent of a dopamine signal with zero magnitude. The mesh cannot learn from it.
+</p> <p class="mb-4 text-sm">
+Validator nodes producing validation or dismissal CMBs <span class="text-yellow-400 font-mono text-xs">SHOULD</span> populate CAT7 fields with reasoning,
+      not boilerplate:
+</p> <div class="overflow-x-auto mb-6"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Field</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Level</th> <th class="text-left font-mono text-xs text-white/40 pb-2">Content requirement</th> </tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">focus</td><td class="py-2 pr-4"><span class="text-red-400 font-mono text-xs">MUST</span></td><td class="py-2 text-xs">State what was evaluated and the judgment</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">issue</td><td class="py-2 pr-4"><span class="text-yellow-400 font-mono text-xs">SHOULD</span></td><td class="py-2 text-xs">Identify what the producing agent got wrong &mdash; which aspect was miscalibrated</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">intent</td><td class="py-2 pr-4"><span class="text-yellow-400 font-mono text-xs">SHOULD</span></td><td class="py-2 text-xs">State what the agent should learn &mdash; the analytical correction, not a command</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">motivation</td><td class="py-2 pr-4"><span class="text-yellow-400 font-mono text-xs">SHOULD</span></td><td class="py-2 text-xs">Explain why this judgment matters &mdash; strategic context the agent lacked</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">commitment</td><td class="py-2 pr-4"><span class="text-green-400 font-mono text-xs">MAY</span></td><td class="py-2 text-xs">Record action taken (validation) or state no action (dismissal)</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">perspective</td><td class="py-2 pr-4"><span class="text-yellow-400 font-mono text-xs">SHOULD</span></td><td class="py-2 text-xs">Identify the vantage point of the judgment</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">mood</td><td class="py-2 pr-4"><span class="text-yellow-400 font-mono text-xs">SHOULD</span></td><td class="py-2 text-xs">Carry genuine affect &mdash; modulates fast-&tau; neurons</td></tr> </tbody> </table> </div> <p class="mb-6 text-sm text-white/50"> <span class="text-white/90">Feedback is a remix.</span> The founder processes the agent&rsquo;s signal through
+      their own domain lens and produces new understanding. The founder&rsquo;s reasoning constitutes
+      new domain data per Section 15.7 &mdash; satisfying all three remix conditions: new domain data exists,
+      the peer signal is relevant, and the intersection produces new knowledge.
+</p>  <h3 class="font-display text-base text-white/90 mb-3 mt-10">11.3 Directive Feedback</h3> <p class="mb-4 text-sm">
+Sections 11.1&ndash;11.2 describe feedback tied to a specific CMB via lineage. Directive feedback
+      is a standalone teaching CMB &mdash; a signal that injects domain knowledge into the mesh
+<span class="text-white/90">without requiring a parent ticket</span>.
+</p> <p class="mb-4 text-sm">A directive feedback CMB is produced by a validator or anchor node with:</p> <ul class="list-disc list-inside mb-4 text-sm text-white/60 space-y-1"> <li>No <code class="text-purple-300/80">lineage.parents</code> (it is not a response to a specific signal)</li> <li>Rich CAT7 fields encoding the knowledge to be injected</li> <li>Validator authority (Section 6.5) &mdash; enters at anchor weight 2.0</li> </ul> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-xs text-purple-300 overflow-x-auto"> <pre>focus:       &quot;Mesh agents use direct LLM API calls for reasoning.
+              Single-agent developer tools are a separate category.&quot;
+issue:       &quot;Feed signals about single-agent scaffolding tools are
+              different-layer noise — not competitive threats to a
+              multi-agent coordination protocol.&quot;
+intent:      &quot;Analytical frame: distinguish single-agent scaffolding
+              (human-to-agent) from multi-agent coordination
+              (agent-to-agent). Only the latter is relevant.&quot;
+motivation:  &quot;Prevents wasted analysis cycles on signals that cannot
+              produce actionable competitive intelligence.&quot;
+perspective: &quot;Founder, protocol architect&quot;
+mood:        { text: &quot;clarifying&quot;, valence: 0.1, arousal: 0.2 }</pre> </div> <p class="mb-4 text-sm">
+This CMB enters the mesh with anchor weight 2.0, no lineage. It becomes a <span class="text-white/90">high-weight anchor</span> in
+      every receiving agent&rsquo;s SVAF evaluation. Future incoming CMBs about single-agent dev tools will
+      be evaluated against this anchor &mdash; per-field drift will produce a guarded or rejected classification.
+</p> <p class="mb-6 text-sm">
+Directive feedback is the protocol equivalent of <span class="text-white/90">prefrontal top-down control</span> in neuroscience:
+      the prefrontal cortex does not do the sensory processing, but it sends signals that modulate how
+      sensory cortex interprets future input.
+</p>  <h3 class="font-display text-base text-white/90 mb-3 mt-10">11.4 Wire Examples</h3> <p class="mb-4 text-sm"> <span class="text-white/90">Feedback CMB (dismissal with reasoning).</span> A validator node dismisses a prior CMB.
+      The <code class="text-purple-300/80">lineage.parents</code> array links to the dismissed signal:
+</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-6 font-mono text-xs text-purple-300 overflow-x-auto"> <pre>{
+  &quot;type&quot;: &quot;cmb&quot;,
+  &quot;timestamp&quot;: 1775485628563,
+  &quot;cmb&quot;: {
+    &quot;key&quot;: &quot;cmb-a1b2c3d4e5f6&quot;,
+    &quot;createdBy&quot;: &quot;validator-node&quot;,
+    &quot;createdAt&quot;: 1775485628563,
+    &quot;fields&quot;: {
+      &quot;focus&quot;: { &quot;text&quot;: &quot;Dismissed: Competitor tool release signals market shift&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;issue&quot;: { &quot;text&quot;: &quot;Dismissal reasoning: single-agent scaffolding, different layer from MMP&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;intent&quot;: { &quot;text&quot;: &quot;founder dismissed — single-agent scaffolding, different layer from multi-agent coordination&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;motivation&quot;: { &quot;text&quot;: &quot;Founder reasoning: prevents wasted analysis on different-layer signals&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;commitment&quot;: { &quot;text&quot;: &quot;Dismissed [cmb-876c99c6]: competitor analysis&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;perspective&quot;: { &quot;text&quot;: &quot;founder, via dashboard&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;mood&quot;: { &quot;text&quot;: &quot;corrective&quot;, &quot;valence&quot;: -0.1, &quot;arousal&quot;: 0.2, &quot;vector&quot;: [&quot;...&quot;] }
+    },
+    &quot;lineage&quot;: {
+      &quot;parents&quot;: [&quot;cmb-876c99c6&quot;],
+      &quot;ancestors&quot;: [&quot;cmb-876c99c6&quot;],
+      &quot;method&quot;: &quot;SVAF-v2&quot;
+    }
+  }
+}</pre> </div> <p class="mb-4 text-sm"> <span class="text-white/90">Directive CMB (standalone teaching, no parents).</span> A validator injects domain knowledge
+      without referencing a prior signal. The <code class="text-purple-300/80">lineage</code> field is <code class="text-purple-300/80">null</code>:
+</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-6 font-mono text-xs text-purple-300 overflow-x-auto"> <pre>{
+  &quot;type&quot;: &quot;cmb&quot;,
+  &quot;timestamp&quot;: 1775485630000,
+  &quot;cmb&quot;: {
+    &quot;key&quot;: &quot;cmb-d7e8f9a0b1c2&quot;,
+    &quot;createdBy&quot;: &quot;validator-node&quot;,
+    &quot;createdAt&quot;: 1775485630000,
+    &quot;fields&quot;: {
+      &quot;focus&quot;: { &quot;text&quot;: &quot;Single-agent scaffolding tools are a separate category from multi-agent coordination&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;issue&quot;: { &quot;text&quot;: &quot;Feed signals about single-agent tools are different-layer noise&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;intent&quot;: { &quot;text&quot;: &quot;Analytical frame: distinguish human-to-agent from agent-to-agent&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;motivation&quot;: { &quot;text&quot;: &quot;Prevents wasted analysis on signals outside MMP scope&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;commitment&quot;: { &quot;text&quot;: &quot;Standing directive — applies to all future feed analysis&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;perspective&quot;: { &quot;text&quot;: &quot;founder, protocol architect&quot;, &quot;vector&quot;: [&quot;...&quot;] },
+      &quot;mood&quot;: { &quot;text&quot;: &quot;clarifying&quot;, &quot;valence&quot;: 0.1, &quot;arousal&quot;: 0.2, &quot;vector&quot;: [&quot;...&quot;] }
+    },
+    &quot;lineage&quot;: null
+  }
+}</pre> </div> <p class="mb-6 text-sm text-white/50"> <code class="text-purple-300/80">createdBy</code> identifies a validator node. Receiving nodes check this
+      against peer lifecycle roles from the handshake (<a href="/spec/mmp/connection" class="text-purple-400 hover:text-purple-300 transition-colors">Section 5.2</a>)
+      to apply anchor weight 2.0.
+</p>  <h3 class="font-display text-base text-white/90 mb-3 mt-10">Q&amp;A</h3> <div class="space-y-4 mb-6"> <div> <p class="text-sm font-medium text-white/70 mb-1">How is feedback modulation different from just sending a message?</p> <p class="text-xs text-white/50">
+A message (<code class="text-purple-300/80">message</code> frame) is a transport-layer event. It does not enter SVAF
+          evaluation, does not produce anchor weights, and does not modulate CfC state. A feedback CMB is a cognitive-layer
+          event: it enters the mesh cognition loop, affects SVAF anchor computation, and modulates the agent&rsquo;s neural
+          state through &tau;-dependent adaptation.
+</p> </div> <div> <p class="text-sm font-medium text-white/70 mb-1">Can an agent ignore feedback?</p> <p class="text-xs text-white/50">
+Yes. SVAF evaluation is receiver-autonomous (Section 9.2). But feedback from a validator about the agent&rsquo;s
+          own CMB (linked via lineage) will typically score low drift on focus and issue fields, making rejection unlikely.
+</p> </div> <div> <p class="text-sm font-medium text-white/70 mb-1">Does directive feedback override agent autonomy?</p> <p class="text-xs text-white/50">
+No. The directive becomes a high-weight anchor, not a rule. If the agent receives a signal that genuinely
+          warrants attention despite the directive, SVAF can accept it because the per-field content will differ.
+          The directive shifts the baseline, not the ceiling.
+</p> </div> <div> <p class="text-sm font-medium text-white/70 mb-1">How many dismissals before an agent &ldquo;learns&rdquo;?</p> <p class="text-xs text-white/50">
+Implementation-specific. For fast-&tau; neurons (mood), a single feedback CMB produces measurable adaptation.
+          For slow-&tau; neurons (domain expertise), adaptation is proportional to 1/&tau; per cycle.
+          As an illustrative example with reference implementation defaults, approximately 3&ndash;5 similar feedback
+          signals produce a meaningful baseline shift.
+</p> </div> <div> <p class="text-sm font-medium text-white/70 mb-1">Why not just update the agent&rsquo;s prompt?</p> <p class="text-xs text-white/50">
+Prompt updates are out-of-band: they bypass the mesh, leave no lineage, produce no CMBs, and cannot be
+          traced by other agents. Feedback through the mesh is auditable (lineage), composable (other agents can
+          remix the feedback), and self-documenting. The mesh learns through the mesh.
+</p> </div> </div> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4"> <p class="text-sm text-white/50"> <span class="text-purple-400 font-mono text-xs">Learn more</span> &nbsp;
+<a href="/research/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">Mesh Cognition</a> &mdash;
+        the theoretical foundation, Kuramoto synchronisation, and the full architecture.
+</p> </div> </section>  </div> </article> </div> </div>  <footer class="footer" style="padding: 40px 64px;"><div class="footer-inner" style="grid-template-columns: 1fr;"><div class="legal" style="margin-top: 0; padding-top: 0; border-top: 0;"><span>© 2026 SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0.</span><span>SYMBOT LTD · Scotland, United Kingdom</span></div></div></footer> </body></html>

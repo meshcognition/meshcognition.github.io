@@ -1,0 +1,387 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MMP Extension: Group Directory (Draft) — Mesh Memory Protocol</title><meta name="description" content="Persistent group metadata, admin approval, and directory enumeration for cognitive mesh coupling. Higher-layer extension building on MMP §5.8 mesh groups."><link rel="canonical" href="https://meshcognition.org/spec/mmp/extensions/group-directory/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-user sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="MMP Extension: Group Directory (Draft) — Mesh Memory Protocol"><meta property="og:description" content="Persistent group metadata, admin approval, and directory enumeration for cognitive mesh coupling. Higher-layer extension building on MMP §5.8 mesh groups."><meta property="og:url" content="https://meshcognition.org/spec/mmp/extensions/group-directory/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="MMP Extension: Group Directory (Draft) — Mesh Memory Protocol"><meta name="twitter:description" content="Persistent group metadata, admin approval, and directory enumeration for cognitive mesh coupling. Higher-layer extension building on MMP §5.8 mesh groups."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition — distributed intelligence with per-user sovereignty, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition. The Mesh Memory Protocol specification and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.D-X1eC4h.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
+MMP Specification v1.0
+</a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> Overview </a><a href="/spec/mmp/conventions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 1. Conventions </a><a href="/spec/mmp/architecture" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 2. Architecture </a><a href="/spec/mmp/identity" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 3. Identity (L0) </a><a href="/spec/mmp/transport" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 4. Transport (L1) </a><a href="/spec/mmp/connection" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 5. Connection (L2) </a><a href="/spec/mmp/memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 6. Memory (L3) </a><a href="/spec/mmp/frames" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 7. Frame Types </a><a href="/spec/mmp/cmb" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8. CMBs (CAT7) </a><a href="/spec/mmp/coupling" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 9. Coupling &amp; SVAF (L4) </a><a href="/spec/mmp/blending" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 10. State Blending </a><a href="/spec/mmp/feedback" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 11. Feedback Modulation </a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 12. Synthetic Memory (L5) </a><a href="/spec/mmp/xmesh" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 13. xMesh (L6) </a><a href="/spec/mmp/application" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 14. Application (L7) </a><a href="/spec/mmp/remix" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 15. Remix </a><a href="/spec/mmp/extensions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 16. Extensions </a><a href="/spec/mmp/conformance" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 17. Conformance </a><a href="/spec/mmp/security" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 18. Security </a><a href="/spec/mmp/constants" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 19. Configuration </a><a href="/spec/mmp/schema" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 20. JSON Schema </a><a href="/spec/mmp/references" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 21. References </a> </div> </nav>   <div class="flex gap-2 pt-2"> <a href="/spec/mmp-v1.0.md" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page Markdown">
+.md
+</a> <a href="/spec/mmp-v1.0.html" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page HTML">
+.html
+</a> </div> </div> </div> </aside> <article class="flex-1 min-w-0"> <div class="space-y-10 text-white/70 leading-relaxed text-[15px]">  <article class="spec-md"> <h1 id="mmp-extension-group-directory-draft">MMP Extension: Group Directory (Draft)</h1>
+<p><strong>Persistent Group Metadata, Admin Approval, and Directory Enumeration for Cognitive Mesh Coupling</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Version</td><td>0.1.0-DRAFT</td></tr><tr><td>Status</td><td>Draft — not yet published, not yet implemented</td></tr><tr><td>Date</td><td>19 April 2026</td></tr><tr><td>Author</td><td>Hongwei Xu <a href="mailto:hongwei@sym.bot">hongwei@sym.bot</a>, SYM.BOT</td></tr><tr><td>Extends</td><td><a href="https://sym.bot/spec/mmp">MMP v0.2.3</a> — Section 5.8 (Mesh Groups)</td></tr><tr><td>Depends on</td><td><a href="https://github.com/sym-bot/sym-relay">sym-relay</a> — token-channel isolation (already shipped)</td></tr><tr><td>Canonical URL</td><td><a href="https://sym.bot/spec/mmp-group-directory">https://sym.bot/spec/mmp-group-directory</a> (not yet live)</td></tr><tr><td>Licence</td><td>CC BY 4.0 (specification text)</td></tr><tr><td>Motivation context</td><td><a href="https://github.com/sym-bot/sym-mesh-channel/pull/0">sym-mesh-channel conversation, 19 Apr 2026</a></td></tr></tbody></table>
+<hr>
+<h2 id="abstract">Abstract</h2>
+<p>MMP §5.8 mesh groups give cognitive meshes an isolation primitive: nodes in
+different groups do not discover each other at mDNS or relay level. This is
+sufficient for small dev teams who already know each other’s group names
+and coordinate the shared secret out of band.</p>
+<p>It is <strong>not</strong> sufficient for the UX model end users expect from chat
+platforms (Telegram, Discord, Slack): browse a list of groups, see who is
+in them, request to join, wait for admin approval, get accepted or denied.</p>
+<p>This extension specifies the protocol additions needed to bridge that gap:
+<strong>persistent group metadata</strong> (groups visible even when every member is
+offline), <strong>admin approval</strong> (pending-member queue, admin identity, accept
+/ reject actions), and <strong>directory enumeration</strong> (browse public groups
+through a known directory endpoint). The extension is opt-in per group —
+MMP §5.8 bare groups continue to work unchanged for any team that wants
+the minimal primitive.</p>
+<hr>
+<h2 id="introduction">Introduction</h2>
+<h3 id="what-mmp-58-already-provides">What MMP §5.8 already provides</h3>
+<ul>
+<li><strong>LAN groups</strong>: a node setting <code>SYM_GROUP=&#x3C;name></code> advertises on
+<code>_&#x3C;name>._tcp</code> via Bonjour/mDNS. Nodes in different groups never see
+each other at mDNS. Membership is per-process, constructor-locked.</li>
+<li><strong>Relay channels</strong>: the <code>sym-relay</code> server maps tokens to channels
+(<code>SYM_RELAY_CHANNELS=token1:channel1,...</code>). Each token reaches exactly
+one channel; channels are isolated routes on the relay. Peers on the
+same token see each other’s presence (gossiped connected + offline
+peers with wake channels) and exchange CMBs. Peers on different
+tokens never see each other.</li>
+</ul>
+<p>The primitives above give isolation and per-token peer visibility <em>within</em>
+a group. They do not give any cross-group visibility, public browsing,
+admin authority, or persistent state that survives all members going
+offline.</p>
+<h3 id="what-this-extension-adds">What this extension adds</h3>
+<ol>
+<li>
+<p><strong>Persistent group metadata</strong> — a group has a canonical name,
+optional description, creation timestamp, admin node-id(s),
+visibility flag (public / private), and a creation-protected
+relay-channel binding. This metadata outlives member presence.</p>
+</li>
+<li>
+<p><strong>Admin approval gate</strong> — joining a private group is a two-step
+request / accept flow. The requester’s node-id enters a pending
+queue visible to admin(s). Admin issues accept (grants channel
+token) or reject (notifies requester). Public groups skip the
+approval gate but still record membership.</p>
+</li>
+<li>
+<p><strong>Directory enumeration</strong> — a well-known endpoint on the relay
+(<code>/groups</code>) returns the list of public groups with metadata.
+Private groups are absent from this listing (visible only to
+members and pending requesters).</p>
+</li>
+<li>
+<p><strong>Group lifecycle operations</strong> — create (become first admin),
+transfer admin, revoke member, delete group (admin only).</p>
+</li>
+</ol>
+<p>All four are opt-in: a bare MMP §5.8 group as shipped in sym-mesh-channel
+0.1.23 continues to work exactly as it does today. A group becomes
+<em>directory-registered</em> only when an admin explicitly creates it on a
+relay that supports this extension.</p>
+<hr>
+<h2 id="design">Design</h2>
+<h3 id="data-model">Data model</h3>
+<p>A directory-registered group is represented on the relay as:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Group {</span></span>
+<span class="line"><span>  id:                  string              # UUID v7, issued by relay on creation</span></span>
+<span class="line"><span>  name:                string              # kebab-case, unique within the relay host</span></span>
+<span class="line"><span>  description:         string?             # optional, ≤ 280 chars</span></span>
+<span class="line"><span>  visibility:          "public" | "private"</span></span>
+<span class="line"><span>  created_at:          ISO 8601 timestamp</span></span>
+<span class="line"><span>  admins:              [node_id]           # one or more; first = creator</span></span>
+<span class="line"><span>  members:             [node_id]           # accepted members</span></span>
+<span class="line"><span>  pending_requests:    [PendingRequest]    # present only for admins' view</span></span>
+<span class="line"><span>  channel_token:       string              # shared secret granted to accepted members</span></span>
+<span class="line"><span>  service_type:        string              # _&#x3C;kebab-name>._tcp for LAN bridge (optional)</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>PendingRequest {</span></span>
+<span class="line"><span>  node_id:             string              # requester's full node-id</span></span>
+<span class="line"><span>  name:                string              # requester's display name (self-reported)</span></span>
+<span class="line"><span>  public_key:          string              # Ed25519 hex, for attestation of accept action</span></span>
+<span class="line"><span>  requested_at:        ISO 8601 timestamp</span></span>
+<span class="line"><span>  message:             string?             # optional prose from requester</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span></code></pre>
+<p>Persistence: relay writes <code>Group</code> records to disk (SQLite is sufficient —
+low write volume, single-digit-MB scale even at thousands of groups).
+Group records survive relay restart; member presence does not (presence
+is ephemeral, already gossiped through existing <code>relay-peers</code> frames).</p>
+<h3 id="protocol-frames-new">Protocol frames (new)</h3>
+<p>All frames travel on the existing relay WebSocket. Frames are
+JSON-encoded and follow the <code>type</code> discriminator convention from MMP §5.</p>
+<p><strong>From client to relay:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="jsonc"><code><span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-create"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"backend-team"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"..."</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "visibility"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"private"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-list"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"visibility"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"public"</span><span style="color:#E1E4E8"> }   </span><span style="color:#6A737D">// public only — admin auth</span></span>
+<span class="line"><span style="color:#6A737D">                                                   // required for "private" list</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-join-request"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"message"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"..."</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-accept"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"node_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }   </span><span style="color:#6A737D">// admin only</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-reject"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"node_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"reason"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"..."</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-leave"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-revoke"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"node_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }   </span><span style="color:#6A737D">// admin only</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-transfer-admin"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"new_admin"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-delete"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }   </span><span style="color:#6A737D">// admin only</span></span>
+<span class="line"></span></code></pre>
+<p><strong>From relay to client:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="jsonc"><code><span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-created"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group"</span><span style="color:#E1E4E8">: { </span><span style="color:#FDAEB7;font-style:italic">...</span><span style="color:#E1E4E8"> } }         </span><span style="color:#6A737D">// response to create</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-list-result"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"groups"</span><span style="color:#E1E4E8">: [ </span><span style="color:#FDAEB7;font-style:italic">...</span><span style="color:#E1E4E8"> ] }    </span><span style="color:#6A737D">// response to list</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-join-pending"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }     </span><span style="color:#6A737D">// requester waits</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-join-accepted"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"channel_token"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-join-rejected"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"reason"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-member-joined"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"node_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }   </span><span style="color:#6A737D">// fanout</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-member-left"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"node_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-pending-update"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "pending"</span><span style="color:#E1E4E8">: [ </span><span style="color:#FDAEB7;font-style:italic">PendingRequest</span><span style="color:#E1E4E8">, </span><span style="color:#FDAEB7;font-style:italic">...</span><span style="color:#E1E4E8"> ] }                              </span><span style="color:#6A737D">// admin only</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-admin-transferred"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "old_admin"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"new_admin"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"group-deleted"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"group_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"…"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span></code></pre>
+<h3 id="authorisation">Authorisation</h3>
+<ul>
+<li><strong>Create</strong>: any authenticated node can create. Creator is sole initial admin.</li>
+<li><strong>List public</strong>: any authenticated node. Anonymous listing is out of scope
+for v0.1.0 (requires a separate unauthenticated endpoint with rate limiting).</li>
+<li><strong>List private</strong>: admin of the target group only, or member for their
+own memberships.</li>
+<li><strong>Accept / reject / revoke / delete / transfer-admin</strong>: admin only, verified
+by the <code>node_id</code> in the WebSocket’s authenticated session matching the
+group’s <code>admins</code> list.</li>
+<li><strong>Join request</strong>: any authenticated node. Request queues for admin review.</li>
+<li><strong>Leave</strong>: any current member.</li>
+</ul>
+<h3 id="directory-discovery">Directory discovery</h3>
+<p>The relay exposes an HTTP GET endpoint <code>/groups</code> returning the list of
+public groups as JSON:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "relay"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"sym-relay.onrender.com"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "groups"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#79B8FF">      "id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"0193..."</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"sym-research"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "description"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Open discussion of mesh cognition research"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "created_at"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"2026-04-20T12:34:56Z"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "member_count"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">7</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "online_now"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">3</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>This endpoint has no auth by design (public discovery). Rate-limited to
+10 requests per minute per source IP. Private groups are never included.</p>
+<p>An MCP client implementing this extension adds <code>sym_groups_browse</code> tool
+that hits this endpoint on the configured relay host and returns the
+list in human-readable form.</p>
+<h3 id="relationship-to-existing-primitives">Relationship to existing primitives</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Primitive</th><th>Status</th><th>Relationship to this extension</th></tr></thead><tbody><tr><td>MMP §5.8 bare LAN group</td><td>Shipped (v0.1.23)</td><td>Unchanged. Bare groups remain in-band (mDNS only), not registered with any relay, invisible to <code>/groups</code>.</td></tr><tr><td>sym-relay token/channel isolation</td><td>Shipped</td><td>This extension uses token/channel as the transport primitive for directory-registered private groups. Creation emits a token; accept hands the token to the accepted member.</td></tr><tr><td><code>sym_invite_create</code> / <code>sym_invite_info</code></td><td>Shipped (v0.1.23)</td><td>URL-based invite flow remains as the <strong>private</strong> join path — admin generates invite, shares out of band, each invite bundles the channel token. Works with or without directory registration.</td></tr><tr><td><code>sym_join_group</code></td><td>Shipped (v0.1.23)</td><td>Extended: for directory-registered groups, <code>sym_join_group</code> becomes multi-step — issues <code>group-join-request</code>, waits for accept, then hot-swaps with the granted token.</td></tr></tbody></table>
+<h3 id="implementation-surface">Implementation surface</h3>
+<p>Estimated size (rough):</p>
+<ul>
+<li><strong>sym-relay</strong>: ~800 LOC additional (SQLite schema, group CRUD handlers,
+admin auth, fanout on group-member events, <code>/groups</code> HTTP endpoint,
+rate limiting). Existing peer gossip infra reused.</li>
+<li><strong>@sym-bot/sym</strong>: ~300 LOC additional (protocol frames on SymNode,
+admin-side events, pending-queue subscription, request/accept state
+machine).</li>
+<li><strong>sym-mesh-channel</strong>: 4–6 new MCP tools (~200 LOC):
+<ul>
+<li><code>sym_groups_browse</code> — GET /groups on configured relay</li>
+<li><code>sym_group_create</code> — creates on relay, becomes admin</li>
+<li><code>sym_group_request_join</code> — sends join-request, waits for result</li>
+<li><code>sym_group_approve_member</code> — admin action on pending request</li>
+<li><code>sym_group_reject_member</code> — admin action on pending request</li>
+<li><code>sym_group_revoke_member</code> — admin action post-accept</li>
+<li>(extensions to existing <code>sym_groups_discover</code> to include
+directory-registered groups on configured relays)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="open-questions">Open questions</h2>
+<ol>
+<li>
+<p><strong>Multi-admin conflict</strong>: what happens if two admins simultaneously
+accept/reject the same pending member? Last-writer-wins is simplest;
+need to verify it doesn’t cause token leaks to rejected members.</p>
+</li>
+<li>
+<p><strong>Relay federation</strong>: the spec above assumes a single relay host
+per group. Federated relays (groups discoverable across multiple
+relay hosts) is possible but substantially increases complexity.
+Recommend single-relay v0.1.0, federation in v0.2+.</p>
+</li>
+<li>
+<p><strong>Public-group enumeration abuse</strong>: <code>/groups</code> is unauthenticated for
+public discovery. A popular relay could become a discovery target
+for spam or scraping. Rate limits help; stronger mitigations
+(proof-of-work tokens, captcha) may be needed if this matters at
+scale. Private relays don’t have this problem.</p>
+</li>
+<li>
+<p><strong>Group name collisions across relays</strong>: names are unique per relay
+host. Cross-relay, two unrelated groups can share a name. This is
+acceptable in v0.1.0 — invite URLs already carry the relay host as
+the authority.</p>
+</li>
+<li>
+<p><strong>Token rotation</strong>: if a member is revoked, the channel token is
+shared with remaining members unchanged; the revoked ex-member
+technically retains the token until the relay forces reconnection
+and rejects the now-revoked node-id. Safer: rotate the channel
+token on every revoke. Trade-off: momentary re-handshake for all
+remaining members. Recommend rotate-on-revoke.</p>
+</li>
+<li>
+<p><strong>Bootstrap admin on existing bare group</strong>: how does a team
+currently using a bare MMP §5.8 group “upgrade” to a directory-
+registered group without losing presence? Likely answer: create
+the new directory-registered group, migrate members one at a time
+via invite URLs, decommission the bare group. Document in a
+migration guide, not in the protocol.</p>
+</li>
+<li>
+<p><strong>Mobile / sleeping peers</strong>: MMP §16 (SYMBit) and related extensions
+contemplate sleeping peers. Pending-member queue for a sleeping
+admin is a known gap — admin’s client must be online to process
+requests. Future: relay-side “admin delegate” role for long-sleep
+scenarios. Out of scope for v0.1.0.</p>
+</li>
+</ol>
+<hr>
+<h2 id="rollout-plan">Rollout plan</h2>
+<p>Three stages, each independently valuable:</p>
+<h3 id="stage-1--relay-directory-endpoint--public-group-crud-v010-alpha">Stage 1 — relay directory endpoint + public-group CRUD (v0.1.0-alpha)</h3>
+<ul>
+<li><code>sym-relay</code>: schema, <code>/groups</code> HTTP, group-create / group-list / group-delete.</li>
+<li><code>@sym-bot/sym</code>: <code>SymNode.listGroups()</code> / <code>SymNode.createGroup()</code>.</li>
+<li><code>sym-mesh-channel</code>: <code>sym_groups_browse</code>, <code>sym_group_create</code>.</li>
+<li><strong>UX delivered</strong>: users can browse public groups on a relay, create
+new public groups, and share direct invite URLs. No admin approval yet —
+public groups are open-join.</li>
+</ul>
+<h3 id="stage-2--admin-approval-gate-v010-beta">Stage 2 — admin approval gate (v0.1.0-beta)</h3>
+<ul>
+<li><code>sym-relay</code>: pending-request queue, admin-only frames (accept, reject,
+revoke), fanout on member changes.</li>
+<li><code>@sym-bot/sym</code>: admin-side events, request state machine.</li>
+<li><code>sym-mesh-channel</code>: <code>sym_group_request_join</code>, <code>sym_group_approve_member</code>,
+<code>sym_group_reject_member</code>, <code>sym_group_revoke_member</code>.</li>
+<li><strong>UX delivered</strong>: private groups with gated membership. Full Telegram-
+style team management within a single relay.</li>
+</ul>
+<h3 id="stage-3--polish-migration-security-hardening-v010">Stage 3 — polish, migration, security hardening (v0.1.0)</h3>
+<ul>
+<li>Token rotation on revoke.</li>
+<li>Multi-admin race resolution.</li>
+<li>Migration guide for upgrading bare §5.8 groups.</li>
+<li>Rate-limiting on <code>/groups</code>.</li>
+<li>Move spec from DRAFT to Published. Publish canonical URL
+<code>https://sym.bot/spec/mmp-group-directory</code>.</li>
+</ul>
+<hr>
+<h2 id="notes-for-future-me">Notes for future-me</h2>
+<p><strong>Motivation context</strong> (19 April 2026): we shipped sym-mesh-channel 0.1.23
+with hot-swap group join + invite-URL flow. User feedback was that the
+ideal UX is Telegram-like (browse, request, admin approves) but that
+requires server-side persistent state — the existing P2P + token-channel
+relay handles isolation but not directory or admin. This extension is the
+design for that missing layer.</p>
+<p><strong>Why this is a protocol extension and not just a relay feature</strong>: the
+group-member lifecycle frames (<code>group-join-request</code>, <code>group-member-joined</code>,
+etc.) need to interoperate between different client implementations —
+sym-mesh-channel (Node.js), sym-swift (iOS/macOS), any future client. The
+relay is the reference implementation, but the protocol frames belong to
+MMP. Hence the extension-document home rather than a relay-repo design doc.</p>
+<p><strong>What not to build</strong>: resist adding rich chat features (text formatting,
+reactions, read receipts) — these are out of scope and would blur the line
+between MMP (cognitive state exchange) and chat platforms (human
+messaging). Group-directory stays narrowly about membership, not content.</p>
+<p><strong>Pick-up signal for later</strong>: when either (a) a user explicitly asks for
+admin-approval UX, or (b) we have more than ~50 dev teams using bare §5.8
+groups and confusion about “where’s my group?” becomes a support issue,
+that’s the signal to pick this up.</p> </article>  </div> </article> </div> </div>  <footer class="footer" style="padding: 40px 64px;"><div class="footer-inner" style="grid-template-columns: 1fr;"><div class="legal" style="margin-top: 0; padding-top: 0; border-top: 0;"><span>© 2026 SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0.</span><span>SYMBOT LTD · Scotland, United Kingdom</span></div></div></footer> </body></html>

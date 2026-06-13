@@ -135,7 +135,7 @@ Changes
 
 2026-06-12
 
-Editorial: Layer 6 renamed “xMesh” → “Cognitive State” to disambiguate from the xMesh runtime. No contract changes; wire identifiers (incl. xmesh-insight) unchanged. Naming note added (§1, §13). Published papers retain the legacy “xMesh (L6)” label.
+Layer 6 renamed “xMesh” → “Cognitive State” to disambiguate from the xMesh runtime (naming note §1, §13; wire identifiers incl. xmesh-insight unchanged; published papers retain the legacy “xMesh (L6)” label). Normative additions, backward-compatible with the v1.0 contracts: §9.2.1 specifies δf as an admission _interface_ — anchors-only baseline (incoming block excluded), cold-start non-evaluable-field exclusion + bootstrap-admit — ruling out self-referential collapse and cold-start starvation. §9.2.2 specifies the directed (peer-bound) vs autonomous (group-bound) delivery contract, separating delivery from memory admission: directed CMBs (§4.4.4 `to` = receiver) surface unconditionally; rejected broadcasts do not surface (mood excepted, §9.3).
 
 1.0
 
@@ -877,6 +877,8 @@ Clients send frames with a routing envelope:
 ```
 
 If `to` is present, the relay forwards to that peer only. If absent, the relay broadcasts to all peers on the same channel. The relay adds `from` and `fromName` to forwarded frames. The relay MUST NOT route frames across channels.
+
+The presence of `to` also fixes the CMB’s binding at the receiver: a frame with `to` = the receiving node is peer-bound (directed) and is delivered to the application layer unconditionally; a frame with no `to` is group-bound (autonomous) and is SVAF-gated for delivery. See §9.2.2 for the directed-vs-autonomous delivery contract.
 
 #### 4.4.5 Keepalive
 
@@ -2024,11 +2026,40 @@ temporalDrift = 1 - exp(-age / τ_freshness)
 κ = rejected  otherwise
 ```
 
+### 9.2.1 Per-Field Drift δf (Admission Interface)
+
+δf ∈ \[0,1\] is the per-field admission drift computed for each CAT7 field of an incoming CMB. This specification defines δf as an interface — its inputs, range, and required invariants — and does not prescribe the internal computation. An implementation is free to use cosine-distance, attention-based, or neural methods, provided the invariants below hold.
+
+Inputs: the incoming field vector xf and the receiver’s local anchor set A (its prior memory). Output: δf ∈ \[0,1\] — 0 means the field is already represented in memory (no information gain); 1 means maximally novel or foreign relative to memory.
+
+A conformant δf MUST satisfy:
+
+1.  Anchors-only baseline. δf is evaluated against the receiver’s prior anchors A _only_; the incoming block MUST NOT be part of its own comparison baseline (including it collapses δf → 0 and admits nothing).
+2.  Redundancy limit. If xf is (near‑)identical to some anchor in A, δf → 0 — feeding the `max(δf) < Tredundant` gate.
+3.  Monotonicity. δf is non-increasing as xf’s similarity to its nearest relevant anchor increases.
+4.  Cold-start / non-evaluable fields. If A holds no anchor carrying field f, δf is undefined and that field MUST be excluded from the `fieldDrift` aggregation and the redundancy `max` — _not_ treated as maximally novel. If no field is evaluable (empty memory), the CMB MUST be admitted (κ = aligned) to bootstrap, consistent with cold-start convergence (§9.1).
+
+These invariants make admission well-defined and rule out two failure modes: _self-referential collapse_ (the incoming block in its own baseline ⇒ every field redundant) and _cold-start starvation_ (empty memory ⇒ every field scored foreign ⇒ the CMB rejected). The concrete δf computation is implementation-defined.
+
 The redundancy test is the key addition: a signal is redundant if _every_ field falls below Tredundant — meaning no field carries novel content relative to local anchors. If any field is novel (e.g., same topic but different intent), the signal passes. This preserves per-field selectivity while preventing paraphrase accumulation.
 
 Information-theoretic basis: a signal’s value is proportional to its surprise (Shannon, 1948). A signal identical to existing knowledge carries zero information gain regardless of domain alignment. The band-pass model reflects the Wundt curve (Berlyne, 1970): intermediate novelty produces maximal value, while both overly familiar (redundant) and overly foreign (rejected) signals are disengaged from.
 
 If accepted, the implementation SHOULD produce a remixed CMB — a new CMB created from the incoming signal processed through the agent’s domain intelligence — with lineage (parents + ancestors) pointing to the source CMBs. The remixed CMB is stored locally; the original incoming CMB is not stored.
+
+### 9.2.2 Delivery vs Memory Admission — Directed and Autonomous CMBs
+
+SVAF governs two _separate_ receiver decisions that implementations MUST not conflate:
+
+-   —Memory admission — whether the incoming CMB is stored (remixed with lineage) into the receiver’s local memory. This is always governed by the §9.2 band-pass decision κ.
+-   —Delivery (surfacing) — whether the CMB is surfaced to the receiver’s application/agent layer for it to act on. Whether SVAF gates delivery depends on how the CMB is _bound_.
+
+A CMB’s binding is determined by its transport routing envelope (§4.4.4) — the presence or absence of a `to` recipient:
+
+-   — Group-bound (autonomous). A CMB broadcast to a channel/group with no `to` recipient. The receiver evaluates it autonomously: SVAF gates _both_ memory admission and delivery. A group-bound CMB that SVAF rejects (or deems redundant) MUST NOT be surfaced to the application layer — this is receiver-autonomous attention, the mechanism that keeps broadcast traffic from overwhelming every node. (Mood is the sole exception — §9.3.)
+-   — Peer-bound (directed). A CMB addressed to a specific recipient (`to` = this node, §4.4.4). A directed CMB is a request from one agent to another; the receiver MUST surface it to the application/agent layer _unconditionally_, regardless of the SVAF verdict. For a directed CMB, SVAF governs _memory admission only_ — the receiver MAY still decline to store a directed CMB it finds redundant or foreign, but it MUST NOT withhold delivery on those grounds. Suppressing a peer-bound CMB because SVAF scored it low is a conformance defect (the agent was spoken to and did not hear it).
+
+Delivery MUST be exactly-once per received CMB: a directed CMB that SVAF _admits_ surfaces through the normal admission path; a directed CMB that SVAF _rejects_ surfaces through the unconditional-delivery rule above. Implementations MUST ensure these two paths do not both fire for the same CMB. Receive-path de-duplication (§4.2) applies equally to both bindings.
 
 ### 9.3 Mood Field Extraction
 

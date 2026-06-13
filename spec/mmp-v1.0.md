@@ -1,8 +1,8 @@
-# Mesh Memory Protocol (MMP) v1.0
+# Mesh Memory Protocol (MMP) v1.0.1
 
 > A Mesh Protocol for Collective Intelligence
 >
-> **Version:** 1.0  ·  **Date:** 27 April 2026  ·  **Editor:** Hongwei Xu  ·  **License:** CC BY 4.0
+> **Version:** 1.0.1  ·  **Date:** 27 April 2026  ·  **Editor:** Hongwei Xu  ·  **License:** CC BY 4.0
 >
 > **Canonical:** https://meshcognition.org/spec/mmp  ·  **arXiv:** https://arxiv.org/abs/2604.19540
 
@@ -23,7 +23,7 @@
 11. [10. State Blending](#10-state-blending)
 12. [11. Feedback Modulation](#11-feedback-modulation)
 13. [12. Synthetic Memory (L5)](#12-synthetic-memory-l5)
-14. [13. xMesh (L6)](#13-xmesh-l6)
+14. [13. Cognitive State (L6)](#13-cognitive-state-l6)
 15. [14. Application (L7)](#14-application-l7)
 16. [15. Remix](#15-remix)
 17. [16. Extensions](#16-extensions)
@@ -49,7 +49,7 @@ A Mesh Protocol for Collective Intelligence
 
 Version
 
-1.0
+1.0.1
 
 Status
 
@@ -85,7 +85,7 @@ The problem is semantic, not transport. **Hidden state never crosses the wire** 
 
 ## Status of This Document
 
-This is a published specification (current version 1.0). It reflects the protocol as implemented in the [SYM Node.js](https://github.com/sym-bot/sym) and [SYM Swift](https://github.com/sym-bot/sym-swift) full-stack reference implementations, plus the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python coupling kernel (Layers 4 + 6). The specification is versioned. Breaking changes increment the minor version; non-breaking additions increment the patch version.
+This is a published specification (current version 1.0.1). It reflects the protocol as implemented in the [SYM Node.js](https://github.com/sym-bot/sym) and [SYM Swift](https://github.com/sym-bot/sym-swift) full-stack reference implementations, plus the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python coupling kernel (Layers 4 + 6). The specification is versioned. Breaking changes increment the minor version; non-breaking additions increment the patch version.
 
 Feedback and errata: [spec@meshcognition.org](mailto:spec@meshcognition.org) or [github.com/sym-bot/sym/issues](https://github.com/sym-bot/sym/issues).
 
@@ -121,7 +121,7 @@ Python
 
 SYM.BOT
 
-Coupling kernel only. Layer 4 (per-field admission) and Layer 6 (state blending) for CfC neural networks. Pure Python, zero external dependencies. [pypi](https://pypi.org/project/mesh-cognition).
+Coupling kernel only. Layer 4 (per-field admission) and Layer 6 (Cognitive State) for CfC neural networks. Pure Python, zero external dependencies. [pypi](https://pypi.org/project/mesh-cognition).
 
 ## Change Log
 
@@ -130,6 +130,12 @@ Version
 Date
 
 Changes
+
+1.0.1
+
+2026-06-12
+
+Editorial: Layer 6 renamed “xMesh” → “Cognitive State” to disambiguate from the xMesh runtime. No contract changes; wire identifiers (incl. xmesh-insight) unchanged. Naming note added (§1, §13). Published papers retain the legacy “xMesh (L6)” label.
 
 1.0
 
@@ -187,6 +193,10 @@ SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published
 
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
 
+Naming note
+
+Layer 6 was called xMesh in the v0.2.x drafts and in the published papers (arXiv:[2604.19540](https://arxiv.org/abs/2604.19540), arXiv:[2604.03955](https://arxiv.org/abs/2604.03955)). As of v1.0.1 the layer is named Cognitive State; xMesh now refers exclusively to the open runtime that implements MMP (all eight layers). The wire frame type `xmesh-insight` retains its identifier for backward compatibility and is unchanged.
+
 Term
 
 Definition
@@ -235,13 +245,13 @@ Mesh Cognition
 
 The agent’s LLM reasoning on the remix subgraph of CMBs — traced via lineage ancestors — to generate understanding that the agent’s previous state of mind didn’t have. Spans Layers 4–7. See Section 2.5.
 
-xMesh
+Cognitive State
 
-Layer 6 — each agent’s own Liquid Neural Network (LNN). Evolves continuous-time cognitive state from Synthetic Memory input. Fast τ neurons track mood; slow τ neurons preserve domain expertise.
+Layer 6 — each agent’s own Liquid Neural Network (LNN). Evolves continuous-time cognitive state from Synthetic Memory input. Fast τ neurons track mood; slow τ neurons preserve domain expertise. (Called xMesh in v0.2.x drafts and the published papers — see the §1 naming note.)
 
 CfC
 
-Closed-form Continuous-time neural network (Hasani et al., 2022). The LNN architecture used in xMesh. Hidden state evolves through learned time-dependent interpolation gates.
+Closed-form Continuous-time neural network (Hasani et al., 2022). The LNN architecture used in the Cognitive State layer. Hidden state evolves through learned time-dependent interpolation gates.
 
 
 
@@ -251,7 +261,7 @@ Closed-form Continuous-time neural network (Hasani et al., 2022). The LNN archit
 
 ## 2\. Architecture Overview
 
-![MMP 8-layer architecture diagram. Mesh Cognition: L7 Application (domain agents), L6 xMesh (per-agent LNN continuous-time cognitive state), L5 Synthetic Memory (LLM-derived knowledge from remix subgraph → CfC), L4 Coupling (drift · SVAF per-field evaluation · consent). Protocol Infrastructure: L3 Memory (L0 events, L1 structured CMBs, L2 cognitive), L2 Connection (handshake, state-sync, gossip, wake, consent), L1 Transport (IPC, TCP/Bonjour, WebSocket, APNs push), L0 Identity (nodeId, name, cryptographic keypair). The feedback loop — agent acts → new CMB → lineage.parents carries ancestor chain → graph grows — flows between the CMB remix graph and Layer 4 coupling.](/image/mmp-architecture-02.webp)
+![MMP 8-layer architecture diagram. Mesh Cognition: L7 Application (domain agents), L6 Cognitive State (per-agent LNN continuous-time cognitive state), L5 Synthetic Memory (LLM-derived knowledge from remix subgraph → CfC), L4 Coupling (drift · SVAF per-field evaluation · consent). Protocol Infrastructure: L3 Memory (L0 events, L1 structured CMBs, L2 cognitive), L2 Connection (handshake, state-sync, gossip, wake, consent), L1 Transport (IPC, TCP/Bonjour, WebSocket, APNs push), L0 Identity (nodeId, name, cryptographic keypair). The feedback loop — agent acts → new CMB → lineage.parents carries ancestor chain → graph grows — flows between the CMB remix graph and Layer 4 coupling.](/image/mmp-architecture-02.webp)
 
 MMP is an 8-layer protocol stack. Each layer has a defined responsibility. Implementations MUST implement Layers 0–3 to participate in the mesh. Layers 4–7 (Mesh Cognition) are SHOULD for full cognitive participation and MAY be omitted for relay-only nodes.
 
@@ -263,7 +273,7 @@ Mesh Cognition (Layers 4–7)
 
 Where agents live and their LLMs reason on the remix subgraph. Mesh Cognition happens here.
 
-6 xMesh Per-Agent LNN — Continuous-Time Cognitive State
+6 Cognitive State Per-Agent LNN — Continuous-Time Cognitive State
 
 Each agent runs its own Liquid Neural Network. Fast neurons track mood; slow neurons preserve domain expertise. Hidden state (h₁, h₂) is exchanged via state-sync.
 
@@ -2639,9 +2649,13 @@ Related   [State Blending](/spec/mmp/blending) — what happens after Synthetic
 
 ---
 
-<!-- 13. xMesh (L6) -->
+<!-- 13. Cognitive State (L6) -->
 
-## 13\. xMesh — Per-Agent LNN (Layer 6)
+## 13\. Cognitive State — Per-Agent LNN (Layer 6)
+
+Naming note
+
+Layer 6 was called xMesh in the v0.2.x drafts and in the published papers (arXiv:[2604.19540](https://arxiv.org/abs/2604.19540), arXiv:[2604.03955](https://arxiv.org/abs/2604.03955)). As of v1.0.1 the layer is named Cognitive State; xMesh now refers exclusively to the open runtime that implements MMP (all eight layers). The wire frame type `xmesh-insight` retains its identifier for backward compatibility and is unchanged.
 
 Each agent runs its own Liquid Neural Network (LNN) implementing Closed-form Continuous-time (CfC) dynamics. The LNN evolves cognitive state from [Synthetic Memory](/spec/mmp/memory) input (Layer 5) and direct CMB processing. Hidden state (h₁, h₂) is exchanged via `state-sync` frames.
 
@@ -2801,7 +2815,7 @@ Blending is τ-modulated:
 
 ### 13.5 Wire Example
 
-Real xMesh insight from a production session. A coding agent observed 5 structured CMBs across diverse topics (memory store refactor, protocol collaboration, social engagement, ML training, spec authoring) over a 12-hour session with no mesh peers connected:
+Real Cognitive State insight from a production session. A coding agent observed 5 structured CMBs across diverse topics (memory store refactor, protocol collaboration, social engagement, ML training, spec authoring) over a 12-hour session with no mesh peers connected:
 
 ```
 {
@@ -2978,7 +2992,7 @@ Mood arousal from CMB mood field (-1 to 1). Default 0.
 
 -   Model SHOULD be trained per-agent domain
 -   Inference latency SHOULD be < 50ms per CMB step
--   State-sync blending happens after xMesh inference, not during
+-   State-sync blending happens after Cognitive State inference, not during
 -   τ statistics (min, max, fast\_count, slow\_count) SHOULD be monitored
 
 ### 13.9 Compact Channel Best Practices v0.2.3
@@ -3061,7 +3075,7 @@ Layer 7 is where agents live and their LLMs reason on the remix subgraph. [Mesh 
 -   Each agent reasons on what the mesh sees collectively
 -   Each agent acts autonomously — the mesh influences but never overrides
 
-### 14.2 Consuming xMesh Insights
+### 14.2 Consuming Cognitive State Insights
 
 How agents SHOULD respond to Layer 6 outputs:
 
@@ -3184,7 +3198,7 @@ insight()
 
 None
 
-Returns latest xMesh collective intelligence (Layer 6)
+Returns latest Cognitive State collective intelligence (Layer 6)
 
 The `fields` parameter MUST be a structured object with CAT7 field keys. Each field contains `text` (human-readable, MUST) and is encoded into a vector by the SDK. The `mood` field MAY additionally carry `valence` (−1 to 1) and `arousal` (−1 to 1) — RECOMMENDED when the agent has reliable circumplex data (e.g. mood wheels, physiological sensors), omit when it would be a guess. Omitted fields default to `"neutral"`.
 
@@ -3317,7 +3331,7 @@ research-pm redirects: "data-agent: rerun with detrending. explorer-b: survey de
 
 5\. Emergent idea
 
-synthesis agent’s xMesh LNN detects convergence across intent and motivation fields from different agents. Explorer-a: "scaling law research needs reframing." Explorer-b: "fix the lens before interpreting." Validator: "reject until correct method." The synthesis agent reasons on the remix subgraph and produces a new idea: "emergence is evaluation-dependent — a property of the measurement apparatus, not the model."
+synthesis agent’s Cognitive State LNN detects convergence across intent and motivation fields from different agents. Explorer-a: "scaling law research needs reframing." Explorer-b: "fix the lens before interpreting." Validator: "reject until correct method." The synthesis agent reasons on the remix subgraph and produces a new idea: "emergence is evaluation-dependent — a property of the measurement apparatus, not the model."
 
 6\. Validator challenges again
 
@@ -3341,7 +3355,7 @@ Seven CMBs, six agents, three phases of validation. The breakthrough came from t
 
 Verified in production
 
-This pattern is verified with real agents. A knowledge explorer (Linux, GitHub Actions) and a researcher agent (macOS) coupled via relay with E2E encryption. The daemon shared its question CMBs to the knowledge feed via anchor sync on connection. SVAF accepted the question at drift 0.068. An iOS app (music agent) received the xMesh insight via APNs wake push. Three platforms, one mesh, autonomous coupling. See Section 14.7 for the full production log.
+This pattern is verified with real agents. A knowledge explorer (Linux, GitHub Actions) and a researcher agent (macOS) coupled via relay with E2E encryption. The daemon shared its question CMBs to the knowledge feed via anchor sync on connection. SVAF accepted the question at drift 0.068. An iOS app (music agent) received the Cognitive State insight via APNs wake push. Three platforms, one mesh, autonomous coupling. See Section 14.7 for the full production log.
 
 #### 13.5.2 Consumer Agents
 
@@ -3435,11 +3449,11 @@ The following is a production log from two real MMP nodes — a knowledge feed a
 [mesh-daemon] SVAF heuristic aligned from knowledge-feed:
   "focus: Sycophancy in AI systems" drift:0.005
 
-# 8. Fed to xMesh LNN (Section 13)
-[mesh-daemon] xMesh: ingested mesh from knowledge-feed
+# 8. Fed to Cognitive State LNN (Section 13)
+[mesh-daemon] Cognitive State: ingested mesh from knowledge-feed
 
-# 9. xMesh produces collective insight
-[mesh-daemon] xMesh: insight — anomaly=0.461, coherence=0.045
+# 9. Cognitive State produces collective insight
+[mesh-daemon] Cognitive State: insight — anomaly=0.461, coherence=0.045
 
 # 10. Second state-sync: drift CONVERGED (Section 9.4)
 #     From 0.936 (rejected) to 0.468 (guarded) in one cycle.
@@ -3490,7 +3504,7 @@ Context re-encoded after accepting CMB
 
 §11
 
-L6 xMesh
+L6 Cognitive State
 
 LNN inference produced insight (anomaly 0.461)
 
@@ -3538,15 +3552,15 @@ iPhone (iOS)
 
 Domain agent
 
-Received xMesh insight via APNs wake push, woke from background to join the mesh
+Received Cognitive State insight via APNs wake push, woke from background to join the mesh
 
-Three agents on three different operating systems — macOS, Linux, iOS — connected via WebSocket relay with E2E encryption, coupled through SVAF, with xMesh LNN producing insights that woke a sleeping mobile device via APNs to join the collective reasoning. No central server orchestrated this. Each agent acted autonomously on the collective signal.
+Three agents on three different operating systems — macOS, Linux, iOS — connected via WebSocket relay with E2E encryption, coupled through SVAF, with Cognitive State LNN producing insights that woke a sleeping mobile device via APNs to join the collective reasoning. No central server orchestrated this. Each agent acted autonomously on the collective signal.
 
 ### 14.8 Implementation Requirements
 
 -   Agents MUST implement CMB creation with CAT7 fields
 -   Agents MUST broadcast CMBs via `remember()` or `cmb` frames
--   Agents SHOULD consume xMesh insights and respond appropriately
+-   Agents SHOULD consume Cognitive State insights and respond appropriately
 -   Agents SHOULD close the loop by sharing actions taken
 -   Agents MUST NOT send commands to other agents — share observations, not instructions
 -   Agent coupling decisions are autonomous — no orchestrator, no policy override
@@ -3776,7 +3790,7 @@ The DAG of remixed CMBs is not a log. It is not a database. It is the collective
 As the graph grows:
 
 -   Each agent’s LLM has richer context to reason on (more ancestors to trace)
--   xMesh (Layer 6) detects more patterns (more signals to learn from)
+-   Cognitive State (Layer 6) detects more patterns (more signals to learn from)
 -   Anomalies become more meaningful (larger baseline to deviate from)
 -   New agents joining the mesh inherit the graph’s accumulated understanding via SVAF acceptance
 
@@ -3898,11 +3912,11 @@ A node claiming full MMP conformance MUST additionally implement: Layer 3 memory
 
 ### 17.3 Cognitive Conformance
 
-Agents that implement Layers 5–7 (Synthetic Memory, xMesh, Application) SHOULD support:
+Agents that implement Layers 5–7 (Synthetic Memory, Cognitive State, Application) SHOULD support:
 
 -   `remember(fields, parents?)` API — creating CMBs with optional lineage
 -   `CMBStore` protocol — persistent storage and retrieval of Cognitive Memory Blocks
--   xMesh insight consumption — processing insight outputs from the Layer 6 LNN
+-   Cognitive State insight consumption — processing insight outputs from the Layer 6 LNN
 -   Synthetic Memory encode pipeline (Section 12.2) — LLM reasoning output MUST be encoded into CfC-compatible vectors
 -   CfC state persistence — hidden state vectors (h₁, h₂) MUST be persisted across restarts to preserve feedback modulation learning (Section 11)
 

@@ -135,7 +135,7 @@ Changes
 
 2026-06-12
 
-Layer 6 renamed “xMesh” → “Cognitive State” to disambiguate from the xMesh runtime (naming note §1, §13; wire identifiers incl. xmesh-insight unchanged; published papers retain the legacy “xMesh (L6)” label). Normative additions, backward-compatible with the v1.0 contracts: §9.2.1 specifies δf as an admission _interface_ — anchors-only baseline (incoming block excluded), cold-start non-evaluable-field exclusion + bootstrap-admit — ruling out self-referential collapse and cold-start starvation. §9.2.2 specifies the directed (peer-bound) vs autonomous (group-bound) delivery contract, separating delivery from memory admission: directed CMBs (§4.4.4 `to` = receiver) surface unconditionally; rejected broadcasts do not surface (mood excepted, §9.3).
+Layer 6 renamed “xMesh” → “Cognitive State” to disambiguate from the xMesh runtime (naming note §1, §13; wire identifiers incl. xmesh-insight unchanged; published papers retain the legacy “xMesh (L6)” label). Normative additions, backward-compatible with the v1.0 contracts: §9.2.1 specifies δf as an admission _interface_ — anchors-only baseline (incoming block excluded), cold-start non-evaluable-field exclusion + bootstrap-admit — ruling out self-referential collapse and cold-start starvation. §9.2.2 specifies the directed (peer-bound) vs autonomous (group-bound) delivery contract, separating delivery from memory admission: directed CMBs (§4.4.4 `to` = receiver) surface unconditionally; rejected broadcasts do not surface (mood excepted, §9.3). §18.3.1 specifies CMB signature verification (Ed25519 author signature + content-address integrity; forged/tampered blocks rejected) as the end-to-end authenticity layer above transport identity.
 
 1.0
 
@@ -1945,6 +1945,10 @@ The `artifact:` convention in `commitment` is RECOMMENDED for any CMB that refer
 ### 8.6 Origin
 
 Cognitive Memory Blocks were first formalised in the Mesh Memory Protocol (Consenix Labs, August 2025) with the CAT7 enterprise schema. The wellness / productivity schema and the synthesis-affinity classification were developed at SYM.BOT in late 2025 for production deployment across personal AI agents.
+
+### 8.7 Authentication
+
+A CMB SHOULD carry its author’s signature in `cmb.sig` (base64url) with `cmb.sigAlg`. Receivers verify the signature and content-address integrity before admitting or surfacing a block. See [§18.3.1 CMB Signature Verification](/spec/mmp/security#cmb-signature) for the normative signing and verification requirements.
 
 ### Q&A
 
@@ -4098,6 +4102,15 @@ Node identity is UUID-based with mandatory Ed25519 cryptographic identity (Secti
 -   —The public key MUST be included in the handshake frame and DNS-SD TXT record.
 -   —Peers SHOULD verify identity by challenging the node to sign a nonce with its private key.
 -   —Implementations that have not yet adopted cryptographic verification MAY rely on DNS-SD discovery scope and network isolation as an interim trust model, but MUST document this limitation.
+
+#### 18.3.1 CMB Signature Verification
+
+Transport identity (above) authenticates the _connection_; CMB signatures authenticate each _cognitive block_ end-to-end — the layer that matters when a peer-pushed CMB can enter the receiving agent’s context. Every CMB SHOULD be signed by its author using the same Ed25519 identity key the node announces in its handshake.
+
+-   —The author signs a canonical payload binding the content-address key (§8.2 — a hash of the CAT7 field texts), the author, and the creation time. The signature travels as `cmb.sig` (base64url) with `cmb.sigAlg` (e.g. `ed25519`).
+-   —A receiver holding the sending peer’s public key MUST verify a signed CMB on two counts before admitting or surfacing it: (1) the signature verifies against that key, and (2) the content-address key still matches the actual fields — a valid signature replayed over _swapped_ content MUST be rejected.
+-   —A CMB that fails either check MUST NOT be surfaced to the application layer or stored, and SHOULD be audit-logged. This forecloses spoofing (forging another peer’s authorship) and tampering (mutating a block in flight).
+-   —Unsigned CMBs MAY be accepted for interoperability with peers that predate signing; an implementation MAY also operate in a strict mode that rejects unsigned CMBs from peers whose identity key is known.
 
 ### 18.4 Cognitive Threats
 

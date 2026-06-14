@@ -87,6 +87,15 @@ Delivery <span class="text-red-400 font-mono text-xs">MUST</span> be <span class
 surfaces through the normal admission path; a directed CMB that SVAF <em>rejects</em> surfaces through
       the unconditional-delivery rule above. Implementations <span class="text-red-400 font-mono text-xs">MUST</span> ensure these two paths do not both
       fire for the same CMB. Receive-path de-duplication (&sect;4.2) applies equally to both bindings.
+</p> <p class="mb-4 text-sm">
+Because delivery and memory admission are decoupled, a delivered CMB <span class="text-yellow-400 font-mono text-xs">SHOULD</span> carry an
+<span class="text-white/90">ingestion indicator</span> so the consuming agent can tell the two outcomes apart: a CMB that was
+<em>ingested</em> (admitted to memory as a remix with lineage) versus one that was <em>delivered only</em>
+(surfaced to the agent but not stored &mdash; the directed-but-SVAF-rejected case). Without this signal
+      an agent cannot know whether a directed request it just received is recallable from its own memory later
+      or was a transient message. The reference implementation exposes this as a boolean on the delivered
+      entry (<code class="text-purple-300/80">remixed</code>: true on the admission path, false on
+      directed delivery-without-admission) alongside the SVAF <code class="text-purple-300/80">decision</code>.
 </p> <h3 class="font-display text-base text-white/90 mb-3">9.3 Mood Field Extraction</h3> <p class="mb-4 text-sm">
 Mood is a CAT7 field within the CMB, not a separate frame type. Affective state crosses all
       domain boundaries &mdash; this is the only field with this property.

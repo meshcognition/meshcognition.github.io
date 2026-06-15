@@ -1,16 +1,156 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>17. Conformance — MMP Specification</title><meta name="description" content="Conformance levels for the Mesh Memory Protocol — minimal (relay), full (cognitive), and full cognitive (Layers 5–7)."><link rel="canonical" href="https://meshcognition.org/spec/mmp/conformance/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-user sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="17. Conformance — MMP Specification"><meta property="og:description" content="Conformance levels for the Mesh Memory Protocol — minimal (relay), full (cognitive), and full cognitive (Layers 5–7)."><meta property="og:url" content="https://meshcognition.org/spec/mmp/conformance/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="17. Conformance — MMP Specification"><meta name="twitter:description" content="Conformance levels for the Mesh Memory Protocol — minimal (relay), full (cognitive), and full cognitive (Layers 5–7)."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition — distributed intelligence with per-user sovereignty, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition. The Mesh Memory Protocol specification and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.DUe0_Z6f.css"><script type="module">(()=>{const x=document.getElementById("spec-search-trigger"),a=document.getElementById("spec-search-modal"),k=document.getElementById("spec-search-backdrop"),c=document.getElementById("spec-search-input"),l=document.getElementById("spec-search-results"),h=document.getElementById("spec-search-hint");if(!x||!a||!k||!c||!l||!h)return;let d=null,g=!1,r=[],i=0;async function C(){if(!(d||g)){g=!0;try{d=await(await fetch("/spec/mmp/search-index.json",{cache:"force-cache"})).json()}catch{d=[]}g=!1}}function L(e){return e.replace(/[&<>"]/g,n=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[n])}function E(e,n){let s=L(e);for(const t of n){if(!t)continue;const o=new RegExp("("+t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");s=s.replace(o,'<mark class="bg-purple-500/30 text-white rounded-sm px-0.5">$1</mark>')}return s}function D(e,n){if(!e)return"";const s=e.toLowerCase();let t=-1;for(const w of n){const u=s.indexOf(w);u!==-1&&(t===-1||u<t)&&(t=u)}if(t<=90)return e.slice(0,200);const o=Math.max(0,t-70);return"…"+e.slice(o,o+200)}function M(e){if(!d)return[];const n=e.toLowerCase().split(/\s+/).filter(Boolean);if(!n.length)return[];const s=[];for(const t of d){const o=t.heading.toLowerCase(),w=t.section.toLowerCase(),u=t.text.toLowerCase();let f=0,$=!0;for(const m of n){const I=o.includes(m),T=w.includes(m),B=u.includes(m);if(!I&&!T&&!B){$=!1;break}o.startsWith(m)?f+=12:I&&(f+=8),T&&(f+=3),B&&(f+=1)}$&&s.push({e:t,s:f})}return s.sort((t,o)=>o.s-t.s),s.slice(0,30).map(t=>t.e)}function p(){const e=(c.value||"").toLowerCase().split(/\s+/).filter(Boolean);if(!c.value.trim()){l.innerHTML="",h.style.display="";return}if(h.style.display="none",!r.length){l.innerHTML='<li class="px-4 py-6 text-sm text-white/40">No matches. Try a different term.</li>';return}l.innerHTML=r.map((n,s)=>`
-          <li>
-            <a href="${n.url}" data-i="${s}" class="block px-4 py-2.5 ${s===i?"bg-purple-500/15":"hover:bg-white/[0.04]"} transition-colors">
-              <div class="flex items-baseline gap-2">
-                <span class="text-[15px] text-white/90">${E(n.heading,e)}</span>
-                <span class="ml-auto shrink-0 font-mono text-[10px] text-purple-300/60">${L(n.section)}</span>
-              </div>
-              ${n.text?`<div class="mt-0.5 text-xs text-white/45 line-clamp-2">${E(D(n.text,e),e)}</div>`:""}
-            </a>
-          </li>`).join("")}function y(){C(),a.classList.remove("hidden"),document.body.style.overflow="hidden",c.value="",r=[],i=0,p(),setTimeout(()=>c.focus(),0)}function v(){a.classList.add("hidden"),document.body.style.overflow=""}x.addEventListener("click",y),k.addEventListener("click",v),c.addEventListener("input",()=>{r=M(c.value),i=0,p()}),c.addEventListener("keydown",e=>{e.key==="ArrowDown"?(e.preventDefault(),i=Math.min(i+1,r.length-1),p(),b()):e.key==="ArrowUp"?(e.preventDefault(),i=Math.max(i-1,0),p(),b()):e.key==="Enter"?(e.preventDefault(),r[i]&&(window.location.href=r[i].url)):e.key==="Escape"&&v()});function b(){const e=l.querySelector(`[data-i="${i}"]`);e&&e.scrollIntoView({block:"nearest"})}document.addEventListener("keydown",e=>{(e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"?(e.preventDefault(),a.classList.contains("hidden")?y():v()):e.key==="/"&&a.classList.contains("hidden")&&document.activeElement?.tagName!=="INPUT"&&document.activeElement?.tagName!=="TEXTAREA"&&(e.preventDefault(),y())})})();
-</script></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd class="font-mono text-[10px] text-white/30 border border-white/10 rounded px-1 py-0.5">⌘K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#0c0d14] border border-white/10 rounded-xl shadow-2xl shadow-black/60 overflow-hidden"> <div class="flex items-center gap-3 px-4 border-b border-white/[0.07]"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/40"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-white placeholder:text-white/30 outline-none"> <kbd class="font-mono text-[10px] text-white/30 border border-white/10 rounded px-1.5 py-0.5">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/30 border-t border-white/[0.07]">
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>17. Conformance — MMP Specification</title><meta name="description" content="Conformance levels for the Mesh Memory Protocol — minimal (relay), full (cognitive), and full cognitive (Layers 5–7)."><link rel="canonical" href="https://meshcognition.org/spec/mmp/conformance/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-user sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="17. Conformance — MMP Specification"><meta property="og:description" content="Conformance levels for the Mesh Memory Protocol — minimal (relay), full (cognitive), and full cognitive (Layers 5–7)."><meta property="og:url" content="https://meshcognition.org/spec/mmp/conformance/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="17. Conformance — MMP Specification"><meta name="twitter:description" content="Conformance levels for the Mesh Memory Protocol — minimal (relay), full (cognitive), and full cognitive (Layers 5–7)."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition — distributed intelligence with per-user sovereignty, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition. The Mesh Memory Protocol specification and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.DUe0_Z6f.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd class="font-mono text-[10px] text-white/30 border border-white/10 rounded px-1 py-0.5">⌘K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#0c0d14] border border-white/10 rounded-xl shadow-2xl shadow-black/60 overflow-hidden"> <div class="flex items-center gap-3 px-4 border-b border-white/[0.07]"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/40"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-white placeholder:text-white/30 outline-none"> <kbd class="font-mono text-[10px] text-white/30 border border-white/10 rounded px-1.5 py-0.5">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/30 border-t border-white/[0.07]">
 Type to search every section · <span class="text-white/40">↑↓</span> to navigate · <span class="text-white/40">↵</span> to open
-</div> </div> </div> </div>  <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
+</div> </div> </div> </div> <script>
+  (function () {
+    var trigger = document.getElementById('spec-search-trigger');
+    var modal = document.getElementById('spec-search-modal');
+    var backdrop = document.getElementById('spec-search-backdrop');
+    var input = document.getElementById('spec-search-input');
+    var list = document.getElementById('spec-search-results');
+    var hint = document.getElementById('spec-search-hint');
+    if (!trigger || !modal || !backdrop || !input || !list || !hint) return;
+
+    var index = null;
+    var loading = false;
+    var results = [];
+    var active = 0;
+
+    function ensureIndex() {
+      if (index || loading) return;
+      loading = true;
+      fetch('/spec/mmp/search-index.json', { cache: 'force-cache' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { index = data; if (input.value) { results = search(input.value); render(); } })
+        .catch(function () { index = []; })
+        .then(function () { loading = false; });
+    }
+
+    function esc(s) {
+      return s.replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+    function highlight(text, terms) {
+      var out = esc(text);
+      for (var i = 0; i < terms.length; i++) {
+        if (!terms[i]) continue;
+        var re = new RegExp('(' + terms[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+        out = out.replace(re, '<mark class="bg-purple-500/30 text-white rounded-sm px-0.5">$1</mark>');
+      }
+      return out;
+    }
+    // Window the snippet around the first matched term so the hit is always visible.
+    function snippet(text, terms) {
+      if (!text) return '';
+      var low = text.toLowerCase();
+      var at = -1;
+      for (var i = 0; i < terms.length; i++) {
+        var p = low.indexOf(terms[i]);
+        if (p !== -1 && (at === -1 || p < at)) at = p;
+      }
+      if (at <= 90) return text.slice(0, 200);
+      var start = Math.max(0, at - 70);
+      return '…' + text.slice(start, start + 200);
+    }
+
+    function search(q) {
+      if (!index) return [];
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!terms.length) return [];
+      var scored = [];
+      for (var j = 0; j < index.length; j++) {
+        var e = index[j];
+        var heading = e.heading.toLowerCase();
+        var section = e.section.toLowerCase();
+        var text = e.text.toLowerCase();
+        var score = 0, all = true;
+        for (var k = 0; k < terms.length; k++) {
+          var t = terms[k];
+          var inH = heading.indexOf(t) !== -1, inS = section.indexOf(t) !== -1, inT = text.indexOf(t) !== -1;
+          if (!inH && !inS && !inT) { all = false; break; }
+          if (heading.indexOf(t) === 0) score += 12;
+          else if (inH) score += 8;
+          if (inS) score += 3;
+          if (inT) score += 1;
+        }
+        if (all) scored.push({ e: e, s: score });
+      }
+      scored.sort(function (a, b) { return b.s - a.s; });
+      return scored.slice(0, 30).map(function (x) { return x.e; });
+    }
+
+    function render() {
+      var terms = (input.value || '').toLowerCase().split(/\s+/).filter(Boolean);
+      if (!input.value.trim()) {
+        list.innerHTML = '';
+        hint.style.display = '';
+        return;
+      }
+      hint.style.display = 'none';
+      if (!results.length) {
+        list.innerHTML = '<li class="px-4 py-6 text-sm text-white/40">No matches. Try a different term.</li>';
+        return;
+      }
+      list.innerHTML = results.map(function (e, i) {
+        return '<li><a href="' + e.url + '" data-i="' + i + '" class="block px-4 py-2.5 ' +
+          (i === active ? 'bg-purple-500/15' : 'hover:bg-white/[0.04]') + ' transition-colors">' +
+          '<div class="flex items-baseline gap-2">' +
+          '<span class="text-[15px] text-white/90">' + highlight(e.heading, terms) + '</span>' +
+          '<span class="ml-auto shrink-0 font-mono text-[10px] text-purple-300/60">' + esc(e.section) + '</span>' +
+          '</div>' +
+          (e.text ? '<div class="mt-0.5 text-xs text-white/45 line-clamp-2">' + highlight(snippet(e.text, terms), terms) + '</div>' : '') +
+          '</a></li>';
+      }).join('');
+    }
+
+    function openModal() {
+      ensureIndex();
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      results = [];
+      active = 0;
+      render();
+      setTimeout(function () { input.focus(); }, 30);
+    }
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function scrollActive() {
+      var el = list.querySelector('[data-i="' + active + '"]');
+      if (el) el.scrollIntoView({ block: 'nearest' });
+    }
+
+    trigger.addEventListener('click', openModal);
+    backdrop.addEventListener('click', closeModal);
+
+    input.addEventListener('input', function () {
+      results = search(input.value);
+      active = 0;
+      render();
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, results.length - 1); render(); scrollActive(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); render(); scrollActive(); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (results[active]) window.location.href = results[active].url; }
+      else if (e.key === 'Escape') { closeModal(); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var tag = document.activeElement ? document.activeElement.tagName : '';
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        if (modal.classList.contains('hidden')) openModal(); else closeModal();
+      } else if (e.key === '/' && modal.classList.contains('hidden') && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+  })();
+</script> <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
 MMP Specification v1.0.2
 </a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> Overview </a><a href="/spec/mmp/conventions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 1. Conventions </a><a href="/spec/mmp/architecture" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 2. Architecture </a><a href="/spec/mmp/identity" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 3. Identity (L0) </a><a href="/spec/mmp/transport" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 4. Transport (L1) </a><a href="/spec/mmp/connection" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 5. Connection (L2) </a><a href="/spec/mmp/memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 6. Memory (L3) </a><a href="/spec/mmp/frames" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 7. Frame Types </a><a href="/spec/mmp/cmb" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8. CMBs (CAT7) </a><a href="/spec/mmp/coupling" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 9. Coupling &amp; SVAF (L4) </a><a href="/spec/mmp/blending" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 10. State Blending </a><a href="/spec/mmp/feedback" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 11. Feedback Modulation </a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 12. Synthetic Memory (L5) </a><a href="/spec/mmp/cognitive-state" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 13. Cognitive State (L6) </a><a href="/spec/mmp/application" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 14. Application (L7) </a><a href="/spec/mmp/remix" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 15. Remix </a><a href="/spec/mmp/extensions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 16. Extensions </a><a href="/spec/mmp/conformance" class="text-xs py-1 px-2 rounded transition-colors text-purple-400 bg-purple-500/10" title=""> 17. Conformance </a><a href="/spec/mmp/security" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 18. Security </a><a href="/spec/mmp/constants" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 19. Configuration </a><a href="/spec/mmp/schema" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 20. JSON Schema </a><a href="/spec/mmp/references" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 21. References </a> </div> </nav> <div class="flex justify-between text-xs"> <a href="/spec/mmp/extensions" class="text-white/40 hover:text-purple-400 transition-colors">
 ← 16. Extensions </a> <a href="/spec/mmp/security" class="text-white/40 hover:text-purple-400 transition-colors"> 18. Security →

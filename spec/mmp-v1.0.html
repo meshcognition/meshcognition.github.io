@@ -1697,6 +1697,34 @@ Implementations <span class="text-red-400 font-mono text-xs">MUST</span> track w
 This ensures the remix graph grows with genuine domain intersections, not with paraphrased echoes.
       Each node in the DAG represents a moment where two domains actually met &mdash; not a moment where
       an agent had nothing to say but said it anyway.
+</p> <h3 class="font-display text-base text-white/90 mb-3" id="source-novel-forwarding">15.7.1 Source-Novel Forwarding (carve-out)</h3> <p class="mb-4 text-sm">
+The new-domain-data requirement above governs <span class="text-white/90">remix</span> &mdash; combining the agent&rsquo;s own
+      domain knowledge with a peer signal. It does <span class="text-white/90">not</span> govern <span class="text-white/90">forwarding</span>: re-emitting an
+      admitted observation so it reaches agents beyond the emitter&rsquo;s direct neighbours. Because hidden
+      state never crosses the wire (<a href="/spec/mmp/architecture#hidden-state-locality" class="text-purple-400 hover:text-purple-300 transition-colors">Section 2.7</a>),
+      an agent can admit a direction it cannot itself express and leave it stranded &mdash; the information
+      dies at an agent that holds it but does not re-transmit it.
+</p> <p class="mb-4 text-sm">
+To prevent this, an agent <span class="text-green-400 font-mono text-xs">MAY</span> re-emit an admitted observation it did not natively produce,
+      carrying the <span class="text-white/90">inherited lineage root</span>, when and only when that observation is <span class="text-white/90">source-novel</span>
+to the receiver &mdash; i.e. its lineage roots are not already present in the receiver&rsquo;s admitted
+      store. This is <span class="text-white/90">not</span> the paraphrase &sect;15.7 forbids: a forwarded observation carries a
+<span class="text-white/90">new lineage root</span> (a source the receiver has not yet seen) even though the forwarder adds no
+      new value of its own. Provenance, not domain data, is what makes it legitimate.
+</p> <p class="mb-4 text-sm">
+The anti-echo guarantee is preserved exactly. A re-emission whose lineage roots are <span class="text-white/90">already held</span>
+by the receiver (no new source <em>and</em> no new value) is a pure re-statement and remains forbidden
+      by &sect;15.7 &mdash; forwarding <span class="text-red-400 font-mono text-xs">MUST NOT</span> mint a fresh root for content that already carries one, and
+<span class="text-red-400 font-mono text-xs">MUST NOT</span> re-emit a source the receiver already holds.
+</p> <p class="mb-4 text-sm">
+Forwarding <span class="text-yellow-400 font-mono text-xs">SHOULD</span> be <span class="text-white/90">non-selective</span>: an agent that forwards source-novel content
+<span class="text-yellow-400 font-mono text-xs">SHOULD</span> forward all of it, not a chosen subset, so that every observation reaches the agents whose
+      understanding depends on it. Selectively withholding source-novel forwards can strand a source from the
+      agents that need it.
+</p> <p class="mb-6 text-sm">
+In short: <span class="text-white/90">remix requires new domain data; forwarding requires a new source.</span> Both grow the lineage
+      DAG with genuine information &mdash; remix with a new domain intersection, forwarding with a new source
+      reaching a new receiver &mdash; and neither permits the value-only echo &sect;15.7 exists to prevent.
 </p> <h3 class="font-display text-base text-white/90 mb-3 mt-8">Q&amp;A</h3> <div class="space-y-3 mb-6"> <div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">Does every accepted CMB need to be remixed?</p> <p class="text-xs text-white/50">No. An agent MUST NOT remix without new domain data (Section 15.7). If the agent has nothing new from its own domain to intersect with the signal, silence is correct. The agent MUST NOT store the original either — it discards the original and stays silent until it has new domain observations that create a genuine intersection.</p> </div><div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">What if two agents remix the same CMB?</p> <p class="text-xs text-white/50">Both produce independent remixes through their own domain lenses. Both are stored with lineage pointing to the same parent. The graph branches. This is correct — two domains produced two different understandings from the same signal.</p> </div><div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">Can an agent remix a remix?</p> <p class="text-xs text-white/50">Yes. That’s how chains form. Agent C receives Agent B’s remix of Agent A’s observation. C remixes it through its own lens. ancestors grows: [A, B]. The chain captures how understanding evolved across three domains.</p> </div><div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">How does this differ from a knowledge graph?</p> <p class="text-xs text-white/50">Knowledge graphs store facts. The remix graph stores understanding — how each agent interpreted signals from other domains. Facts are static. Remixes are temporal, domain-specific, and carry affective state (mood). The graph doesn’t say &quot;user is tired.&quot; It says &quot;coding agent noticed fatigue → music agent responded with calm → fitness agent suggested recovery → calendar agent protected time.&quot;</p> </div> </div> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4"> <p class="text-sm text-white/50"> <span class="text-purple-400 font-mono text-xs">Related</span> &nbsp;
 <a href="/spec/mmp/cmb" class="text-purple-400 hover:text-purple-300 transition-colors">CMB (CAT7)</a> &middot;
 <a href="/spec/mmp/coupling" class="text-purple-400 hover:text-purple-300 transition-colors"> Coupling &amp; SVAF</a> &middot;

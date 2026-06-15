@@ -1,8 +1,8 @@
-# Mesh Memory Protocol (MMP) v1.0.1
+# Mesh Memory Protocol (MMP) v1.0.2
 
 > A Mesh Protocol for Collective Intelligence
 >
-> **Version:** 1.0.1  ·  **Date:** 27 April 2026  ·  **Editor:** Hongwei Xu  ·  **License:** CC BY 4.0
+> **Version:** 1.0.2  ·  **Date:** 14 June 2026  ·  **Editor:** Hongwei Xu  ·  **License:** CC BY 4.0
 >
 > **Canonical:** https://meshcognition.org/spec/mmp  ·  **arXiv:** https://arxiv.org/abs/2604.19540
 
@@ -267,7 +267,7 @@ Closed-form Continuous-time neural network (Hasani et al., 2022). The LNN archit
 
 ## 2\. Architecture Overview
 
-![MMP 8-layer architecture diagram. Mesh Cognition: L7 Application (domain agents), L6 Cognitive State (per-agent LNN continuous-time cognitive state), L5 Synthetic Memory (LLM-derived knowledge from remix subgraph → CfC), L4 Coupling (drift · SVAF per-field evaluation · consent). Protocol Infrastructure: L3 Memory (L0 events, L1 structured CMBs, L2 cognitive), L2 Connection (handshake, state-sync, gossip, wake, consent), L1 Transport (IPC, TCP/Bonjour, WebSocket, APNs push), L0 Identity (nodeId, name, cryptographic keypair). The feedback loop — agent acts → new CMB → lineage.parents carries ancestor chain → graph grows — flows between the CMB remix graph and Layer 4 coupling.](/image/mmp-architecture-02.webp)
+![MMP 8-layer architecture diagram. Mesh Cognition: L7 Application (domain agents), L6 Cognitive State (per-agent LNN continuous-time cognitive state), L5 Synthetic Memory (LLM-derived knowledge from remix subgraph → CfC), L4 Coupling (drift · SVAF per-field evaluation · consent). Protocol Infrastructure: L3 Memory (L0 events, L1 structured CMBs, L2 cognitive), L2 Connection (handshake, gossip, wake, consent), L1 Transport (IPC, TCP/Bonjour, WebSocket, APNs push), L0 Identity (nodeId, name, cryptographic keypair). The feedback loop — agent acts → new CMB → lineage.parents carries ancestor chain → graph grows — flows between the CMB remix graph and Layer 4 coupling.](/image/mmp-architecture-02.webp)
 
 MMP is an 8-layer protocol stack. Each layer has a defined responsibility. Implementations MUST implement Layers 0–3 to participate in the mesh. Layers 4–7 (Mesh Cognition) are SHOULD for full cognitive participation and MAY be omitted for relay-only nodes.
 
@@ -281,7 +281,7 @@ Where agents live and their LLMs reason on the remix subgraph. Mesh Cognition ha
 
 6 Cognitive State Per-Agent LNN — Continuous-Time Cognitive State
 
-Each agent runs its own Liquid Neural Network. Fast neurons track mood; slow neurons preserve domain expertise. Hidden state (h₁, h₂) is exchanged via state-sync.
+Each agent runs its own Liquid Neural Network. Fast neurons track mood; slow neurons preserve domain expertise. Hidden state (h₁, h₂) is strictly local — it never crosses the wire (§2.7); only CMBs do.
 
 5 SYNTHETIC MEMORY LLM-Derived Knowledge from Remix Subgraph → CfC
 
@@ -295,9 +295,9 @@ Protocol Infrastructure (Layers 0–3)
 
 3 MEMORY L0 Events · L1 Structured (CMBs) · L2 Cognitive
 
-Three memory tiers with graduated disclosure. L0 stays local. L1 is gated by SVAF. L2 is exchanged via state-sync.
+Three memory tiers with graduated disclosure. L0 stays local. L1 (CMBs) is gated by SVAF and is the only tier that crosses the wire. L2 (cognitive / hidden state) stays strictly local (§2.7).
 
-2 CONNECTION Handshake · State-Sync · Gossip · Wake
+2 CONNECTION Handshake · Gossip · Wake
 
 Peer lifecycle: discover, connect, handshake, heartbeat, gossip peer metadata, wake sleeping nodes.
 
@@ -463,9 +463,9 @@ LNN evolves cognitive state
 
 Layer 6 — fast τ (mood) synchronise, slow τ (domain) stay sovereign
 
-State blended with peers
+LNN integrates admitted remixes
 
-Per-neuron, τ-modulated, inference-paced
+τ-modulated, inference-paced — own state evolves, no peer vectors imported (§2.7)
 
 Agent acts → new CMB with lineage.ancestors
 
@@ -516,7 +516,7 @@ Hidden state MUST NOT cross the wire for four reasons, each a load-bearing prope
 
 Cognition therefore propagates as a loop in which the wire carries only CMBs: hidden state → (the agent emits) a CMB → the wire → SVAF evaluation (§9.2) → remix (§15) → (the LNN evolves) hidden state. Each agent’s hidden state evolves from the CMBs it admits — never by importing a peer’s hidden state. “State blending” means a node’s own LNN integrating its own admitted remixes; it MUST NOT mean aggregating peer hidden state.
 
-SUPERSEDES   The `state-sync` frame and any exchange of h₁/h₂ vectors are deprecated. Where earlier sections (§5, §7, §9.1, §10) describe peer drift or state blending computed from exchanged hidden-state vectors, those mechanisms are superseded by this invariant: peer influence is mediated entirely by CMBs evaluated through SVAF (§9.2). Implementations MUST NOT emit `state-sync` frames and SHOULD ignore them on receipt.
+SUPERSEDES   The `state-sync` frame and any exchange of h₁/h₂ vectors are deprecated. Where earlier sections (§5, §7, §9.1, §10, §13, §18) describe peer drift, state blending, or hidden-state exchange computed from `state-sync`, those mechanisms are superseded by this invariant: peer influence is mediated entirely by CMBs evaluated through SVAF (§9.2). Implementations MUST NOT emit `state-sync` frames and SHOULD ignore them on receipt.
 
 
 
@@ -1082,10 +1082,11 @@ Upon connection, both sides MUST exchange the following frames in order:
 1. handshake    { type: "handshake", nodeId: "<uuid>", name: "<name>",
                   publicKey: "<base64url>", version: "0.2.0", extensions: [],
                   group: "<group-id>" }                       [optional, default "default"]
-2. state-sync   { type: "state-sync", h1: [...], h2: [...], confidence: 0.8 }
-3. peer-info    { type: "peer-info", peers: [...] }           [if known]
-4. wake-channel { type: "wake-channel", platform, token, env } [if configured]
+2. peer-info    { type: "peer-info", peers: [...] }           [if known]
+3. wake-channel { type: "wake-channel", platform, token, env } [if configured]
 ```
+
+Deprecated — `state-sync`. Earlier revisions exchanged a `state-sync` frame carrying the node’s hidden-state vectors (h₁, h₂) at this point in the handshake. Per the hidden-state locality invariant ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)), hidden state MUST NOT cross the wire. Implementations MUST NOT emit `state-sync` and SHOULD ignore it on receipt; peer influence is mediated entirely by CMBs evaluated through SVAF ([Section 9.2](/spec/mmp/coupling#svaf)).
 
 -   —The `version` field MUST be the MMP specification version the node implements (e.g., `"0.2.0"`). Nodes SHOULD accept peers with the same major version. Nodes MAY reject peers with incompatible versions.
 -   —The `extensions` field SHOULD list supported protocol extensions (e.g., `["mesh-group-v0.1"]`). Nodes MUST ignore unrecognised extensions.
@@ -1149,7 +1150,7 @@ DISCONNECTED
 
 Heartbeat timeout, TCP close, or error
 
-Implementations MUST NOT process cognitive frames (`cmb`, `state-sync`, `xmesh-insight`) in the AWAITING\_HANDSHAKE state.
+Implementations MUST NOT process cognitive frames (`cmb`, `xmesh-insight`) in the AWAITING\_HANDSHAKE state.
 
 ### 5.4 Heartbeat
 
@@ -1226,11 +1227,11 @@ L2
 
 Cognitive
 
-Via state-sync
+Never (§2.7)
 
-CfC hidden state vectors. Exchanged via `state-sync` frames. Input to coupling.
+CfC hidden state vectors. Strictly local — never cross the wire. Drive the node’s own inference; peer influence arrives only as CMBs.
 
-L0 data MUST NOT leave the node. L1 data MUST be evaluated by SVAF before storage. L2 data is exchanged on every handshake and periodically (default: every 30,000 ms). The `h1` and `h2` vectors in `state-sync` frames MUST have equal dimension. The dimension is implementation-defined (reference implementations use 64). Peers with mismatched dimensions MUST reject the `state-sync` frame and SHOULD log the mismatch.
+L0 data MUST NOT leave the node. L1 data MUST be evaluated by SVAF before storage. L2 data (CfC hidden state, `h1`/`h2`) MUST NOT leave the node either — per the hidden-state locality invariant ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)), hidden state is strictly local and only CMBs cross the wire. The `state-sync` frame that formerly carried these vectors is deprecated; implementations MUST NOT emit it and SHOULD ignore it on receipt.
 
 ### 6.1 Storage Interface
 
@@ -1487,11 +1488,11 @@ nodeId (string), name (string), version (string), extensions (string\[\])
 
 state-sync
 
-2/3
+deprecated
 
 No
 
-h1 (float\[\]), h2 (float\[\]), confidence (float)
+DEPRECATED (§2.7) — carried h1/h2; hidden state MUST NOT cross the wire. MUST NOT emit; ignore on receipt.
 
 cmb
 
@@ -1559,6 +1560,8 @@ No
 
 All cognitive content — observations, decisions, feedback, directives — MUST be sent as `cmb` frames. Only `cmb` frames enter SVAF evaluation, produce anchor weights, and modulate CfC state.
 
+Deprecated — `state-sync`. The `state-sync` frame carried a node’s hidden-state vectors (h₁, h₂). Per the hidden-state locality invariant ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)), hidden state MUST NOT cross the wire. Implementations MUST NOT emit `state-sync` and SHOULD ignore it on receipt. It is retained in this registry only to reserve the type and document the deprecation; all peer influence flows through `cmb` frames evaluated by SVAF.
+
 ### 7.2 Error Frame
 
 When a node encounters a protocol-level error, it SHOULD send an `error` frame before closing the connection (if applicable). Error frames are informational — the receiving node MUST NOT treat them as commands.
@@ -1585,7 +1588,7 @@ DIMENSION\_MISMATCH
 
 Reject frame
 
-h1/h2 vector dimension mismatch
+Vector dimension mismatch (legacy state-sync; deprecated — see §2.7)
 
 1003
 
@@ -1997,9 +2000,13 @@ Mood has a well-established dimensional model (Russell’s circumplex). Other fi
 
 ### 9.1 Peer-Level Coupling (Drift)
 
-When a node receives a `state-sync` frame, it MUST compute peer drift:
+Peer drift measures how cognitively distant a peer is, so the mesh can weight that peer’s influence (Section 10). Per the hidden-state locality invariant ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)), hidden state MUST NOT cross the wire, so drift MUST NOT be computed from exchanged hidden vectors. A node MUST instead derive peer drift from the peer’s CMBs — the aggregate per-field admission drift (δf, Section 9.2.1) of the peer’s most recent admitted CMBs against the receiver’s local anchors A:
 
-δ = (1 − cos(h1local, h1peer) + 1 − cos(h2local, h2peer)) / 2
+δ = meanf δf(xpeer, A)
+
+Drift falls as the peer’s CMBs become redundant with what the receiver already holds (cognitive proximity) and rises when they are foreign — the same δf machinery SVAF uses for content admission, aggregated to the peer level. No hidden state is exchanged.
+
+SUPERSEDES   Earlier revisions computed peer drift from exchanged hidden-state vectors (δ = (1 − cos(h1local, h1peer) + 1 − cos(h2local, h2peer)) / 2), carried in a `state-sync` frame. That mechanism is deprecated (§2.7): hidden state is strictly local and only CMBs cross the wire.
 
 Coupling decision based on drift:
 
@@ -2100,16 +2107,16 @@ This ensures that a coding agent’s observation “user exhausted after 3 hours
 
 ### 9.4 Coupling Bootstrap (Cold Start)
 
-When two agents connect for the first time, they have no shared cognitive history. Peer-level drift (Section 9.1) will be high — typically > 0.8 — because their hidden state vectors were initialised independently. This is correct behaviour, not a bug. The mesh is conservative by default: unknown peers are cognitively distant until proven otherwise.
+When two agents connect for the first time, they have no shared cognitive history. Peer-level drift (Section 9.1) will be high — typically > 0.8 — because neither has yet admitted any of the other’s CMBs, so every field reads as foreign. This is correct behaviour, not a bug. The mesh is conservative by default: unknown peers are cognitively distant until proven otherwise.
 
-However, CMB evaluation (Section 9.2) operates independently of peer coupling state. Even when a peer is rejected at the state-sync level, incoming `cmb` frames MUST still be evaluated by SVAF on their own merit. A rejected peer can send a highly relevant CMB — SVAF evaluates the content, not the sender’s overall drift.
+However, CMB evaluation (Section 9.2) operates independently of peer coupling state. Even when a peer is rejected at the peer level, incoming `cmb` frames MUST still be evaluated by SVAF on their own merit. A rejected peer can send a highly relevant CMB — SVAF evaluates the content, not the sender’s overall drift.
 
 The bootstrapping path works through two mechanisms:
 
 -   —Mood fast-coupling (Section 9.3) — mood is always delivered even from rejected CMBs. Agents that share non-neutral affective state begin influencing each other immediately. This is why agents SHOULD extract genuine mood from their observations rather than defaulting to neutral.
 -   —Content-driven convergence — when SVAF accepts individual CMBs from a rejected peer (because the content is relevant even though the peer’s overall state is distant), the receiving agent’s cognitive state shifts. Over multiple cycles, this narrows peer drift until the peer crosses into the guarded or aligned zone.
 
-Implementations SHOULD log the distinction between peer-level rejection (state-sync drift) and content-level evaluation (SVAF per-CMB) to aid debugging. A peer may be “rejected” at Layer 4 while its individual CMBs are “aligned” at the content level — this is normal during bootstrap and indicates convergence is in progress.
+Implementations SHOULD log the distinction between peer-level rejection (aggregate drift) and content-level evaluation (SVAF per-CMB) to aid debugging. A peer may be “rejected” at Layer 4 while its individual CMBs are “aligned” at the content level — this is normal during bootstrap and indicates convergence is in progress.
 
 Cold-start convergence time depends on CMB frequency, field relevance, and mood signal strength. For agents that share domain overlap (e.g., a knowledge agent and a coding agent both in the AI domain), convergence typically occurs within 2–5 CMB exchanges. For agents with no domain overlap (e.g., a fitness agent and a legal agent), convergence may never occur — and that is correct. They couple only through mood.
 
@@ -2125,7 +2132,7 @@ Affect crosses all domain boundaries — this is empirically confirmed by the SV
 
 Why two levels of coupling (peer drift + content drift)?
 
-Peer drift (state-sync) measures cognitive proximity — are these agents thinking about similar things? Content drift (SVAF) measures signal relevance — is this specific observation useful? Both are needed. Close peers can send irrelevant signals. Distant peers can send relevant mood.
+Peer drift (aggregate, peer-level) measures cognitive proximity — are these agents thinking about similar things? Content drift (SVAF, per-field) measures signal relevance — is this specific observation useful? Both are needed. Close peers can send irrelevant signals. Distant peers can send relevant mood. Both are derived from the peer’s CMBs, not from any exchanged hidden state (§2.7).
 
 Two agents just connected and peer drift is 0.9. Is something wrong?
 
@@ -2141,37 +2148,32 @@ Learn more   [SVAF: Per-Field Memory Evaluation](https://sym.bot/research/svaf)
 
 ## 10\. State Blending
 
-State blending is one step in the Mesh Cognition cycle. The full path: inbound CMBs are evaluated by [SVAF](/spec/mmp/coupling) (Layer 4) → accepted CMBs are remixed → the agent’s LLM reasons on the remix subgraph via lineage ancestors → [Synthetic Memory](/spec/mmp/synthetic-memory) (Layer 5) encodes derived knowledge into CfC hidden state → the agent’s LNN (Layer 6) evolves cognitive state → that cognitive state is what gets blended with peers.
+State blending is one step in the Mesh Cognition cycle. The full path: inbound CMBs are evaluated by [SVAF](/spec/mmp/coupling) (Layer 4) → accepted CMBs are remixed → the agent’s LLM reasons on the remix subgraph via lineage ancestors → [Synthetic Memory](/spec/mmp/synthetic-memory) (Layer 5) encodes derived knowledge into CfC hidden state → the agent’s LNN (Layer 6) evolves cognitive state. That evolution — a node’s own LNN integrating its own admitted remixes — is what “state blending” names.
 
-Blending operates on h₁ and h₂ vectors exchanged via `state-sync` frames. These vectors represent the agent’s cognitive state after it has processed remixed CMBs through its LLM and LNN — not raw observations, not remixed CMBs themselves. What a peer shares is its understanding, not its data.
+Per the hidden-state locality invariant ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)), hidden state (h₁, h₂) never crosses the wire. Blending therefore does not import, average, or overwrite a peer’s hidden vectors. The only thing a peer contributes is the CMBs it emitted; those that SVAF admits (Section 9.2) are remixed and fed through this node’s own LLM and LNN. What a peer shares is its understanding expressed as CMBs, not its hidden state.
 
-Blending is inference-paced — peer states accumulate continuously, but blending only occurs when the local model runs inference. The network’s timing does not drive computation.
+Blending is inference-paced — admitted remixes accumulate continuously, but integration only occurs when the local model runs inference. The network’s timing does not drive computation.
 
-### 10.1 Mesh State Aggregation
+SUPERSEDES   Earlier revisions of this section defined blending as aggregating peer hidden-state vectors exchanged via `state-sync` — a mesh vector `mesh_h = Σ(peer.h × weight)` blended per-neuron into local state. That mechanism is deprecated (Section 2.7): no hidden state crosses the wire. Peer influence is mediated entirely by admitted CMBs. The drift-weighting and τ-hierarchy concepts below are retained, but they govern how this node integrates its _own admitted remixes_ — not how it imports foreign vectors.
 
-When multiple peers are connected, their states are aggregated into a single mesh state before blending with local state. Each peer’s contribution is weighted:
+### 10.1 Weighting Peer Influence
+
+When multiple peers are connected, the CMBs each peer has contributed are weighted by how aligned and how recent that peer is, so a closer, more active peer influences this node’s inference more. The weight is applied to each peer’s admitted CMBs, not to any exchanged hidden vector:
 
 ```
 peer_weight = (1.0 - drift) × recency
 
 recency     = exp(-temporal_decay × age_seconds)
 
-mesh_h      = Σ(peer.h × peer_weight) / Σ(peer_weight)
+// peer_weight scales the influence of that peer's ADMITTED CMBs on
+// this node's own inference — it is NOT applied to peer hidden vectors.
 ```
 
-Peers with low drift (cognitively aligned) and recent state-sync contribute more. Stale peers (older than `PEER_RETENTION` = 300s) are evicted before aggregation.
+Peers with low drift (cognitively aligned) and recent activity contribute more. Stale peers (older than `PEER_RETENTION` = 300s) are evicted.
 
-### 10.2 Per-Neuron Blending
+### 10.2 Coupling Strength
 
-Blending operates per-neuron, not on the whole vector. Each neuron’s blending coefficient depends on the similarity between local and mesh values for that neuron:
-
-```
-sim_i  = 1 - |local_i - mesh_i| / max(|local_i|, |mesh_i|)
-α_i    = α_effective × max(sim_i, 0)
-out_i  = (1 - α_i) × local_i + α_i × mesh_i
-```
-
-Where `αeffective` depends on the coupling decision:
+The coupling decision from Layer 4 (Section 9.1) sets `αeffective`, the strength with which an admitted peer’s remixes move this node’s state during inference. The coefficient is bounded below 1, so a peer influences but never overrides:
 
 Decision
 
@@ -2183,28 +2185,39 @@ Aligned
 
 0.40
 
-Strong blending — peer state has significant influence
+Strong influence — the peer’s admitted remixes weigh heavily
 
 Guarded
 
 0.15
 
-Cautious blending — peer state has limited influence
+Cautious influence — the peer’s remixes weigh lightly
 
 Rejected
 
 0
 
-No blending — peer state is discarded
+No influence — the peer’s content is not integrated
 
-### 10.3 τ-Modulated Blending (CfC)
-
-For implementations with CfC models (Layer 6), blending SHOULD be modulated by per-neuron time constants (τ). This creates a natural temporal hierarchy:
+SUPERSEDES   Earlier revisions applied `αeffective` per-neuron as a convex blend of local and exchanged _mesh_ hidden vectors:
 
 ```
-α_i = min(α_effective × K × max(sim_i, 0) / τ_i, 1.0)
+sim_i  = 1 - |local_i - mesh_i| / max(|local_i|, |mesh_i|)
+α_i    = α_effective × max(sim_i, 0)
+out_i  = (1 - α_i) × local_i + α_i × mesh_i
+```
+
+That per-neuron vector blend is deprecated (Section 2.7): there is no `mesh` hidden vector because no hidden state crosses the wire. `αeffective` now scales the influence of admitted CMB content, not foreign vectors.
+
+### 10.3 τ-Modulated Integration (CfC)
+
+For implementations with CfC models (Layer 6), how strongly admitted influence moves each neuron SHOULD be modulated by that neuron’s own time constant (τ). This is a property of the node’s own LNN — not of any exchanged vector — and creates a natural temporal hierarchy:
+
+```
+α_i = min(α_effective × K / τ_i, 1.0)
 
 K   = coupling rate (default 1.0)
+τ_i = neuron i's own time constant (fast → small, slow → large)
 ```
 
 Neuron type
@@ -2241,11 +2254,11 @@ Domain expertise, identity — stays sovereign
 
 ### 10.4 Stability
 
-Blending is unconditionally stable for αeffective < 1. The blended output is always a convex combination of local and mesh states — it cannot diverge. When peers disconnect, local state smoothly transitions to autonomous operation with no discontinuity. The mesh degrades gracefully.
+Integration is unconditionally stable for αeffective < 1. Each step is a convex combination of the node’s prior state and the influence of its admitted remixes — it cannot diverge. When peers disconnect, the node smoothly continues on its own admitted history with no discontinuity. The mesh degrades gracefully.
 
-### 10.5 After Blending
+### 10.5 After Integration
 
-The blended state becomes the input to the next CfC inference step. The agent’s LNN processes the blended state, evolves cognitive state, and the agent acts. Blending does not produce output directly — it influences the next inference cycle.
+The integrated state becomes the input to the next CfC inference step. The agent’s LNN processes it, evolves cognitive state, and the agent acts. Integration does not produce output directly — it influences the next inference cycle.
 
 ### 10.6 The Mesh Cognition Loop
 
@@ -2261,7 +2274,7 @@ Synthetic Memory encodes derived knowledge
 
 LNN evolves cognitive state (h₁, h₂)
 
-State blended with peers
+LNN integrates admitted remixes (no peer state imported)
 
 Agent acts → new CMB with lineage.ancestors
 
@@ -2717,7 +2730,7 @@ Naming note
 
 Layer 6 was called xMesh in the v0.2.x drafts and in the published papers (arXiv:[2604.19540](https://arxiv.org/abs/2604.19540), arXiv:[2604.03955](https://arxiv.org/abs/2604.03955)). As of v1.0.1 the layer is named Cognitive State; xMesh now refers exclusively to the open runtime that implements MMP (all eight layers). The wire frame type `xmesh-insight` retains its identifier for backward compatibility and is unchanged.
 
-Each agent runs its own Liquid Neural Network (LNN) implementing Closed-form Continuous-time (CfC) dynamics. The LNN evolves cognitive state from [Synthetic Memory](/spec/mmp/memory) input (Layer 5) and direct CMB processing. Hidden state (h₁, h₂) is exchanged via `state-sync` frames.
+Each agent runs its own Liquid Neural Network (LNN) implementing Closed-form Continuous-time (CfC) dynamics. The LNN evolves cognitive state from [Synthetic Memory](/spec/mmp/memory) input (Layer 5) and direct CMB processing. Hidden state (h₁, h₂) is strictly local — per the hidden-state locality invariant ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)), it never crosses the wire. A node’s hidden state evolves only from the CMBs it admits, never by importing a peer’s vectors.
 
 ### 13.1 CfC Cell
 
@@ -2781,7 +2794,7 @@ float\[6\]
 
 MUST
 
-Cognitive state direction vector for mesh blending
+Cognitive state direction vector (compact summary signal)
 
 patterns
 
@@ -2825,12 +2838,11 @@ Phase alignment in coupled state
 
 -   High (>0.7): agent’s cognitive state is phase-aligned — stable, consistent
 -   Low (<0.3): cognitive state is fragmented — may indicate context transition
--   Used by state-sync: agents with higher coherence couple more readily
+-   Higher coherence indicates a stable, consistent cognitive state; coupling readiness itself is content-driven (SVAF, §9.2)
 
 #### trajectory
 
--   6D vector capturing cognitive state direction
--   Used by Layer 2 state-sync for per-neuron blending with peers
+-   6D vector capturing cognitive state direction (a compact summary, not the hidden state itself — §2.7)
 -   Axes are learned (not predefined) — interpretation is agent-specific
 
 #### patterns
@@ -3052,7 +3064,7 @@ Mood arousal from CMB mood field (-1 to 1). Default 0.
 
 -   Model SHOULD be trained per-agent domain
 -   Inference latency SHOULD be < 50ms per CMB step
--   State-sync blending happens after Cognitive State inference, not during
+-   Integration of admitted remixes happens after Cognitive State inference, not during
 -   τ statistics (min, max, fast\_count, slow\_count) SHOULD be monitored
 
 ### 13.9 Compact Channel Best Practices v0.2.3
@@ -3116,7 +3128,7 @@ The store is local to the MCP server process and does not replicate across nodes
 
 Note: `sym-mesh-channel` implements this pattern with `storeMessage()`, `extractCompactHeader()`, and the `sym_fetch` MCP tool.
 
-See also   [Mesh Cognition](https://sym.bot/research/mesh-cognition) — theoretical foundation  |  [State Blending](/spec/mmp/blending) — per-neuron blending with peers  |  [Coupling & SVAF](/spec/mmp/coupling) — drift-based coupling decisions
+See also   [Mesh Cognition](https://sym.bot/research/mesh-cognition) — theoretical foundation  |  [State Blending](/spec/mmp/blending) — integrating admitted remixes  |  [Coupling & SVAF](/spec/mmp/coupling) — drift-based coupling decisions
 
 
 
@@ -3317,7 +3329,7 @@ Layer 5 Synthetic Memory encodes derived knowledge
 
 Layer 6 LNN evolves cognitive state → produces insights
 
-Layer 2 State blended with peers
+Layer 6 LNN integrates admitted remixes
 
 Layer 7 Agent acts → new CMB with lineage.ancestors
 
@@ -3510,12 +3522,12 @@ The following is a production log from two real MMP nodes — a knowledge feed a
   "focus: Sycophancy in AI systems" drift:0.005
 
 # 8. Fed to Cognitive State LNN (Section 13)
-[mesh-daemon] Cognitive State: ingested mesh from knowledge-feed
+[mesh-daemon] Cognitive State: ingested admitted remix from knowledge-feed
 
 # 9. Cognitive State produces collective insight
 [mesh-daemon] Cognitive State: insight — anomaly=0.461, coherence=0.045
 
-# 10. Second state-sync: drift CONVERGED (Section 9.4)
+# 10. Peer drift recomputed from admitted CMBs: CONVERGED (Section 9.4)
 #     From 0.936 (rejected) to 0.468 (guarded) in one cycle.
 [knowledge-feed] Coupling with mesh-daemon: guarded (drift: 0.468)
 ```
@@ -3968,7 +3980,7 @@ A node claiming minimal MMP conformance MUST implement: Layer 0 identity (persis
 
 ### 17.2 Full Conformance (Cognitive Node)
 
-A node claiming full MMP conformance MUST additionally implement: Layer 3 memory (L0/L1/L2), Layer 4 SVAF evaluation (at minimum heuristic), `state-sync` exchange with drift computation and coupling, and CMB creation with CAT7 field schema.
+A node claiming full MMP conformance MUST additionally implement: Layer 3 memory (L0/L1/L2, with L2 hidden state kept strictly local per Section 2.7), Layer 4 SVAF evaluation (at minimum heuristic), CMB-derived peer drift computation and coupling (Section 9.1), and CMB creation with CAT7 field schema. A conformant node MUST NOT emit `state-sync` frames.
 
 ### 17.3 Cognitive Conformance
 
@@ -4018,9 +4030,9 @@ Medium — contains semantic field text
 
 L2 Hidden state (h₁, h₂)
 
-Via state-sync
+Never (§2.7)
 
-Low — opaque neural vectors, not human-readable
+N/A — strictly local; MUST NOT cross the wire
 
 Mood (valence, arousal)
 
@@ -4034,7 +4046,7 @@ Via message frame
 
 High — free-form text content
 
-Hidden state vectors (h₁, h₂) are compact, opaque neural representations. They encode cognitive patterns, not raw data. However, sufficiently advanced analysis could potentially reconstruct aspects of the input. Implementations handling sensitive domains SHOULD treat hidden state as confidential.
+Hidden state vectors (h₁, h₂) are compact, opaque neural representations encoding cognitive patterns, not raw data. Because sufficiently advanced analysis could reconstruct aspects of the input, hidden state is a privacy surface — which is precisely why it never crosses the wire ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)). It is strictly local and confidential by construction; only CMBs — deliberately scoped, signed statements — propagate.
 
 ### 18.2 Transport Security
 
@@ -4113,8 +4125,6 @@ The encryption scheme SHOULD use the Ed25519 keypair from Layer 0 (Section 3) fo
 
 `lineage` (parents, ancestors, method) remains in cleartext. Lineage contains only CMB keys (content hashes) — not field text. This allows the relay and intermediate nodes to maintain graph structure without reading content.
 
-`state-sync` frames (h₁, h₂ vectors) are opaque floating-point arrays — not human-readable. They do not require E2E encryption but implementations MAY encrypt them for defense in depth.
-
 On LAN (Bonjour TCP), E2E encryption is RECOMMENDED but not required — there is no relay intermediary. On trusted LANs, the transport itself provides sufficient isolation.
 
 ### 18.3 Node Identity & Authentication
@@ -4139,11 +4149,11 @@ Transport identity (above) authenticates the _connection_; CMB signatures authen
 
 MMP introduces threats unique to cognitive coupling that traditional protocol security does not address:
 
-State poisoning
+Cognitive poisoning
 
-A malicious node sends crafted hidden state vectors (h₁, h₂) designed to skew the receiver’s cognitive state toward a desired outcome.
+A malicious node sends crafted CMBs designed to skew the receiver’s cognitive state toward a desired outcome. (Hidden vectors cannot be injected — they never cross the wire, §2.7 — so the only attack surface is CMB content.)
 
-MITIGATION Drift-bounded blending (Section 10) limits any peer’s influence to α < 1. High-drift state is rejected automatically. Peer-level disconnection at Layer 2 provides immediate escape.
+MITIGATION SVAF per-field evaluation (Layer 4) judges each CMB on content before it is admitted. Drift-bounded influence (Section 10) limits any peer to α < 1, so a peer influences but never overrides. Peer-level disconnection at Layer 2 provides immediate escape.
 
 Lineage forgery
 
@@ -4153,15 +4163,15 @@ MITIGATION CMB keys are content hashes (md5 of field texts). A forged lineage re
 
 Drift manipulation
 
-A node gradually shifts its hidden state to lower drift with a target, then suddenly sends adversarial content once coupling is accepted.
+A node gradually sends benign, redundant CMBs to lower its peer drift with a target, then suddenly sends adversarial content once coupling is accepted.
 
 MITIGATION SVAF per-field evaluation (Layer 4) operates on content, not just drift. Even with low peer drift, adversarial CMB content is evaluated per field and rejected if field drift is high.
 
 Sybil attack
 
-An attacker creates multiple fake nodes to amplify influence in mesh state aggregation.
+An attacker creates multiple fake nodes to amplify influence in peer-influence weighting.
 
-MITIGATION Mesh state aggregation (Section 10.1) weights by drift and recency, not by node count. Many aligned Sybil nodes produce the same aggregate as one. Cryptographic identity (Section 3) limits Sybil creation when implemented.
+MITIGATION Peer-influence weighting (Section 10.1) weights by drift and recency, not by node count. Many aligned Sybil nodes produce the same aggregate influence as one. Cryptographic identity (Section 3) limits Sybil creation when implemented.
 
 Metadata exposure. Even with E2E field encryption (Section 18.2.1), the following metadata travels in cleartext: `createdBy`, `lineage.parents`, `lineage.ancestors`, and mood valence/arousal values. Mood is intentionally unencrypted because it is always delivered even from rejected CMBs (Section 9.3). Deployments where mood leakage is unacceptable MUST disable mood delivery by setting all mood field weights to 0. This is a deliberate privacy trade-off: the protocol prioritises collective intelligence over metadata confidentiality.
 

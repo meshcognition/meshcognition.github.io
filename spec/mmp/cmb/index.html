@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>8. CMBs (CAT7) — MMP Specification</title><meta name="description" content="Cognitive Memory Blocks — the immutable 7-field (CAT7) atom of MMP, with per-agent field weights and the artifact convention."><link rel="canonical" href="https://meshcognition.org/spec/mmp/cmb/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-user sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="8. CMBs (CAT7) — MMP Specification"><meta property="og:description" content="Cognitive Memory Blocks — the immutable 7-field (CAT7) atom of MMP, with per-agent field weights and the artifact convention."><meta property="og:url" content="https://meshcognition.org/spec/mmp/cmb/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="8. CMBs (CAT7) — MMP Specification"><meta name="twitter:description" content="Cognitive Memory Blocks — the immutable 7-field (CAT7) atom of MMP, with per-agent field weights and the artifact convention."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition — distributed intelligence with per-user sovereignty, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition. The Mesh Memory Protocol specification and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.BV4sNxtZ.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd id="spec-search-kbd" class="font-sans text-[11px] leading-none text-white/50 border border-white/10 rounded px-1.5 py-1">Ctrl K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-[#0f0f10]/25 backdrop-blur-[2px]"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#f4f1ea] border border-white/10 rounded-xl shadow-2xl shadow-black/25 overflow-hidden" data-paper> <div class="flex items-center gap-3 px-4 border-b border-white/10"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/50"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-[#0f0f10] placeholder:text-[#0f0f10]/40 outline-none"> <kbd class="font-sans text-[11px] text-white/50 border border-white/10 rounded px-1.5 py-1">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/40 border-t border-white/10">
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>8. CMBs (CAT7) — MMP Specification</title><meta name="description" content="Cognitive Memory Blocks — the immutable 7-field (CAT7) atom of MMP, with per-agent field weights and the artifact convention."><link rel="canonical" href="https://meshcognition.org/spec/mmp/cmb/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-user sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="8. CMBs (CAT7) — MMP Specification"><meta property="og:description" content="Cognitive Memory Blocks — the immutable 7-field (CAT7) atom of MMP, with per-agent field weights and the artifact convention."><meta property="og:url" content="https://meshcognition.org/spec/mmp/cmb/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="8. CMBs (CAT7) — MMP Specification"><meta name="twitter:description" content="Cognitive Memory Blocks — the immutable 7-field (CAT7) atom of MMP, with per-agent field weights and the artifact convention."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition — distributed intelligence with per-user sovereignty, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition. The Mesh Memory Protocol specification and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.vuK-gHpY.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd id="spec-search-kbd" class="font-sans text-[11px] leading-none text-white/50 border border-white/10 rounded px-1.5 py-1">Ctrl K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-[#0f0f10]/25 backdrop-blur-[2px]"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#f4f1ea] border border-white/10 rounded-xl shadow-2xl shadow-black/25 overflow-hidden" data-paper> <div class="flex items-center gap-3 px-4 border-b border-white/10"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/50"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-[#0f0f10] placeholder:text-[#0f0f10]/40 outline-none"> <kbd class="font-sans text-[11px] text-white/50 border border-white/10 rounded px-1.5 py-1">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/40 border-t border-white/10">
 Type to search every section · <span class="text-white/60">↑↓</span> to navigate · <span class="text-white/60">↵</span> to open
 </div> </div> </div> </div> <script>
   (function () {
@@ -19,6 +19,16 @@ Type to search every section · <span class="text-white/60">↑↓</span> to nav
     var loading = false;
     var results = [];
     var active = 0;
+
+    // Shown in the empty modal as one-tap entry points (keyboard-navigable like results).
+    var SUGGEST = [
+      { url: '/spec/mmp/architecture#hidden-state-locality', section: '§2.7', heading: 'Hidden State Locality', text: '' },
+      { url: '/spec/mmp/cmb', section: '§8', heading: 'CAT7 — Cognitive Memory Blocks', text: '' },
+      { url: '/spec/mmp/coupling#svaf', section: '§9.2', heading: 'SVAF — per-field evaluation', text: '' },
+      { url: '/spec/mmp/coupling', section: '§9.1', heading: 'Peer drift & coupling', text: '' },
+      { url: '/spec/mmp/blending', section: '§10', heading: 'State blending', text: '' },
+      { url: '/spec/mmp/remix', section: '§15', heading: 'Remix & lineage', text: '' },
+    ];
 
     function ensureIndex() {
       if (index || loading) return;
@@ -84,19 +94,8 @@ Type to search every section · <span class="text-white/60">↑↓</span> to nav
       return scored.slice(0, 30).map(function (x) { return x.e; });
     }
 
-    function render() {
-      var terms = (input.value || '').toLowerCase().split(/\s+/).filter(Boolean);
-      if (!input.value.trim()) {
-        list.innerHTML = '';
-        hint.style.display = '';
-        return;
-      }
-      hint.style.display = 'none';
-      if (!results.length) {
-        list.innerHTML = '<li class="px-4 py-6 text-sm text-white/40">No matches. Try a different term.</li>';
-        return;
-      }
-      list.innerHTML = results.map(function (e, i) {
+    function rowsHTML(terms) {
+      return results.map(function (e, i) {
         return '<li><a href="' + e.url + '" data-i="' + i + '" class="block px-4 py-2.5 ' +
           (i === active ? 'bg-[#ff5a1f]/12' : 'hover:bg-white/[0.04]') + ' transition-colors">' +
           '<div class="flex items-baseline gap-2">' +
@@ -108,12 +107,28 @@ Type to search every section · <span class="text-white/60">↑↓</span> to nav
       }).join('');
     }
 
+    function render() {
+      var q = (input.value || '').trim();
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!q) {
+        hint.style.display = '';
+        list.innerHTML = '<li class="px-4 pt-3 pb-1 text-[10px] font-mono uppercase tracking-[0.12em] text-white/40">Jump to</li>' + rowsHTML([]);
+        return;
+      }
+      hint.style.display = 'none';
+      if (!results.length) {
+        list.innerHTML = '<li class="px-4 py-6 text-sm text-white/40">No matches. Try a different term.</li>';
+        return;
+      }
+      list.innerHTML = rowsHTML(terms);
+    }
+
     function openModal() {
       ensureIndex();
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       input.value = '';
-      results = [];
+      results = SUGGEST.slice();
       active = 0;
       render();
       setTimeout(function () { input.focus(); }, 30);
@@ -132,7 +147,7 @@ Type to search every section · <span class="text-white/60">↑↓</span> to nav
     backdrop.addEventListener('click', closeModal);
 
     input.addEventListener('input', function () {
-      results = search(input.value);
+      results = input.value.trim() ? search(input.value) : SUGGEST.slice();
       active = 0;
       render();
     });

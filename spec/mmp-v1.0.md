@@ -505,7 +505,7 @@ Why does the LLM reason, not the LNN?
 
 The LNN processes temporal patterns but cannot reason about WHY a chain of remixes happened. The LLM can. Ancestors provide the endpoints. The LLM provides the reasoning. The LNN provides the dynamics. Both are needed.
 
-Learn more   [Mesh Cognition](https://sym.bot/research/mesh-cognition) — theoretical foundation, Kuramoto synchronisation, emergent properties.
+Learn more   [Mesh Cognition](https://meshcognition.org) — theoretical foundation, Kuramoto synchronisation, emergent properties.
 
 ### 2.7 Hidden State Locality
 
@@ -2144,7 +2144,7 @@ Two agents just connected and peer drift is 0.9. Is something wrong?
 
 No. This is expected at first contact. Agents with no shared cognitive history start with high drift. The bootstrapping path is: (1) mood fast-coupling delivers affective state immediately, (2) SVAF evaluates individual CMBs independently of peer drift — relevant content is accepted even from rejected peers, (3) accepted CMBs shift the receiving agent’s cognitive state, narrowing peer drift over cycles. Convergence requires relevant content exchange, not time.
 
-Learn more   [SVAF: Per-Field Memory Evaluation](https://sym.bot/research/svaf) — two-level coupling (peer drift + content drift), per-field gate analysis, per-agent temporal drift, and cross-domain relevance discovery.
+Learn more   [SVAF: Per-Field Memory Evaluation](https://meshcognition.org/research) — two-level coupling (peer drift + content drift), per-field gate analysis, per-agent temporal drift, and cross-domain relevance discovery.
 
 
 
@@ -2525,7 +2525,7 @@ Why not just update the agent’s prompt?
 
 Prompt updates are out-of-band: they bypass the mesh, leave no lineage, produce no CMBs, and cannot be traced by other agents. Feedback through the mesh is auditable (lineage), composable (other agents can remix the feedback), and self-documenting. The mesh learns through the mesh.
 
-Learn more   [Mesh Cognition](https://sym.bot/research/mesh-cognition) — the theoretical foundation, Kuramoto synchronisation, and the full architecture.
+Learn more   [Mesh Cognition](https://meshcognition.org) — the theoretical foundation, Kuramoto synchronisation, and the full architecture.
 
 
 
@@ -3134,7 +3134,7 @@ The store is local to the MCP server process and does not replicate across nodes
 
 Note: `sym-mesh-channel` implements this pattern with `storeMessage()`, `extractCompactHeader()`, and the `sym_fetch` MCP tool.
 
-See also   [Mesh Cognition](https://sym.bot/research/mesh-cognition) — theoretical foundation  |  [State Blending](/spec/mmp/blending) — integrating admitted remixes  |  [Coupling & SVAF](/spec/mmp/coupling) — drift-based coupling decisions
+See also   [Mesh Cognition](https://meshcognition.org) — theoretical foundation  |  [State Blending](/spec/mmp/blending) — integrating admitted remixes  |  [Coupling & SVAF](/spec/mmp/coupling) — drift-based coupling decisions
 
 
 
@@ -3144,7 +3144,7 @@ See also   [Mesh Cognition](https://sym.bot/research/mesh-cognition) — theore
 
 ## 14\. Application (Layer 7)
 
-Layer 7 is where agents live and their LLMs reason on the remix subgraph. [Mesh Cognition](https://sym.bot/research/mesh-cognition) happens here. The protocol delivers [curated context](/spec/mmp/synthetic-memory#context-curation); the agent decides what to do with it.
+Layer 7 is where agents live and their LLMs reason on the remix subgraph. [Mesh Cognition](https://meshcognition.org) happens here. The protocol delivers [curated context](/spec/mmp/synthetic-memory#context-curation); the agent decides what to do with it.
 
 ### 14.1 The Agent’s Role
 
@@ -3723,7 +3723,7 @@ Why does the local event interface require subscriber field weights?
 
 For the same reason SVAF uses per-agent field weights between peers: each application has a different domain perspective. A coding tool and a music app on the same node should see different signals from the same mesh. Without subscriber weights, every application receives unfiltered noise — the local equivalent of scalar evaluation.
 
-Related   [Mesh Cognition](https://sym.bot/research/mesh-cognition) · [Context Curation](/spec/mmp/synthetic-memory#context-curation) · [CMB](/spec/mmp/cmb) · [Coupling & SVAF](/spec/mmp/coupling) · [State Blending](/spec/mmp/blending)
+Related   [Mesh Cognition](https://meshcognition.org) · [Context Curation](/spec/mmp/synthetic-memory#context-curation) · [CMB](/spec/mmp/cmb) · [Coupling & SVAF](/spec/mmp/coupling) · [State Blending](/spec/mmp/blending)
 
 
 

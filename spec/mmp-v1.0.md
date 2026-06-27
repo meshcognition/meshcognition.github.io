@@ -171,7 +171,7 @@ Section 11 — Feedback Modulation: how collective intelligence becomes self-cor
 
 2026-04-02
 
-Node model: every autonomous agent MUST be a full peer node with own identity, coupling engine, and memory store. SVAF band-pass evaluation: four-class model (redundant/aligned/guarded/rejected) with per-field redundancy detection. CMB lifecycle: observed/remixed/validated/canonical/archived with anchor weight progression. Node lifecycle roles (observer/validator/anchor) with identity-bound validation authority and earned role progression. Validation authority for CMB lifecycle transitions bound to cryptographic node identity, not content. Semantic encoder SHOULD for SVAF drift computation. Handshake adds version, extensions, and lifecycleRole fields. Error frame type. Role-grant frame type.
+Node model: every autonomous agent MUST be a full peer node with own identity, coupling engine, and memory store. SVAF band-pass evaluation: four-class model (redundant/aligned/guarded/rejected) with per-field redundancy detection. CMB lifecycle: observed/remixed/validated/canonical/archived with anchor weight progression. Node lifecycle roles (participant/validator/anchor) with identity-bound validation authority and earned role progression. Validation authority for CMB lifecycle transitions bound to cryptographic node identity, not content. Semantic encoder SHOULD for SVAF drift computation. Handshake adds version, extensions, and lifecycleRole fields. Error frame type. Role-grant frame type.
 
 0.2.0
 
@@ -227,7 +227,15 @@ A single protocol message: a length-prefixed JSON object sent over a transport c
 
 CMB
 
-Cognitive Memory Block — a structured memory unit with 7 typed semantic fields (CAT7 schema). See Section 8.
+Cognitive Memory Block — a structured memory unit with 7 typed semantic fields (CAT7 schema). Emitted, it is a projection; admitted by a peer, it is that peer’s observation. See Section 8.
+
+Projection
+
+An emitted CMB seen from its author: a lossy, typed (CAT7) view of the agent’s private cognitive state — never the state itself. Each agent emits projections of its state on its own clock.
+
+Observation
+
+An admitted projection seen from its receiver: a peer’s projection that cleared SVAF (Section 9.2) and is integrated as a measurement of an evolving latent. The same CMB is a projection to its author and an observation to a receiver that admits it.
 
 Drift
 
@@ -509,7 +517,7 @@ Learn more   [Mesh Cognition](https://meshcognition.org) — theoretical founda
 
 ### 2.7 Hidden State Locality
 
-A node’s hidden state — the continuous-time vectors (h₁, h₂) of its Layer 6 Liquid Neural Network — is the agent’s private cognitive machinery. It is dense, opaque, and expressed in the agent’s own learned latent space, accumulating everything the agent has processed. Hidden state MUST remain strictly local: it MUST NOT cross the wire. The only thing that crosses the wire is the Cognitive Memory Block (CMB) — a typed, content-addressed, signed observation with lineage. Hidden state is what an agent reasons _from_; the CMB is what it _communicates_.
+A node’s hidden state — the continuous-time vectors (h₁, h₂) of its Layer 6 Liquid Neural Network — is the agent’s private cognitive machinery. It is dense, opaque, and expressed in the agent’s own learned latent space, accumulating everything the agent has processed. Hidden state MUST remain strictly local: it MUST NOT cross the wire. The only thing that crosses the wire is the Cognitive Memory Block (CMB) — a typed, content-addressed, signed _projection_ of that state, with lineage. The same block is a _projection_ to its author — a lossy, typed view of its private state, never the state itself — and becomes an _observation_ to a receiver that admits it (§9.2). Hidden state is what an agent reasons _from_; the CMB is what it _communicates_.
 
 Hidden state vs. remixed CMB. When SVAF (§9.2) admits a peer’s CMB, the receiver MUST NOT store the original; it creates a new CMB — the _remix_ (§15) — that captures what it understood, in CAT7 fields, with lineage back to the source. The remix is the agent’s understanding made explicit and communicable; hidden state is the private substrate that produced it. Hidden state is implicit, opaque, and agent-local; the remixed CMB is explicit, typed, citable, and shared in the common latent of language.
 
@@ -520,7 +528,7 @@ Hidden state MUST NOT cross the wire for four reasons, each a load-bearing prope
 -   —Semantic incompatibility. Each agent’s hidden state lives in its own learned latent space; the same dimension means different things to a music agent and a coding agent. Comparing or averaging hidden vectors across heterogeneous agents is not meaningful. Language (CAT7 text) is the shared representation; hidden vectors are not.
 -   —Privacy. Hidden state is a compressed trace of everything an agent has seen, including the user’s private data. Even opaque, it is a leakage surface. A CMB is a deliberately constructed, scoped statement.
 
-Cognition therefore propagates as a loop in which the wire carries only CMBs: hidden state → (the agent emits) a CMB → the wire → SVAF evaluation (§9.2) → remix (§15) → (the LNN evolves) hidden state. Each agent’s hidden state evolves from the CMBs it admits — never by importing a peer’s hidden state. “State blending” means a node’s own LNN integrating its own admitted remixes; it MUST NOT mean aggregating peer hidden state.
+Cognition therefore propagates as a loop in which the wire carries only CMBs: hidden state → (the agent emits) a CMB — its _projection_ — → the wire → SVAF evaluation (§9.2) admits it as an _observation_ → remix (§15) → (the LNN evolves) hidden state. Each agent’s hidden state evolves from the CMBs it admits — never by importing a peer’s hidden state. “State blending” means a node’s own LNN integrating its own admitted remixes; it MUST NOT mean aggregating peer hidden state.
 
 SUPERSEDES   The `state-sync` frame and any exchange of h₁/h₂ vectors are deprecated. Where earlier sections (§5, §7, §9.1, §10, §13, §18) describe peer drift, state blending, or hidden-state exchange computed from `state-sync`, those mechanisms are superseded by this invariant: peer influence is mediated entirely by CMBs evaluated through SVAF (§9.2). Implementations MUST NOT emit `state-sync` frames and SHOULD ignore them on receipt.
 
@@ -658,7 +666,7 @@ May produce
 
 May advance lifecycle to
 
-observer
+participant
 
 Yes
 
@@ -682,11 +690,11 @@ CMBs, remixes, validation CMBs, canonization CMBs
 
 observed, remixed, validated, **canonical**
 
-A node with `lifecycleRole: observer` (the default) MUST NOT produce CMBs that advance another CMB’s lifecycle to `validated` or `canonical`. Receiving nodes MUST verify that a validation CMB’s `createdBy` matches a node whose handshake declared `validator` or `anchor` role. Validation CMBs from observer nodes MUST be ignored for lifecycle advancement (the CMB itself is still stored as a normal remix).
+A node with `lifecycleRole: participant` (the default) MUST NOT produce CMBs that advance another CMB’s lifecycle to `validated` or `canonical`. Receiving nodes MUST verify that a validation CMB’s `createdBy` matches a node whose handshake declared `validator` or `anchor` role. Validation CMBs from participant nodes MUST be ignored for lifecycle advancement (the CMB itself is still stored as a normal remix).
 
 ### 3.5.1 Role Progression
 
-Lifecycle roles are not static. An observer node MAY be promoted to validator by an existing validator or anchor node. Promotion is a protocol frame, not an out-of-band configuration change.
+Lifecycle roles are not static. An participant node MAY be promoted to validator by an existing validator or anchor node. Promotion is a protocol frame, not an out-of-band configuration change.
 
 Transition
 
@@ -694,7 +702,7 @@ Granted by
 
 Conditions
 
-observer → validator
+participant → validator
 
 Existing validator or anchor
 
@@ -712,7 +720,7 @@ Self-declared
 
 The first node in a mesh MAY self-declare as validator or anchor. Subsequent nodes MUST be promoted by existing validators.
 
-Role progression is monotonically upward: observer → validator → anchor. Demotion is not defined in v0.2.1. A compromised validator MUST generate a fresh identity (Section 3.4) and re-earn its role.
+Role progression is monotonically upward: participant → validator → anchor. Demotion is not defined in v0.2.1. A compromised validator MUST generate a fresh identity (Section 3.4) and re-earn its role.
 
 The `role-grant` frame carries the granting node’s signature over the promoted node’s nodeId and new role. Receiving nodes SHOULD verify the signature against the granting node’s public key from the handshake. This prevents role spoofing without requiring a central authority.
 
@@ -746,9 +754,9 @@ Why is role progression earned, not configured?
 
 An agent that produces quality remixes — remixes that other agents cite and build upon — has demonstrated value to the mesh. Granting validation authority to such agents is a natural extension of their demonstrated competence. This prevents arbitrary role assignment and creates a meritocratic trust hierarchy that emerges from mesh activity.
 
-Can an observer node dismiss a decision?
+Can an participant node dismiss a decision?
 
-An observer can produce a CMB with lineage pointing to a decision, but receiving nodes MUST NOT treat it as validation. The CMB is stored as a normal remix — it does not advance the parent CMB’s lifecycle. Only validator or anchor nodes can validate or dismiss decisions in a way that removes them from the decision queue.
+An participant can produce a CMB with lineage pointing to a decision, but receiving nodes MUST NOT treat it as validation. The CMB is stored as a normal remix — it does not advance the parent CMB’s lifecycle. Only validator or anchor nodes can validate or dismiss decisions in a way that removes them from the decision queue.
 
 
 
@@ -1100,7 +1108,7 @@ Deprecated — `state-sync`. Earlier revisions exchanged a `state-sync` frame ca
 -   —The inbound node MUST wait for a `handshake` frame as the first frame. If any other frame type arrives first, or no handshake arrives within 10,000 ms, the connection MUST be closed.
 -   —If a node receives a handshake with a nodeId that is already connected via the same transport type, the new connection MUST be closed (duplicate guard). If the existing connection uses a different transport type (e.g. peer connected via relay, new connection via LAN TCP), the new connection MUST be accepted as a secondary transport per Section 4.6.
 
-lifecycleRole. The handshake frame MUST include a `lifecycleRole` field with value `observer` (default), `validator`, or `anchor`. Receiving nodes use this to apply validator-origin anchor weight ([Section 6.4](/spec/mmp/memory)) and identify feedback CMBs ([Section 11](/spec/mmp/feedback)). Implementations MUST default to `observer` if the field is absent (backward compatibility with older nodes).
+lifecycleRole. The handshake frame MUST include a `lifecycleRole` field with value `participant` (default), `validator`, or `anchor`. Receiving nodes use this to apply validator-origin anchor weight ([Section 6.4](/spec/mmp/memory)) and identify feedback CMBs ([Section 11](/spec/mmp/feedback)). Implementations MUST default to `participant` if the field is absent (backward compatibility with older nodes).
 
 ### 5.3 Connection State Machine
 
@@ -1428,11 +1436,11 @@ The transition from `remixed` to `validated` is the most consequential lifecycle
 When a receiving node processes a CMB with `lineage.parents` pointing to an existing CMB, it MUST check the `createdBy` field against the known lifecycle roles of connected peers:
 
 -   —If `createdBy` matches a node with `lifecycleRole: validator` or `anchor`, the parent CMB advances to `validated` (if action completed) or `dismissed` (if not actionable).
--   —If `createdBy` matches a node with `lifecycleRole: observer`, the parent CMB advances to `remixed` only. The CMB is stored normally but does not confer validation.
+-   —If `createdBy` matches a node with `lifecycleRole: participant`, the parent CMB advances to `remixed` only. The CMB is stored normally but does not confer validation.
 
 This prevents agent-level spoofing of validation authority. An agent cannot self-promote to validator by including “founder” or “validator” in its CMB text fields. The authority is bound to the node’s cryptographic identity and the `role-grant` chain from an existing validator (Section 3.5.1).
 
-Role verification. Nodes MUST NOT accept `lifecycleRole: validator` or `lifecycleRole: anchor` from a peer unless: (a) the peer has presented a valid role-grant frame signed by an existing anchor node (Section 3.5.1), or (b) the peer’s `nodeId` is pre-configured as a trusted validator. Without verification, a malicious node could self-promote to validator. Implementations that do not support role-grant verification MUST treat all peers as `observer` regardless of their handshake claim.
+Role verification. Nodes MUST NOT accept `lifecycleRole: validator` or `lifecycleRole: anchor` from a peer unless: (a) the peer has presented a valid role-grant frame signed by an existing anchor node (Section 3.5.1), or (b) the peer’s `nodeId` is pre-configured as a trusted validator. Without verification, a malicious node could self-promote to validator. Implementations that do not support role-grant verification MUST treat all peers as `participant` regardless of their handshake claim.
 
 Dismiss vs. validate: These are distinct lifecycle transitions with different consequences. **Validate** (Done): parent CMB advances to `validated` (anchor weight 2.0). The mesh learns what humans value. **Dismiss** (Not actionable): parent CMB advances to `dismissed` (anchor weight 0.5). The dismissal broadcasts as feedback — the producing agent sees its signal was rejected, and similar future signals score lower in SVAF evaluation. Both require validator or anchor role. Both broadcast to the mesh. The effectiveness of this feedback depends on the content quality of the dismissal CMB — see [Section 10.7 (Feedback Neuromodulation)](/spec/mmp/blending) for normative content requirements.
 

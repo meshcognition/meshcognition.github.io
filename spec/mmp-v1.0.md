@@ -49,7 +49,7 @@ A Mesh Protocol for Collective Intelligence
 
 Version
 
-1.0.3
+1.0.4
 
 Status
 
@@ -61,7 +61,7 @@ Published
 
 Last updated
 
-16 June 2026
+2 July 2026
 
 Author
 
@@ -89,7 +89,7 @@ The problem is semantic, not transport. **Hidden state never crosses the wire** 
 
 ## Status of This Document
 
-This is a published specification (current version 1.0.3). It reflects the protocol as implemented in the [SYM Node.js](https://github.com/sym-bot/sym) and [SYM Swift](https://github.com/sym-bot/sym-swift) full-stack reference implementations, plus the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python coupling kernel (Layers 4 + 6). The specification is versioned. Breaking changes increment the minor version; non-breaking additions increment the patch version.
+This is a published specification (current version 1.0.4). It reflects the protocol as implemented in the [SYM Node.js](https://github.com/sym-bot/sym) and [SYM Swift](https://github.com/sym-bot/sym-swift) full-stack reference implementations, plus the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python coupling kernel (Layers 4 + 6). The specification is versioned. Breaking changes increment the minor version; non-breaking additions increment the patch version.
 
 Feedback and errata: [spec@meshcognition.org](mailto:spec@meshcognition.org) or [github.com/sym-bot/sym/issues](https://github.com/sym-bot/sym/issues).
 
@@ -134,6 +134,12 @@ Version
 Date
 
 Changes
+
+1.0.4
+
+2026-07-02
+
+[§12.8–12.15 Collective Query: the Ask → Synthesis Path](/spec/mmp/synthetic-memory#collective-query) — specifies the query-initiated Layer 5 flow: a question posed to the mesh as a `type: "question"` CMB is answered by a single cited synthesis no one agent held. Adds the four-stage path **SELF-SELECT → ADMIT → SYNTHESISE → CRYSTALLISE** alongside the inbound §12.2 pipeline. Normative additions: self-selection is receiver-autonomous and computed only from an agent’s own store (**no router**, `SELF_SELECT_THRESHOLD` default 0.1); each contribution carries lineage to its grounding and **MUST** pass SVAF (§9) before it can be synthesised; the single synthesis at the asking node **MUST** cite specific CMB ids and **MUST NOT** assert beyond them; the answer is crystallised back as an immutable `type: "synthesis"` CMB whose parents are the question key plus every citation, so the mesh’s cognition compounds across Asks. Includes the five Ask invariants (I-Ask-1–5) and marks the local-store grounding breadth (§12.14) as an implementation limitation, not an architectural constraint. Backward-compatible addition (patch).
 
 1.0.3
 
@@ -2729,6 +2735,118 @@ MeloMove recognises CMB-A and CMB-D in ancestors — its own prior CMBs.
 ```
 
 No agent was told what to do. MeloMove’s LLM reasoned on the remix subgraph and derived that its interventions work. Synthetic Memory transformed that understanding into CfC input. The LNN evolved cognitive state. The next CMB MeloMove produces is informed by knowledge that no single CMB contained — it was derived by reasoning on the graph.
+
+### 12.8 Collective Query: the Ask → Synthesis Path
+
+Sections 12.1–12.7 specify the _inbound_ pipeline: how an agent turns received CMBs into evolved cognitive state. This section specifies the _query-initiated_ path, where a question is posed to the mesh and answered by a synthesis that no single agent held. Both are Layer 5 operations — both produce derived understanding rather than raw memory — but they are distinct flows and MUST NOT be conflated.
+
+Where §12.2 runs TRACE → REASON → ENCODE → EVOLVE for a single agent absorbing a signal, the Ask path runs SELF-SELECT → ADMIT → SYNTHESISE → CRYSTALLISE across many agents answering a shared question. The result is the realisation of collective intelligence: an answer composed from the sovereign contributions of the agents that hold relevant knowledge, cited to their sources, and written back into the graph so the mesh’s cognition compounds.
+
+This path defines how the “growing remix graph” (§2, Overview) is _queried_, not just grown. The graph holds distributed knowledge latently; an Ask realises it into a knowing; the knowing re-enters the graph. §12.13 reconciles this with “The Graph Is Intelligence” (§15.6).
+
+### 12.9 The Four Stages
+
+An Ask is a CMB of `type: "question"` (tags `["question"]`) posed to the mesh by the asking node, carrying the question text in its `focus` and `issue` fields, with `perspective: "ask"`. Answering it proceeds in four stages. The gathering phase — SELF-SELECT and ADMIT, performed per agent — MUST complete for all agents before SYNTHESISE runs, and SYNTHESISE MUST complete before CRYSTALLISE. Within the gathering phase, an agent’s self-selection and the admission of its contribution are performed together, agent by agent; the ordering requirement is between phases, not a global barrier between SELF-SELECT and ADMIT.
+
+-   SELF-SELECT — Every agent evaluates the question against _its own store_ and decides, autonomously, whether it can contribute. There is no router: the asking node MUST NOT assign the question to any agent (the central invariant, §12.10). An agent that has no relevant grounding MUST self-select silent.
+-   ADMIT — Each contribution produced by a self-selecting agent is evaluated through SVAF (§9) against the standing context. A contribution whose SVAF decision is `rejected` MUST be dropped and MUST NOT enter the synthesis set. Only non-rejected contributions become claims.
+-   SYNTHESISE — A single synthesis step at the asking node composes the admitted contributions into one answer. Every sentence of the answer that asserts a fact MUST cite the contribution CMB (and through it, the source CMBs) it is drawn from. The synthesis MUST NOT introduce facts beyond its cited contributions.
+-   CRYSTALLISE — The synthesis MUST be written back as a CMB of `type: "synthesis"` whose `lineage.parents` are the question key together with every cited contribution and source. It re-enters the graph as a first-class, immutable node; subsequent Asks MAY condition on it.
+
+### 12.10 Self-Selection (SELF-SELECT)
+
+Self-selection is receiver-autonomous, mirroring SVAF admission (§9.2): just as no central authority decides what an agent absorbs, no central authority decides what an agent answers.
+
+An agent’s self-selection MUST be computed only from its own store. In the reference implementation the grounding source for role _r_ is the node’s own daemon CMBs (§6.1); a shared store MUST NOT be consulted, consistent with Hidden State Locality (§2.7) and the no-shared-store guarantee.
+
+The procedure:
+
+1.  Ground the question against the agent’s own store, producing a candidate set of source CMBs.
+2.  If the candidate set is empty, the agent MUST self-select silent, with reason `"no grounding in own store"`.
+3.  Otherwise, score each source by relevance to the question under the agent’s own αf field-weight profile (§8.4, §12.4). Relevance is an αf\-weighted combination of semantic and lexical match; the αf profile is the agent’s, not a global one.
+4.  If the best-scoring source falls below `SELF_SELECT_THRESHOLD` (default `0.1`, §19), the agent MUST self-select silent, with reason `"grounding below relevance threshold"`.
+5.  Otherwise the agent produces a contribution (§12.11).
+
+Silent self-selections SHOULD be recorded with their reason. Silence is information: the set of agents that declined, and why, is part of the answer’s provenance (§12.12) and is available to the synthesis step as `silentLabels`.
+
+### 12.11 Contribution (ADMIT)
+
+A contributing agent emits a contribution CMB — a grounded summary of the sources it selected, not a copy of them. The contribution:
+
+-   MUST carry `lineage.parents` set to the exact source CMB keys it grounded on. A contribution without lineage to its grounding MUST be rejected as non-conformant.
+-   SHOULD draw only on sources within a bounded margin of the best-scoring source (reference implementation: within 60% of the top score, capped at 3 sources), so the contribution cites the grounding it actually used and no more.
+-   MUST be evaluated through SVAF (§9) against the standing context (prior sources and syntheses gathered for this Ask) before it is accepted. If SVAF returns `rejected`, the contribution MUST be dropped; it MUST be recorded as a rejected contribution with its drift, and MUST NOT be synthesised.
+
+This places SVAF on the Ask-contribution path, not only the inbound-observation path: a contribution is a CMB like any other and crosses the same admission gate. The anti-echo guarantee (§15.7) therefore applies — a contribution that merely paraphrases standing context without new grounding is subject to rejection.
+
+Each admitted contribution yields a claim: the contribution text together with citations to the contribution CMB key and the source keys it traces to (§12.12).
+
+Non-normative: the reference implementation tags the contribution’s `lineage.method` as `"SVAF-v2"`. The method string is informational and is not a conformance requirement.
+
+### 12.12 Synthesis (SYNTHESISE) and Citation
+
+A single synthesis step at the asking node composes the admitted contributions into one answer. There is exactly one synthesis per Ask; there is no distributed merge and no per-agent re-synthesis.
+
+Two synthesis modes are defined:
+
+Mode
+
+Condition
+
+Guarantee
+
+local-model
+
+a local reasoning model is reachable
+
+Prose is generated bound to each contribution’s CMB key; every asserted sentence MUST cite the contribution it is drawn from, and MUST NOT assert beyond the cited sources.
+
+illustrative
+
+no local model reachable
+
+A clearly-labelled restatement of the grounded contributions. Facts MUST NOT be fabricated; the output MUST be marked as illustrative, and SHOULD state how model synthesis is enabled.
+
+In both modes the machine-readable answer MUST be claim-structured: one claim per line, each citing `[contributionKey, ...sourceKeys]`. Citations MUST bind to specific CMB ids in both modes. An implementation MUST NOT present a synthesis as authoritative if it cannot bind its assertions to cited CMBs.
+
+The distinction between modes is a distinction of _generation quality_, not of _grounding discipline_: the citation and no-fabrication requirements hold in both. This is the operational boundary of the layer’s honesty — the synthesis restates and composes grounded contributions; it does not manufacture claims.
+
+### 12.13 Crystallisation (CRYSTALLISE) and Compounding
+
+The synthesis MUST be written back into the graph as a CMB with:
+
+-   `type: "synthesis"` (tags `["synthesis"]`), with CAT7 `intent: "synthesize"` and `perspective: "synthesis"`;
+-   the composed prose carried in the CAT7 `motivation` field (and copied into metadata alongside the structured, per-claim citations);
+-   `lineage.parents` set to the question key plus every unique citation (contribution keys and source keys).
+
+The written synthesis is immutable (§6, no in-place update) and re-enters the graph as an ordinary node. A later Ask MAY retrieve it and condition on it — the reference implementation surfaces a prior synthesis as a “builds on prior synthesis” claim — so the collective’s cognition compounds across queries rather than restarting each time.
+
+This is what makes the Ask path a _cognition_ operation and not a stateless query: each realised answer becomes part of the substrate the next answer is realised from.
+
+### 12.14 The Readability Bound (Implementation Limitation)
+
+The following is a limitation of the current reference grounding function, **not** an architectural constraint of the protocol. It is stated explicitly so implementers and reviewers can distinguish the two.
+
+In the reference implementation, an agent self-selects (§12.10) by grounding against the daemon store readable on the asking node’s host. Consequently:
+
+-   A co-resident agent (its store readable on the asking host) can self-select and contribute directly.
+-   A remote sovereign agent (its store on another device) grounds empty on the asking host and therefore self-selects silent. Its knowledge still reaches the answer, but indirectly: once a local node has admitted that remote agent’s broadcast CMB (§9), the local node may ground on it and contribute it, cited back to the origin.
+
+This bound follows from sovereignty (a node’s store never crosses the wire, §2.7) **combined with** the current grounding function reading only _local_ daemon stores. It is the second half that is the limitation. A grounding function that selected over _observed and admitted_ CMBs — the CMBs a node has already received and accepted from remote peers — rather than only locally-resident daemon reads would let remote agents self-contribute directly to an Ask, within the same sovereignty guarantee. That extension is compatible with the architecture and is marked here as open implementation work.
+
+Conformance note (§17). An implementation conforms to the Ask path if it satisfies §12.9–12.13 (no router, own-store self-selection, SVAF admission of contributions, single cited synthesis, crystallisation with lineage). The grounding-source breadth of §12.14 is an implementation quality, not a conformance requirement; implementations SHOULD document which grounding breadth they provide.
+
+### 12.15 Invariants
+
+An implementation of the Ask path MUST preserve:
+
+-   I-Ask-1 (No router). The asking node MUST NOT assign the question to any agent; every agent self-selects independently.
+-   I-Ask-2 (Own-store grounding). Self-selection MUST be computed only from the agent’s own store; no shared store is consulted.
+-   I-Ask-3 (Admission before synthesis). Every contribution MUST pass SVAF; rejected contributions MUST NOT be synthesised.
+-   I-Ask-4 (Cited synthesis). Every asserted fact in the answer MUST cite the contribution and sources it derives from; the synthesis MUST NOT assert beyond its cited contributions.
+-   I-Ask-5 (Crystallisation with lineage). The synthesis MUST be written back as an immutable `type: "synthesis"` CMB whose parents are the question key plus every citation.
+
+Status   The Ask path is deployed (Mesh Edge) and is the mechanism by which collective intelligence is realised and queried in the reference implementation. The linear-Gaussian convergence and identification results that characterise what a sovereign mesh can recover are proven in Mesh Inference (arXiv:2606.19537). The generation step within synthesis — whether a composed answer is grounded truth or coherent error — is the open frontier, the same open problem named for the non-linear closure; the citation and no-fabrication requirements of §12.12 bound it operationally but do not resolve it.
 
 Related   [Coupling & SVAF (Layer 4)](/spec/mmp/coupling) — the evaluation step that produces remixed CMBs fed into this pipeline.
 

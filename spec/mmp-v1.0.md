@@ -135,12 +135,6 @@ Date
 
 Changes
 
-Unreleased
-
-—
-
-[§14.11 Approving Mesh Recommendations](/spec/mmp/application#approving-recommendations) — a control plane **MAY** derive recommendations from the mesh’s own cognitive state (promote / review / converge) and let an operator approve one. Approval is emitted as an operator directive (§14.10) referencing the recommendation — a timestamped event, SVAF-gated per node like any directive. Normative: approval is **authorisation, not execution** — an implementation **MUST NOT** treat it as an admission bypass, and approval alone **MUST NOT** execute an authority change (promotion/retirement); execution follows earned authority (§6.5). The human is in the loop as an authoriser, never a master. Backward-compatible addition (patch).
-
 1.0.5
 
 2026-07-03
@@ -3860,18 +3854,6 @@ A broadcast directive carries no privileged authority. Every receiving node MUST
 
 WHY IT MATTERS  
 A command-and-control system would force every agent to obey the operator. A mesh does not: the operator emits, and each sovereign agent decides for itself whether the directive fits what it knows. You steer the mesh by _persuading its cognition_, and you can watch, in the audit, exactly which agents took the steer and which did not.
-
-### 14.11 Approving Mesh Recommendations
-
-A control plane MAY derive recommendations from the mesh’s own cognitive state — e.g. from admission coherence: promote a node the collective consistently admits, review one it increasingly rejects, converge a stale duplicate. The mesh, in effect, reads its own health and proposes how its agent population should change. Such recommendations are an implementation quality, not a protocol requirement, and their exact derivation is unspecified.
-
-When an operator approves a recommendation, the approval is emitted as an operator directive (§14.10) that references the recommendation — a timestamped event, admitted by each node receiver-autonomously like any directive. Approval is authorisation, not execution.
-
--   MUST NOT An implementation treat operator approval as a bypass of admission: the approval directive is still SVAF-gated per node (§9.2), and a node MAY reject it.
--   SHOULD The approval directive carry the recommendation it authorises (the node, the proposed action, and the evidence) so the audit trail links _what the mesh proposed_ to _what the operator approved_.
--   MUST NOT Approval alone _execute_ an authority change (e.g. a promotion or a node’s retirement). Execution, where an actuator exists, follows earned authority (§6.5) — approval records intent; it does not confer the authority to act.
-
-This keeps the loop honest end to end: the mesh recommends from what it knows, the operator authorises, and the agents still admit autonomously. The human is in the loop as an _authoriser_, never as a master — the same property that holds for every other emission in the mesh.
 
 ### Q&A
 

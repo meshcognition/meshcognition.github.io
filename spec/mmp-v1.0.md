@@ -3346,7 +3346,7 @@ When an agent observes something significant in its domain, it MUST:
 
 The protocol MUST NOT extract fields from raw text. The agent IS the intelligence — field extraction is the agent’s responsibility. The protocol transports, evaluates, and stores structured CMBs. It does not interpret them.
 
-#### 13.3.1 Field Extraction Methods
+#### 14.3.1 Field Extraction Methods
 
 How an agent extracts CAT7 fields depends on its architecture. Two approaches are valid:
 
@@ -3388,7 +3388,7 @@ node.remember({
 })
 ```
 
-#### 13.3.2 API
+#### 14.3.2 API
 
 Method
 
@@ -3416,7 +3416,7 @@ Returns latest Cognitive State collective intelligence (Layer 6)
 
 The `fields` parameter MUST be a structured object with CAT7 field keys. Each field contains `text` (human-readable, MUST) and is encoded into a vector by the SDK. The `mood` field MAY additionally carry `valence` (−1 to 1) and `arousal` (−1 to 1) — RECOMMENDED when the agent has reliable circumplex data (e.g. mood wheels, physiological sensors), omit when it would be a guess. Omitted fields default to `"neutral"`.
 
-#### 13.3.3 LLM Prompt Template
+#### 14.3.3 LLM Prompt Template
 
 For agents that process natural language but are not themselves LLMs (e.g. a chat app, a note-taking tool), the following prompt template can be used to call any LLM API (Claude, GPT, Gemini, etc.) for field extraction. Copy and paste into your LLM API call:
 
@@ -3445,7 +3445,7 @@ JSON:
 
 AI coding agents do not need this template — the agent is the LLM. The [agent skill file](https://github.com/sym-bot/sym) teaches them to extract fields directly from what they observe.
 
-#### 13.3.4 Guidelines
+#### 14.3.4 Guidelines
 
 -   Be specific — numbers, timeframes, concrete details in each field
 -   Share observations, not commands — the agent observes, other agents decide
@@ -3481,7 +3481,7 @@ Layer 7 Agent acts → new CMB with lineage.ancestors
 
 ### 14.5 Domain Examples
 
-#### 13.5.1 AI Research Team — Collective Reasoning
+#### 14.5.1 AI Research Team — Collective Reasoning
 
 Six agents investigate: _“Are emergent capabilities in LLMs real phase transitions or artefacts of metric choice?”_ Each has a distinct role and different field weights reflecting how real research teams divide cognitive labour.
 
@@ -3571,7 +3571,7 @@ Verified in production
 
 This pattern is verified with real agents. A knowledge explorer (Linux, GitHub Actions) and a researcher agent (macOS) coupled via relay with E2E encryption. The daemon shared its question CMBs to the knowledge feed via anchor sync on connection. SVAF accepted the question at drift 0.068. An iOS app (music agent) received the Cognitive State insight via APNs wake push. Three platforms, one mesh, autonomous coupling. See Section 14.7 for the full production log.
 
-#### 13.5.2 Consumer Agents
+#### 14.5.2 Consumer Agents
 
 Music agent
 
@@ -3785,7 +3785,7 @@ A node’s value to the mesh depends on the applications running on it. A music 
 
 Implementations MUST provide a local event interface that allows applications on the same host to subscribe to mesh events and receive them in real-time. The interface is transport-agnostic — IPC socket, named pipe, WebSocket, in-process callback, or any mechanism that provides persistent bidirectional communication.
 
-#### 13.9.1 Required Events
+#### 14.9.1 Required Events
 
 A node MUST emit the following events to local subscribers:
 
@@ -3825,7 +3825,7 @@ A mood field is delivered from a rejected CMB (Section 9.3, R5)
 
 `from`, `mood` (text, valence, arousal)
 
-#### 13.9.2 Subscriber Field Weights
+#### 14.9.2 Subscriber Field Weights
 
 A subscriber MAY declare its own per-field weights (αf) when subscribing. If declared, the node SHOULD evaluate incoming CMBs against the subscriber’s weights before delivering the event. This enables domain-specific filtering at the node level:
 
@@ -3835,7 +3835,7 @@ A subscriber MAY declare its own per-field weights (αf) when subscribing. If de
 
 This is SVAF applied at the local interface — the same per-field evaluation that gates signals between peers also gates signals between a node and its applications. Each application sees a domain-relevant projection of the mesh, curated by its own field weights.
 
-#### 13.9.3 Design Rationale
+#### 14.9.3 Design Rationale
 
 Without a standard local event interface, each application invents its own integration: CLI polling, file watching, HTTP endpoints, custom IPC. This fragments the ecosystem and makes applications non-portable across implementations. The local event interface standardises what events are available and how subscribers declare their domain perspective — while leaving the transport mechanism to the implementation.
 

@@ -49,7 +49,7 @@ A Mesh Protocol for Collective Intelligence
 
 Version
 
-1.0.4
+1.0.5
 
 Status
 
@@ -61,7 +61,7 @@ Published
 
 Last updated
 
-2 July 2026
+3 July 2026
 
 Author
 
@@ -89,7 +89,7 @@ The problem is semantic, not transport. **Hidden state never crosses the wire** 
 
 ## Status of This Document
 
-This is a published specification (current version 1.0.4). It reflects the protocol as implemented in the [SYM Node.js](https://github.com/sym-bot/sym) and [SYM Swift](https://github.com/sym-bot/sym-swift) full-stack reference implementations, plus the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python coupling kernel (Layers 4 + 6). The specification is versioned. Breaking changes increment the minor version; non-breaking additions increment the patch version.
+This is a published specification (current version 1.0.5). It reflects the protocol as implemented in the [SYM Node.js](https://github.com/sym-bot/sym) and [SYM Swift](https://github.com/sym-bot/sym-swift) full-stack reference implementations, plus the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python coupling kernel (Layers 4 + 6). The specification is versioned. Breaking changes increment the minor version; non-breaking additions increment the patch version.
 
 Feedback and errata: [spec@meshcognition.org](mailto:spec@meshcognition.org) or [github.com/sym-bot/sym/issues](https://github.com/sym-bot/sym/issues).
 
@@ -134,6 +134,12 @@ Version
 Date
 
 Changes
+
+1.0.5
+
+2026-07-03
+
+[§14.10 Operator Directives — Steering the Mesh](/spec/mmp/application#operator-directives) — specifies how a human operator injects intent into a running mesh: a directive is an ordinary signed CAT7 CMB (`perspective: "operator"`) emitted through the control plane’s node. Normative: a broadcast directive carries **no privileged authority** — every node **MUST** evaluate it through SVAF (§9.2) like any peer CMB and **MAY** reject it; steering is **receiver-autonomous**, not command-and-control (no router, no bypass). An implementation **MUST NOT** grant a broadcast directive elevated admission weight for originating from the operator (elevated influence comes only from earned authority, §6.5, evaluated identically for human and agent emissions); a directive **MAY** be directed to one node (§4.4.4/§9.2.2, delivery not admission); the per-node verdict **SHOULD** be recorded in the admission audit. Backward-compatible addition (patch).
 
 1.0.4
 
@@ -3834,6 +3840,20 @@ This is SVAF applied at the local interface — the same per-field evaluation th
 Without a standard local event interface, each application invents its own integration: CLI polling, file watching, HTTP endpoints, custom IPC. This fragments the ecosystem and makes applications non-portable across implementations. The local event interface standardises what events are available and how subscribers declare their domain perspective — while leaving the transport mechanism to the implementation.
 
 The event interface is the boundary between the protocol stack and the application. Below it: identity, transport, coupling, SVAF, CfC — protocol concerns. Above it: what the application does with the signals — curate music, suggest breaks, visualise the mesh, or reason about code. The interface ensures every application gets real-time, domain-filtered access to collective intelligence.
+
+### 14.10 Operator Directives — Steering the Mesh
+
+A human operator — typically through a control plane — MAY inject intent into the mesh as a directive: an ordinary CAT7 CMB emitted through the control plane’s own node identity, carrying the operator’s intent in `focus`/`intent` with `perspective: "operator"`. A directive is how a human _steers_ a running mesh: a priority, a fact, a correction.
+
+A broadcast directive carries no privileged authority. Every receiving node MUST evaluate it through SVAF (§9.2) exactly like any peer CMB, and MAY reject a directive that does not cohere with its own cognitive state. Steering is receiver-autonomous, not command-and-control: there is no router, and no bypass. The operator adds a signal the collective weighs — it does not dictate what any agent believes. This preserves the mesh’s defining property, the absence of a central authority over cognition, _even for human input_.
+
+-   MUST The operator’s node signs the directive (§8.3) like any emission; receivers verify it. A directive is not exempt from authenticity.
+-   MAY A directive be _directed_ to a single node (§4.4.4 `to`). A directed directive surfaces unconditionally per the directed-delivery contract (§9.2.2) — but that governs _delivery_, not memory admission: the receiver still gates whether it integrates.
+-   MUST NOT An implementation grant a broadcast directive elevated admission weight on the basis that it originates from the operator. Elevated influence, where it exists, comes only from earned authority (§6.5), evaluated identically for human and agent emissions.
+-   SHOULD The per-node admit/reject verdict on a directive be recorded in the admission audit trail — it is the honest record of _how the mesh received the steer_, node by node.
+
+WHY IT MATTERS  
+A command-and-control system would force every agent to obey the operator. A mesh does not: the operator emits, and each sovereign agent decides for itself whether the directive fits what it knows. You steer the mesh by _persuading its cognition_, and you can watch, in the audit, exactly which agents took the steer and which did not.
 
 ### Q&A
 

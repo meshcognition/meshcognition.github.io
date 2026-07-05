@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Change Log — MMP Specification v1.1.0</title><meta name="description" content="Complete version history of the Mesh Memory Protocol specification — every release from 1.0 to the current version, with the full text of each change."><link rel="canonical" href="https://meshcognition.org/spec/mmp/changelog/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-node sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="Change Log — MMP Specification v1.1.0"><meta property="og:description" content="Complete version history of the Mesh Memory Protocol specification — every release from 1.0 to the current version, with the full text of each change."><meta property="og:url" content="https://meshcognition.org/spec/mmp/changelog/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Change Log — MMP Specification v1.1.0"><meta name="twitter:description" content="Complete version history of the Mesh Memory Protocol specification — every release from 1.0 to the current version, with the full text of each change."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition — distributed intelligence with per-node sovereignty, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Open-protocol home of Mesh Cognition. The Mesh Memory Protocol specification and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.LbKU39hk.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd id="spec-search-kbd" class="font-sans text-[11px] leading-none text-white/50 border border-white/10 rounded px-1.5 py-1">Ctrl K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-[#0f0f10]/25 backdrop-blur-[2px]"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#f4f1ea] border border-white/10 rounded-xl shadow-2xl shadow-black/25 overflow-hidden" data-paper> <div class="flex items-center gap-3 px-4 border-b border-white/10"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/50"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-[#0f0f10] placeholder:text-[#0f0f10]/40 outline-none"> <kbd class="font-sans text-[11px] text-white/50 border border-white/10 rounded px-1.5 py-1">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/40 border-t border-white/10">
+Type to search every section · <span class="text-white/60">↑↓</span> to navigate · <span class="text-white/60">↵</span> to open
+</div> </div> </div> </div> <script>
+  (function () {
+    var trigger = document.getElementById('spec-search-trigger');
+    var modal = document.getElementById('spec-search-modal');
+    var backdrop = document.getElementById('spec-search-backdrop');
+    var input = document.getElementById('spec-search-input');
+    var list = document.getElementById('spec-search-results');
+    var hint = document.getElementById('spec-search-hint');
+    if (!trigger || !modal || !backdrop || !input || !list || !hint) return;
+
+    // Shortcut hint: ⌘K on Mac, Ctrl K elsewhere (default markup is the legible "Ctrl K").
+    var isMac = /Mac|iPhone|iPad|iPod/.test((navigator.platform || '') + ' ' + (navigator.userAgent || ''));
+    var kbd = document.getElementById('spec-search-kbd');
+    if (kbd && isMac) kbd.textContent = '⌘K';
+
+    var index = null;
+    var loading = false;
+    var results = [];
+    var active = 0;
+
+    // Shown in the empty modal as one-tap entry points (keyboard-navigable like results).
+    var SUGGEST = [
+      { url: '/spec/mmp/architecture#hidden-state-locality', section: '§2.7', heading: 'Hidden State Locality', text: '' },
+      { url: '/spec/mmp/cmb', section: '§8', heading: 'CAT7 — Cognitive Memory Blocks', text: '' },
+      { url: '/spec/mmp/coupling#svaf', section: '§9.2', heading: 'SVAF — per-field evaluation', text: '' },
+      { url: '/spec/mmp/coupling', section: '§9.1', heading: 'Peer drift & coupling', text: '' },
+      { url: '/spec/mmp/blending', section: '§10', heading: 'State blending', text: '' },
+      { url: '/spec/mmp/remix', section: '§15', heading: 'Remix & lineage', text: '' },
+    ];
+
+    function ensureIndex() {
+      if (index || loading) return;
+      loading = true;
+      fetch('/spec/mmp/search-index.json', { cache: 'force-cache' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { index = data; if (input.value) { results = search(input.value); render(); } })
+        .catch(function () { index = []; })
+        .then(function () { loading = false; });
+    }
+
+    function esc(s) {
+      return s.replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+    function highlight(text, terms) {
+      var out = esc(text);
+      for (var i = 0; i < terms.length; i++) {
+        if (!terms[i]) continue;
+        var re = new RegExp('(' + terms[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+        out = out.replace(re, '<mark class="bg-[#ff5a1f]/25 rounded-sm px-0.5">$1</mark>');
+      }
+      return out;
+    }
+    // Window the snippet around the first matched term so the hit is always visible.
+    function snippet(text, terms) {
+      if (!text) return '';
+      var low = text.toLowerCase();
+      var at = -1;
+      for (var i = 0; i < terms.length; i++) {
+        var p = low.indexOf(terms[i]);
+        if (p !== -1 && (at === -1 || p < at)) at = p;
+      }
+      if (at <= 90) return text.slice(0, 200);
+      var start = Math.max(0, at - 70);
+      return '…' + text.slice(start, start + 200);
+    }
+
+    function search(q) {
+      if (!index) return [];
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!terms.length) return [];
+      var scored = [];
+      for (var j = 0; j < index.length; j++) {
+        var e = index[j];
+        var heading = e.heading.toLowerCase();
+        var section = e.section.toLowerCase();
+        var text = e.text.toLowerCase();
+        var score = 0, all = true;
+        for (var k = 0; k < terms.length; k++) {
+          var t = terms[k];
+          var inH = heading.indexOf(t) !== -1, inS = section.indexOf(t) !== -1, inT = text.indexOf(t) !== -1;
+          if (!inH && !inS && !inT) { all = false; break; }
+          if (heading.indexOf(t) === 0) score += 12;
+          else if (inH) score += 8;
+          if (inS) score += 3;
+          if (inT) score += 1;
+        }
+        if (all) scored.push({ e: e, s: score });
+      }
+      scored.sort(function (a, b) { return b.s - a.s; });
+      return scored.slice(0, 30).map(function (x) { return x.e; });
+    }
+
+    function rowsHTML(terms) {
+      return results.map(function (e, i) {
+        return '<li><a href="' + e.url + '" data-i="' + i + '" class="block px-4 py-2.5 ' +
+          (i === active ? 'bg-[#ff5a1f]/12' : 'hover:bg-white/[0.04]') + ' transition-colors">' +
+          '<div class="flex items-baseline gap-2">' +
+          '<span class="text-[15px] text-white/90">' + highlight(e.heading, terms) + '</span>' +
+          '<span class="ml-auto shrink-0 font-mono text-[10px] text-[#c2440f]">' + esc(e.section) + '</span>' +
+          '</div>' +
+          (e.text ? '<div class="mt-0.5 text-xs text-white/60 line-clamp-2">' + highlight(snippet(e.text, terms), terms) + '</div>' : '') +
+          '</a></li>';
+      }).join('');
+    }
+
+    function render() {
+      var q = (input.value || '').trim();
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!q) {
+        hint.style.display = '';
+        list.innerHTML = '<li class="px-4 pt-3 pb-1 text-[10px] font-mono uppercase tracking-[0.12em] text-white/40">Jump to</li>' + rowsHTML([]);
+        return;
+      }
+      hint.style.display = 'none';
+      if (!results.length) {
+        list.innerHTML = '<li class="px-4 py-6 text-sm text-white/40">No matches. Try a different term.</li>';
+        return;
+      }
+      list.innerHTML = rowsHTML(terms);
+    }
+
+    function openModal() {
+      ensureIndex();
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      results = SUGGEST.slice();
+      active = 0;
+      render();
+      setTimeout(function () { input.focus(); }, 30);
+    }
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function scrollActive() {
+      var el = list.querySelector('[data-i="' + active + '"]');
+      if (el) el.scrollIntoView({ block: 'nearest' });
+    }
+
+    trigger.addEventListener('click', openModal);
+    backdrop.addEventListener('click', closeModal);
+
+    input.addEventListener('input', function () {
+      results = input.value.trim() ? search(input.value) : SUGGEST.slice();
+      active = 0;
+      render();
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, results.length - 1); render(); scrollActive(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); render(); scrollActive(); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (results[active]) window.location.href = results[active].url; }
+      else if (e.key === 'Escape') { closeModal(); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var tag = document.activeElement ? document.activeElement.tagName : '';
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        if (modal.classList.contains('hidden')) openModal(); else closeModal();
+      } else if (e.key === '/' && modal.classList.contains('hidden') && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+  })();
+</script> <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
+MMP Specification v1.1.0 </a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> Overview </a><a href="/spec/mmp/conventions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 1. Conventions </a><a href="/spec/mmp/architecture" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 2. Architecture </a><a href="/spec/mmp/identity" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 3. Identity (L0) </a><a href="/spec/mmp/transport" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 4. Transport (L1) </a><a href="/spec/mmp/connection" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 5. Connection (L2) </a><a href="/spec/mmp/memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 6. Memory (L3) </a><a href="/spec/mmp/frames" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 7. Frame Types </a><a href="/spec/mmp/cmb" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8. CMBs (CAT7) </a><a href="/spec/mmp/coupling" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 9. Coupling &amp; SVAF (L4) </a><a href="/spec/mmp/blending" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 10. State Blending </a><a href="/spec/mmp/feedback" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 11. Feedback Modulation </a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 12. Synthetic Memory (L5) </a><a href="/spec/mmp/cognitive-state" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 13. Cognitive State (L6) </a><a href="/spec/mmp/application" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 14. Application (L7) </a><a href="/spec/mmp/remix" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 15. Remix </a><a href="/spec/mmp/extensions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 16. Extensions </a><a href="/spec/mmp/conformance" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 17. Conformance </a><a href="/spec/mmp/security" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 18. Security </a><a href="/spec/mmp/constants" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 19. Configuration </a><a href="/spec/mmp/schema" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 20. JSON Schema </a><a href="/spec/mmp/references" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 21. References </a> </div> </nav>   <div class="flex gap-2 pt-2"> <a href="/spec/mmp-v1.0.md" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page Markdown">
+.md
+</a> <a href="/spec/mmp-v1.0.html" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page HTML">
+.html
+</a> </div> </div> </div> </aside> <article class="flex-1 min-w-0"> <div class="space-y-10 text-white/70 leading-relaxed text-[15px]">  <section> <h2 class="font-display text-xl text-white mb-4" id="changelog">Change Log</h2> <p class="mb-6 text-sm text-white/50">
+Complete version history of this specification. The versioning policy is stated in
+<a href="/spec/mmp#status" class="text-purple-400 hover:text-purple-300 transition-colors">Status of This Document</a>:
+      major = wire-incompatible, minor = backward-compatible normative additions, patch = errata and
+      informative additions. Current version: 1.1.0.
+</p> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Version</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Date</th><th class="text-left font-mono text-xs text-white/40 pb-2">Changes</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.1.0</td><td class="py-2 pr-4">2026-07-05</td><td class="py-2"> <strong>The Work Layer &mdash; grounding cognition in reality.</strong> Through 1.0.x, the mesh could
+            observe, admit, remix, and validate &mdash; it could establish what its members <em>believe</em>. 1.1.0
+            adds the missing half: a way to record what <em>held up in practice</em>, and to make the cognition
+            that survives both judgment and reality the durable substrate real work builds on. Everything below is
+            normative as of this release; new sections are marked &ldquo;New in 1.1.0&rdquo; in place.
+<br><br> <a href="/spec/mmp/memory#grounding" class="text-purple-400 hover:text-purple-300 transition-colors"><strong>&sect;6.7 Grounding</strong></a> &mdash;
+            outcomes carried by lineage. A grounding CMB (<code class="text-purple-300/80">intent: "ground"</code>,
+            commitment <code class="text-purple-300/80">verified:</code> / <code class="text-purple-300/80">failed:</code>,
+            parents = the cognition it grounds) records a real-world result &mdash; tests passed, work shipped, a
+            prediction resolved &mdash; as the evidence-based sibling of &sect;6.4&rsquo;s judgment-based validation.
+            An outcome is an <strong>attestation, never a fact</strong>: its weight follows the author&rsquo;s earned
+            authority (&sect;6.5&ndash;&sect;6.6), groundedness is <strong>receiver-relative</strong> (only
+            attestations a node&rsquo;s own SVAF admitted count), conflicting observations resolve
+<strong>latest-wins on receiver-local time</strong> (a regression un-grounds; a backdated timestamp
+            cannot game the ordering), and a grounding CMB <strong>never advances lifecycle by itself</strong> &mdash;
+            elevation to the Canon is an explicit, accountable act under validator-or-above authority.
+<br><br> <strong>&sect;6.3 The Canon tier</strong> &mdash; committed cognition persists.
+<code class="text-purple-300/80">validated</code> and <code class="text-purple-300/80">canonical</code>
+CMBs are exempt from age-based retention while they hold that lifecycle, so a mesh&rsquo;s earned
+            knowledge compounds across sessions instead of evaporating with the retention window. Protection is
+            from purge, not from demotion &mdash; inactive validated cognition may still decay to archived
+            (&sect;6.4, &sect;19) &mdash; and the store stays bounded.
+<br><br> <a href="/spec/mmp/application#session-capture" class="text-purple-400 hover:text-purple-300 transition-colors"><strong>&sect;14.12 Work Sessions as Mesh Members</strong></a> &mdash;
+            the capture profile that closes the loop: a work session joins as an ordinary member; its charter is
+            the intent root, its decisions chain by lineage, and completion emits an artifact grounded by the
+            session&rsquo;s <em>real</em> outcome. Day two of a mesh starts ahead of day one because day one&rsquo;s
+            work is in the Canon. &sect;14.11 remains reserved for Commissions (planned for 1.2.0).
+<br><br> <strong>Supporting sections:</strong> &sect;8.3.1 well-known intent values (informative, extensible
+            registry &mdash; <code class="text-purple-300/80">charter</code>, <code class="text-purple-300/80">decision</code>,
+<code class="text-purple-300/80">artifact</code>, <code class="text-purple-300/80">ground</code>; unknown
+            intents remain ordinary content and confer nothing); &sect;15.7.2 outcomes are observations (observing a
+            real outcome IS new domain data, so grounding remixes satisfy &sect;15.7 with no intent-keyed exemption
+            &mdash; the anti-echo invariant is untouched); &sect;18.4 gains the fake-outcome-attestation threat
+            model (fabricated <code class="text-purple-300/80">verified:</code> steering, low-authority
+<code class="text-purple-300/80">failed:</code> griefing) with its mitigation chain; &sect;17.5 lists the
+            draft conformance requirements.
+<br><br> <strong>Incorporates the 2026-07-05 coherence errata</strong> &mdash; a full-corpus adversarial review
+            (41 findings) folded into this release: &sect;10 state blending re-grounded in CMB-admission influence,
+            completing the 1.0.2 supersession (the deprecated hidden-vector blend&rsquo;s coefficients now bound
+            per-admission influence; &sect;13.4&rsquo;s formula corrected to match); &sect;11.4 feedback authority
+            resolved through the signed grant chain rather than self-declared handshake roles; group isolation
+            re-derived as endpoint-enforced via &sect;18.3.1 audience binding (the relay is a dumb pipe); the
+            &sect;7.1 frame-type registry completed (mood, relay frames); handshake schema reconciled
+            (&sect;20.1 <code class="text-purple-300/80">group</code> optional, <code class="text-purple-300/80">lifecycleRole</code>
+sender-MUST); &sect;17 conformance refreshed with testable requirements; plus editorial corrections
+            across citations, examples, and terminology.
+<br><br> <strong>Compatibility:</strong> fully wire-compatible &mdash; no new frames, no new fields; a 1.0.x node
+            interoperates unchanged and treats grounding CMBs as ordinary CMBs. <strong>Reference-implementation
+            status:</strong> two &sect;6.7-adjacent mechanisms are specified ahead of the reference implementation
+            (the &sect;15.7.1 convention): the &sect;6.4 inactivity archiver, and elevation-authority resolution
+            through the &sect;6.6 grant chain &mdash; the shipping implementation performs elevation as an explicit
+            operator act pending earned-authority activation. Both are tracked to land in the next runtime release.
+</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.0.6</td><td class="py-2 pr-4">2026-07-04</td><td class="py-2"><a href="/spec/mmp/connection#multi-group-membership" class="text-purple-400 hover:text-purple-300 transition-colors">&sect;5.9&ndash;5.11 Gateway Federation (informative pattern)</a> &mdash; introduces an <strong>informative</strong> pattern for composing meshes: a node is a <strong>membrane over an arbitrary interior</strong> (atom = one agent; gateway = a node whose interior is a sub-mesh, presenting a boundary to exterior gateways). A gateway participates in its interior group and exchanges a <strong>lossy CAT7 projection</strong> with configured peers over a dumb boundary transport (HTTP), each keeping its own store &mdash; no center. Invariants that hold: no-center-per-level, partition-tolerance, &sect;3.2 one-agent-one-node. The reference implementation is a <strong>prototype</strong> (observe-and-summarize; admit-then-reproject, signed/attested projections, and cross-mesh echo-dedup are unbuilt), and a <strong>production security bar</strong> &mdash; signed cmb1- projection, origin-authenticated origin, anti-replay, boundary-scoped credential &mdash; is a prerequisite, not a shipped guarantee. This is a topology pattern, not a normative cross-mesh wire; single-mesh conformance is unchanged.</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.0.5</td><td class="py-2 pr-4">2026-07-03</td><td class="py-2"><a href="/spec/mmp/application#operator-directives" class="text-purple-400 hover:text-purple-300 transition-colors">&sect;14.10 Operator Directives &mdash; Steering the Mesh</a> &mdash; specifies how a human operator injects intent into a running mesh: a directive is an ordinary signed CAT7 CMB (<code class="text-purple-300/80">perspective: "operator"</code>) emitted through the control plane&rsquo;s node. Normative: a broadcast directive carries <strong>no privileged authority</strong> &mdash; every node <strong>MUST</strong> evaluate it through SVAF (&sect;9.2) like any peer CMB and <strong>MAY</strong> reject it; steering is <strong>receiver-autonomous</strong>, not command-and-control (no router, no bypass). An implementation <strong>MUST NOT</strong> grant a broadcast directive elevated admission weight for originating from the operator (elevated influence comes only from earned authority, &sect;6.5, evaluated identically for human and agent emissions); a directive <strong>MAY</strong> be directed to one node (&sect;4.4.4/&sect;9.2.2, delivery not admission); the per-node verdict <strong>SHOULD</strong> be recorded in the admission audit. Backward-compatible addition (patch).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.0.4</td><td class="py-2 pr-4">2026-07-02</td><td class="py-2"><a href="/spec/mmp/synthetic-memory#collective-query" class="text-purple-400 hover:text-purple-300 transition-colors">&sect;12.8&ndash;12.15 Collective Query: the Ask &rarr; Synthesis Path</a> &mdash; specifies the query-initiated Layer 5 flow: a question posed to the mesh as a <code class="text-purple-300/80">type: "question"</code> CMB is answered by a single cited synthesis no one agent held. Adds the four-stage path <strong>SELF-SELECT &rarr; ADMIT &rarr; SYNTHESISE &rarr; CRYSTALLISE</strong> alongside the inbound &sect;12.2 pipeline. Normative additions: self-selection is receiver-autonomous and computed only from an agent&rsquo;s own store (<strong>no router</strong>, <code class="text-purple-300/80">SELF_SELECT_THRESHOLD</code> default 0.1); each contribution carries lineage to its grounding and <strong>MUST</strong> pass SVAF (&sect;9) before it can be synthesised; the single synthesis at the asking node <strong>MUST</strong> cite specific CMB ids and <strong>MUST NOT</strong> assert beyond them; the answer is crystallised back as an immutable <code class="text-purple-300/80">type: "synthesis"</code> CMB whose parents are the question key plus every citation, so the mesh&rsquo;s cognition compounds across Asks. Includes the five Ask invariants (I-Ask-1&ndash;5) and marks the local-store grounding breadth (&sect;12.14) as an implementation limitation, not an architectural constraint. Backward-compatible addition (patch).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.0.3</td><td class="py-2 pr-4">2026-06-16</td><td class="py-2"><a href="/spec/mmp/remix#source-novel-forwarding" class="text-purple-400 hover:text-purple-300 transition-colors">&sect;15.7.1 Source-Novel Forwarding</a> &mdash; carve-out distinguishing <em>forwarding</em> from the remix-paraphrase &sect;15.7 forbids. An agent <strong>MAY</strong> re-emit an admitted observation it did not natively produce, carrying the <strong>inherited lineage root</strong>, when and only when that observation is <em>source-novel</em> to the receiver &mdash; its lineage roots are not already present in the receiver&rsquo;s admitted store. This is not the value-only echo &sect;15.7 prevents: a forwarded observation carries a source the receiver has not yet seen even though the forwarder adds no new domain data. Forwarding <strong>MUST NOT</strong> mint a fresh root for content that already carries one, and <strong>MUST NOT</strong> re-emit a source the receiver already holds &mdash; the anti-echo guarantee is preserved exactly. Forwarding <strong>SHOULD</strong> be non-selective, so every observation reaches the agents whose understanding depends on it. In short: remix requires new domain data; forwarding requires a new source. Backward-compatible addition (patch).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.0.2</td><td class="py-2 pr-4">2026-06-14</td><td class="py-2"><a href="/spec/mmp/architecture#hidden-state-locality" class="text-purple-400 hover:text-purple-300 transition-colors">&sect;2.7 Hidden State Locality</a> &mdash; states the invariant that a node&rsquo;s hidden state (its Layer 6 LNN vectors h&#8321;/h&#8322;) MUST remain strictly local and MUST NOT cross the wire; only Cognitive Memory Blocks cross. Defines hidden state (private machinery) vs. the remixed CMB (communicable understanding), and the four reasons hidden state must stay local: sovereignty, auditability, semantic incompatibility across agents, and privacy. <strong>Supersedes the state-sync model:</strong> the <code class="text-purple-300/80">state-sync</code> frame and any exchange of h&#8321;/h&#8322; vectors are deprecated; the peer-drift and state-blending mechanisms described in &sect;5, &sect;7, &sect;9.1, and &sect;10 from exchanged hidden-state vectors are superseded &mdash; peer influence is mediated entirely by CMBs evaluated through SVAF (&sect;9.2). Resolves a self-contradiction between the &ldquo;hidden state never crosses the wire&rdquo; claim and the state-sync sections.</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.0.1</td><td class="py-2 pr-4">2026-06-12</td><td class="py-2">Layer 6 renamed &ldquo;xMesh&rdquo; &rarr; &ldquo;Cognitive State&rdquo; to disambiguate from the xMesh runtime (naming note &sect;1, &sect;13; wire identifiers incl. xmesh-insight unchanged; published papers retain the legacy &ldquo;xMesh (L6)&rdquo; label). Normative additions, backward-compatible with the v1.0 contracts: &sect;9.2.1 specifies &delta;<sub>f</sub> as an admission <em>interface</em> &mdash; anchors-only baseline (incoming block excluded), cold-start non-evaluable-field exclusion + bootstrap-admit &mdash; ruling out self-referential collapse and cold-start starvation. &sect;9.2.2 specifies the directed (peer-bound) vs autonomous (group-bound) delivery contract, separating delivery from memory admission: directed CMBs (&sect;4.4.4 <code class="text-purple-300/80">to</code> = receiver) surface unconditionally; rejected broadcasts do not surface (mood excepted, &sect;9.3). &sect;18.3.1 specifies CMB signature verification (Ed25519 author signature + content-address integrity; forged/tampered blocks rejected) as the end-to-end authenticity layer above transport identity.</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.0</td><td class="py-2 pr-4">2026-04-27</td><td class="py-2">Public-stable-API release. Marks the v0.2.x development cadence as complete and the protocol surface as production-stable. Contracts unchanged from 0.2.3; v0.2.x &rarr; v1.0 is a maturity declaration, not a breaking change. Note: <a href="https://arxiv.org/abs/2604.19540" class="text-purple-400 hover:text-purple-300 transition-colors">arXiv:2604.19540</a> cites v0.2.x as the version implemented at paper-publication time; v1.0 covers the same contracts.</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">0.2.3</td><td class="py-2 pr-4">2026-04-17</td><td class="py-2">Section 13.9 &mdash; Compact Channel Best Practices: CMB envelope header convention (RECOMMENDED) for structured message headers with signal keywords and focus tags. Lazy-load channel pattern (RECOMMENDED) for MCP server implementations: compact header push with on-demand full-content retrieval via sym_fetch, reducing mesh-traffic context consumption by ~75%. Token-count hint RECOMMENDED. Rolling message store with RECOMMENDED default of 200 messages. Signal-keyword priority table (informational): HALT &gt; DIRECTIVE &gt; RESULT &gt; ACK.</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">0.2.2</td><td class="py-2 pr-4">2026-04-06</td><td class="py-2">Section 11 &mdash; Feedback Modulation: how collective intelligence becomes self-correcting. Validator-authority CMBs with per-field reasoning modulate SVAF coupling weights and CfC temporal adaptation through the existing mesh cognition loop. Neuroscience-grounded: dopaminergic prediction error model with per-field direction and &tau;-modulated adaptation rate. Directive feedback for standalone domain knowledge injection. Validator-origin anchor weight 2.0 with role-grant verification. CfC state persistence across restarts. ABNF wire format grammar. CMB forward compatibility. Multi-relay failover. All cognitive content MUST use cmb frames.</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">0.2.1</td><td class="py-2 pr-4">2026-04-02</td><td class="py-2">Node model: every autonomous agent MUST be a full peer node with own identity, coupling engine, and memory store. SVAF band-pass evaluation: four-class model (redundant/aligned/guarded/rejected) with per-field redundancy detection. CMB lifecycle: observed/remixed/validated/canonical/archived with anchor weight progression. Node lifecycle roles (participant/validator/anchor) with identity-bound validation authority and earned role progression. Validation authority for CMB lifecycle transitions bound to cryptographic node identity, not content. Semantic encoder SHOULD for SVAF drift computation. Handshake adds version, extensions, and lifecycleRole fields. Error frame type. Role-grant frame type.</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">0.2.0</td><td class="py-2 pr-4">2026-03-27</td><td class="py-2">Formal specification published. 8-layer architecture. CAT7 CMB schema with lineage (parents + ancestors). SVAF per-field evaluation. Wire format normatively specified. Error frame. Frame type registry. Extension mechanism. JSON Schema. Connection state machine. Wire examples.</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">0.1.0</td><td class="py-2 pr-4">2025-08-01</td><td class="py-2">Initial protocol design (Consenix Labs Ltd). 4-layer architecture. Scalar drift evaluation.</td></tr> </tbody> </table> </div> </section>  </div> </article> </div> </div>  <footer class="footer" style="padding: 40px 64px;"><div class="footer-inner" style="grid-template-columns: 1fr;"><div class="legal" style="margin-top: 0; padding-top: 0; border-top: 0;"><span>© 2026 SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0.</span><span>SYMBOT LTD · Scotland, United Kingdom</span></div></div></footer> </body></html>

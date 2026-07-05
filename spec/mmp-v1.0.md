@@ -11,27 +11,28 @@
 ## Contents
 
 1. [Overview](#overview)
-2. [1. Conventions](#1-conventions)
-3. [2. Architecture](#2-architecture)
-4. [3. Identity (L0)](#3-identity-l0)
-5. [4. Transport (L1)](#4-transport-l1)
-6. [5. Connection (L2)](#5-connection-l2)
-7. [6. Memory (L3)](#6-memory-l3)
-8. [7. Frame Types](#7-frame-types)
-9. [8. CMBs (CAT7)](#8-cmbs-cat7)
-10. [9. Coupling & SVAF (L4)](#9-coupling-svaf-l4)
-11. [10. State Blending](#10-state-blending)
-12. [11. Feedback Modulation](#11-feedback-modulation)
-13. [12. Synthetic Memory (L5)](#12-synthetic-memory-l5)
-14. [13. Cognitive State (L6)](#13-cognitive-state-l6)
-15. [14. Application (L7)](#14-application-l7)
-16. [15. Remix](#15-remix)
-17. [16. Extensions](#16-extensions)
-18. [17. Conformance](#17-conformance)
-19. [18. Security](#18-security)
-20. [19. Configuration](#19-configuration)
-21. [20. JSON Schema](#20-json-schema)
-22. [21. References](#21-references)
+2. [Change Log](#change-log)
+3. [1. Conventions](#1-conventions)
+4. [2. Architecture](#2-architecture)
+5. [3. Identity (L0)](#3-identity-l0)
+6. [4. Transport (L1)](#4-transport-l1)
+7. [5. Connection (L2)](#5-connection-l2)
+8. [6. Memory (L3)](#6-memory-l3)
+9. [7. Frame Types](#7-frame-types)
+10. [8. CMBs (CAT7)](#8-cmbs-cat7)
+11. [9. Coupling & SVAF (L4)](#9-coupling-svaf-l4)
+12. [10. State Blending](#10-state-blending)
+13. [11. Feedback Modulation](#11-feedback-modulation)
+14. [12. Synthetic Memory (L5)](#12-synthetic-memory-l5)
+15. [13. Cognitive State (L6)](#13-cognitive-state-l6)
+16. [14. Application (L7)](#14-application-l7)
+17. [15. Remix](#15-remix)
+18. [16. Extensions](#16-extensions)
+19. [17. Conformance](#17-conformance)
+20. [18. Security](#18-security)
+21. [19. Configuration](#19-configuration)
+22. [20. JSON Schema](#20-json-schema)
+23. [21. References](#21-references)
 
 ---
 
@@ -131,6 +132,30 @@ Coupling kernel only. Layer 4 (per-field admission) and Layer 6 (Cognitive State
 
 ## Change Log
 
+**Latest — 1.1.0 “The Work Layer” (2026-07-05):** grounding cognition in reality — §6.7 outcomes carried by lineage, the §6.3 Canon tier, §14.12 work sessions as mesh members, plus the folded-in full-corpus coherence errata. Wire-compatible with 1.0.x.
+
+[Full change log — every release since 1.0 →](/spec/mmp/changelog)
+
+## Licence
+
+This specification is published under the [Creative Commons Attribution 4.0 International Licence](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0). You may share, adapt, and build upon this specification for any purpose, including commercial use, provided you give appropriate credit.
+
+The reference implementations are published under the [Apache Licence 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0; the term "Mesh Cognition" is intentionally unmarked — the open-protocol category is free vocabulary.
+
+© 2026 SYM.BOT. Specification text licenced under CC BY 4.0. Reference implementations licenced under Apache 2.0.
+
+
+
+---
+
+<!-- Change Log -->
+
+## Change Log
+
+Complete version history of this specification. The versioning policy is stated in [Status of This Document](/spec/mmp#status): major = wire-incompatible, minor = backward-compatible normative additions, patch = errata and informative additions. Current version: 1.1.0.
+
 Version
 
 Date
@@ -226,16 +251,6 @@ Formal specification published. 8-layer architecture. CAT7 CMB schema with linea
 2025-08-01
 
 Initial protocol design (Consenix Labs Ltd). 4-layer architecture. Scalar drift evaluation.
-
-## Licence
-
-This specification is published under the [Creative Commons Attribution 4.0 International Licence](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0). You may share, adapt, and build upon this specification for any purpose, including commercial use, provided you give appropriate credit.
-
-The reference implementations are published under the [Apache Licence 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-
-SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0; the term "Mesh Cognition" is intentionally unmarked — the open-protocol category is free vocabulary.
-
-© 2026 SYM.BOT. Specification text licenced under CC BY 4.0. Reference implementations licenced under Apache 2.0.
 
 
 

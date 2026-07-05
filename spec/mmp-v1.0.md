@@ -222,6 +222,12 @@ Layer 6 renamed “xMesh” → “Cognitive State” to disambiguate from the x
 
 Public-stable-API release. Marks the v0.2.x development cadence as complete and the protocol surface as production-stable. Contracts unchanged from 0.2.3; v0.2.x → v1.0 is a maturity declaration, not a breaking change. Note: [arXiv:2604.19540](https://arxiv.org/abs/2604.19540) cites v0.2.x as the version implemented at paper-publication time; v1.0 covers the same contracts.
 
+0.1–0.2.3
+
+2026-03-27 → 2026-04-27
+
+The development cadence. 0.1 (27 March 2026) was the initial public draft — the 8-layer architecture, the CAT7 seven-field schema, SVAF per-field admission, content-hash lineage and remix, and DNS-SD discovery. The 0.2.x series stabilised the wire contracts (handshake, frame registry, TCP + WebSocket relay transports) in production use; contracts were frozen at 0.2.3 and declared stable, unchanged, as 1.0. [arXiv:2604.19540](https://arxiv.org/abs/2604.19540) documents the protocol as implemented in this era.
+
 0.2.3
 
 2026-04-17

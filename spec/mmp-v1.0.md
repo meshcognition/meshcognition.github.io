@@ -134,7 +134,7 @@ Coupling kernel only. Layer 4 (per-field admission) and Layer 6 (Cognitive State
 
 **Latest — 1.1.0 “The Work Layer” (2026-07-05):** grounding cognition in reality — §6.7 outcomes carried by lineage, the §6.3 Canon tier, §14.12 work sessions as mesh members, plus the folded-in full-corpus coherence errata. Wire-compatible with 1.0.x.
 
-[Full change log — every release since 1.0 →](/spec/mmp/changelog)
+[Full change log — every release since 0.1 →](/spec/mmp/changelog)
 
 ## Licence
 

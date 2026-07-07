@@ -184,8 +184,12 @@ Formal JSON Schema definitions for core frame types, matching the wire objects t
 by design: §8 requires unrecognised fields to be silently ignored, so a schema
 <span class="text-yellow-400 font-mono text-xs">SHOULD</span> not reject a forward-compatible extension. The single-page
 <a href="/spec/mmp-v1.0.md" class="text-purple-400 hover:text-purple-300 transition-colors">downloadable specification</a>
-carries the full rendered spec; machine-readable schema files for every frame type are
-      tracked as a standards-program deliverable (see the hardening roadmap).
+carries the full rendered spec. Machine-readable schema files are
+<a href="https://github.com/sym-bot/mesh-memory-protocol/tree/main/schema" class="text-purple-400 hover:text-purple-300 transition-colors">published
+      in the protocol repository</a> &mdash; handshake, CMB (including the &sect;15.8 tether
+      attestation), the cmb frame, and the cmb-fetch pair &mdash; and are guarded by the reference
+      implementation&rsquo;s suite: real wire objects it produces must validate against them.
+      Schemas for the remaining frame types are tracked as a standards-program deliverable.
 </p> <p class="mb-4 text-sm">
 Two scope notes. These are the <em>wire</em> schemas: receiver-local fields
       (<code class="text-purple-300/80">source</code>, <code class="text-purple-300/80">originTimestamp</code>,

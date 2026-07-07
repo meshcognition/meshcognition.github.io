@@ -4688,7 +4688,7 @@ Machine-readable schema files
 
 §20
 
-Standards-program deliverable
+Published — [mesh-memory-protocol/schema](https://github.com/sym-bot/mesh-memory-protocol/tree/main/schema) (handshake, cmb + tether attestation, cmb frame, cmb-fetch pair; guarded by the reference suite); remaining frame types tracked
 
 Q&A   Is Layer 7 (Application) required? — No. Minimal conformance is Layers 0–3. Full cognitive conformance adds Layers 4–7. An agent can participate in the mesh without an LLM — it only needs transport, connection, and memory layers to relay and store CMBs.
 
@@ -5392,7 +5392,7 @@ Temporal drift contribution
 
 ## 20\. JSON Schema
 
-Formal JSON Schema definitions for core frame types, matching the wire objects the reference implementation emits. Implementations SHOULD validate frames against these schemas. `additionalProperties` is `true` by design: §8 requires unrecognised fields to be silently ignored, so a schema SHOULD not reject a forward-compatible extension. The single-page [downloadable specification](/spec/mmp-v1.0.md) carries the full rendered spec; machine-readable schema files for every frame type are tracked as a standards-program deliverable (see the hardening roadmap).
+Formal JSON Schema definitions for core frame types, matching the wire objects the reference implementation emits. Implementations SHOULD validate frames against these schemas. `additionalProperties` is `true` by design: §8 requires unrecognised fields to be silently ignored, so a schema SHOULD not reject a forward-compatible extension. The single-page [downloadable specification](/spec/mmp-v1.0.md) carries the full rendered spec. Machine-readable schema files are [published in the protocol repository](https://github.com/sym-bot/mesh-memory-protocol/tree/main/schema) — handshake, CMB (including the §15.8 tether attestation), the cmb frame, and the cmb-fetch pair — and are guarded by the reference implementation’s suite: real wire objects it produces must validate against them. Schemas for the remaining frame types are tracked as a standards-program deliverable.
 
 Two scope notes. These are the _wire_ schemas: receiver-local fields (`source`, `originTimestamp`, `storedAt`, `confidence`, `provenance`) are set on receipt and never cross the wire, so they are not listed. And the CMB schema describes the _decrypted_ form: under end-to-end encryption (§18.2.1) a CMB in transit carries `fields` as ciphertext plus `_e2e.nonce`, and the object schema below applies after decryption. Each field also carries a `vector` embedding; it is _advisory_ and encoder-specific (§18.7) — not part of the content address (§8.2.1), and a receiver recomputes it locally rather than trusting the sender’s. Optional application-level fields (`meta`, `payload`) MAY also be present and are permitted by `additionalProperties`.
 

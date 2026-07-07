@@ -156,10 +156,6 @@ SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published
 
 <!-- Change Log -->
 
-MMP Core + xmesh runtime
-
-This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
-
 ## Change Log
 
 Complete version history of this specification. The versioning policy is stated in [Status of This Document](/spec/mmp#status): major = wire-incompatible, minor = backward-compatible normative additions, patch = errata and informative additions. Current version: 1.1.0.
@@ -275,10 +271,6 @@ Initial protocol design (Consenix Labs Ltd). 4-layer architecture. Scalar drift 
 
 <!-- 1. Conventions -->
 
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
-
 ## 1\. Conventions and Terminology
 
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
@@ -293,7 +285,7 @@ Definition
 
 Node
 
-A sovereign participant in the mesh: a unique cryptographic identity, its own admission function (SVAF), and its own memory store. Every agent that participates in coupling is a full peer node; Layer 6 cognitive state (an LNN) is optional (Section 13). A relay is pure routing infrastructure (Section 4.4) — it forwards frames and holds no identity, store, or cognitive state; it is not a node.
+A sovereign participant in the mesh: a unique cryptographic identity, its own admission function (SVAF), and its own memory store. Every agent that participates in coupling is a full peer node; Layer 6 cognitive state (an LNN) is optional (Section 13). Reading tiers: wire-contract sections of this document are MMP Core, frozen and byte-testable (Class 1, Section 17.1); receiver-side sections document the xmesh reference runtime (Class 2, Section 17.2) — fully published, open-source reference, not a conformance target. A relay is pure routing infrastructure (Section 4.4) — it forwards frames and holds no identity, store, or cognitive state; it is not a node.
 
 Peer
 
@@ -380,10 +372,6 @@ Closed-form Continuous-time neural network (Hasani et al., 2022). The LNN archit
 ---
 
 <!-- 2. Architecture -->
-
-MMP Core + xmesh runtime
-
-This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
 
 ## 2\. Architecture Overview
 
@@ -646,10 +634,6 @@ SUPERSEDES   The `state-sync` frame and any exchange of h₁/h₂ vectors are d
 
 <!-- 3. Identity (L0) -->
 
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
-
 ## 3\. Layer 0: Identity
 
 Identity is the foundation of the mesh. Each node MUST have a persistent, globally unique identity that other nodes can verify. Without stable identity, coupling decisions, lineage chains, and wake protocols cannot function.
@@ -875,10 +859,6 @@ A participant can produce a CMB with lineage pointing to a decision, but receivi
 ---
 
 <!-- 4. Transport (L1) -->
-
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
 
 ## 4\. Layer 1: Transport
 
@@ -1149,10 +1129,6 @@ N agents on one device means N Bonjour advertisements and N relay connections. F
 
 <!-- 5. Connection (L2) -->
 
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
-
 ## 5\. Layer 2: Connection
 
 ### 5.1 Discovery
@@ -1399,10 +1375,6 @@ Sections 5.9–5.11 are informative and change no single-mesh contract: they des
 ---
 
 <!-- 6. Memory (L3) -->
-
-xmesh runtime documentation
-
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 6\. Layer 3: Memory
 
@@ -1721,10 +1693,6 @@ The protocol defines the role-grant mechanism (Section 3.5.1) but does not presc
 
 <!-- 7. Frame Types -->
 
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
-
 ## 7\. Frame Types
 
 All frames are JSON objects with a `type` field (string). Implementations MUST silently ignore frames with unrecognised type values to allow forward compatibility.
@@ -1998,10 +1966,6 @@ No, if the node follows Section 7. The frame handler switches on msg.type. Unkno
 ---
 
 <!-- 8. CMBs (CAT7) -->
-
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
 
 ## 8\. Cognitive Memory Blocks (CAT7)
 
@@ -2430,10 +2394,6 @@ Mood has a well-established dimensional model (Russell’s circumplex). Other fi
 
 <!-- 9. Coupling & SVAF (L4) -->
 
-xmesh runtime documentation
-
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
-
 ## 9\. Layer 4: Coupling and SVAF Evaluation
 
 ### 9.1 Peer-Level Coupling (Drift)
@@ -2598,10 +2558,6 @@ Learn more   [SVAF: Per-Field Memory Evaluation](https://meshcognition.org/rese
 
 <!-- 10. State Blending -->
 
-xmesh runtime documentation
-
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
-
 ## 10\. State Blending
 
 State blending is one step in the Mesh Cognition cycle. The full path: inbound CMBs are evaluated by [SVAF](/spec/mmp/coupling) (Layer 4) → accepted CMBs are remixed → the agent’s LLM reasons on the remix subgraph via lineage ancestors → [Synthetic Memory](/spec/mmp/synthetic-memory) (Layer 5) encodes derived knowledge into CfC hidden state → the agent’s LNN (Layer 6) evolves cognitive state. That evolution — a node’s own LNN integrating its own admitted remixes — is what “state blending” names.
@@ -2746,10 +2702,6 @@ Next   [11\. Feedback Modulation](/spec/mmp/feedback) — how the mesh learns f
 ---
 
 <!-- 11. Feedback Modulation -->
-
-xmesh runtime documentation
-
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 11\. Feedback Modulation
 
@@ -2989,10 +2941,6 @@ Learn more   [Mesh Cognition](https://meshcognition.org) — the theoretical fo
 ---
 
 <!-- 12. Synthetic Memory (L5) -->
-
-xmesh runtime documentation
-
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 12\. Synthetic Memory (Layer 5)
 
@@ -3302,10 +3250,6 @@ Related   [State Blending](/spec/mmp/blending) — what happens after Synthetic
 ---
 
 <!-- 13. Cognitive State (L6) -->
-
-xmesh runtime documentation
-
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 13\. Cognitive State — Per-Agent LNN (Layer 6)
 
@@ -3725,10 +3669,6 @@ See also   [Mesh Cognition](https://meshcognition.org) — theoretical foundati
 ---
 
 <!-- 14. Application (L7) -->
-
-xmesh runtime documentation
-
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 14\. Application (Layer 7)
 
@@ -4348,10 +4288,6 @@ Related   [Mesh Cognition](https://meshcognition.org) · [Context Curation](/sp
 
 <!-- 15. Remix -->
 
-MMP Core + xmesh runtime
-
-This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
-
 ## 15\. Remix
 
 Remix is how collective intelligence emerges. Without remix, agents forward data. With remix, each agent processes incoming signals through its own domain lens and produces new understanding that didn’t exist before. The growing graph of remixed CMBs IS the collective intelligence — not the original observations, not the agents, not the mesh. The graph.
@@ -4569,10 +4505,6 @@ Related   [CMB (CAT7)](/spec/mmp/cmb) · [Coupling & SVAF](/spec/mmp/coupling) 
 
 <!-- 16. Extensions -->
 
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
-
 ## 16\. Extension Mechanism
 
 MMP is designed for extensibility. Extensions add new frame types, handshake fields, or protocol behaviours without modifying the core specification.
@@ -4628,10 +4560,6 @@ Q&A   Can an extension become a core frame type? — Yes. An extension that pro
 ---
 
 <!-- 17. Conformance -->
-
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
 
 ## 17\. Conformance
 
@@ -4779,10 +4707,6 @@ Q&A   What’s the smallest thing I can build to join a mesh? — A Class 1 Emi
 ---
 
 <!-- 18. Security -->
-
-MMP Core + xmesh runtime
-
-This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
 
 ## 18\. Security Considerations
 
@@ -5053,10 +4977,6 @@ Implementations targeting domains where field extraction quality is critical (he
 ---
 
 <!-- 19. Configuration -->
-
-xmesh runtime documentation
-
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 19\. Configuration
 
@@ -5480,10 +5400,6 @@ Temporal drift contribution
 
 <!-- 20. JSON Schema -->
 
-MMP Core · frozen wire contract
-
-This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
-
 ## 20\. JSON Schema
 
 Formal JSON Schema definitions for core frame types — the schemas are the contract, and any implementation (the reference included) conforms to them. Implementations SHOULD validate frames against these schemas. `additionalProperties` is `true` by design: §8 requires unrecognised fields to be silently ignored, so a schema SHOULD not reject a forward-compatible extension. The single-page [downloadable specification](/spec/mmp-v1.0.md) carries the full rendered spec. Machine-readable schema files are [published in the protocol repository](https://github.com/sym-bot/mesh-memory-protocol/tree/main/schema) — handshake, CMB (including the §15.8 tether attestation), the cmb frame, and the cmb-fetch pair — and the reference implementation’s suite validates its real wire objects against them, so it cannot drift from this contract. Schemas for the remaining frame types are tracked as a standards-program deliverable.
@@ -5601,10 +5517,6 @@ This example shows the legacy unsigned form (`cmb-` key, no `sig`); §8.2.1 and 
 ---
 
 <!-- 21. References -->
-
-MMP Core + xmesh runtime
-
-This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
 
 ## 21\. References
 

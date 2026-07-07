@@ -170,7 +170,7 @@ The problem is semantic, not transport. <strong>Hidden state never crosses the w
       a closed loop where agents reason on the growing remix graph of immutable Cognitive Memory Blocks.
 </p> <p class="mt-4">
 This specification is <strong>verified, not merely asserted</strong>: its normative claims are
-      re-derived against a mathematical formalization of the deployed Mesh Edge mechanism, and where
+      re-derived against a mathematical formalization of the deployed xmesh runtime, and where
       analysis finds a requirement unsatisfiable or a guarantee conditional &mdash; the basis of the
       redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade &mdash;
       the text is amended and the limit disclosed in place rather than left implicit (see the
@@ -201,7 +201,7 @@ Feedback and errata: <a href="mailto:spec@meshcognition.org" class="text-purple-
       cognition in reality &mdash; &sect;6.7 outcomes carried by lineage, the &sect;6.3 Canon tier,
       &sect;14.12 work sessions as mesh members, plus the folded-in full-corpus coherence errata. The
       2026-07-07 update folds in the <strong>soundness &amp; completeness amendments from the formalization
-      of the Mesh Edge mechanism</strong>: &sect;9.2.1 redundancy invariants pinned to the nearest-anchor
+      of the xmesh runtime</strong>: &sect;9.2.1 redundancy invariants pinned to the nearest-anchor
       basis, the &sect;9.2 evaluation-time-dependence disclosure, the cold-start-capture threat row,
       &sect;6.7 repeat verification and the load-bearing failure channel, and the &sect;15.8 lineage tether.
       Wire-compatible with 1.0.x.
@@ -226,7 +226,7 @@ Complete version history of this specification. The versioning policy is stated 
 <a href="/spec/mmp#status" class="text-purple-400 hover:text-purple-300 transition-colors">Status of This Document</a>:
       major = wire-incompatible, minor = backward-compatible normative additions, patch = errata and
       informative additions. Current version: 1.1.0.
-</p> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Version</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Date</th><th class="text-left font-mono text-xs text-white/40 pb-2">Changes</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.1.0</td><td class="py-2 pr-4">2026-07-05<br><span class="text-white/30 text-xs">upd. 2026-07-07</span></td><td class="py-2"> <strong>Soundness &amp; completeness update (2026-07-07), from the formalization of the Mesh Edge
+</p> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Version</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Date</th><th class="text-left font-mono text-xs text-white/40 pb-2">Changes</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.1.0</td><td class="py-2 pr-4">2026-07-05<br><span class="text-white/30 text-xs">upd. 2026-07-07</span></td><td class="py-2"> <strong>Soundness &amp; completeness update (2026-07-07), from the formalization of the xmesh
             mechanism.</strong> The mesh-cognition formalization re-derived this specification&rsquo;s claims and
             the amendments are folded into 1.1.0 in place: &sect;9.2.1 pins the <strong>redundancy invariants to the
             nearest-anchor basis</strong> (&delta;<sub>f</sub><sup>near</sup> = 1 &minus; max<sub>a</sub> cos &mdash;
@@ -713,7 +713,7 @@ The full design rationale, the prefix-based group claims relay enhancement, and 
 </p> <div class="bg-white/[0.03] border border-white/[0.06] border-l-2 border-l-purple-400/50 rounded-lg p-4 mb-6"> <p class="font-mono text-xs tracking-wider uppercase text-purple-400 mb-2">§5.9&ndash;5.11 &mdash; Informative</p> <p class="text-sm text-white/60">
 Sections 5.9&ndash;5.11 describe an <span class="text-white/90">informative design pattern</span> for composing meshes &mdash; not a
         normative wire. The single-mesh protocol (§1&ndash;§5.8, §6&ndash;§20) is complete and unaffected without
-        it. There is <span class="text-white/90">one reference implementation</span> (a mesh-edge prototype) and it realizes only a subset of
+        it. There is <span class="text-white/90">one reference implementation</span> (an xmesh gateway prototype) and it realizes only a subset of
         the pattern (see &ldquo;Reference implementation&rdquo; below); the core runtime is single-group. Adopt
         this as a topology pattern with a stated production-security bar, not as a shipped protocol feature.
 </p> </div> <h3 class="font-display text-base text-white/90 mb-3" id="multi-group-membership">5.9 Interior and Boundary (the composition idea)</h3> <p class="mb-4">
@@ -765,7 +765,7 @@ Federation crosses <span class="text-white/90">organizational trust boundaries</
         token. A boundary that accepts unsigned projections, trusts a self-declared origin, or authenticates with
         an admin credential is <span class="text-white/90">not safe for cross-org use</span>.
 </p> </div> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4"> <p class="font-mono text-xs tracking-wider uppercase text-white/40 mb-2">Reference implementation (prototype)</p> <p class="text-sm text-white/60">
-The mesh-edge reference gateway realizes a <span class="text-white/90">subset</span>: it computes a lossy summary of its
+The xmesh reference gateway realizes a <span class="text-white/90">subset</span>: it computes a lossy summary of its
         interior&rsquo;s cognition and HTTP-POSTs it to configured peers, which ingest it opaquely. It does
 <span class="text-white/90">not yet</span> admit inbound projections through SVAF, reproject them inward, sign or attest its
         projection, or echo-dedup; its projection is a summary object, not yet a schema-valid CAT7 CMB; and it
@@ -1921,7 +1921,7 @@ This bound follows from sovereignty (a node&rsquo;s store never crosses the wire
         and sources it derives from; the synthesis <span class="text-red-400 font-mono text-xs">MUST NOT</span> assert beyond its cited contributions.</li> <li><span class="text-white/90">I-Ask-5 (Crystallisation with lineage).</span> The synthesis <span class="text-red-400 font-mono text-xs">MUST</span> be written back as an
         immutable <code class="text-purple-300/80">type: &quot;synthesis&quot;</code> CMB whose parents are
         the question key plus every citation.</li> </ul> <div class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4 mb-6"> <p class="text-sm text-white/50 mb-0"> <span class="text-purple-400 font-mono text-xs">Status</span> &nbsp;
-        The Ask path is deployed (Mesh Edge) and is the mechanism by which collective intelligence is
+        The Ask path is deployed (xmesh) and is the mechanism by which collective intelligence is
         realised and queried in the reference implementation. The linear-Gaussian convergence and
         identification results that characterise what a sovereign mesh can recover are proven in Mesh
         Inference (arXiv:2606.19537). The generation step within synthesis &mdash; whether a composed answer

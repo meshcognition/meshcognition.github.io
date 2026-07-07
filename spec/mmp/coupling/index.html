@@ -216,10 +216,23 @@ The SVAF evaluation computes per-field drift between the incoming CMB and local 
 fieldDrift    = Σ(α_f × δ_f) / Σ(α_f)
 temporalDrift = 1 - exp(-age / τ_freshness)
 
-κ = redundant if max(δ_f) &lt; T_redundant  (default 0.10)
+κ = redundant if max(δ_f_near) &lt; T_redundant  (default 0.10)   // nearest-anchor basis, §9.2.1
 κ = aligned   if totalDrift ≤ T_aligned    (default 0.25)
 κ = guarded   if totalDrift ≤ T_guarded    (default 0.50)
-κ = rejected  otherwise</pre> </div> <h3 class="font-display text-base text-white/90 mb-3">9.2.1 Per-Field Drift &delta;<sub>f</sub> (Admission Interface)</h3> <p class="mb-4 text-sm">
+κ = rejected  otherwise</pre> </div> <p class="mb-4 text-sm"> <span class="text-white/90">Admission is evaluation-time-dependent by design.</span>
+Because <code class="text-purple-300/80">totalDrift</code> blends content drift with
+<code class="text-purple-300/80">temporalDrift</code>, the same CMB can admit when evaluated fresh and
+      reject when evaluated late: any block whose aggregated field drift D lies in
+<code class="text-purple-300/80">( (T<sub>guarded</sub> &minus; &lambda;) / (1 &minus; &lambda;),&nbsp;
+      T<sub>guarded</sub> / (1 &minus; &lambda;) )</code> &mdash; at the defaults
+      (&lambda; = 0.3, T<sub>guarded</sub> = 0.5), D &isin; (0.286, 0.714) &mdash; crosses the
+      guarded boundary as its age term saturates. Below that window a block admits at every age; above it,
+      it rejects even fresh. This is a consequence of the blend, disclosed rather than incidental:
+      freshness is part of relevance, so a receiver&rsquo;s verdict on stale traffic legitimately differs
+      from its verdict on live traffic. Implementations and operators <span class="text-red-400 font-mono text-xs">MUST NOT</span> assume admission is
+      reproducible across evaluation times; reproducibility holds only at fixed age (see the determinism
+      &amp; test-vectors note below).
+</p> <h3 class="font-display text-base text-white/90 mb-3">9.2.1 Per-Field Drift &delta;<sub>f</sub> (Admission Interface)</h3> <p class="mb-4 text-sm">
 &delta;<sub>f</sub> &isin; [0,1] is the per-field admission drift computed for each CAT7 field of an
       incoming CMB. This specification defines &delta;<sub>f</sub> as an <span class="text-white/90">interface</span> &mdash; its inputs,
       range, and required invariants &mdash; and does not prescribe the internal computation. An implementation
@@ -229,15 +242,37 @@ temporalDrift = 1 - exp(-age / τ_freshness)
       represented in memory (no information gain); 1 means maximally novel or foreign relative to memory.
 </p> <p class="mb-2 text-sm">A conformant &delta;<sub>f</sub> <span class="text-red-400 font-mono text-xs">MUST</span> satisfy:</p> <ol class="list-decimal list-inside space-y-2 mb-4 text-sm text-white/60"> <li><span class="text-white/90">Anchors-only baseline.</span> &delta;<sub>f</sub> is evaluated against the receiver&rsquo;s prior
         anchors A <em>only</em>; the incoming block <span class="text-red-400 font-mono text-xs">MUST NOT</span> be part of its own comparison baseline
-        (including it collapses &delta;<sub>f</sub> &rarr; 0 and admits nothing).</li> <li><span class="text-white/90">Redundancy limit.</span> If x<sub>f</sub> is (near&#8209;)identical to some anchor in A,
-        &delta;<sub>f</sub> &rarr; 0 &mdash; feeding the
-<code class="text-purple-300/80">max(&delta;<sub>f</sub>) &lt; T<sub>redundant</sub></code> gate.</li> <li><span class="text-white/90">Monotonicity.</span> &delta;<sub>f</sub> is non-increasing as x<sub>f</sub>&rsquo;s similarity to its
-        nearest relevant anchor increases.</li> <li><span class="text-white/90">Cold-start / non-evaluable fields.</span> If A holds no anchor carrying field f, &delta;<sub>f</sub>
+        (including it collapses &delta;<sub>f</sub> &rarr; 0 and admits nothing).</li> <li><span class="text-white/90">Redundancy limit (nearest-anchor basis).</span> The <em>redundancy</em>
+decision <span class="text-red-400 font-mono text-xs">MUST</span> be computed from the nearest-anchor similarity,
+<code class="text-purple-300/80">&delta;<sub>f</sub><sup>near</sup> = 1 &minus; max<sub>a</sub> cos(x<sub>f</sub>, v<sub>a,f</sub>)</code>:
+        if x<sub>f</sub> is (near&#8209;)identical to some anchor in A, &delta;<sub>f</sub><sup>near</sup> &rarr; 0
+        by construction &mdash; feeding the
+<code class="text-purple-300/80">max(&delta;<sub>f</sub><sup>near</sup>) &lt; T<sub>redundant</sub></code> gate.
+        Stated of the graded &delta;<sub>f</sub> itself, this invariant is <span class="text-white/90">unsatisfiable</span> by the
+        attention-weighted reference baseline below &mdash; with a store holding exactly the anchor
+<code class="text-purple-300/80">(1,0)</code> plus two anchors <code class="text-purple-300/80">(0.6, 0.8)</code>,
+        the block <code class="text-purple-300/80">x = (1,0)</code> is <em>identical</em> to a stored anchor yet the
+        fused readout scores &delta; = 0.127 &mdash; which is why the invariant is pinned to the basis that
+        satisfies it.</li> <li><span class="text-white/90">Monotonicity (nearest-anchor basis).</span> &delta;<sub>f</sub><sup>near</sup> is
+        non-increasing in <code class="text-purple-300/80">max<sub>a</sub> cos(x<sub>f</sub>, v<sub>a,f</sub>)</code>
+(immediate), and non-increasing under store growth (A &sube; A&prime; implies
+        &delta;<sub>f</sub><sup>near</sup> over A&prime; &le; &delta;<sub>f</sub><sup>near</sup> over A) &mdash;
+        novelty never increases as memory grows. The form &ldquo;&delta;<sub>f</sub> non-increasing in
+        similarity to the nearest relevant anchor&rdquo; is ill-posed for the fused readout &mdash;
+        &delta;<sub>f</sub> is not a function of nearest-anchor similarity alone &mdash; and even its dominance
+        reading (x&prime; at least as similar to <em>every</em> anchor) is violated by the reference baseline on
+        &asymp;0.5% of random configurations, so no monotonicity requirement is placed on the graded score.</li> <li><span class="text-white/90">Cold-start / non-evaluable fields.</span> If A holds no anchor carrying field f, &delta;<sub>f</sub>
 is undefined and that field <span class="text-red-400 font-mono text-xs">MUST</span> be excluded from the
 <code class="text-purple-300/80">fieldDrift</code> aggregation and the redundancy
 <code class="text-purple-300/80">max</code> &mdash; <em>not</em> treated as maximally novel. If no
         field is evaluable (empty memory), the CMB <span class="text-red-400 font-mono text-xs">MUST</span> be admitted (&kappa; = aligned) to bootstrap,
-        consistent with cold-start convergence (&sect;9.1).</li> </ol> <p class="mb-4 text-sm">
+        consistent with cold-start convergence (&sect;9.1).
+<span class="text-white/90">Security consequence, disclosed:</span> bootstrap-admit is the price of avoiding cold-start
+        starvation &mdash; during the window before a node forms anchors, its membrane admits
+<em>everything</em>, so the content-trim influence bound of &sect;16 does not cover a fresh node,
+        and the first anchors seed every later admission decision. Operators <span class="text-yellow-400 font-mono text-xs">SHOULD</span> seed new nodes
+        with trusted anchors before exposing them to open traffic; see the cold-start-capture row of the
+        &sect;16 threat table.</li> </ol> <p class="mb-4 text-sm">
 These invariants make admission well-defined and rule out two failure modes: <em>self-referential
       collapse</em> (the incoming block in its own baseline &rArr; every field redundant) and
 <em>cold-start starvation</em> (empty memory &rArr; every field scored foreign &rArr; the CMB
@@ -247,9 +282,10 @@ These invariants make admission well-defined and rule out two failure modes: <em
       &ldquo;cosine-distance SVAF&rdquo; (Section 9.2) names: an <span class="text-white/90">attention-weighted read of memory</span>, then
       cosine distance to it. For each field f the incoming CMB carries a vector x<sub>f</sub>, and each anchor
       a &isin; A that carries f with a matching-dimension vector v<sub>a,f</sub>:
-</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-3 font-mono text-xs text-purple-300 overflow-x-auto"><pre>w(a,f)  = &alpha;_f &middot; max(cos(x_f, v_a,f), 0) &middot; exp(&minus;age_a / &tau;) &middot; conf_a
-fused_f = normalize( &Sigma;_a  w(a,f) &middot; v_a,f )         // attention-weighted memory readout (anchors only)
-&delta;_f     = 1 &minus; cos(fused_f, x_f)                     // cosine distance to the readout</pre></div> <ul class="space-y-1 text-sm text-white/60 mb-4 list-none pl-0"> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><code class="text-purple-300/80">age_a</code> is the anchor&rsquo;s age (seconds since stored); <code class="text-purple-300/80">conf_a</code> its confidence; <code class="text-purple-300/80">&alpha;_f</code> the field weight (§9.2). The <code class="text-purple-300/80">max(cos,0)</code> clamp stops opposing anchors from subtracting. The readout uses <span class="text-white/90">prior anchors only</span>; if <code class="text-purple-300/80">&Sigma;_a w(a,f)</code> is ~0, no anchor carries f and &delta;<sub>f</sub> is non-evaluable (excluded, per the invariants). &delta;<sub>f</sub>, the &alpha;-weighted aggregate, and the band-pass then follow §9.2.</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><span class="text-white/90">Determinism &amp; test vectors.</span> Given fixed field vectors (carrying <em>no text</em>, so nothing is re-encoded), the encoder and adaptive timescale off, and pinned &tau;, signal age, and each anchor&rsquo;s stored-time + confidence, the baseline produces a deterministic &delta;<sub>f</sub>, <code class="text-purple-300/80">totalDrift</code>, and &kappa;. A conformance test vector fixes these and asserts the exact values &mdash; it tests the <em>math</em>, not the encoder &mdash; so the baseline is reproducible across implementations even though <span class="text-white/90">live admission is receiver-divergent by design</span> (different encoders, different &alpha;<sub>f</sub>).</li> </ul> <p class="mb-4 text-sm">
+</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-3 font-mono text-xs text-purple-300 overflow-x-auto"><pre>w(a,f)      = &alpha;_f &middot; max(cos(x_f, v_a,f), 0) &middot; exp(&minus;age_a / &tau;) &middot; conf_a
+fused_f     = normalize( &Sigma;_a  w(a,f) &middot; v_a,f )     // attention-weighted memory readout (anchors only)
+&delta;_f         = 1 &minus; cos(fused_f, x_f)                 // graded score: drives aligned/guarded/rejected
+&delta;_f_near    = 1 &minus; max_a cos(x_f, v_a,f)            // nearest-anchor basis: drives the redundancy gate</pre></div> <ul class="space-y-1 text-sm text-white/60 mb-4 list-none pl-0"> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><code class="text-purple-300/80">age_a</code> is the anchor&rsquo;s age (seconds since stored); <code class="text-purple-300/80">conf_a</code> its confidence; <code class="text-purple-300/80">&alpha;_f</code> the field weight (§9.2). The <code class="text-purple-300/80">max(cos,0)</code> clamp stops opposing anchors from subtracting. The readout uses <span class="text-white/90">prior anchors only</span>; if <code class="text-purple-300/80">&Sigma;_a w(a,f)</code> is ~0, no anchor carries f and &delta;<sub>f</sub> is non-evaluable (excluded, per the invariants). &delta;<sub>f</sub>, the &alpha;-weighted aggregate, and the band-pass then follow §9.2.</li> <li class="pl-4 relative"><span class="absolute left-0 text-purple-400/60">&mdash;</span><span class="text-white/90">Determinism &amp; test vectors.</span> Given fixed field vectors (carrying <em>no text</em>, so nothing is re-encoded), the encoder and adaptive timescale off, and pinned &tau;, signal age, and each anchor&rsquo;s stored-time + confidence, the baseline produces a deterministic &delta;<sub>f</sub>, <code class="text-purple-300/80">totalDrift</code>, and &kappa;. A conformance test vector fixes these and asserts the exact values &mdash; it tests the <em>math</em>, not the encoder &mdash; so the baseline is reproducible across implementations even though <span class="text-white/90">live admission is receiver-divergent by design</span> (different encoders, different &alpha;<sub>f</sub>).</li> </ul> <p class="mb-4 text-sm">
 The <span class="text-white/90">redundancy test</span> is the key addition: a signal is redundant if <em>every</em> field
       falls below T<sub>redundant</sub> &mdash; meaning no field carries novel content relative to local
       anchors. If any field is novel (e.g., same topic but different intent), the signal passes.

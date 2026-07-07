@@ -2,7 +2,7 @@
 
 > A Mesh Protocol for Collective Intelligence
 >
-> **Version:** 1.1.0  ·  **Published:** 27 March 2026  ·  **Last updated:** 5 July 2026  ·  **Editor:** Hongwei Xu  ·  **License:** CC BY 4.0
+> **Version:** 1.1.0  ·  **Published:** 27 March 2026  ·  **Last updated:** 7 July 2026  ·  **Editor:** Hongwei Xu  ·  **License:** CC BY 4.0
 >
 > **Canonical:** https://meshcognition.org/spec/mmp  ·  **arXiv:** https://arxiv.org/abs/2604.19540
 
@@ -62,7 +62,7 @@ Published
 
 Last updated
 
-5 July 2026
+7 July 2026
 
 Author
 
@@ -84,9 +84,11 @@ CC BY 4.0 (specification text); Apache 2.0 (reference implementations)
 
 Multi-agent LLM systems in production coordinate cognitive work on shared tasks spanning hours, days, and weeks — generator/quality/auditor pipelines running for days; research investigations spanning weeks across session restarts; a coding agent, a music agent, and a fitness agent serving the same user where no single agent connects “commits slowing” + “tracks skipped” + “3 hours without movement” into “the user is fatigued.” That insight requires structured collective intelligence — and the semantic-integration layer of agent communication is, today, unaddressed.
 
-Existing protocols at lower layers standardize tool access and task delegation between agents. What each receiver does with incoming observations from a peer — per-field admission, signal-level lineage, filtering at acceptance time — is the missing layer. The Mesh Memory Protocol specifies that layer through four composable primitives: **CAT7**, a fixed seven-field schema for every Cognitive Memory Block; **[SVAF](/spec/mmp/coupling)**, per-field admission against the receiver’s role-indexed anchors; **content-hash lineage**, so every claim is traceable to its source observation; and **remix**, where receivers store only their own evaluated understanding of accepted blocks, never raw peer signals.
+Existing protocols at lower layers standardize tool access and task delegation between agents. What each receiver does with incoming observations from a peer — per-field admission, signal-level lineage, filtering at acceptance time — is the missing layer. The Mesh Memory Protocol specifies that layer through five composable primitives: **CAT7**, a fixed seven-field schema for every Cognitive Memory Block; **[SVAF](/spec/mmp/coupling)**, per-field admission against the receiver’s role-indexed anchors; **content-hash lineage**, so every claim is traceable to its source observation; **remix**, where receivers store only their own evaluated understanding of accepted blocks, never raw peer signals; and **[grounding](/spec/mmp/memory#grounding)**, real-world outcomes carried by lineage — so the mesh records not only what its members _believe_ but what _held up in practice_, and the cognition that survives both judgment and reality persists as the Canon.
 
 The problem is semantic, not transport. **Hidden state never crosses the wire** — each agent’s learned cognition stays sovereign on its own device; only Cognitive Memory Blocks (CMBs) propagate. Receiver-autonomous admission lets the mesh grow without re-introducing a master — same reason TCP/IP beat circuit-switching. MMP defines transport over TCP on local networks and WebSocket for internet relay, with length-prefixed JSON as the canonical wire format. Discovery uses DNS-SD (Bonjour) with zero configuration. The protocol is specified across 8 layers — from identity and transport (Layers 0–3), through cognitive coupling via SVAF (Layer 4), to synthetic memory and per-agent neural networks (Layers 5–7). Together, the upper layers form [Mesh Cognition](/spec/mmp/architecture): a closed loop where agents reason on the growing remix graph of immutable Cognitive Memory Blocks.
+
+This specification is **verified, not merely asserted**: its normative claims are re-derived against a mathematical formalization of the deployed Mesh Edge mechanism, and where analysis finds a requirement unsatisfiable or a guarantee conditional — the basis of the redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade — the text is amended and the limit disclosed in place rather than left implicit (see the [change log](/spec/mmp/changelog)’s soundness & completeness update). What the protocol promises is what survives derivation.
 
 ## Status of This Document
 
@@ -132,7 +134,7 @@ Coupling kernel only. Layer 4 (per-field admission) and Layer 6 (Cognitive State
 
 ## Change Log
 
-**Latest — 1.1.0 “The Work Layer” (2026-07-05):** grounding cognition in reality — §6.7 outcomes carried by lineage, the §6.3 Canon tier, §14.12 work sessions as mesh members, plus the folded-in full-corpus coherence errata. Wire-compatible with 1.0.x.
+**Latest — 1.1.0 “The Work Layer” (2026-07-05, updated 2026-07-07):** grounding cognition in reality — §6.7 outcomes carried by lineage, the §6.3 Canon tier, §14.12 work sessions as mesh members, plus the folded-in full-corpus coherence errata. The 2026-07-07 update folds in the **soundness & completeness amendments from the formalization of the Mesh Edge mechanism**: §9.2.1 redundancy invariants pinned to the nearest-anchor basis, the §9.2 evaluation-time-dependence disclosure, the cold-start-capture threat row, §6.7 repeat verification and the load-bearing failure channel, and the §15.8 lineage tether. Wire-compatible with 1.0.x.
 
 [Full change log — every release since 0.1 →](/spec/mmp/changelog)
 
@@ -164,8 +166,11 @@ Changes
 
 1.1.0
 
-2026-07-05
+2026-07-05  
+upd. 2026-07-07
 
+**Soundness & completeness update (2026-07-07), from the formalization of the Mesh Edge mechanism.** The mesh-cognition formalization re-derived this specification’s claims and the amendments are folded into 1.1.0 in place: §9.2.1 pins the **redundancy invariants to the nearest-anchor basis** (δfnear = 1 − maxa cos — the fused attention readout provably cannot satisfy them: a block identical to a stored anchor can score δ = 0.127 once other anchors pull the readout); §9.2 discloses that **admission is evaluation-time-dependent** with the derived flip window (aggregated field drift in (0.286, 0.714) at defaults admits fresh, rejects late); §9.2.1’s cold-start bootstrap-admit now discloses its **security consequence** (new §18.4 cold-start-capture threat row); §6.7 adds **repeat verification** (a recognised grounding is never refused _solely_ for redundancy — the redundancy band provably self-quenches the outcome stream otherwise), the **failure channel is load-bearing** clause (positive-only grounding provably locks onto stale favourites; observed failures must not be selectively suppressed), and an informative note on consuming the outcome stream (decay-half-life theory); §15.8 specifies the **lineage tether** — the root-anchored drift bound that closes grounding-inheritance laundering (specified; not yet implemented); §18.3.1 disclosed the **enforcement scope** of strict signature mode. Wire-compatible throughout: no new frames, no new fields.  
+  
 **The Work Layer — grounding cognition in reality.** Through 1.0.x, the mesh could observe, admit, remix, and validate — it could establish what its members _believe_. 1.1.0 adds the missing half: a way to record what _held up in practice_, and to make the cognition that survives both judgment and reality the durable substrate real work builds on. Everything below is normative as of this release; new sections are marked “New in 1.1.0” in place.  
   
 [**§6.7 Grounding**](/spec/mmp/memory#grounding) — outcomes carried by lineage. A grounding CMB (`intent: "ground"`, commitment `verified:` / `failed:`, parents = the cognition it grounds) records a real-world result — tests passed, work shipped, a prediction resolved — as the evidence-based sibling of §6.4’s judgment-based validation. An outcome is an **attestation, never a fact**: its weight follows the author’s earned authority (§6.5–§6.6), groundedness is **receiver-relative** (only attestations a node’s own SVAF admitted count), conflicting observations resolve **latest-wins on receiver-local time** (a regression un-grounds; a backdated timestamp cannot game the ordering), and a grounding CMB **never advances lifecycle by itself** — elevation to the Canon is an explicit, accountable act under validator-or-above authority.  
@@ -1634,6 +1639,12 @@ Validation (§6.4–§6.5) records _judgment_ — someone with authority committ
 
 The grounding CMB. A grounding CMB is an ordinary CAT7 CMB whose `intent` is `ground`, whose `lineage.parents` contains the CMB(s) it grounds, and whose `commitment` carries the outcome, prefixed `verified:` or `failed:`. Any other commitment form is not a recognised outcome. It is emitted, signed (§8.7, §18.3.1), broadcast, SVAF-evaluated, and remixed like any other CMB — no new frame, no new field. A receiver that verifies signatures MUST reject an unsigned grounding CMB like any other unsigned CMB.
 
+Repeat verification and the redundancy band. A verification report about a row the receiver already holds typically scores high alignment against exactly that row, so under an unmodified §9.2 gate, the better established a row, the harder it becomes to ground or re-ground it — repeat verifications are progressively refused as redundant, and the accepted-grounding stream of any one row self-quenches (a packing bound: only finitely many reports can each clear the redundancy separation, ever, absent retention purges). Sustained outcome tracking is load-bearing for the mesh being a learner rather than an accumulator, so acceptance of a grounding is exempted from exactly one band: a receiver MUST NOT refuse a recognised grounding CMB (signed, verified, `intent = ground`, recognised outcome prefix, lineage naming a target the receiver holds) _solely_ because it is redundant against its target row or against previously admitted groundings of that target. The reject band (foreign content), the signature requirement, and the receiver’s trust weighing all stand unmodified. This is an _acceptance-side_ rule and does not weaken the §15.7 anti-echo emission gate (§15.7.2: what legitimises a grounding emission is the fresh outcome observation behind it); spam through the waiver is bounded by the content address itself — a byte-identical repeat confirmation carries the same `cmb1-` key and deduplicates, so only _distinct_ verification reports pass, and implementations MAY additionally rate-cap accepted groundings per (target, author) pair.
+
+The failure channel is load-bearing. The signed outcome pair is not symmetric decoration: analysis and simulation of the reinforcement loop show that when recall preferentially re-uses highly-weighted rows, the `failed:` channel is the mechanism that makes preferential sampling self-correcting — a stale favourite’s absorbed grounding traffic drives its weight _down_ — while a positive-only mesh locks onto early favourites at chance-level precision. An agent that observes a failure outcome MUST NOT suppress it while continuing to emit success outcomes for the same class of work; selective success-only grounding defeats the self-correction the outcome channel exists to provide. (Informative: the self-correction additionally requires outcome reports to be better than chance — miscalibrated reporting that is wrong more often than right converts the same coupling into entrenchment.)
+
+Consuming the outcome stream (informative). A consumer that scores rows by their accepted groundings faces a bias–variance choice with a known theory. Pure accumulation (all-time counts) is the efficient estimator only while the useful set is stationary; under drift its staleness bias makes its ranking degrade toward chance. A recency-decayed signed sum tracks drift with bounded risk; its half-life trades noise against lag, with the optimum scaling as `(V / (4μ²δ²))^(1/3)` in the drift rate δ — a fixed half-life therefore pays a longer dominance horizon (Θ(δ−1) instead of Θ(δ−2/3)), and the tuned horizon is recoverable online by estimating drift with a growing-window slope probe (a fixed pair of probe timescales degenerates back to the fixed-half-life exponent; the growing-window form recovers the tuned one even on sparse signed ±1 outcome streams). Decayed sums should be mass-normalised (one extra scalar) — the raw zero-initialised form carries an initialization transient that delays its advantage by a log factor. Zero-clamping per-node sums before cross-node aggregation discards the negative evidence the failure channel carries; consumers that clamp should know the self-correction analysis above assumes the signed form.
+
 An outcome is an attestation, not a fact. The grounding CMB asserts that its _author_ observed the outcome. Its weight follows the author’s resolved authority (§6.5–§6.6) exactly as any other CMB’s does; the reserved intent value adds semantics, never authority.
 
 Groundedness is receiver-relative. A CMB is _grounded_, in the view of a given node, iff a recognised grounding CMB targeting it (directly, or via the node’s admitted remix of one whose expanded ancestors reach it, §15.2) is present in that node’s own store. There is no global grounded state; a node MUST NOT treat cognition as grounded on the strength of a grounding entry it never admitted. Grounding runs upward only — a grounding CMB grounds the CMBs its lineage points at, never descendants of those CMBs: a remix of verified cognition is not itself verified.
@@ -2423,11 +2434,13 @@ totalDrift = (1 - λ) × fieldDrift + λ × temporalDrift
 fieldDrift    = Σ(α_f × δ_f) / Σ(α_f)
 temporalDrift = 1 - exp(-age / τ_freshness)
 
-κ = redundant if max(δ_f) < T_redundant  (default 0.10)
+κ = redundant if max(δ_f_near) < T_redundant  (default 0.10)   // nearest-anchor basis, §9.2.1
 κ = aligned   if totalDrift ≤ T_aligned    (default 0.25)
 κ = guarded   if totalDrift ≤ T_guarded    (default 0.50)
 κ = rejected  otherwise
 ```
+
+Admission is evaluation-time-dependent by design. Because `totalDrift` blends content drift with `temporalDrift`, the same CMB can admit when evaluated fresh and reject when evaluated late: any block whose aggregated field drift D lies in `( (Tguarded − λ) / (1 − λ),  Tguarded / (1 − λ) )` — at the defaults (λ = 0.3, Tguarded = 0.5), D ∈ (0.286, 0.714) — crosses the guarded boundary as its age term saturates. Below that window a block admits at every age; above it, it rejects even fresh. This is a consequence of the blend, disclosed rather than incidental: freshness is part of relevance, so a receiver’s verdict on stale traffic legitimately differs from its verdict on live traffic. Implementations and operators MUST NOT assume admission is reproducible across evaluation times; reproducibility holds only at fixed age (see the determinism & test-vectors note below).
 
 ### 9.2.1 Per-Field Drift δf (Admission Interface)
 
@@ -2438,18 +2451,19 @@ Inputs: the incoming field vector xf and the receiver’s local anchor set A (it
 A conformant δf MUST satisfy:
 
 1.  Anchors-only baseline. δf is evaluated against the receiver’s prior anchors A _only_; the incoming block MUST NOT be part of its own comparison baseline (including it collapses δf → 0 and admits nothing).
-2.  Redundancy limit. If xf is (near‑)identical to some anchor in A, δf → 0 — feeding the `max(δf) < Tredundant` gate.
-3.  Monotonicity. δf is non-increasing as xf’s similarity to its nearest relevant anchor increases.
-4.  Cold-start / non-evaluable fields. If A holds no anchor carrying field f, δf is undefined and that field MUST be excluded from the `fieldDrift` aggregation and the redundancy `max` — _not_ treated as maximally novel. If no field is evaluable (empty memory), the CMB MUST be admitted (κ = aligned) to bootstrap, consistent with cold-start convergence (§9.1).
+2.  Redundancy limit (nearest-anchor basis). The _redundancy_ decision MUST be computed from the nearest-anchor similarity, `δfnear = 1 − maxa cos(xf, va,f)`: if xf is (near‑)identical to some anchor in A, δfnear → 0 by construction — feeding the `max(δfnear) < Tredundant` gate. Stated of the graded δf itself, this invariant is unsatisfiable by the attention-weighted reference baseline below — with a store holding exactly the anchor `(1,0)` plus two anchors `(0.6, 0.8)`, the block `x = (1,0)` is _identical_ to a stored anchor yet the fused readout scores δ = 0.127 — which is why the invariant is pinned to the basis that satisfies it.
+3.  Monotonicity (nearest-anchor basis). δfnear is non-increasing in `maxa cos(xf, va,f)` (immediate), and non-increasing under store growth (A ⊆ A′ implies δfnear over A′ ≤ δfnear over A) — novelty never increases as memory grows. The form “δf non-increasing in similarity to the nearest relevant anchor” is ill-posed for the fused readout — δf is not a function of nearest-anchor similarity alone — and even its dominance reading (x′ at least as similar to _every_ anchor) is violated by the reference baseline on ≈0.5% of random configurations, so no monotonicity requirement is placed on the graded score.
+4.  Cold-start / non-evaluable fields. If A holds no anchor carrying field f, δf is undefined and that field MUST be excluded from the `fieldDrift` aggregation and the redundancy `max` — _not_ treated as maximally novel. If no field is evaluable (empty memory), the CMB MUST be admitted (κ = aligned) to bootstrap, consistent with cold-start convergence (§9.1). Security consequence, disclosed: bootstrap-admit is the price of avoiding cold-start starvation — during the window before a node forms anchors, its membrane admits _everything_, so the content-trim influence bound of §16 does not cover a fresh node, and the first anchors seed every later admission decision. Operators SHOULD seed new nodes with trusted anchors before exposing them to open traffic; see the cold-start-capture row of the §16 threat table.
 
 These invariants make admission well-defined and rule out two failure modes: _self-referential collapse_ (the incoming block in its own baseline ⇒ every field redundant) and _cold-start starvation_ (empty memory ⇒ every field scored foreign ⇒ the CMB rejected). The concrete δf computation is implementation-defined, but this specification pins one — the reference baseline below — as the interoperable default.
 
 The reference baseline (cosine-distance δf). This is the concrete computation “cosine-distance SVAF” (Section 9.2) names: an attention-weighted read of memory, then cosine distance to it. For each field f the incoming CMB carries a vector xf, and each anchor a ∈ A that carries f with a matching-dimension vector va,f:
 
 ```
-w(a,f)  = α_f · max(cos(x_f, v_a,f), 0) · exp(−age_a / τ) · conf_a
-fused_f = normalize( Σ_a  w(a,f) · v_a,f )         // attention-weighted memory readout (anchors only)
-δ_f     = 1 − cos(fused_f, x_f)                     // cosine distance to the readout
+w(a,f)      = α_f · max(cos(x_f, v_a,f), 0) · exp(−age_a / τ) · conf_a
+fused_f     = normalize( Σ_a  w(a,f) · v_a,f )     // attention-weighted memory readout (anchors only)
+δ_f         = 1 − cos(fused_f, x_f)                 // graded score: drives aligned/guarded/rejected
+δ_f_near    = 1 − max_a cos(x_f, v_a,f)            // nearest-anchor basis: drives the redundancy gate
 ```
 
 -   —`age_a` is the anchor’s age (seconds since stored); `conf_a` its confidence; `α_f` the field weight (§9.2). The `max(cos,0)` clamp stops opposing anchors from subtracting. The readout uses prior anchors only; if `Σ_a w(a,f)` is ~0, no anchor carries f and δf is non-evaluable (excluded, per the invariants). δf, the α-weighted aggregate, and the band-pass then follow §9.2.
@@ -4438,6 +4452,16 @@ Membrane lineage (boundary root). When a node emits across a mesh boundary on be
 
 Observing a real-world outcome — a test result, a shipped artifact, a prediction resolving — is a new domain observation: it carries information from the world into the mesh. An agent that has just observed an outcome therefore satisfies §15.7 and may legitimately emit a grounding remix ([§6.7](/spec/mmp/memory#grounding)) through the ordinary emission path — signed, gate-checked, lineage-expanded. This is a clarification, not a carve-out: no intent value exempts an emission from §15.7, since a content-keyed exemption would hand every emitter a free-text bypass of the anti-echo invariant. What makes the grounding remix legal is the fresh observation behind it, not the label on it.
 
+### 15.8 Lineage Tether — the Root-Anchored Drift Bound (specified; not yet implemented)
+
+Lineage guarantees provenance of _descent_, not semantic fidelity (§15.1: the remix is new understanding, deliberately). Measured on deployment traffic, a single remix hop can land nearly orthogonal to its parent while carrying honest lineage — and everything lineage is _consumed for_ (grounded ancestry in recall and evidence-based validation, §6.7; source-novel forwarding, §15.7.1; Canon protection, §6.3) silently assumes the descendant is still _about_ what its ancestors were about. Without a bound, content can drift arbitrarily while carrying a verified ancestor’s certificate — grounding-inheritance laundering, the provenance form of the echo §15.7 exists to prevent, amplified by Canon immortality (§6.3: protected rows never purge, so lineage-attached authority otherwise outlives any semantic connection to what was tested).
+
+The invariant. A remix asserts lineage only where the descent claim would survive its own anchor’s scrutiny: at integration time (§15.5), the remixing node MUST evaluate its remix against the nearest resolvable lineage root (the oldest `ancestors` entry it can resolve; roots are always carried, §15.2 — and across a mesh boundary the anchor is the boundary root, §5.11, so the interior stays opaque) as if evaluating against a store holding only that anchor, and MUST NOT attach the lineage when that evaluation lands in the reject band (§9.2: content the anchor’s own membrane would refuse as unrelated has no honest claim to descend from it). The threshold is the existing reject floor — no new constant. Below the floor the node MUST store its CMB as a fresh root instead (under §8.2.1 this is simply minting with `role = root`: a root’s key binds content only), and MAY record the departed source informally in its own fields; it MUST NOT carry the severed chain’s `parents`/`ancestors`.
+
+Why the anchor, not the parent. Per-hop checks compound — k hops at drift ε bound the chain only by kε, and the measured median substantive hop is far too large to squeeze without killing legitimate re-projection. A check against the root does not compound: every surviving chain certifies that _every_ depth stays above the floor with respect to its root, so the bound is depth-independent by construction. No vector crosses the wire: the root is content-addressed (§8.2.1 — embeddings are deliberately excluded from the address), so any holder of the root re-encodes its text and recomputes the tether; receivers SHOULD re-verify opportunistically when they hold the root, the same verify-if-resolvable posture as signatures (§18.3.1). A receiver that cannot resolve the root treats the tether as unverified — a trust state, not a rejection.
+
+Distinct from §15.7.1’s mint prohibition. Forwarding MUST NOT mint a fresh root because forwarded content is _unchanged_ — re-rooting it would forge novelty. Tether severance mints a fresh root because the content has _changed past the point of honest descent_ — keeping the lineage would forge fidelity. Same mechanism, opposite honesty conditions; both grow the DAG with claims that are true. Severance also interacts correctly with source-novel forwarding: a severed row is a genuinely new source, and its departed predecessor’s roots are no longer claimed by it.
+
 ### Q&A
 
 Does every admitted CMB get re-broadcast?
@@ -4716,6 +4740,7 @@ Transport identity (above) authenticates the _connection_; CMB signatures authen
 -   —Audience check. Because the signature binds `group` and `to`, a receiver MUST additionally reject a signed CMB whose `group` is not the receiver’s group, or whose `to` is neither empty nor the receiver’s nodeId — a cross-group or mis-directed _replay_ that is genuinely signed but not for this audience. This is a check distinct from a bad signature, so a wrong-audience block is not mis-reported as tampering; it also enforces the §5.8 group boundary cryptographically, not only at the frame layer.
 -   —A CMB that fails any check MUST NOT be surfaced to the application layer or stored, and SHOULD be audit-logged. This forecloses spoofing (forging another peer’s authorship), tampering (mutating a block in flight), and cross-audience replay.
 -   —Unsigned CMBs MAY be accepted only from peers that never demonstrated signing. To prevent downgrade (stripping the signature and re-emitting unsigned), once a receiver has admitted a signed CMB from an identity it MUST reject subsequent unsigned CMBs purporting to be from that identity. (This requires durable per-identity state; first contact remains trust-on-first-use.)
+-   —Enforcement scope, disclosed. A strict mode that rejects unsigned CMBs is necessarily scoped to peers whose keys the receiver can resolve: unsigned traffic from a peer with _no_ pinned or roster-resolvable key passes even in strict mode — the receiver cannot distinguish a never-signing peer from a stripped signature at first contact. Key resolution SHOULD consult the full binding registry (anchor-pinned, handshake-pinned, and grant-vouched keys — §6.6), not the direct-handshake map alone, so relayed peers the receiver never met still verify; the residual unsigned-from-unknown window closes only when signature enforcement is on _and_ the roster covers the mesh. Operators of regulated meshes SHOULD run enforcement on with a seeded roster.
 
 ### 18.4 Cognitive Threats
 
@@ -4750,6 +4775,12 @@ Sybil attack
 An attacker creates multiple fake nodes to amplify influence in peer-influence weighting.
 
 MITIGATION Peer-influence weighting (Section 10.1) weights by drift and recency, not by node count. Many aligned Sybil nodes produce the same aggregate influence as one. Cryptographic identity (Section 3) limits Sybil creation when implemented.
+
+Cold-start capture
+
+An attacker floods a freshly joined node before it forms anchors. During the bootstrap window the §9.2.1 cold-start rule admits everything (empty memory MUST admit to avoid starvation), so the attacker’s content becomes the node’s first anchors and seeds every later admission decision — the content-trim influence bound does not cover a fresh node.
+
+MITIGATION Bootstrap-admit is a disclosed trade (§9.2.1 invariant 4): liveness over trim at birth. Operators SHOULD seed new nodes with trusted anchors before exposing them to open traffic; implementations SHOULD surface the bootstrap state to the operator, and MAY defer trust-weighted uses of early anchors until admission has run against a seeded store. Honest-anchoring bootstrap is a named open problem.
 
 ### 18.5 Privacy & Deployment Recommendations
 

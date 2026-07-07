@@ -339,6 +339,49 @@ Validation (§6.4&ndash;§6.5) records <em>judgment</em> &mdash; someone with au
       Any other commitment form is not a recognised outcome. It is emitted, signed (§8.7, §18.3.1), broadcast,
       SVAF-evaluated, and remixed like any other CMB &mdash; no new frame, no new field. A receiver that verifies
       signatures <span class="text-red-400 font-mono text-xs">MUST</span> reject an unsigned grounding CMB like any other unsigned CMB.
+</p> <p class="mb-4 text-sm"> <span class="text-white/90">Repeat verification and the redundancy band.</span> A verification report about a row the receiver
+      already holds typically scores high alignment against exactly that row, so under an unmodified &sect;9.2
+      gate, the better established a row, the harder it becomes to ground or re-ground it &mdash; repeat
+      verifications are progressively refused as redundant, and the accepted-grounding stream of any one row
+<span class="text-white/90">self-quenches</span> (a packing bound: only finitely many reports can each clear the redundancy
+      separation, ever, absent retention purges). Sustained outcome tracking is load-bearing for the mesh
+      being a learner rather than an accumulator, so acceptance of a grounding is exempted from exactly one
+      band: a receiver <span class="text-red-400 font-mono text-xs">MUST NOT</span> refuse a recognised grounding CMB (signed, verified,
+<code class="text-purple-300/80">intent = ground</code>, recognised outcome prefix, lineage naming a
+      target the receiver holds) <em>solely</em> because it is redundant against its target row or against
+      previously admitted groundings of that target. The reject band (foreign content), the signature
+      requirement, and the receiver&rsquo;s trust weighing all stand unmodified. This is an
+<em>acceptance-side</em> rule and does not weaken the &sect;15.7 anti-echo emission gate (&sect;15.7.2:
+      what legitimises a grounding emission is the fresh outcome observation behind it); spam through the
+      waiver is bounded by the content address itself &mdash; a byte-identical repeat confirmation carries the
+      same <code class="text-purple-300/80">cmb1-</code> key and deduplicates, so only <em>distinct</em>
+verification reports pass, and implementations <span class="text-green-400 font-mono text-xs">MAY</span> additionally rate-cap accepted groundings per
+      (target, author) pair.
+</p> <p class="mb-4 text-sm"> <span class="text-white/90">The failure channel is load-bearing.</span> The signed outcome pair is not symmetric decoration:
+      analysis and simulation of the reinforcement loop show that when recall preferentially re-uses
+      highly-weighted rows, the <code class="text-purple-300/80">failed:</code> channel is the mechanism that
+      makes preferential sampling self-correcting &mdash; a stale favourite&rsquo;s absorbed grounding traffic
+      drives its weight <em>down</em> &mdash; while a positive-only mesh locks onto early favourites at
+      chance-level precision. An agent that observes a failure outcome <span class="text-red-400 font-mono text-xs">MUST NOT</span> suppress it while
+      continuing to emit success outcomes for the same class of work; selective success-only grounding
+      defeats the self-correction the outcome channel exists to provide. (Informative: the self-correction
+      additionally requires outcome reports to be better than chance &mdash; miscalibrated reporting that is
+      wrong more often than right converts the same coupling into entrenchment.)
+</p> <p class="mb-4 text-sm text-white/60"> <span class="text-white/90">Consuming the outcome stream (informative).</span> A consumer that scores rows by their accepted
+      groundings faces a bias&ndash;variance choice with a known theory. Pure accumulation (all-time counts)
+      is the efficient estimator only while the useful set is stationary; under drift its staleness bias makes
+      its ranking degrade toward chance. A recency-decayed signed sum tracks drift with bounded risk; its
+      half-life trades noise against lag, with the optimum scaling as
+<code class="text-purple-300/80">(V / (4&mu;&sup2;&delta;&sup2;))^(1/3)</code> in the drift rate &delta;
+      &mdash; a fixed half-life therefore pays a longer dominance horizon
+      (&Theta;(&delta;<sup>&minus;1</sup>) instead of &Theta;(&delta;<sup>&minus;2/3</sup>)), and the tuned
+      horizon is recoverable online by estimating drift with a growing-window slope probe (a fixed pair of
+      probe timescales degenerates back to the fixed-half-life exponent; the growing-window form recovers the
+      tuned one even on sparse signed &plusmn;1 outcome streams). Decayed sums <span class="text-white/90">should</span> be
+      mass-normalised (one extra scalar) &mdash; the raw zero-initialised form carries an initialization
+      transient that delays its advantage by a log factor. Zero-clamping per-node sums before cross-node
+      aggregation discards the negative evidence the failure channel carries; consumers that clamp should know
+      the self-correction analysis above assumes the signed form.
 </p> <p class="mb-4 text-sm"> <span class="text-white/90">An outcome is an attestation, not a fact.</span> The grounding CMB asserts that its <em>author</em> observed
       the outcome. Its weight follows the author&rsquo;s resolved authority (§6.5&ndash;§6.6) exactly as any other
       CMB&rsquo;s does; the reserved intent value adds semantics, never authority.

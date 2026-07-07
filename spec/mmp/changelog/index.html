@@ -180,7 +180,25 @@ Complete version history of this specification. The versioning policy is stated 
 <a href="/spec/mmp#status" class="text-purple-400 hover:text-purple-300 transition-colors">Status of This Document</a>:
       major = wire-incompatible, minor = backward-compatible normative additions, patch = errata and
       informative additions. Current version: 1.1.0.
-</p> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Version</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Date</th><th class="text-left font-mono text-xs text-white/40 pb-2">Changes</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.1.0</td><td class="py-2 pr-4">2026-07-05</td><td class="py-2"> <strong>The Work Layer &mdash; grounding cognition in reality.</strong> Through 1.0.x, the mesh could
+</p> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Version</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Date</th><th class="text-left font-mono text-xs text-white/40 pb-2">Changes</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">1.1.0</td><td class="py-2 pr-4">2026-07-05<br><span class="text-white/30 text-xs">upd. 2026-07-07</span></td><td class="py-2"> <strong>Soundness &amp; completeness update (2026-07-07), from the formalization of the Mesh Edge
+            mechanism.</strong> The mesh-cognition formalization re-derived this specification&rsquo;s claims and
+            the amendments are folded into 1.1.0 in place: &sect;9.2.1 pins the <strong>redundancy invariants to the
+            nearest-anchor basis</strong> (&delta;<sub>f</sub><sup>near</sup> = 1 &minus; max<sub>a</sub> cos &mdash;
+            the fused attention readout provably cannot satisfy them: a block identical to a stored anchor can score
+            &delta; = 0.127 once other anchors pull the readout); &sect;9.2 discloses that <strong>admission is
+            evaluation-time-dependent</strong> with the derived flip window (aggregated field drift in
+            (0.286,&nbsp;0.714) at defaults admits fresh, rejects late); &sect;9.2.1&rsquo;s cold-start
+            bootstrap-admit now discloses its <strong>security consequence</strong> (new &sect;18.4
+            cold-start-capture threat row); &sect;6.7 adds <strong>repeat verification</strong> (a recognised
+            grounding is never refused <em>solely</em> for redundancy &mdash; the redundancy band provably
+            self-quenches the outcome stream otherwise), the <strong>failure channel is load-bearing</strong>
+clause (positive-only grounding provably locks onto stale favourites; observed failures must not be
+            selectively suppressed), and an informative note on consuming the outcome stream (decay-half-life
+            theory); &sect;15.8 specifies the <strong>lineage tether</strong> &mdash; the root-anchored drift bound
+            that closes grounding-inheritance laundering (specified; not yet implemented); &sect;18.3.1 disclosed
+            the <strong>enforcement scope</strong> of strict signature mode. Wire-compatible throughout: no new
+            frames, no new fields.
+<br><br> <strong>The Work Layer &mdash; grounding cognition in reality.</strong> Through 1.0.x, the mesh could
             observe, admit, remix, and validate &mdash; it could establish what its members <em>believe</em>. 1.1.0
             adds the missing half: a way to record what <em>held up in practice</em>, and to make the cognition
             that survives both judgment and reality the durable substrate real work builds on. Everything below is

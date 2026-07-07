@@ -322,6 +322,44 @@ Observing a <span class="text-white/90">real-world outcome</span> &mdash; a test
 <span class="text-white/90">clarification, not a carve-out</span>: no intent value exempts an emission from &sect;15.7, since a
       content-keyed exemption would hand every emitter a free-text bypass of the anti-echo invariant. What makes
       the grounding remix legal is the fresh observation behind it, not the label on it.
+</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="lineage-tether">15.8 Lineage Tether &mdash; the Root-Anchored Drift Bound <span class="text-white/30 font-mono text-xs">(specified; not yet implemented)</span></h3> <p class="mb-4 text-sm">
+Lineage guarantees provenance of <em>descent</em>, not semantic fidelity (&sect;15.1: the remix is new
+      understanding, deliberately). Measured on deployment traffic, a single remix hop can land nearly
+      orthogonal to its parent while carrying honest lineage &mdash; and everything lineage is <em>consumed
+      for</em> (grounded ancestry in recall and evidence-based validation, &sect;6.7; source-novel forwarding,
+      &sect;15.7.1; Canon protection, &sect;6.3) silently assumes the descendant is still <em>about</em> what
+      its ancestors were about. Without a bound, content can drift arbitrarily while carrying a verified
+      ancestor&rsquo;s certificate &mdash; grounding-inheritance laundering, the provenance form of the echo
+      &sect;15.7 exists to prevent, amplified by Canon immortality (&sect;6.3: protected rows never purge, so
+      lineage-attached authority otherwise outlives any semantic connection to what was tested).
+</p> <p class="mb-4 text-sm"> <span class="text-white/90">The invariant.</span> A remix asserts lineage only where the descent claim would survive its own
+      anchor&rsquo;s scrutiny: at integration time (&sect;15.5), the remixing node <span class="text-red-400 font-mono text-xs">MUST</span> evaluate its remix
+      against the <span class="text-white/90">nearest resolvable lineage root</span> (the oldest <code class="text-purple-300/80">ancestors</code>
+entry it can resolve; roots are always carried, &sect;15.2 &mdash; and across a mesh boundary the anchor
+      is the <span class="text-white/90">boundary root</span>, &sect;5.11, so the interior stays opaque) as if evaluating against a store
+      holding only that anchor, and <span class="text-red-400 font-mono text-xs">MUST NOT</span> attach the lineage when that evaluation lands in the
+<span class="text-white/90">reject</span> band (&sect;9.2: content the anchor&rsquo;s own membrane would refuse as unrelated has no
+      honest claim to descend from it). The threshold is the existing reject floor &mdash; no new constant.
+      Below the floor the node <span class="text-red-400 font-mono text-xs">MUST</span> store its CMB as a <span class="text-white/90">fresh root</span> instead (under &sect;8.2.1 this
+      is simply minting with <code class="text-purple-300/80">role = root</code>: a root&rsquo;s key binds
+      content only), and <span class="text-green-400 font-mono text-xs">MAY</span> record the departed source informally in its own fields; it <span class="text-red-400 font-mono text-xs">MUST NOT</span>
+carry the severed chain&rsquo;s <code class="text-purple-300/80">parents</code>/<code class="text-purple-300/80">ancestors</code>.
+</p> <p class="mb-4 text-sm"> <span class="text-white/90">Why the anchor, not the parent.</span> Per-hop checks compound &mdash; k hops at drift &epsilon; bound
+      the chain only by k&epsilon;, and the measured median substantive hop is far too large to squeeze
+      without killing legitimate re-projection. A check against the root does not compound: every surviving
+      chain certifies that <em>every</em> depth stays above the floor with respect to its root, so the bound
+      is depth-independent by construction. No vector crosses the wire: the root is content-addressed
+      (&sect;8.2.1 &mdash; embeddings are deliberately excluded from the address), so any holder of the root
+      re-encodes its text and recomputes the tether; receivers <span class="text-yellow-400 font-mono text-xs">SHOULD</span> re-verify opportunistically when
+      they hold the root, the same verify-if-resolvable posture as signatures (&sect;18.3.1). A receiver that
+      cannot resolve the root treats the tether as unverified &mdash; a trust state, not a rejection.
+</p> <p class="mb-6 text-sm"> <span class="text-white/90">Distinct from &sect;15.7.1&rsquo;s mint prohibition.</span> Forwarding <span class="text-red-400 font-mono text-xs">MUST NOT</span> mint a fresh root
+      because forwarded content is <em>unchanged</em> &mdash; re-rooting it would forge novelty. Tether
+      severance mints a fresh root because the content has <em>changed past the point of honest descent</em>
+&mdash; keeping the lineage would forge fidelity. Same mechanism, opposite honesty conditions; both grow
+      the DAG with claims that are true. Severance also interacts correctly with source-novel forwarding: a
+      severed row is a genuinely new source, and its departed predecessor&rsquo;s roots are no longer claimed
+      by it.
 </p> <h3 class="font-display text-base text-white/90 mb-3 mt-8">Q&amp;A</h3> <div class="space-y-3 mb-6"> <div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">Does every admitted CMB get re-broadcast?</p> <p class="text-xs text-white/50">No — but every admitted CMB is still integrated. On admission (κ ∈ [aligned or guarded]) the agent stores a remix (Section 15.5); that local store is the convergence update and is unconditional. Re-broadcasting the remix to the mesh is a separate decision: the agent MUST NOT emit without new domain data (Section 15.7). So without new data the agent stays silent on the wire — yet the admitted signal has already shifted its state in memory. The original incoming CMB is never stored; only the agent’s own remix is.</p> </div><div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">What if two agents remix the same CMB?</p> <p class="text-xs text-white/50">Both produce independent remixes through their own domain lenses. Both are stored with lineage pointing to the same parent. The graph branches. This is correct — two domains produced two different understandings from the same signal.</p> </div><div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">Can an agent remix a remix?</p> <p class="text-xs text-white/50">Yes. That’s how chains form. Agent C receives Agent B’s remix of Agent A’s observation. C remixes it through its own lens. ancestors grows: [A, B]. The chain captures how understanding evolved across three domains.</p> </div><div class="bg-white/[0.02] border border-white/[0.05] rounded-lg p-3"> <p class="text-sm text-white/70 font-medium mb-1">How does this differ from a knowledge graph?</p> <p class="text-xs text-white/50">Knowledge graphs store facts. The remix graph stores understanding — how each agent interpreted signals from other domains. Facts are static. Remixes are temporal, domain-specific, and carry affective state (mood). The graph doesn’t say &quot;user is tired.&quot; It says &quot;coding agent noticed fatigue → music agent responded with calm → fitness agent suggested recovery → calendar agent protected time.&quot;</p> </div> </div> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4"> <p class="text-sm text-white/50"> <span class="text-purple-400 font-mono text-xs">Related</span> &nbsp;
 <a href="/spec/mmp/cmb" class="text-purple-400 hover:text-purple-300 transition-colors">CMB (CAT7)</a> &middot;
 <a href="/spec/mmp/coupling" class="text-purple-400 hover:text-purple-300 transition-colors"> Coupling &amp; SVAF</a> &middot;

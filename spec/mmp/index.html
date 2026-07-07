@@ -182,7 +182,7 @@ Protocol Specification
 Mesh Memory Protocol (MMP)
 </h1> <p class="text-white/50 text-lg md:text-xl leading-relaxed mb-4">
 A Mesh Protocol for Collective Intelligence
-</p> <div class="overflow-x-auto mb-6"> <table class="text-sm"> <tbody class="text-white/50"> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Version</td><td>1.1.0</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Status</td><td>Published</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Published</td><td>27 March 2026</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Last updated</td><td>5 July 2026</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Author</td><td>Hongwei Xu &lt;editor@meshcognition.org&gt;</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Organisation</td><td>SYM.BOT</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Canonical URL</td><td><a href="https://meshcognition.org/spec/mmp" class="text-purple-400">https://meshcognition.org/spec/mmp</a></td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Licence</td><td>CC BY 4.0 (specification text); Apache 2.0 (reference implementations)</td></tr> </tbody> </table> </div> <div class="h-px bg-gradient-to-r from-purple-500/40 via-cyan/20 to-transparent"></div> </header> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Introduction</h2> <p class="mb-4">
+</p> <div class="overflow-x-auto mb-6"> <table class="text-sm"> <tbody class="text-white/50"> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Version</td><td>1.1.0</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Status</td><td>Published</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Published</td><td>27 March 2026</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Last updated</td><td>7 July 2026</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Author</td><td>Hongwei Xu &lt;editor@meshcognition.org&gt;</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Organisation</td><td>SYM.BOT</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Canonical URL</td><td><a href="https://meshcognition.org/spec/mmp" class="text-purple-400">https://meshcognition.org/spec/mmp</a></td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Licence</td><td>CC BY 4.0 (specification text); Apache 2.0 (reference implementations)</td></tr> </tbody> </table> </div> <div class="h-px bg-gradient-to-r from-purple-500/40 via-cyan/20 to-transparent"></div> </header> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Introduction</h2> <p class="mb-4">
 Multi-agent LLM systems in production coordinate cognitive work on shared tasks spanning
       hours, days, and weeks &mdash; generator/quality/auditor pipelines running for days; research
       investigations spanning weeks across session restarts; a coding agent, a music agent, and a
@@ -194,13 +194,17 @@ Multi-agent LLM systems in production coordinate cognitive work on shared tasks 
 Existing protocols at lower layers standardize tool access and task delegation between agents.
       What each receiver does with incoming observations from a peer &mdash; per-field admission,
       signal-level lineage, filtering at acceptance time &mdash; is the missing layer. The Mesh
-      Memory Protocol specifies that layer through four composable primitives:
+      Memory Protocol specifies that layer through five composable primitives:
 <strong>CAT7</strong>, a fixed seven-field schema for every Cognitive Memory Block;
 <strong><a href="/spec/mmp/coupling" class="text-purple-400 hover:text-purple-300 transition-colors">SVAF</a></strong>,
       per-field admission against the receiver&rsquo;s role-indexed anchors;
 <strong>content-hash lineage</strong>, so every claim is traceable to its source observation;
-      and <strong>remix</strong>, where receivers store only their own evaluated understanding of
-      accepted blocks, never raw peer signals.
+<strong>remix</strong>, where receivers store only their own evaluated understanding of
+      accepted blocks, never raw peer signals; and
+<strong><a href="/spec/mmp/memory#grounding" class="text-purple-400 hover:text-purple-300 transition-colors">grounding</a></strong>,
+      real-world outcomes carried by lineage &mdash; so the mesh records not only what its members
+<em>believe</em> but what <em>held up in practice</em>, and the cognition that survives both
+      judgment and reality persists as the Canon.
 </p> <p>
 The problem is semantic, not transport. <strong>Hidden state never crosses the wire</strong>
 &mdash; each agent&rsquo;s learned cognition stays sovereign on its own device; only Cognitive
@@ -213,6 +217,15 @@ The problem is semantic, not transport. <strong>Hidden state never crosses the w
       to synthetic memory and per-agent neural networks (Layers 5&ndash;7). Together, the upper
       layers form <a href="/spec/mmp/architecture" class="text-purple-400 hover:text-purple-300 transition-colors">Mesh Cognition</a>:
       a closed loop where agents reason on the growing remix graph of immutable Cognitive Memory Blocks.
+</p> <p class="mt-4">
+This specification is <strong>verified, not merely asserted</strong>: its normative claims are
+      re-derived against a mathematical formalization of the deployed Mesh Edge mechanism, and where
+      analysis finds a requirement unsatisfiable or a guarantee conditional &mdash; the basis of the
+      redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade &mdash;
+      the text is amended and the limit disclosed in place rather than left implicit (see the
+<a href="/spec/mmp/changelog" class="text-purple-400 hover:text-purple-300 transition-colors">change
+      log</a>&rsquo;s soundness &amp; completeness update). What the protocol promises is what survives
+      derivation.
 </p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4" id="status">Status of This Document</h2> <p class="mb-4">
 This is a published specification (current version 1.1.0). It reflects the protocol as
       implemented in the
@@ -233,9 +246,14 @@ Sections added by the 1.1.0 work layer &mdash; &sect;6.3 (Canon tier), &sect;6.7
       1.0.x-conformant (see &sect;17.5 for the requirements 1.1.0 adds).
 </p> <p>
 Feedback and errata: <a href="mailto:spec@meshcognition.org" class="text-purple-400 hover:text-purple-300 transition-colors">spec@meshcognition.org</a> or <a href="https://github.com/sym-bot/sym/issues" class="text-purple-400 hover:text-purple-300 transition-colors">github.com/sym-bot/sym/issues</a>.
-</p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Implementations</h2> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Language</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Project</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Maintainer</th><th class="text-left font-mono text-xs text-white/40 pb-2">Scope</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Node.js / TypeScript</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Reference implementation. Full protocol surface (Layers 0&ndash;7).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Swift</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym-swift" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym-swift</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Reference implementation. macOS / iOS. Full protocol surface.</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">Python</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/mesh-cognition</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Coupling kernel only. Layer 4 (per-field admission) and Layer 6 (Cognitive State) for CfC neural networks. Pure Python, zero external dependencies. <a href="https://pypi.org/project/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">pypi</a>.</td></tr> </tbody> </table> </div> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Change Log</h2> <p class="mb-3 text-sm"> <strong>Latest — 1.1.0 &ldquo;The Work Layer&rdquo; (2026-07-05):</strong> grounding cognition in
-      reality &mdash; &sect;6.7 outcomes carried by lineage, the &sect;6.3 Canon tier, &sect;14.12 work
-      sessions as mesh members, plus the folded-in full-corpus coherence errata. Wire-compatible with 1.0.x.
+</p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Implementations</h2> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Language</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Project</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Maintainer</th><th class="text-left font-mono text-xs text-white/40 pb-2">Scope</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Node.js / TypeScript</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Reference implementation. Full protocol surface (Layers 0&ndash;7).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Swift</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym-swift" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym-swift</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Reference implementation. macOS / iOS. Full protocol surface.</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">Python</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/mesh-cognition</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Coupling kernel only. Layer 4 (per-field admission) and Layer 6 (Cognitive State) for CfC neural networks. Pure Python, zero external dependencies. <a href="https://pypi.org/project/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">pypi</a>.</td></tr> </tbody> </table> </div> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Change Log</h2> <p class="mb-3 text-sm"> <strong>Latest — 1.1.0 &ldquo;The Work Layer&rdquo; (2026-07-05, updated 2026-07-07):</strong> grounding
+      cognition in reality &mdash; &sect;6.7 outcomes carried by lineage, the &sect;6.3 Canon tier,
+      &sect;14.12 work sessions as mesh members, plus the folded-in full-corpus coherence errata. The
+      2026-07-07 update folds in the <strong>soundness &amp; completeness amendments from the formalization
+      of the Mesh Edge mechanism</strong>: &sect;9.2.1 redundancy invariants pinned to the nearest-anchor
+      basis, the &sect;9.2 evaluation-time-dependence disclosure, the cold-start-capture threat row,
+      &sect;6.7 repeat verification and the load-bearing failure channel, and the &sect;15.8 lineage tether.
+      Wire-compatible with 1.0.x.
 </p> <p class="text-sm"> <a href="/spec/mmp/changelog" class="text-purple-400 hover:text-purple-300 transition-colors">Full change log — every release since 0.1 &rarr;</a> </p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Licence</h2> <p class="mb-4 text-sm">
 This specification is published under the <a href="https://creativecommons.org/licenses/by/4.0/" class="text-purple-400 hover:text-purple-300 transition-colors">Creative Commons Attribution 4.0 International Licence</a> (CC BY 4.0).
       You may share, adapt, and build upon this specification for any purpose, including commercial use,

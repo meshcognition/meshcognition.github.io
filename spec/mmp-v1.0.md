@@ -1729,6 +1729,22 @@ SVAF
 
 timestamp (int), cmb (object: { key, createdBy, createdAt, fields, lineage, sig?, sigAlg?, group?, to? }) — full schema §20.2
 
+cmb-fetch
+
+3
+
+No
+
+reqId (string), key (string content address), from (nodeId), timestamp — request the CMB stored under an exact content-address key (§15.8 re-verification of lineage roots). Serving is discretionary: a node MAY answer, and only with content it holds under that exact key.
+
+cmb-fetch-result
+
+3
+
+No
+
+reqId, key, found (bool), cmb (object|null; fields text-only — the address binds text, re-verifiers re-encode) — response to cmb-fetch. Self-verifying: the requester MUST recompute the content address and discard a mismatch (treated as a miss); an unsolicited result MUST NOT terminate a pending request.
+
 role-grant
 
 3
@@ -4456,7 +4472,7 @@ Lineage guarantees provenance of _descent_, not semantic fidelity (§15.1: the r
 
 The invariant. A remix asserts lineage only where the descent claim would survive its own anchor’s scrutiny: at integration time (§15.5), the remixing node MUST evaluate its remix against the nearest resolvable lineage root (the oldest `ancestors` entry it can resolve; roots are always carried, §15.2 — and across a mesh boundary the anchor is the boundary root, §5.11, so the interior stays opaque) as if evaluating against a store holding only that anchor, and MUST NOT attach the lineage when that evaluation lands in the reject band (§9.2: content the anchor’s own membrane would refuse as unrelated has no honest claim to descend from it). The evaluation is content-only — the §9.2 temporal term does not apply, because the tether tests fidelity, not freshness — so the floor is the α-weighted field drift against the anchor exceeding Tguarded. Both sides of the comparison MUST be encoded within a single kernel: vectors produced by different encoders are not comparable, and thresholds are meaningful only within a pinned encoder (§9.2.1). The threshold is the existing reject floor — no new constant. Below the floor the node MUST store its CMB as a fresh root instead (under §8.2.1 this is simply minting with `role = root`: a root’s key binds content only), and MAY record the departed source informally in its own fields; it MUST NOT carry the severed chain’s `parents`/`ancestors`.
 
-Why the anchor, not the parent. Per-hop checks compound — k hops at drift ε bound the chain only by kε, and the measured median substantive hop is far too large to squeeze without killing legitimate re-projection. A check against the root does not compound: every surviving chain certifies that _every_ depth stays above the floor with respect to its root, so the bound is depth-independent by construction. No vector crosses the wire: the root is content-addressed (§8.2.1 — embeddings are deliberately excluded from the address), so any holder of the root re-encodes its text and recomputes the tether; receivers SHOULD re-verify opportunistically when they hold the root, the same verify-if-resolvable posture as signatures (§18.3.1). A receiver that cannot resolve the root treats the tether as unverified — a trust state, not a rejection.
+Why the anchor, not the parent. Per-hop checks compound — k hops at drift ε bound the chain only by kε, and the measured median substantive hop is far too large to squeeze without killing legitimate re-projection. A check against the root does not compound: every surviving chain certifies that _every_ depth stays above the floor with respect to its root, so the bound is depth-independent by construction. No vector crosses the wire: the root is content-addressed (§8.2.1 — embeddings are deliberately excluded from the address), so any holder of the root re-encodes its text and recomputes the tether; receivers SHOULD re-verify opportunistically when they hold the root, the same verify-if-resolvable posture as signatures (§18.3.1). A receiver that cannot resolve the root locally MAY fetch it by its content address (`cmb-fetch`, §7): the fetched root self-verifies against its key, so re-verification requires no trust in the serving peer — the recomputed verdict is made in the fetcher’s own kernel (comparability per `kernelId` below). Failing both, the receiver treats the tether as unverified — a trust state, not a rejection — or as attested-by-integrator where a verified attestation rides the remix (below).
 
 Tether attestation and kernel identity. Every φ-space judgement is kernel-relative, so a tether record MUST name the kernel it was evaluated in: a short stable `kernelId` token identifying encoder and comparison dimensionality. Two tether verdicts are comparable _iff_ their `kernelId` values are equal; drifts MUST NOT be compared across kernels. The integrating node SHOULD record its evaluation as a signed tether attestation carried on the remix: a record binding the remix key, anchor key, `kernelId`, measured drift (fixed to six fractional digits so the signed bytes are implementation-independent), verdict (`tethered` | `severed`), integrator nodeId, and integrator time — serialized with the §8.2.1 length-prefix discipline under the domain tag `mmp-tether-v1` and signed with the integrator’s identity key (§18.3.1; verification resolves the key through §6.6). A receiver that cannot resolve the anchor MAY treat a verified attestation as the certificate’s standing — attested-by-integrator, weighed by the integrator’s resolved authority (§6.5–§6.6) — instead of unchecked; an attestation whose signature fails against the integrator’s resolved key MUST be discarded (a forged certificate is worse than an absent one). An attestation proves _who_ evaluated, in _which kernel_, with _what result_ — never that the evaluation was honest; honesty is weighed exactly as it is for admission attestations.
 
@@ -4629,6 +4645,12 @@ Implemented (Node.js)
 Tether attestation & kernel identity
 
 §15.8
+
+Implemented (Node.js)
+
+Content-addressed fetch (`cmb-fetch`)
+
+§7, §15.8
 
 Implemented (Node.js)
 

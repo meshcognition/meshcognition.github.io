@@ -356,7 +356,13 @@ carry the severed chain&rsquo;s <code class="text-purple-300/80">parents</code>/
       (&sect;8.2.1 &mdash; embeddings are deliberately excluded from the address), so any holder of the root
       re-encodes its text and recomputes the tether; receivers <span class="text-yellow-400 font-mono text-xs">SHOULD</span> re-verify opportunistically when
       they hold the root, the same verify-if-resolvable posture as signatures (&sect;18.3.1). A receiver that
-      cannot resolve the root treats the tether as unverified &mdash; a trust state, not a rejection.
+      cannot resolve the root locally <span class="text-green-400 font-mono text-xs">MAY</span> fetch it by its content address
+      (<code class="text-purple-300/80">cmb-fetch</code>, &sect;7): the fetched root self-verifies against
+      its key, so re-verification requires no trust in the serving peer &mdash; the recomputed verdict is
+      made in the fetcher&rsquo;s own kernel (comparability per
+<code class="text-purple-300/80">kernelId</code> below). Failing both, the receiver treats the tether
+      as unverified &mdash; a trust state, not a rejection &mdash; or as attested-by-integrator where a
+      verified attestation rides the remix (below).
 </p> <p class="mb-4 text-sm"> <span class="text-white/90">Tether attestation and kernel identity.</span> Every &phi;-space judgement is kernel-relative, so a
       tether record <span class="text-red-400 font-mono text-xs">MUST</span> name the kernel it was evaluated in: a short stable
 <code class="text-purple-300/80">kernelId</code> token identifying encoder and comparison

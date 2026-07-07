@@ -4628,7 +4628,7 @@ Nearest-anchor redundancy basis
 
 §9.2.1
 
-Implemented (Node.js)
+Implemented (Node.js, Swift — both reproduce the published svaf-baseline vectors)
 
 Repeat verification & failure channel
 

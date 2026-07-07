@@ -86,13 +86,15 @@ Multi-agent LLM systems in production coordinate cognitive work on shared tasks 
 
 Existing protocols at lower layers standardize tool access and task delegation between agents. What each receiver does with incoming observations from a peer — per-field admission, signal-level lineage, filtering at acceptance time — is the missing layer. The Mesh Memory Protocol specifies that layer through five composable primitives: **CAT7**, a fixed seven-field schema for every Cognitive Memory Block; **[SVAF](/spec/mmp/coupling)**, per-field admission against the receiver’s role-indexed anchors; **content-hash lineage**, so every claim is traceable to its source observation; **remix**, where receivers store only their own evaluated understanding of accepted blocks, never raw peer signals; and **[grounding](/spec/mmp/memory#grounding)**, real-world outcomes carried by lineage — so the mesh records not only what its members _believe_ but what _held up in practice_, and the cognition that survives both judgment and reality persists as the Canon.
 
-The problem is semantic, not transport. **Hidden state never crosses the wire** — each agent’s learned cognition stays sovereign on its own device; only Cognitive Memory Blocks (CMBs) propagate. Receiver-autonomous admission lets the mesh grow without re-introducing a master — same reason TCP/IP beat circuit-switching. MMP defines transport over TCP on local networks and WebSocket for internet relay, with length-prefixed JSON as the canonical wire format. Discovery uses DNS-SD (Bonjour) with zero configuration. The protocol is specified across 8 layers — from identity and transport (Layers 0–3), through cognitive coupling via SVAF (Layer 4), to synthetic memory and per-agent neural networks (Layers 5–7). Together, the upper layers form [Mesh Cognition](/spec/mmp/architecture): a closed loop where agents reason on the growing remix graph of immutable Cognitive Memory Blocks.
+The problem is semantic, not transport. **Hidden state never crosses the wire** — each agent’s learned cognition stays sovereign on its own device; only Cognitive Memory Blocks (CMBs) propagate. Receiver-autonomous admission lets the mesh grow without re-introducing a master. MMP defines transport over TCP on local networks and WebSocket for internet relay, with length-prefixed JSON as the canonical wire format. Discovery uses DNS-SD (Bonjour) with zero configuration.
 
-This specification is **verified, not merely asserted**: its normative claims are re-derived against a mathematical formalization of the deployed xmesh runtime, and where analysis finds a requirement unsatisfiable or a guarantee conditional — the basis of the redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade — the text is amended and the limit disclosed in place rather than left implicit (see the [change log](/spec/mmp/changelog)’s soundness & completeness update). What the protocol promises is what survives derivation.
+This document describes an 8-layer stack, but it is **two documents in one**, and is read that way (§17). **MMP Core** is the open standard: the wire contract — identity, transport, connection, frames, the CAT7 block with its content address and signature — byte-testable against published vectors and implementable in an afternoon (Class 1, §17.1). Everything receiver-side — SVAF admission, memory tiers, remix behavior, the cognitive layers that together form [Mesh Cognition](/spec/mmp/architecture) — is **documentation of the xmesh reference runtime** (Class 2, §17.2): published for transparency and audit, versioned with the runtime, and not a third-party build target. Each page carries its tier banner. The protocol is open; the brain is the product.
+
+This specification is **verified, not merely asserted**: its Core wire claims are vector-tested, and its runtime-tier claims are re-derived against a mathematical formalization of the deployed xmesh runtime, and where analysis finds a requirement unsatisfiable or a guarantee conditional — the basis of the redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade — the text is amended and the limit disclosed in place rather than left implicit (see the [change log](/spec/mmp/changelog)’s soundness & completeness update). What the protocol promises is what survives derivation.
 
 ## Status of This Document
 
-This is a published specification (current version 1.1.0). It reflects the protocol as implemented in the [SYM Node.js](https://github.com/sym-bot/sym) and [SYM Swift](https://github.com/sym-bot/sym-swift) full-stack reference implementations, plus the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python coupling kernel (Layers 4 + 6). The specification is versioned: wire-incompatible changes increment the **major** version; backward-compatible _normative_ additions (new testable requirements that keep wire compatibility) increment the **minor** version; errata, clarifications, and informative additions increment the **patch** version.
+This is a published specification (current version 1.1.0). It reflects the protocol as implemented in the [SYM](https://github.com/sym-bot/sym) open substrate (Node.js — the reference implementation, on which the xmesh runtime is built), the [sym-swift](https://github.com/sym-bot/sym-swift) emitter SDK for Apple platforms, and the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python research library (coupling kernel). Versioning follows the two tiers: the **Core wire contract is frozen** — it has carried no new frames or fields since 0.2.3 (April 2026; the §8.2.1 content-address and §18.3.1 signing schemes are the one addition since) and changes are errata-only; **runtime-tier sections version with xmesh releases**. Wire-incompatible changes would increment the **major** version and are not expected; runtime-tier additions increment the **minor** version; errata increment the **patch** version.
 
 Sections added by the 1.1.0 work layer — §6.3 (Canon tier), §6.7 (Grounding), §8.3.1 (well-known intent values), §14.12 (session capture), and §15.7.2 (outcomes are observations) — are marked **New in 1.1.0** in place. 1.1.0 is fully wire-compatible with 1.0.x: no new frames or fields; a 1.0.x node interoperates unchanged and remains 1.0.x-conformant (see §17.5 for the requirements 1.1.0 adds).
 
@@ -114,7 +116,7 @@ Node.js / TypeScript
 
 SYM.BOT
 
-Reference implementation. Full protocol surface (Layers 0–7).
+Reference implementation — the open SYM substrate (Apache 2.0); the xmesh runtime builds on it. Core + runtime tiers (Classes 1 and 2, §17).
 
 Swift
 
@@ -122,7 +124,7 @@ Swift
 
 SYM.BOT
 
-Reference implementation. macOS / iOS. Full protocol surface.
+Emitter SDK for macOS / iOS (Class 1 target). Speaks an earlier MMP revision; conformance with the current cmb1- scheme is in progress.
 
 Python
 
@@ -130,7 +132,7 @@ Python
 
 SYM.BOT
 
-Coupling kernel only. Layer 4 (per-field admission) and Layer 6 (Cognitive State) for CfC neural networks. Pure Python, zero external dependencies. [pypi](https://pypi.org/project/mesh-cognition).
+Research library — coupling kernel only (Layer 4 per-field admission + Layer 6 for CfC networks); not a full MMP node. Pure Python, zero external dependencies. [pypi](https://pypi.org/project/mesh-cognition).
 
 ## Change Log
 
@@ -153,6 +155,10 @@ SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published
 ---
 
 <!-- Change Log -->
+
+MMP Core + xmesh runtime
+
+This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
 
 ## Change Log
 
@@ -269,13 +275,17 @@ Initial protocol design (Consenix Labs Ltd). 4-layer architecture. Scalar drift 
 
 <!-- 1. Conventions -->
 
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
+
 ## 1\. Conventions and Terminology
 
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
 
 Naming note
 
-Layer 6 was called xMesh in the v0.2.x drafts and in the published papers (arXiv:[2604.19540](https://arxiv.org/abs/2604.19540), arXiv:[2604.03955](https://arxiv.org/abs/2604.03955)). As of v1.0.1 the layer is named Cognitive State; xMesh now refers exclusively to the open runtime that implements MMP (all eight layers). The wire frame type `xmesh-insight` retains its identifier for backward compatibility and is unchanged.
+Layer 6 was called xMesh in the v0.2.x drafts and in the published papers (arXiv:[2604.19540](https://arxiv.org/abs/2604.19540), arXiv:[2604.03955](https://arxiv.org/abs/2604.03955)). As of v1.0.1 the layer is named Cognitive State. The name _xmesh_ now refers to the product runtime — the reference implementation of the receiver side; the open substrate SDK is SYM, and the protocol itself is this open specification. The wire frame type `xmesh-insight` retains its identifier for backward compatibility and is unchanged.
 
 Term
 
@@ -283,7 +293,7 @@ Definition
 
 Node
 
-A sovereign participant in the mesh: a unique cryptographic identity, its own admission function (SVAF), and its own memory store. Every agent that participates in coupling is a full peer node and runs its own LNN. A relay is pure routing infrastructure (Section 4.4) — it forwards frames and holds no identity, store, or cognitive state; it is not a node.
+A sovereign participant in the mesh: a unique cryptographic identity, its own admission function (SVAF), and its own memory store. Every agent that participates in coupling is a full peer node; Layer 6 cognitive state (an LNN) is optional (Section 13). A relay is pure routing infrastructure (Section 4.4) — it forwards frames and holds no identity, store, or cognitive state; it is not a node.
 
 Peer
 
@@ -371,11 +381,15 @@ Closed-form Continuous-time neural network (Hasani et al., 2022). The LNN archit
 
 <!-- 2. Architecture -->
 
+MMP Core + xmesh runtime
+
+This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
+
 ## 2\. Architecture Overview
 
 ![MMP 8-layer architecture diagram. Mesh Cognition: L7 Application (domain agents), L6 Cognitive State (per-agent LNN continuous-time cognitive state), L5 Synthetic Memory (LLM-derived knowledge from remix subgraph → CfC), L4 Coupling (drift · SVAF per-field evaluation · admission). Protocol Infrastructure: L3 Memory (L0 events, L1 structured CMBs, L2 cognitive), L2 Connection (handshake, gossip, wake, admission), L1 Transport (IPC, TCP/Bonjour, WebSocket, APNs push), L0 Identity (nodeId, name, cryptographic keypair). The feedback loop — agent acts → new CMB → lineage.parents carries ancestor chain → graph grows — flows between the CMB remix graph and Layer 4 coupling.](/image/mmp-architecture-02.webp)
 
-MMP is an 8-layer protocol stack. Each layer has a defined responsibility. Implementations MUST implement Layers 0–3 to participate in the mesh. Layers 4–7 (Mesh Cognition) are SHOULD for full cognitive participation and MAY be omitted for relay-only nodes.
+MMP describes an 8-layer stack. Each layer has a defined responsibility — but conformance is by class, not by ladder (§17): a Class 1 Emitter implements Layers 0–2 plus the CAT7 block format (§8) and participates fully at the emission layer; a Class 2 Cognitive Node — the runtime — adds Layers 3–7. Layers 4–7 are the receiver-side mechanism, documented for transparency (§17.2), not a third-party build target.
 
 ### 2.1 Layer Stack
 
@@ -387,7 +401,7 @@ Where agents live and their LLMs reason on the remix subgraph. Mesh Cognition ha
 
 6 Cognitive State Per-Agent LNN — Continuous-Time Cognitive State
 
-Each agent runs its own Liquid Neural Network. Fast neurons track mood; slow neurons preserve domain expertise. Hidden state (h₁, h₂) is strictly local — it never crosses the wire (§2.7); only CMBs do.
+An agent MAY run its own Liquid Neural Network (Layer 6 is optional, §17.2). Where present: fast neurons track mood; slow neurons preserve domain expertise. Hidden state (h₁, h₂) is strictly local — it never crosses the wire (§2.7); only CMBs do.
 
 5 SYNTHETIC MEMORY LLM-Derived Knowledge from Remix Subgraph → CfC
 
@@ -525,15 +539,15 @@ Define α\_f weights, connect
 
 ### 2.4 Node Model
 
-Every participant is a node. There is no architectural distinction between a “server” and a “client.” Every agent that participates in coupling MUST be a full peer node with its own identity, its own coupling engine, and its own memory store. This is not an implementation convenience — it is a protocol requirement. An agent that shares another node’s identity cannot have its own field weights, its own coupling decisions, or its own remix lineage. Coupling is per-node. Therefore agents MUST be nodes.
+Every participant is a node. There is no architectural distinction between a “server” and a “client.” Every agent that participates in coupling MUST be a full peer node with its own identity — and, when it admits and stores (Class 2), its own coupling engine and its own memory store. This is not an implementation convenience — it is a protocol requirement. An agent that shares another node’s identity cannot have its own field weights, its own coupling decisions, or its own remix lineage. Coupling is per-node. Therefore agents MUST be nodes.
 
 ```
 MacBook
   mesh-daemon     (node: always-on mesh hub, relay bridge)
-  coo-agent       (node: own identity, own coupling, own memory)
+  triage-agent    (node: own identity, own coupling, own memory)
   research-agent  (node: own identity, own coupling, own memory)
-  marketing-agent (node: own identity, own coupling, own memory)
-  product-agent   (node: own identity, own coupling, own memory)
+  review-agent    (node: own identity, own coupling, own memory)
+  synthesis-agent (node: own identity, own coupling, own memory)
 
 iPhone
   Music Agent     (node: own identity, own coupling, own memory)
@@ -567,9 +581,9 @@ Synthetic Memory encodes derived knowledge
 
 Layer 5 — LLM output → CfC hidden state (h₁, h₂)
 
-LNN evolves cognitive state
+Layer-6 state evolves (where present)
 
-Layer 6 — fast τ (mood) synchronise, slow τ (domain) stay sovereign
+optional LNN — fast τ (mood) synchronise, slow τ (domain) stay sovereign
 
 LNN integrates admitted remixes
 
@@ -631,6 +645,10 @@ SUPERSEDES   The `state-sync` frame and any exchange of h₁/h₂ vectors are d
 ---
 
 <!-- 3. Identity (L0) -->
+
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
 
 ## 3\. Layer 0: Identity
 
@@ -694,7 +712,7 @@ The public key MUST be encoded as base64url (RFC 4648 Section 5) in all wire for
 
 ### 3.2 One Agent, One Node
 
-Every autonomous agent MUST be a full peer node with its own nodeId, its own coupling engine, and its own memory store.
+Every autonomous agent MUST present its own nodeId, backed by its own keypair — identities are never shared between agents. A _cognitive_ node (Class 2, §17.2) additionally maintains its own coupling engine and its own memory store; a Class 1 Emitter (§17.1) needs neither.
 
 This follows directly from the protocol design: SVAF field weights (αf) are per-node, coupling state is per-node, and memory stores are per-node. An agent that shares another node’s identity inherits that node’s coupling decisions and cannot independently evaluate incoming signals through its own domain lens. A research agent and a marketing agent need different field weights, different coupling thresholds, and different memory stores. They MUST be separate nodes.
 
@@ -858,6 +876,10 @@ A participant can produce a CMB with lineage pointing to a decision, but receivi
 
 <!-- 4. Transport (L1) -->
 
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
+
 ## 4\. Layer 1: Transport
 
 ### 4.1 Wire Format
@@ -912,7 +934,7 @@ CMB frame:
   "timestamp": 1711540800000,
   "cmb": {
     "key": "cmb-b2c3d4e5f6a7b8c9",
-    "createdBy": "melomove",
+    "createdBy": "sensor-a",
     "createdAt": 1711540800000,
     "fields": {
       "focus":       { "text": "user coding for 3 hours, energy declining" },
@@ -1073,7 +1095,7 @@ Do NOT reconnect
 
 Local tools MAY connect to a node via IPC (Unix domain socket, named pipe, or localhost TCP) to query mesh state. The framing is identical to TCP transport. IPC is an implementation convenience for local tooling (dashboards, CLI, monitoring) — it is not a substitute for peer-to-peer transport. Agents that participate in coupling MUST connect as full peer nodes via TCP or WebSocket.
 
-Implementations MUST support a persistent IPC socket at a well-known path. The socket MUST accept multiple simultaneous connections. Each IPC connection SHOULD remain open for the lifetime of the client application — short-lived connections (one query, then disconnect) are permitted but SHOULD be avoided by applications that query frequently.
+The reference runtime provides a persistent IPC socket at a well-known path — an implementation convenience of the SYM runtime, not a wire requirement; a Class 1 Emitter (§17.1) need not provide it. Where provided, the socket SHOULD accept multiple simultaneous connections. Each IPC connection SHOULD remain open for the lifetime of the client application — short-lived connections (one query, then disconnect) are permitted but SHOULD be avoided by applications that query frequently.
 
 Well-known IPC path: `~/.sym/daemon.sock` (Unix domain socket) or `localhost:19517` (TCP fallback).
 
@@ -1126,6 +1148,10 @@ N agents on one device means N Bonjour advertisements and N relay connections. F
 ---
 
 <!-- 5. Connection (L2) -->
+
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
 
 ## 5\. Layer 2: Connection
 
@@ -1285,11 +1311,11 @@ Protocol guarantee. A node in group `G_A` MUST NOT exchange any application-laye
 
 Layer placement. A mesh group is a Layer 2 (Connection) concept. The application layer SHOULD declare its group at SDK initialisation. The relay (Section 4.4) is a dumb pipe — `relay-auth` carries no group field and the relay MUST NOT inspect payloads (Section 4.4.4) — so it need not (and cannot) enforce group isolation. Isolation is enforced at the endpoints: the authoring group is bound into the signed CMB (§18.3.1 audience binding), and a receiver MUST reject a frame whose group does not match its own connection’s group, even if a relay misdelivers it. A relay MAY additionally scope rooms by a group-derived key as defense in depth. Nodes participating in LAN Bonjour discovery SHOULD enforce group isolation by checking the peer’s declared group at handshake and closing the connection on mismatch. The connection-level error frame for a group mismatch is described in Section 7.2.
 
-Recommended naming convention (non-normative). The protocol does not parse group identifiers beyond the character set and length checks above. Operators of meshes with more than a handful of groups SHOULD adopt a hierarchical dotted-path convention `<app>[.<environment>][.<cohort>]`, e.g. `melotune.prod`, `melotune.dev`, `claude-code.default`, `research.lab`. The dots are convention only; tooling MAY use them for prefix-based grouping but the protocol does not require this.
+Recommended naming convention (non-normative). The protocol does not parse group identifiers beyond the character set and length checks above. Operators of meshes with more than a handful of groups SHOULD adopt a hierarchical dotted-path convention `<app>[.<environment>][.<cohort>]`, e.g. `acme.prod`, `acme.dev`, `assistants.default`, `research.lab`. The dots are convention only; tooling MAY use them for prefix-based grouping but the protocol does not require this.
 
 SVAF and group filtering. SVAF (Layer 4, Section 9) per-field evaluation runs after group filtering: `cmb` frames from peers in different groups never reach the SVAF evaluator.
 
-The full design rationale, the prefix-based group claims relay enhancement, and the operational migration record are documented in [MMP-MESH-GROUPS-DESIGN.md](https://github.com/sym-bot/symbot-website/blob/main/docs/MMP-MESH-GROUPS-DESIGN.md) on the symbot-website repository.
+The naming convention above is the complete normative surface; deeper design rationale is runtime documentation, not part of this specification.
 
 §5.9–5.11 — Informative
 
@@ -1373,6 +1399,10 @@ Sections 5.9–5.11 are informative and change no single-mesh contract: they des
 ---
 
 <!-- 6. Memory (L3) -->
+
+xmesh runtime documentation
+
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
 
 ## 6\. Layer 3: Memory
 
@@ -1691,6 +1721,10 @@ The protocol defines the role-grant mechanism (Section 3.5.1) but does not presc
 
 <!-- 7. Frame Types -->
 
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
+
 ## 7\. Frame Types
 
 All frames are JSON objects with a `type` field (string). Implementations MUST silently ignore frames with unrecognised type values to allow forward compatibility.
@@ -1965,6 +1999,10 @@ No, if the node follows Section 7. The frame handler switches on msg.type. Unkno
 
 <!-- 8. CMBs (CAT7) -->
 
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
+
 ## 8\. Cognitive Memory Blocks (CAT7)
 
 A Cognitive Memory Block (CMB) is an immutable structured memory unit. Each CMB decomposes an observation into 7 typed semantic fields (the CAT7 schema). CMBs are the data structure that flows between agents via `cmb` frames.
@@ -1975,7 +2013,7 @@ Forward compatibility. Implementations MUST silently ignore unrecognised CMB fie
 
 The 7 fields form a minimal, near-orthogonal basis spanning three axes of human communication: what (focus, issue), why (intent, motivation, commitment), and who/when/how (perspective, mood). They are universal and immutable — domain-specific interpretation happens in the field text, not the field name. A coding agent’s `focus` is “debugging auth module”; a fitness agent’s `focus` is “30-minute HIIT workout.” Same field, different domain lens.
 
-`mood` is the only fast-coupling field — affective state (valence + arousal) crosses all domain boundaries. The neural [SVAF](/spec/mmp/coupling) model independently discovered this: `mood` emerged as the highest gate value (0.50) without being told, confirming that affect is universally relevant across agent types. All other fields couple at medium or low rates, with per-agent αf weights controlling relative importance.
+`mood` is the only fast-coupling field — affective state (valence + arousal) crosses all domain boundaries. The trained [SVAF](/spec/mmp/coupling) model studied in the SVAF paper converged on the same rule: `mood` emerged as the highest gate value (0.50) without supervision — a research result consistent with affect being universally relevant across agent types. (The deployed evaluator is the heuristic baseline, Section 9.2.1.) All other fields couple at medium or low rates, with per-agent αf weights controlling relative importance.
 
 New agent types join the mesh by defining their αf field weights — no schema changes, no protocol changes. The 7 fields are fixed. The weights are per-agent.
 
@@ -2120,7 +2158,7 @@ Finance: “revenue recognition discrepancy found”
 
 Desired change or purpose.
 
-Intent captures what the agent or user is trying to achieve. It is domain-specific — a coding agent’s intent ("ship the feature") is irrelevant to a music agent. This is why SVAF learned the lowest gate value for intent (0.07) — goals don’t transfer across domains.
+Intent captures what the agent or user is trying to achieve. It is domain-specific — a coding agent’s intent ("ship the feature") is irrelevant to a music agent. In the SVAF paper’s trained model, intent learned the lowest gate value (0.07) — goals don’t transfer across domains (the deployed evaluator is the heuristic baseline, Section 9.2.1).
 
 Coding: “complete feature implementation by end of sprint”
 
@@ -2156,7 +2194,7 @@ Legal: “filing deadline March 31, non-negotiable”
 
 Whose viewpoint, situational context.
 
-Perspective captures the lens through which the observation was made. "Developer, late night session" is different from "developer, morning standup" — same domain, different context. SVAF learned the lowest gate value for perspective (0.06) — viewpoint is the most sovereign field, rarely useful across domains.
+Perspective captures the lens through which the observation was made. "Developer, late night session" is different from "developer, morning standup" — same domain, different context. In the SVAF paper’s trained model, perspective learned the lowest gate value (0.06) — viewpoint is the most sovereign field, rarely useful across domains.
 
 Coding: “senior developer, deep work session, afternoon”
 
@@ -2168,7 +2206,7 @@ Recruiting: “hiring manager, culture fit assessment”
 
 Emotion (valence: -1 to 1) + energy (arousal: -1 to 1). Dual representation: numeric for comparison, text for semantic richness.
 
-Mood is the only fast-coupling field — affective state crosses ALL domain boundaries. A fitness agent, music agent, and coding agent all benefit from knowing the user is exhausted (v: -0.6, a: -0.4). The SVAF model independently discovered this: mood gate = 0.50 (highest), without being told. Every agent should attend to mood regardless of domain.
+Mood is the only fast-coupling field — affective state crosses ALL domain boundaries. A fitness agent, music agent, and coding agent all benefit from knowing the user is exhausted (v: -0.6, a: -0.4). The trained model in the SVAF paper converged on the same design: mood gate = 0.50 (highest), without supervision. Every agent should attend to mood regardless of domain.
 
 Coding: “frustrated, low energy (v: -0.6, a: -0.4)”
 
@@ -2354,7 +2392,7 @@ Finance
 
 Agents produce two types of output: signals (CMBs — structured 7-field observations) and artifacts (documents, analyses, drafts, code — full-length content that a CMB references). A CMB is the signal on the mesh. An artifact is the substance behind it.
 
-When an agent produces an artifact, it MUST share a CMB to the mesh that references the artifact location in the `commitment` field using the `artifact:` prefix:
+When an agent produces an artifact, it SHOULD share a CMB to the mesh that references the artifact location in the `commitment` field using the `artifact:` prefix:
 
 commitment: "artifact: research/agent-memory-comparison.md"
 
@@ -2391,6 +2429,10 @@ Mood has a well-established dimensional model (Russell’s circumplex). Other fi
 ---
 
 <!-- 9. Coupling & SVAF (L4) -->
+
+xmesh runtime documentation
+
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
 
 ## 9\. Layer 4: Coupling and SVAF Evaluation
 
@@ -2440,7 +2482,7 @@ Rejected
 
 ### 9.2 Content-Level Evaluation (SVAF)
 
-When a node receives a `cmb` frame, it MUST evaluate the signal independently of peer coupling state, through an admission path that satisfies the δf interface (Section 9.2.1). “Support” here means interoperate-with, not implement-only-this: every implementation MUST provide the concrete cosine-distance baseline (Section 9.2.1) as its interoperable floor — the path a node with no other method uses, and the one interop test vectors target — and its baseline path MUST reproduce those vectors. An implementation MAY additionally use a richer path (neural is RECOMMENDED); a richer path still satisfies the interface, but admission is then receiver-divergent by design (Section 2.7), not identical across nodes. (The mood field’s unconditional delivery is a Section 9.3 _delivery_ mechanism, separate from this _admission_ evaluation.) The encoder that maps field text to vectors SHOULD use semantic embeddings (e.g. sentence-transformers) rather than lexical hashing — per-field evaluation quality is bounded by encoder quality (Section 18.7), so thresholds are meaningful only within a pinned encoder.
+When a node receives a `cmb` frame, it MUST evaluate the signal independently of peer coupling state, through an admission path that satisfies the δf interface (Section 9.2.1). “Support” here means interoperate-with, not implement-only-this: every implementation MUST provide the concrete cosine-distance baseline (Section 9.2.1) as its interoperable floor — the path a node with no other method uses, and the one interop test vectors target — and its baseline path MUST reproduce those vectors. An implementation MAY additionally use a richer path (a trained neural evaluator is one such path; the heuristic baseline is the production default in the reference runtime); a richer path still satisfies the interface, but admission is then receiver-divergent by design (Section 2.7), not identical across nodes. (The mood field’s unconditional delivery is a Section 9.3 _delivery_ mechanism, separate from this _admission_ evaluation.) The encoder that maps field text to vectors SHOULD use semantic embeddings (e.g. sentence-transformers) rather than lexical hashing — per-field evaluation quality is bounded by encoder quality (Section 18.7), so thresholds are meaningful only within a pinned encoder.
 
 The SVAF evaluation computes per-field drift between the incoming CMB and local anchor CMBs, applies per-agent field weights (αf), combines with temporal drift, and produces a four-class decision using a band-pass model:
 
@@ -2538,7 +2580,7 @@ Relevance is not binary. A fitness agent’s "sedentary 3 hours, exhausted" has 
 
 Why is mood always delivered even when the CMB is rejected?
 
-Affect crosses all domain boundaries — this is empirically confirmed by the SVAF neural model where mood emerged as the highest gate value (0.50) without supervision. A rejected CMB means the domains are different, not that the user’s emotional state is irrelevant.
+Affect crosses all domain boundaries — the trained model studied in the SVAF paper converged on the same rule, with mood emerging as the highest gate value (0.50) without supervision. A rejected CMB means the domains are different, not that the user’s emotional state is irrelevant.
 
 Why two levels of coupling (peer drift + content drift)?
 
@@ -2555,6 +2597,10 @@ Learn more   [SVAF: Per-Field Memory Evaluation](https://meshcognition.org/rese
 ---
 
 <!-- 10. State Blending -->
+
+xmesh runtime documentation
+
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
 
 ## 10\. State Blending
 
@@ -2665,7 +2711,7 @@ Domain expertise, identity — stays sovereign
 
 ### 10.4 Stability
 
-Integration is unconditionally stable for αeffective < 1. Each admission’s influence on the local state is bounded by αi < 1 (Section 10.3), so every integration step remains a contraction toward the node’s own dynamics — admitted content perturbs the trajectory, it cannot replace it, and the state cannot diverge. No step depends on a shared or global vector; stability is a local property of each node. When peers disconnect, the node smoothly continues on its own admitted history with no discontinuity. The mesh degrades gracefully.
+By design, integration remains a contraction toward the node’s own dynamics for αeffective < 1. Each admission’s influence on the local state is bounded by αi < 1 (Section 10.3), so every integration step remains a contraction toward the node’s own dynamics — admitted content perturbs the trajectory, it cannot replace it, and the state cannot diverge. No step depends on a shared or global vector; stability is a local property of each node. When peers disconnect, the node smoothly continues on its own admitted history with no discontinuity. The mesh degrades gracefully.
 
 ### 10.5 After Integration
 
@@ -2691,7 +2737,7 @@ Agent acts → new CMB with lineage.ancestors
 
 Broadcast to mesh (subject to the §15.7 emission gate) → other agents remix it
 
-↻ loop — graph grows, agents learn
+↻ loop — the remix graph grows
 
 Next   [11\. Feedback Modulation](/spec/mmp/feedback) — how the mesh learns from human judgment through neuromodulation of SVAF and CfC.
 
@@ -2700,6 +2746,10 @@ Next   [11\. Feedback Modulation](/spec/mmp/feedback) — how the mesh learns f
 ---
 
 <!-- 11. Feedback Modulation -->
+
+xmesh runtime documentation
+
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
 
 ## 11\. Feedback Modulation
 
@@ -2723,7 +2773,7 @@ SVAF already computes per-field drift for every incoming CMB. No new computation
 
 3\. τ-modulated adaptation (Section 10.3)
 
-The feedback signal enters the agent’s CfC cell (Layer 6) through the Synthetic Memory pipeline. Fast-τ neurons integrate the feedback immediately (affective corrections: “tone down the alarm”). Slow-τ neurons integrate gradually (strategic corrections: “this analytical frame is wrong”). A single dismissal produces a small shift in slow-τ neurons. Repeated similar feedback compounds — the agent’s cognitive baseline shifts until the lesson is encoded in the CfC hidden state itself, not recalled as a stored rule.
+The feedback signal enters the agent’s CfC cell (Layer 6) through the Synthetic Memory pipeline. Fast-τ neurons integrate the feedback immediately (affective corrections: “tone down the alarm”). Slow-τ neurons integrate gradually (strategic corrections: “this analytical frame is wrong”). A single dismissal produces a small shift in slow-τ neurons. Repeated similar feedback compounds. This τ-modulated pathway is the Layer-6 _design_: in the shipping runtime, feedback takes effect through the anchor-weight mechanism above (validated 2.0 / dismissed 0.5), and the encode-into-hidden-state pathway is optional Layer-6 behavior, not a property to rely on today.
 
 This is how the mesh becomes self-correcting. The human does not retrain the agent, reconfigure its weights, or edit its prompt. The human produces a CMB. The mesh cognition loop does the rest.
 
@@ -2821,7 +2871,7 @@ SHOULD
 
 Carry genuine affect — modulates fast-τ neurons
 
-Feedback is a remix. The founder processes the agent’s signal through their own domain lens and produces new understanding. The founder’s reasoning constitutes new domain data per Section 15.7 — satisfying all three remix conditions: new domain data exists, the peer signal is relevant, and the intersection produces new knowledge.
+Feedback is a remix. The operator processes the agent’s signal through their own domain lens and produces new understanding. The operator’s reasoning constitutes new domain data per Section 15.7 — satisfying all three remix conditions: new domain data exists, the peer signal is relevant, and the intersection produces new knowledge.
 
 ### 11.3 Directive Feedback
 
@@ -2834,17 +2884,16 @@ A directive feedback CMB is produced by a validator or anchor node with:
 -   Validator authority (Section 6.5) — enters at anchor weight 2.0
 
 ```
-focus:       "Mesh agents use direct LLM API calls for reasoning.
-              Single-agent developer tools are a separate category."
-issue:       "Feed signals about single-agent scaffolding tools are
-              different-layer noise — not competitive threats to a
-              multi-agent coordination protocol."
-intent:      "Analytical frame: distinguish single-agent scaffolding
-              (human-to-agent) from multi-agent coordination
-              (agent-to-agent). Only the latter is relevant."
-motivation:  "Prevents wasted analysis cycles on signals that cannot
-              produce actionable competitive intelligence."
-perspective: "Founder, protocol architect"
+focus:       "This mesh reviews backend services. Frontend framework
+              releases are a separate concern."
+issue:       "Feed signals about frontend framework releases are
+              out-of-scope noise for a backend review mesh."
+intent:      "Analytical frame: distinguish backend runtime signals
+              (in scope) from frontend tooling signals (out of scope).
+              Only the former is relevant here."
+motivation:  "Prevents wasted analysis cycles on signals outside the
+              mesh's review scope."
+perspective: "Operator, mesh steward"
 mood:        { text: "clarifying", valence: 0.1, arousal: 0.2 }
 ```
 
@@ -2865,12 +2914,12 @@ Feedback CMB (dismissal with reasoning). A validator node dismisses a prior CMB.
     "createdBy": "validator-node",
     "createdAt": 1775485628563,
     "fields": {
-      "focus": { "text": "Dismissed: Competitor tool release signals market shift", "vector": ["..."] },
-      "issue": { "text": "Dismissal reasoning: single-agent scaffolding, different layer from MMP", "vector": ["..."] },
-      "intent": { "text": "founder dismissed — single-agent scaffolding, different layer from multi-agent coordination", "vector": ["..."] },
-      "motivation": { "text": "Founder reasoning: prevents wasted analysis on different-layer signals", "vector": ["..."] },
-      "commitment": { "text": "Dismissed [cmb-876c99c6]: competitor analysis", "vector": ["..."] },
-      "perspective": { "text": "founder, via dashboard", "vector": ["..."] },
+      "focus": { "text": "Dismissed: Frontend framework release flagged as relevant", "vector": ["..."] },
+      "issue": { "text": "Dismissal reasoning: frontend tooling, outside this mesh's review scope", "vector": ["..."] },
+      "intent": { "text": "operator dismissed — frontend tooling, out of scope for a backend review mesh", "vector": ["..."] },
+      "motivation": { "text": "Operator reasoning: prevents wasted analysis on out-of-scope signals", "vector": ["..."] },
+      "commitment": { "text": "Dismissed [cmb-876c99c6]: framework-release analysis", "vector": ["..."] },
+      "perspective": { "text": "operator, via dashboard", "vector": ["..."] },
       "mood": { "text": "corrective", "valence": -0.1, "arousal": 0.2, "vector": ["..."] }
     },
     "lineage": {
@@ -2893,12 +2942,12 @@ Directive CMB (standalone teaching, no parents). A validator injects domain know
     "createdBy": "validator-node",
     "createdAt": 1775485630000,
     "fields": {
-      "focus": { "text": "Single-agent scaffolding tools are a separate category from multi-agent coordination", "vector": ["..."] },
-      "issue": { "text": "Feed signals about single-agent tools are different-layer noise", "vector": ["..."] },
-      "intent": { "text": "Analytical frame: distinguish human-to-agent from agent-to-agent", "vector": ["..."] },
-      "motivation": { "text": "Prevents wasted analysis on signals outside MMP scope", "vector": ["..."] },
+      "focus": { "text": "Frontend framework releases are a separate concern from backend review", "vector": ["..."] },
+      "issue": { "text": "Feed signals about frontend tooling are out-of-scope noise here", "vector": ["..."] },
+      "intent": { "text": "Analytical frame: distinguish backend runtime signals from frontend tooling", "vector": ["..."] },
+      "motivation": { "text": "Prevents wasted analysis on signals outside the mesh's scope", "vector": ["..."] },
       "commitment": { "text": "Standing directive — applies to all future feed analysis", "vector": ["..."] },
-      "perspective": { "text": "founder, protocol architect", "vector": ["..."] },
+      "perspective": { "text": "operator, mesh steward", "vector": ["..."] },
       "mood": { "text": "clarifying", "valence": 0.1, "arousal": 0.2, "vector": ["..."] }
     },
     "lineage": {
@@ -2915,7 +2964,7 @@ Directive CMB (standalone teaching, no parents). A validator injects domain know
 
 How is feedback modulation different from just sending a message?
 
-A message (`message` frame) is a transport-layer event. It does not enter SVAF evaluation, does not produce anchor weights, and does not modulate CfC state. A feedback CMB is a cognitive-layer event: it enters the mesh cognition loop, affects SVAF anchor computation, and modulates the agent’s neural state through τ-dependent adaptation.
+A message (`message` frame) is a transport-layer event. It does not enter SVAF evaluation, does not produce anchor weights, and does not modulate CfC state. A feedback CMB is a cognitive-layer event: it enters the mesh cognition loop and affects SVAF anchor computation; where Layer 6 is present, it additionally modulates neural state through τ-dependent adaptation (a design property of the optional Layer-6 path).
 
 Can an agent ignore feedback?
 
@@ -2927,7 +2976,7 @@ No. The directive becomes a high-weight anchor, not a rule. If the agent receive
 
 How many dismissals before an agent “learns”?
 
-Implementation-specific. For fast-τ neurons (mood), a single feedback CMB produces measurable adaptation. For slow-τ neurons (domain expertise), adaptation is proportional to 1/τ per cycle. As an illustrative example with reference implementation defaults, approximately 3–5 similar feedback signals produce a meaningful baseline shift.
+Implementation-specific, and stated here as a design property of the optional Layer-6 path rather than measured shipping behavior: fast-τ adaptation responds within a single feedback CMB; slow-τ adaptation is proportional to 1/τ per cycle. What ships today is the anchor-weight mechanism: each validation immediately reweights the anchors future admission is scored against.
 
 Why not just update the agent’s prompt?
 
@@ -2940,6 +2989,10 @@ Learn more   [Mesh Cognition](https://meshcognition.org) — the theoretical fo
 ---
 
 <!-- 12. Synthetic Memory (L5) -->
+
+xmesh runtime documentation
+
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
 
 ## 12\. Synthetic Memory (Layer 5)
 
@@ -3250,11 +3303,15 @@ Related   [State Blending](/spec/mmp/blending) — what happens after Synthetic
 
 <!-- 13. Cognitive State (L6) -->
 
+xmesh runtime documentation
+
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+
 ## 13\. Cognitive State — Per-Agent LNN (Layer 6)
 
 Naming note
 
-Layer 6 was called xMesh in the v0.2.x drafts and in the published papers (arXiv:[2604.19540](https://arxiv.org/abs/2604.19540), arXiv:[2604.03955](https://arxiv.org/abs/2604.03955)). As of v1.0.1 the layer is named Cognitive State; xMesh now refers exclusively to the open runtime that implements MMP (all eight layers). The wire frame type `xmesh-insight` retains its identifier for backward compatibility and is unchanged.
+Layer 6 was called xMesh in the v0.2.x drafts and in the published papers (arXiv:[2604.19540](https://arxiv.org/abs/2604.19540), arXiv:[2604.03955](https://arxiv.org/abs/2604.03955)). As of v1.0.1 the layer is named Cognitive State. The name _xmesh_ now refers to the product runtime — the reference implementation of the receiver side; the open substrate SDK is SYM, and the protocol itself is this open specification. The wire frame type `xmesh-insight` retains its identifier for backward compatibility and is unchanged.
 
 Each agent runs its own Liquid Neural Network (LNN) implementing Closed-form Continuous-time (CfC) dynamics. The LNN evolves cognitive state from [Synthetic Memory](/spec/mmp/memory) input (Layer 5) and direct CMB processing. Hidden state (h₁, h₂) is strictly local — per the hidden-state locality invariant ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)), it never crosses the wire. A node’s hidden state evolves only from the CMBs it admits, never by importing a peer’s vectors.
 
@@ -3416,7 +3473,7 @@ K   = coupling rate (default 1.0)
 
 ### 13.5 Wire Example
 
-Real Cognitive State insight from a production session. A coding agent observed 5 structured CMBs across diverse topics (memory store refactor, protocol collaboration, social engagement, ML training, spec authoring) over a 12-hour session with no mesh peers connected:
+An illustrative Cognitive State insight from a development session of the reference runtime (axes are learned and agent-specific — §13.3 — so interpretations below are illustrative, not normative). A coding agent observed 5 structured CMBs across diverse topics (memory store refactor, protocol collaboration, social engagement, ML training, spec authoring) over a 12-hour session with no mesh peers connected:
 
 ```
 {
@@ -3472,7 +3529,7 @@ This is a single-agent baseline. With peers connected, remixScore rises as the a
 
 ### 13.6 API
 
-Implementations MUST expose the following operations. Method names are normative — implementations across languages MUST use these names for cross-platform consistency.
+The reference runtime exposes the following operations. Method names below are those of the reference SDKs, shown for cross-language consistency of the SYM/xmesh codebases — they are documentation of the runtime, not a conformance requirement (§17.2).
 
 Method
 
@@ -3668,6 +3725,10 @@ See also   [Mesh Cognition](https://meshcognition.org) — theoretical foundati
 ---
 
 <!-- 14. Application (L7) -->
+
+xmesh runtime documentation
+
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
 
 ## 14\. Application (Layer 7)
 
@@ -4028,7 +4089,7 @@ The following is a production log from two real MMP nodes — a knowledge feed a
 
 ```
 # 1. Knowledge feed agent starts as sovereign node (own identity, own SymNode)
-[knowledge-feed] Neural SVAF model loaded
+[knowledge-feed] SVAF heuristic engine ready
 [knowledge-feed] Mesh node started: knowledge-feed (019d3ed4)
 
 # 2. Connects to mesh-daemon via WebSocket relay
@@ -4287,6 +4348,10 @@ Related   [Mesh Cognition](https://meshcognition.org) · [Context Curation](/sp
 
 <!-- 15. Remix -->
 
+MMP Core + xmesh runtime
+
+This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
+
 ## 15\. Remix
 
 Remix is how collective intelligence emerges. Without remix, agents forward data. With remix, each agent processes incoming signals through its own domain lens and produces new understanding that didn’t exist before. The growing graph of remixed CMBs IS the collective intelligence — not the original observations, not the agents, not the mesh. The graph.
@@ -4504,6 +4569,10 @@ Related   [CMB (CAT7)](/spec/mmp/cmb) · [Coupling & SVAF](/spec/mmp/coupling) 
 
 <!-- 16. Extensions -->
 
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
+
 ## 16\. Extension Mechanism
 
 MMP is designed for extensibility. Extensions add new frame types, handshake fields, or protocol behaviours without modifying the core specification.
@@ -4540,12 +4609,6 @@ Draft
 
 [MMP Extension: Group Directory v0.1.0](/spec/mmp/extensions/group-directory) — persistent group metadata, admin approval workflow, and directory enumeration. Higher-layer extension building on §5.8 mesh groups for chat-platform-style UX (browse / request-to-join / approve). (Draft — pre-implementation; promotes on first reference impl per §16.5.)
 
-symbit-v0.1.0
-
-Proposal
-
-SYMBit Economic Layer — protocol-level reward primitive for agent cognitive contributions. SVAF outcomes as value function, lineage DAG for credit distribution. (Specification forthcoming)
-
 ### 16.5 Extension Lifecycle
 
 Extensions progress through a defined lifecycle:
@@ -4565,6 +4628,10 @@ Q&A   Can an extension become a core frame type? — Yes. An extension that pro
 ---
 
 <!-- 17. Conformance -->
+
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
 
 ## 17\. Conformance
 
@@ -4587,11 +4654,11 @@ An Emitter is fully specified today and needs no receiver-side machinery: it doe
 
 A Cognitive Node is a full mesh participant: it admits, integrates, reinforces, and branches. Its behavior is specified for transparency, not reimplementation — so an Emitter knows what a mesh guarantees about its blocks (what the membrane admits, how lineage is kept, what grounding means), and so a deployment is auditable. A Cognitive Node MUST honor every Emitter obligation, plus:
 
--   Hidden-state locality — Layer-2 hidden state (h₁, h₂) MUST NOT cross the wire (§2.7); a conformant node MUST NOT emit `state-sync`.
+-   Hidden-state locality — L2 memory-tier hidden state (h₁, h₂, held by Layer 6) MUST NOT cross the wire (§2.7); a conformant node MUST NOT emit `state-sync`.
 -   Admission — per-field SVAF evaluation against local anchors (§9.2), satisfying the §9.2.1 δf interface invariants; the reference baseline is vector-tested (`svaf-baseline`).
 -   Integration — store an admitted block as a remix with lineage (§15.5), never the raw peer block; lineage remains walkable (§15.2) and honors the tether (§15.8).
 -   Memory + Canon — the lifecycle and retention rules of §6, including the Canon exemption (§6.3) and grounding (§6.7).
--   Cognitive layers (Layers 5–7, optional) — synthetic memory (§12), Cognitive State (§13), and application (§14); a node MAY implement these, and if it persists Layer-6 state it MUST keep it across restarts (§11).
+-   Cognitive layers (Layers 5–7, optional) — synthetic memory (§12), Cognitive State (§13), and application (§14); a node MAY implement these, and if it persists Layer-6 state it MUST keep it across restarts (§13).
 
 The normative behavior of Class 2 is what the [reference implementation](/spec/mmp#implementations) does; the specification of these layers is documentation of that runtime, and independent reimplementation is neither required nor expected for interoperability. Two independent Cognitive Nodes are not guaranteed to agree block-for-block — admission is receiver-divergent by design (§9.2.1), the embedding kernel is receiver-local, and thresholds are meaningful only within a pinned encoder. A mesh interoperates with a Cognitive Node; it does not certify a re-built one.
 
@@ -4601,12 +4668,12 @@ Class 1 conformance is verified byte-for-byte against the published [conformance
 
 -   Ed25519 identity keypair — generated at first launch, persisted, and presented in the handshake (Sections 3.1.3, 18.3)
 -   CMB signature verification — a receiver holding the author’s key MUST reject forged or tampered CMBs (Section 18.3.1)
--   Emission gate — a remix MUST carry new domain data; pure paraphrase is rejected (Section 15.7)
+-   Emission gate — a remix MUST carry new domain data; pure paraphrase is not emitted (Section 15.7)
 -   Receiver-autonomous SVAF admission — per-field evaluation at the receiver, no sender override (Section 9.2)
 -   Hidden-state locality — hidden state (h₁, h₂) MUST NOT cross the wire (Section 2.7)
 -   Lifecycle authority gates — lifecycle advancement honored only for authors whose role resolves through the signed grant chain (Section 6.5)
 
-The normative [conformance test vectors](https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance) are published in the protocol repository: `cmb-key-v1` (§8.2.1 content addresses), `cmb-sig-v1` (§18.3.1 signing payload + Ed25519), `svaf-baseline` (§9.2/§9.2.1 admission math, the nearest-anchor redundancy witnesses, and the evaluation-time flip window), and `tether-v1` (§15.8 drift checks + `mmp-tether-v1` attestation). A conforming implementation MUST reproduce every expectation exactly; the SVAF vectors carry raw field vectors and no text — they test the math, not the encoder (§9.2.1). The reference implementation re-derives every vector in its own suite, so it cannot drift from the published contract.
+The normative [conformance test vectors](https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance) are published in the protocol repository: `cmb-key-v1` (§8.2.1 content addresses), `cmb-sig-v1` (§18.3.1 signing payload + Ed25519), `svaf-baseline` (§9.2/§9.2.1 admission math, the nearest-anchor redundancy witnesses, and the evaluation-time flip window), and `tether-v1` (§15.8 drift checks + `mmp-tether-v1` attestation). A conforming Class 1 Emitter MUST reproduce the `cmb-key-v1` and `cmb-sig-v1` expectations exactly. The `svaf-baseline` and `tether-v1` sets are runtime-audit vectors: they pin the reference runtime’s admission math so deployments are verifiable, not so third parties rebuild it (§17.2); they carry raw field vectors and no text — they test the math, not the encoder (§9.2.1). The reference implementation re-derives every vector in its own suite, so it cannot drift from the published contract.
 
 ### 17.5 Requirements Added in 1.1.0
 
@@ -4712,6 +4779,10 @@ Q&A   What’s the smallest thing I can build to join a mesh? — A Class 1 Emi
 ---
 
 <!-- 18. Security -->
+
+MMP Core + xmesh runtime
+
+This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
 
 ## 18\. Security Considerations
 
@@ -4888,7 +4959,7 @@ Sybil attack
 
 An attacker creates multiple fake nodes to amplify influence in peer-influence weighting.
 
-MITIGATION Peer-influence weighting (Section 10.1) weights by drift and recency, not by node count. Many aligned Sybil nodes produce the same aggregate influence as one. Cryptographic identity (Section 3) limits Sybil creation when implemented.
+MITIGATION Peer-influence weighting (Section 10.1) weights by drift and recency, not by node count. Many aligned Sybil nodes produce the same aggregate influence as one. Keypairs are free to generate, so identity alone does not limit Sybil creation; drift/recency weighting and earned authority (Section 6.5) bound the influence a new identity can carry.
 
 Cold-start capture
 
@@ -4920,7 +4991,7 @@ Additional privacy considerations:
 
 ### 18.6 Regulatory Compliance & Audit Trail
 
-CMB immutability and lineage create a complete, tamper-evident audit trail by design. Every observation, every remix, every decision is traceable through the DAG:
+CMB immutability and lineage create a tamper-evident audit trail within the signed, retained graph — tamper-evident, not tamper-proof: modification of any retained block is detectable via content addressing and signatures; completeness of the underlying store is not itself checkpointed (retention §6.3 may purge, and unsigned blocks weaken the guarantee, §18.3.1). Every observation, every remix, every decision is traceable through the DAG:
 
 -   —Who — `createdBy` on every CMB identifies the agent that produced it.
 -   —When — `createdAt` timestamps every CMB with millisecond precision.
@@ -4962,11 +5033,11 @@ Per-field cosine drift against local memory anchors with temporal decay — misa
 
 Catches drift from the agent’s own state, not absolute quality. A consistently poor extractor will pass its own drift checks
 
-Neural SVAF
+Neural SVAF (research variant)
 
-Trained model with learned per-field gate values — mood gates highest (0.50), perspective lowest (0.06)
+A trained evaluator studied in the SVAF paper (§21) learned per-field gate values — mood highest (0.50), perspective lowest (0.06)
 
-Requires trained model; falls back to heuristic when unavailable
+Not deployed — the heuristic above is the production evaluator; the research result informs its design
 
 Per-field evaluation quality is bounded by encoder quality, not model capacity. Production deployment revealed that n-gram encoding (character trigrams + word bigrams) produces 0.31 cosine similarity for paraphrases — SVAF cannot distinguish “submit IETF draft today” from “IETF submission, zero blockers, execute now” because the encoder represents them as distant vectors. Replacing n-gram with semantic embeddings (all-MiniLM-L6-v2, 384-dim) raises paraphrase similarity to 0.69 — a 2.2× improvement — while preserving topic separation (different topics: 0.03). Implementations SHOULD use semantic embeddings for SVAF evaluation. N-gram encoding is suitable only for prototyping or resource-constrained environments where the quality trade-off is acceptable.
 
@@ -4982,6 +5053,10 @@ Implementations targeting domains where field extraction quality is critical (he
 ---
 
 <!-- 19. Configuration -->
+
+xmesh runtime documentation
+
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
 
 ## 19\. Configuration
 
@@ -5059,7 +5134,7 @@ Discovery domain
 
 Each agent type has a pre-built configuration. The profile determines which CMB fields matter most (αf weights), how long signals stay relevant for SVAF evaluation (freshness), and how long remixed CMBs are retained in local storage (retention). New agent types join the mesh by defining their profile — no protocol changes needed.
 
-Freshness and retention are different: freshness controls SVAF temporal drift (how quickly incoming signals become “stale” for evaluation). Retention controls how long the agent’s own remixed CMBs are kept in local storage. Regulated domains (legal, finance, health) MUST set retention according to their compliance requirements.
+Freshness and retention are different: freshness controls SVAF temporal drift (how quickly incoming signals become “stale” for evaluation). Retention controls how long the agent’s own remixed CMBs are kept in local storage. Regulated deployments SHOULD set retention according to their compliance obligations — deployment guidance, non-normative; consult counsel for the applicable regime.
 
 Profile
 
@@ -5139,7 +5214,7 @@ Health monitoring, clinical
 
 Per regulation
 
-Clinical records: HIPAA 6yr, GDPR varies. Consult compliance.
+Retention is jurisdiction-specific; consult compliance.
 
 finance
 
@@ -5149,7 +5224,7 @@ Finance, trading, compliance
 
 Per regulation
 
-MiFID II: 5yr. SEC: 7yr. Set per jurisdiction.
+Retention is jurisdiction-specific; set per applicable regime.
 
 uniform
 
@@ -5405,9 +5480,13 @@ Temporal drift contribution
 
 <!-- 20. JSON Schema -->
 
+MMP Core · frozen wire contract
+
+This page is part of the open, byte-testable standard — the Class 1 emitter surface (§17.1). The wire contract has been stable since 0.2.3; changes are errata-only. Receiver-behavior passages, where present, document the reference runtime.
+
 ## 20\. JSON Schema
 
-Formal JSON Schema definitions for core frame types, matching the wire objects the reference implementation emits. Implementations SHOULD validate frames against these schemas. `additionalProperties` is `true` by design: §8 requires unrecognised fields to be silently ignored, so a schema SHOULD not reject a forward-compatible extension. The single-page [downloadable specification](/spec/mmp-v1.0.md) carries the full rendered spec. Machine-readable schema files are [published in the protocol repository](https://github.com/sym-bot/mesh-memory-protocol/tree/main/schema) — handshake, CMB (including the §15.8 tether attestation), the cmb frame, and the cmb-fetch pair — and are guarded by the reference implementation’s suite: real wire objects it produces must validate against them. Schemas for the remaining frame types are tracked as a standards-program deliverable.
+Formal JSON Schema definitions for core frame types — the schemas are the contract, and any implementation (the reference included) conforms to them. Implementations SHOULD validate frames against these schemas. `additionalProperties` is `true` by design: §8 requires unrecognised fields to be silently ignored, so a schema SHOULD not reject a forward-compatible extension. The single-page [downloadable specification](/spec/mmp-v1.0.md) carries the full rendered spec. Machine-readable schema files are [published in the protocol repository](https://github.com/sym-bot/mesh-memory-protocol/tree/main/schema) — handshake, CMB (including the §15.8 tether attestation), the cmb frame, and the cmb-fetch pair — and the reference implementation’s suite validates its real wire objects against them, so it cannot drift from this contract. Schemas for the remaining frame types are tracked as a standards-program deliverable.
 
 Two scope notes. These are the _wire_ schemas: receiver-local fields (`source`, `originTimestamp`, `storedAt`, `confidence`, `provenance`) are set on receipt and never cross the wire, so they are not listed. And the CMB schema describes the _decrypted_ form: under end-to-end encryption (§18.2.1) a CMB in transit carries `fields` as ciphertext plus `_e2e.nonce`, and the object schema below applies after decryption. Each field also carries a `vector` embedding; it is _advisory_ and encoder-specific (§18.7) — not part of the content address (§8.2.1), and a receiver recomputes it locally rather than trusting the sender’s. Optional application-level fields (`meta`, `payload`) MAY also be present and are permitted by `additionalProperties`.
 
@@ -5427,7 +5506,7 @@ Two scope notes. These are the _wire_ schemas: receiver-local fields (`source`, 
     "publicKey": { "type": "string", "description": "base64url raw Ed25519 identity key (32 bytes); verifies this node's CMB signatures (§18.3.1)" },
     "e2ePublicKey": { "type": "string", "description": "base64 X25519 key for end-to-end field encryption (§18.2.1)" },
     "group": { "type": "string", "description": "The node's mesh group; the §5.8 isolation boundary. Absent ⇒ 'default' (§5.2)." },
-    "lifecycleRole": { "enum": ["participant", "validator", "anchor"], "description": "Senders MUST include it (§5.2); receivers treat absence as participant. Self-declared: an elevated role is honored only with a signed role-grant (§6.6)." },
+    "lifecycleRole": { "enum": ["participant", "validator", "anchor"], "description": "Senders SHOULD include it (§5.2); receivers treat absence as participant. Self-declared: an elevated role is honored only with a signed role-grant (§6.6)." },
     "extensions": { "type": "array", "items": { "type": "string" } }
   }
 }
@@ -5523,9 +5602,13 @@ This example shows the legacy unsigned form (`cmb-` key, no `sig`); §8.2.1 and 
 
 <!-- 21. References -->
 
+MMP Core + xmesh runtime
+
+This page carries both tiers: wire-contract sections are frozen MMP Core (Class 1, §17.1); receiver-behavior sections document the xmesh reference runtime (Class 2, §17.2).
+
 ## 21\. References
 
-References are split into normative (a conforming implementation depends on them), foundational (the published results the protocol’s design and its normative constants rest on), and informative (background). Reference implementations are listed last; a byte-level interop oracle pinned per spec version is tracked as a standards-program deliverable.
+References are split into normative (a conforming implementation depends on them), foundational (the published results the protocol’s design rests on), and informative (background). Reference implementations are listed last; a byte-level interop oracle pinned per spec version is tracked as a standards-program deliverable.
 
 ### 21.1 Normative References
 
@@ -5551,7 +5634,7 @@ References are split into normative (a conforming implementation depends on them
 
 ### 21.2 Foundational Papers
 
-The protocol’s no-center, receiver-autonomous-admission, and lineage-provenance design — and the normative constants that instantiate it — rest on these published results.
+The protocol’s no-center, receiver-autonomous-admission, and lineage-provenance design rests on these published results. (Numeric defaults and thresholds are engineering choices of the runtime, not results derived in these papers.)
 
 \[Mesh-Inference\] Xu, H. (2026). Mesh Inference: A Formal Model of Collective Inference Without a Center. _arXiv:_[2606.19537](https://arxiv.org/abs/2606.19537). Convergence, identification-completeness, and observation-only confidentiality for the admission/emission policy (Sections 9, 12).
 

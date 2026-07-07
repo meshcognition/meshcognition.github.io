@@ -88,7 +88,7 @@ Existing protocols at lower layers standardize tool access and task delegation b
 
 The problem is semantic, not transport. **Hidden state never crosses the wire** — each agent’s learned cognition stays sovereign on its own device; only Cognitive Memory Blocks (CMBs) propagate. Receiver-autonomous admission lets the mesh grow without re-introducing a master. MMP defines transport over TCP on local networks and WebSocket for internet relay, with length-prefixed JSON as the canonical wire format. Discovery uses DNS-SD (Bonjour) with zero configuration.
 
-This document describes an 8-layer stack, but it is **two documents in one**, and is read that way (§17). **MMP Core** is the open standard: the wire contract — identity, transport, connection, frames, the CAT7 block with its content address and signature — byte-testable against published vectors and implementable in an afternoon (Class 1, §17.1). Everything receiver-side — SVAF admission, memory tiers, remix behavior, the cognitive layers that together form [Mesh Cognition](/spec/mmp/architecture) — is **documentation of the xmesh reference runtime** (Class 2, §17.2): published for transparency and audit, versioned with the runtime, and not a third-party build target. Each page carries its tier banner. The protocol is open; the brain is the product.
+This document describes an 8-layer stack, but it is **two documents in one**, and is read that way (§17). **MMP Core** is the open standard: the wire contract — identity, transport, connection, frames, the CAT7 block with its content address and signature — byte-testable against published vectors and implementable in an afternoon (Class 1, §17.1). Everything receiver-side — SVAF admission, memory tiers, remix behavior, the cognitive layers that together form [Mesh Cognition](/spec/mmp/architecture) — is **documentation of the xmesh reference runtime** (Class 2, §17.2): published for transparency and audit, versioned with the runtime, and not a conformance target. None of it is closed as knowledge: the mechanism is fully documented under CC-BY-4.0, its reference implementation is open source (SYM, Apache 2.0), and the theory is published (§21). Each page carries its tier banner. The protocol is open; the brain is the product; the science is open.
 
 This specification is **verified, not merely asserted**: its Core wire claims are vector-tested, and its runtime-tier claims are re-derived against a mathematical formalization of the deployed xmesh runtime, and where analysis finds a requirement unsatisfiable or a guarantee conditional — the basis of the redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade — the text is amended and the limit disclosed in place rather than left implicit (see the [change log](/spec/mmp/changelog)’s soundness & completeness update). What the protocol promises is what survives derivation.
 
@@ -1402,7 +1402,7 @@ Sections 5.9–5.11 are informative and change no single-mesh contract: they des
 
 xmesh runtime documentation
 
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 6\. Layer 3: Memory
 
@@ -2432,7 +2432,7 @@ Mood has a well-established dimensional model (Russell’s circumplex). Other fi
 
 xmesh runtime documentation
 
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 9\. Layer 4: Coupling and SVAF Evaluation
 
@@ -2600,7 +2600,7 @@ Learn more   [SVAF: Per-Field Memory Evaluation](https://meshcognition.org/rese
 
 xmesh runtime documentation
 
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 10\. State Blending
 
@@ -2749,7 +2749,7 @@ Next   [11\. Feedback Modulation](/spec/mmp/feedback) — how the mesh learns f
 
 xmesh runtime documentation
 
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 11\. Feedback Modulation
 
@@ -2992,7 +2992,7 @@ Learn more   [Mesh Cognition](https://meshcognition.org) — the theoretical fo
 
 xmesh runtime documentation
 
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 12\. Synthetic Memory (Layer 5)
 
@@ -3305,7 +3305,7 @@ Related   [State Blending](/spec/mmp/blending) — what happens after Synthetic
 
 xmesh runtime documentation
 
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 13\. Cognitive State — Per-Agent LNN (Layer 6)
 
@@ -3728,7 +3728,7 @@ See also   [Mesh Cognition](https://meshcognition.org) — theoretical foundati
 
 xmesh runtime documentation
 
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 14\. Application (Layer 7)
 
@@ -5056,7 +5056,7 @@ Implementations targeting domains where field extraction quality is critical (he
 
 xmesh runtime documentation
 
-This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit. It versions with the runtime and is not a third-party build target — interoperability lives at the emission layer.
+This page documents receiver-side behavior of the xmesh reference runtime (Class 2, §17.2), published for transparency and audit; the mechanism is fully documented here (CC-BY-4.0) and its reference implementation is open source (SYM, Apache 2.0). It versions with the runtime and is not a conformance target — interoperability lives at the emission layer; the science is open.
 
 ## 19\. Configuration
 

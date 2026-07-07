@@ -4654,6 +4654,12 @@ Content-addressed fetch (`cmb-fetch`)
 
 Implemented (Node.js)
 
+§15.8 applied to pre-existing stores (retroactive audit)
+
+§15.8
+
+Implemented (Node.js) — annotate + attest by default, severance opt-in; unresolvable roots stay unchecked, never severed
+
 Source-novel forwarding
 
 §15.7.1

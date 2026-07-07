@@ -4568,27 +4568,36 @@ Q&A   Can an extension become a core frame type? — Yes. An extension that pro
 
 ## 17\. Conformance
 
-### 17.1 Minimal Conformance (Relay Node)
+MMP conformance is defined in two classes, not one ladder, because the protocol’s two halves have different natures. Emission — minting a well-formed CAT7 block and putting it on the wire — is a message-format contract: fully specified, byte-testable, and implementable by any party in an afternoon. Cognition — admission, temporal integration, reinforcement, branching — is a coupled runtime whose correctness lives in dynamics, not in a wire format; it is documented so an emitter can _trust_ what a mesh will do with its blocks, not so third parties _rebuild_ it. Interoperability lives at the emission layer; the receiver-side is a runtime, and the reference implementation is its normative behavior. (This is the deliberate architecture, not a limitation — see the formalization’s “reference implementation is the standard” note.)
 
-A node claiming minimal MMP conformance MUST implement: Layer 0 identity (a stable nodeId backed by a persistent Ed25519 keypair, Sections 3.1.3 and 18.3), Layer 1 transport (length-prefixed JSON over TCP), Layer 2 connection (handshake, heartbeat, gossip), and frame forwarding for relay. It MUST silently ignore unrecognised frame types.
+### 17.1 Class 1 — Emitter (the open standard)
 
-### 17.2 Full Conformance (Cognitive Node)
+An Emitter participates in a mesh by producing CAT7 blocks and delivering them; it need not admit, store, or reason. This is the third-party conformance target — what a sensor, a CI pipeline, or another vendor’s agent implements to _emit into_ a mesh. A conforming Emitter MUST:
 
-A node claiming full MMP conformance MUST additionally implement: Layer 3 memory (L0/L1/L2, with L2 hidden state kept strictly local per Section 2.7), Layer 4 SVAF evaluation (at minimum heuristic), CMB-derived peer drift computation and coupling (Section 9.1), and CMB creation with CAT7 field schema. A conformant node MUST NOT emit `state-sync` frames.
+-   Identity — hold a stable nodeId backed by a persistent Ed25519 keypair (§3.1.3, §18.3).
+-   CAT7 blocks — mint CMBs carrying all seven typed fields (§8.2), absent fields normalized to `"neutral"`, never omitted.
+-   Content address — compute the `cmb1-` key over the canonical serialization (§8.2.1); two conforming emitters MUST produce the identical key for the same block. Verified by the [published `cmb-key-v1` vectors](https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance).
+-   Signature — sign the block over the §18.3.1 payload (binding key, author, time, and audience); `cmb-sig-v1` vectors are the contract.
+-   Transport + handshake — length-prefixed JSON over TCP (LAN) or WSS (relay), the §5 handshake, and deliver a `cmb` frame (§7). Silently ignore unrecognised frame types.
+-   Anti-echo — emit only on genuinely new domain data (§15.7); an emitter that re-states without new observation is noise.
 
-### 17.3 Cognitive Conformance
+An Emitter is fully specified today and needs no receiver-side machinery: it does not run SVAF, keeps no store, and hosts no cognitive state. (The relay/forwarding-only node of earlier revisions is an Emitter sub-profile that forwards frames without minting them.) An SDK SHOULD package this as a thin client so emitting is a handful of lines; where the reference SDK does not yet provide a standalone emitter, the wire requirements above remain the normative contract — see [§17.6](#implementation-status).
 
-Agents that implement Layers 5–7 (Synthetic Memory, Cognitive State, Application) SHOULD support:
+### 17.2 Class 2 — Cognitive Node (reference-implementation behavior)
 
--   `remember(fields, parents?)` API — creating CMBs with optional lineage
--   `CMBStore` protocol — persistent storage and retrieval of Cognitive Memory Blocks
--   Cognitive State insight consumption — processing insight outputs from the Layer 6 LNN
--   Synthetic Memory encode pipeline (Section 12.2) — LLM reasoning output MUST be encoded into CfC-compatible vectors
--   CfC state persistence — hidden state vectors (h₁, h₂) MUST be persisted across restarts to preserve feedback modulation learning (Section 11)
+A Cognitive Node is a full mesh participant: it admits, integrates, reinforces, and branches. Its behavior is specified for transparency, not reimplementation — so an Emitter knows what a mesh guarantees about its blocks (what the membrane admits, how lineage is kept, what grounding means), and so a deployment is auditable. A Cognitive Node MUST honor every Emitter obligation, plus:
+
+-   Hidden-state locality — Layer-2 hidden state (h₁, h₂) MUST NOT cross the wire (§2.7); a conformant node MUST NOT emit `state-sync`.
+-   Admission — per-field SVAF evaluation against local anchors (§9.2), satisfying the §9.2.1 δf interface invariants; the reference baseline is vector-tested (`svaf-baseline`).
+-   Integration — store an admitted block as a remix with lineage (§15.5), never the raw peer block; lineage remains walkable (§15.2) and honors the tether (§15.8).
+-   Memory + Canon — the lifecycle and retention rules of §6, including the Canon exemption (§6.3) and grounding (§6.7).
+-   Cognitive layers (Layers 5–7, optional) — synthetic memory (§12), Cognitive State (§13), and application (§14); a node MAY implement these, and if it persists Layer-6 state it MUST keep it across restarts (§11).
+
+The normative behavior of Class 2 is what the [reference implementation](/spec/mmp#implementations) does; the specification of these layers is documentation of that runtime, and independent reimplementation is neither required nor expected for interoperability. Two independent Cognitive Nodes are not guaranteed to agree block-for-block — admission is receiver-divergent by design (§9.2.1), the embedding kernel is receiver-local, and thresholds are meaningful only within a pinned encoder. A mesh interoperates with a Cognitive Node; it does not certify a re-built one.
 
 ### 17.4 Testing
 
-Implementations SHOULD provide unit tests for SVAF evaluation, CMB creation, and lineage computation. At minimum, tests SHOULD cover the following testable requirements:
+Class 1 conformance is verified byte-for-byte against the published [conformance vectors](https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance) (`cmb-key-v1`, `cmb-sig-v1`) — an Emitter that reproduces them meshes with any deployment. Class 2 implementations SHOULD additionally test admission (the `svaf-baseline` vectors), CMB creation, and lineage. At minimum, tests SHOULD cover:
 
 -   Ed25519 identity keypair — generated at first launch, persisted, and presented in the handshake (Sections 3.1.3, 18.3)
 -   CMB signature verification — a receiver holding the author’s key MUST reject forged or tampered CMBs (Section 18.3.1)
@@ -4684,13 +4693,19 @@ Conformance test vectors
 
 Published — [mesh-memory-protocol/conformance](https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance) (key, signature, SVAF baseline, tether); guarded by the reference suite
 
+Standalone Emitter SDK (Class 1, §17.1)
+
+§17.1
+
+Wire contract complete + vector-tested; a thin emit-only client is not yet packaged (today emitting runs through a full node or the local daemon IPC) — SDK gap, not a spec gap
+
 Machine-readable schema files
 
 §20
 
 Published — [mesh-memory-protocol/schema](https://github.com/sym-bot/mesh-memory-protocol/tree/main/schema) (handshake, cmb + tether attestation, cmb frame, cmb-fetch pair; guarded by the reference suite); remaining frame types tracked
 
-Q&A   Is Layer 7 (Application) required? — No. Minimal conformance is Layers 0–3. Full cognitive conformance adds Layers 4–7. An agent can participate in the mesh without an LLM — it only needs transport, connection, and memory layers to relay and store CMBs.
+Q&A   What’s the smallest thing I can build to join a mesh? — A Class 1 Emitter (§17.1): identity, CAT7 minting, the `cmb1-` address, a signature, and the handshake + `cmb` frame. No LLM, no SVAF, no store. You emit into a mesh; the Cognitive Nodes (§17.2) admit, rank, and remix what you send. Being a Cognitive Node is the runtime, not a reimplementation target.
 
 
 

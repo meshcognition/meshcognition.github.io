@@ -2053,7 +2053,7 @@ A CMB MUST NOT be modified after creation. When an agent remixes a CMB, it MUST 
 
 ### 8.2.1 Content Address & Canonical Serialization
 
-A CMB’s `key` is a content address: a SHA-256 hash over a fully specified canonical serialization of the block, prefixed to be self-describing about its scheme. Two independent conforming implementations MUST compute the identical key for the same logical CMB — the key is both the node identity in the lineage DAG and the value the author signature binds (§18.3.1), so any divergence breaks lineage, dedup, citation, and integrity. The published test vectors are the normative contract.
+A CMB’s `key` is a content address: a SHA-256 hash over a fully specified canonical serialization of the block, prefixed to be self-describing about its scheme. Two independent conforming implementations MUST compute the identical key for the same logical CMB — the key is both the node identity in the lineage DAG and the value the author signature binds (§18.3.1), so any divergence breaks lineage, dedup, citation, and integrity. The [published test vectors](https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance) are the normative contract.
 
 Legacy scheme (`cmb-`) — the previous format, retained for the migration: a conforming node MUST still _verify_ it. It is specified here byte-exactly (it was previously under-specified, which is how an implementation change went undetected against the spec):
 
@@ -4597,7 +4597,7 @@ Implementations SHOULD provide unit tests for SVAF evaluation, CMB creation, and
 -   Hidden-state locality — hidden state (h₁, h₂) MUST NOT cross the wire (Section 2.7)
 -   Lifecycle authority gates — lifecycle advancement honored only for authors whose role resolves through the signed grant chain (Section 6.5)
 
-No formal test suite is defined by this specification yet. Future revisions MAY include a conformance test suite.
+The normative [conformance test vectors](https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance) are published in the protocol repository: `cmb-key-v1` (§8.2.1 content addresses), `cmb-sig-v1` (§18.3.1 signing payload + Ed25519), `svaf-baseline` (§9.2/§9.2.1 admission math, the nearest-anchor redundancy witnesses, and the evaluation-time flip window), and `tether-v1` (§15.8 drift checks + `mmp-tether-v1` attestation). A conforming implementation MUST reproduce every expectation exactly; the SVAF vectors carry raw field vectors and no text — they test the math, not the encoder (§9.2.1). The reference implementation re-derives every vector in its own suite, so it cannot drift from the published contract.
 
 ### 17.5 Requirements Added in 1.1.0
 
@@ -4677,6 +4677,12 @@ Semantic encoder default
 §9.2.1
 
 Node.js: default. Swift: optional (host-supplied); lexical fallback warns once
+
+Conformance test vectors
+
+§17.4
+
+Published — [mesh-memory-protocol/conformance](https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance) (key, signature, SVAF baseline, tether); guarded by the reference suite
 
 Machine-readable schema files
 

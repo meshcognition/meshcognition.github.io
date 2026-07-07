@@ -216,8 +216,9 @@ A CMB&rsquo;s <code class="text-purple-300/80">key</code> is a content address: 
       self-describing about its scheme. Two independent conforming implementations
 <span class="text-red-400 font-mono text-xs">MUST</span> compute the identical key for the same logical CMB &mdash; the key is both the
       node identity in the lineage DAG and the value the author signature binds (§18.3.1), so
-      any divergence breaks lineage, dedup, citation, and integrity. The published test
-      vectors are the normative contract.
+      any divergence breaks lineage, dedup, citation, and integrity. The
+<a href="https://github.com/sym-bot/mesh-memory-protocol/tree/main/conformance" class="text-purple-400 hover:text-purple-300 transition-colors">published
+      test vectors</a> are the normative contract.
 </p> <p class="mb-2 text-sm"> <span class="text-white/90">Legacy scheme (<code class="text-purple-300/80">cmb-</code>)</span> &mdash; the previous format,
       retained for the migration: a conforming node <span class="text-red-400 font-mono text-xs">MUST</span> still <em>verify</em> it. It is specified
       here byte-exactly (it was previously under-specified, which is how an implementation change went

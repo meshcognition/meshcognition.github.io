@@ -1512,7 +1512,7 @@ Implementations MUST support configurable retention via `retentionSeconds`. CMBs
 
 Purge MUST preserve graph integrity: a CMB referenced by any newer entry’s `lineage.ancestors` MUST NOT be deleted, even if past retention age. The remix chain is the audit trail — breaking it breaks provenance.
 
-The Canon tier New in 1.1.0. A CMB whose lifecycle is `validated` or `canonical` MUST NOT be evicted by age-based retention (compaction or purge) _while it holds that lifecycle_. Committed cognition is the store’s reason to exist: `canonical` requires validation plus remix by two or more agents, so a small or single-operator mesh may never produce it — if only `canonical` were protected, such a mesh would forget everything it validated within one retention period. Protection is from _purge_, not from _demotion_: a validated CMB with no activity _MAY_ still decay to `archived` per the §6.4 lifecycle (`archiveAfterSeconds`, §19), after which ordinary retention applies — the escape valve that keeps the store bounded. _The inactivity archiver is specified but not yet implemented in the reference implementation; until it ships, a validated entry leaves the Canon only by an explicit dismiss._ `canonical` deliberately has no inactivity decay: it records collective consensus (validation plus independent remix), and consensus does not expire by silence — it leaves the Canon only by an explicit dismiss or archive under validator-or-above authority (§6.5).
+The Canon tier New in 1.1.0. A CMB whose lifecycle is `validated` or `canonical` MUST NOT be evicted by age-based retention (compaction or purge) _while it holds that lifecycle_. Committed cognition is the store’s reason to exist: `canonical` requires validation plus remix by two or more agents, so a small or single-operator mesh may never produce it — if only `canonical` were protected, such a mesh would forget everything it validated within one retention period. Protection is from _purge_, not from _demotion_: a validated CMB with no activity _MAY_ still decay to `archived` per the §6.4 lifecycle (`archiveAfterSeconds`, §19), after which ordinary retention applies — the escape valve that keeps the store bounded (implementation status: [§17.6](/spec/mmp/conformance#implementation-status)). `canonical` deliberately has no inactivity decay: it records collective consensus (validation plus independent remix), and consensus does not expire by silence — it leaves the Canon only by an explicit dismiss or archive under validator-or-above authority (§6.5).
 
 Regulated domains (legal, finance, health) MUST set retention according to their compliance requirements. The protocol does not define regulatory retention periods — consult jurisdiction-specific guidance (MiFID II, SEC Rule 17a-4, HIPAA, GDPR).
 
@@ -4432,9 +4432,7 @@ Implementations MUST track whether the agent has produced new domain observation
 
 This ensures the remix graph grows with genuine domain intersections, not with paraphrased echoes. Each node in the DAG represents a moment where two domains actually met — not a moment where an agent had nothing to say but said it anyway.
 
-### 15.7.1 Source-Novel Forwarding (carve-out) (specified; not yet implemented)
-
-_Status: this carve-out is specified but not yet implemented in the reference implementation — its receiver-private “source-novel” test, wire form, and hop bound are open. Treat it as forthcoming, not shipped._
+### 15.7.1 Source-Novel Forwarding (carve-out)
 
 The new-domain-data requirement above governs remix — combining the agent’s own domain knowledge with a peer signal. It does not govern forwarding: re-emitting an admitted observation so it reaches agents beyond the emitter’s direct neighbours. Because hidden state never crosses the wire ([Section 2.7](/spec/mmp/architecture#hidden-state-locality)), an agent can admit a direction it cannot itself express and leave it stranded — the information dies at an agent that holds it but does not re-transmit it.
 
@@ -4444,7 +4442,7 @@ The anti-echo guarantee is preserved exactly. A re-emission whose lineage roots 
 
 Forwarding SHOULD be non-selective: an agent that forwards source-novel content SHOULD forward all of it, not a chosen subset, so that every observation reaches the agents whose understanding depends on it. Selectively withholding source-novel forwards can strand a source from the agents that need it.
 
-In short: remix requires new domain data; forwarding requires a new source. Both grow the lineage DAG with genuine information — remix with a new domain intersection, forwarding with a new source reaching a new receiver — and neither permits the value-only echo §15.7 exists to prevent.
+In short: remix requires new domain data; forwarding requires a new source. Both grow the lineage DAG with genuine information — remix with a new domain intersection, forwarding with a new source reaching a new receiver — and neither permits the value-only echo §15.7 exists to prevent. (Implementation status: [§17.6](/spec/mmp/conformance#implementation-status).)
 
 Membrane lineage (boundary root). When a node emits across a mesh boundary on behalf of an interior sub-mesh (a gateway node, Section 5.10), its outward emission is a boundary root: the lineage MUST NOT carry the content-addresses of interior CMBs. An outer node citing it traces to the gateway and no further — the interior is opaque past the membrane, consistent with hidden-state locality (Section 2.7). See Section 5.11.
 
@@ -4590,6 +4588,65 @@ NEW IN 1.1.0   The following requirements were added by the 1.1.0 work layer. T
 -   Canon tier — validated and canonical CMBs MUST NOT be age-purged (Section 6.3)
 -   Grounding rules — lifecycle state is receiver-relative; a node MUST NOT self-advance its own CMBs’ lifecycle (Section 6.7)
 -   Walkable trail — lineage MUST remain walkable end-to-end, and a duplicate delivery is deduplicated, not an error (Section 14.12)
+
+Added by the 2026-07-07 soundness & completeness update (same wire compatibility):
+
+-   Nearest-anchor redundancy basis — the redundancy decision MUST be computed from δfnear (Section 9.2.1)
+-   Repeat verification — a recognised grounding MUST NOT be refused solely for redundancy (Section 6.7)
+-   Failure channel — observed failure outcomes MUST NOT be selectively suppressed (Section 6.7)
+-   Lineage tether — a remix MUST NOT carry lineage its anchor’s reject band would disown; severed remixes enter as fresh roots (Section 15.8)
+
+### 17.6 Implementation Status
+
+Where the reference implementations stand against this specification. Normative requirements are defined by the sections cited, not by this table; a specified-but-unimplemented item is a conformance gap of the reference implementation, never a weaker requirement.
+
+Requirement
+
+Section
+
+Reference-implementation status
+
+Nearest-anchor redundancy basis
+
+§9.2.1
+
+Implemented (Node.js)
+
+Repeat verification & failure channel
+
+§6.7
+
+Implemented (Node.js)
+
+Lineage tether
+
+§15.8
+
+Implemented (Node.js)
+
+Source-novel forwarding
+
+§15.7.1
+
+Not yet implemented — the receiver-private source-novel test, wire form, and hop bound are open
+
+Inactivity archiver (validated → archived decay)
+
+§6.3–§6.4
+
+Not yet implemented — a validated entry currently leaves the Canon only by explicit dismiss
+
+Semantic encoder default
+
+§9.2.1
+
+Node.js: default. Swift: optional (host-supplied); lexical fallback warns once
+
+Machine-readable schema files
+
+§20
+
+Standards-program deliverable
 
 Q&A   Is Layer 7 (Application) required? — No. Minimal conformance is Layers 0–3. Full cognitive conformance adds Layers 4–7. An agent can participate in the mesh without an LLM — it only needs transport, connection, and memory layers to relay and store CMBs.
 
@@ -4921,7 +4978,7 @@ archiveAfterSeconds
 
 profile-dependent
 
-Inactivity window after which a validated CMB MAY decay to archived (§6.3–§6.4; archiver not yet implemented)
+Inactivity window after which a validated CMB MAY decay to archived (§6.3–§6.4; implementation status §17.6)
 
 SELF\_SELECT\_THRESHOLD
 

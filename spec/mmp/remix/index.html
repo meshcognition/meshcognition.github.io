@@ -278,9 +278,7 @@ Implementations <span class="text-red-400 font-mono text-xs">MUST</span> track w
 This ensures the remix graph grows with genuine domain intersections, not with paraphrased echoes.
       Each node in the DAG represents a moment where two domains actually met &mdash; not a moment where
       an agent had nothing to say but said it anyway.
-</p> <h3 class="font-display text-base text-white/90 mb-3" id="source-novel-forwarding">15.7.1 Source-Novel Forwarding (carve-out) <span class="text-white/30 font-mono text-xs">(specified; not yet implemented)</span></h3> <p class="mb-4 text-sm"> <em>Status: this carve-out is specified but not yet implemented in the reference implementation
-      &mdash; its receiver-private &ldquo;source-novel&rdquo; test, wire form, and hop bound are open.
-      Treat it as forthcoming, not shipped.</em> </p> <p class="mb-4 text-sm">
+</p> <h3 class="font-display text-base text-white/90 mb-3" id="source-novel-forwarding">15.7.1 Source-Novel Forwarding (carve-out)</h3> <p class="mb-4 text-sm">
 The new-domain-data requirement above governs <span class="text-white/90">remix</span> &mdash; combining the agent&rsquo;s own
       domain knowledge with a peer signal. It does <span class="text-white/90">not</span> govern <span class="text-white/90">forwarding</span>: re-emitting an
       admitted observation so it reaches agents beyond the emitter&rsquo;s direct neighbours. Because hidden
@@ -308,6 +306,7 @@ Forwarding <span class="text-yellow-400 font-mono text-xs">SHOULD</span> be <spa
 In short: <span class="text-white/90">remix requires new domain data; forwarding requires a new source.</span> Both grow the lineage
       DAG with genuine information &mdash; remix with a new domain intersection, forwarding with a new source
       reaching a new receiver &mdash; and neither permits the value-only echo &sect;15.7 exists to prevent.
+      (Implementation status: <a href="/spec/mmp/conformance#implementation-status" class="text-purple-400 hover:text-purple-300 transition-colors">&sect;17.6</a>.)
 </p> <p class="mb-6 text-sm text-white/60"> <span class="text-white/90">Membrane lineage (boundary root).</span> When a node emits across a mesh boundary on behalf of an
       interior sub-mesh (a <span class="text-white/90">gateway node</span>, Section 5.10), its outward emission is a <span class="text-white/90">boundary
       root</span>: the lineage <span class="text-red-400 font-mono text-xs">MUST NOT</span> carry the content-addresses of interior CMBs. An outer node citing

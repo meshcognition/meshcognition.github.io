@@ -214,9 +214,9 @@ were protected, such a mesh would forget everything it validated within one rete
       from <em>purge</em>, not from <em>demotion</em>: a validated CMB with no activity <em>MAY</em> still decay to
 <code class="text-purple-300/80">archived</code> per the &sect;6.4 lifecycle
       (<code class="text-purple-300/80">archiveAfterSeconds</code>, &sect;19), after which ordinary retention
-      applies &mdash; the escape valve that keeps the store bounded. <em>The inactivity archiver is specified but
-      not yet implemented in the reference implementation; until it ships, a validated entry leaves the Canon only
-      by an explicit dismiss.</em> <code class="text-purple-300/80">canonical</code> deliberately has <span class="text-white/90">no
+      applies &mdash; the escape valve that keeps the store bounded (implementation status:
+<a href="/spec/mmp/conformance#implementation-status" class="text-purple-400 hover:text-purple-300 transition-colors">&sect;17.6</a>).
+<code class="text-purple-300/80">canonical</code> deliberately has <span class="text-white/90">no
       inactivity decay</span>: it records collective consensus (validation plus independent remix), and consensus does
       not expire by silence &mdash; it leaves the Canon only by an explicit dismiss or archive under
       validator-or-above authority (&sect;6.5).

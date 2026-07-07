@@ -243,7 +243,7 @@ The naming convention above is the complete normative surface; deeper design rat
 </p> <div class="bg-white/[0.03] border border-white/[0.06] border-l-2 border-l-purple-400/50 rounded-lg p-4 mb-6"> <p class="font-mono text-xs tracking-wider uppercase text-purple-400 mb-2">§5.9&ndash;5.11 &mdash; Informative</p> <p class="text-sm text-white/60">
 Sections 5.9&ndash;5.11 describe an <span class="text-white/90">informative design pattern</span> for composing meshes &mdash; not a
         normative wire. The single-mesh protocol (§1&ndash;§5.8, §6&ndash;§20) is complete and unaffected without
-        it. There is <span class="text-white/90">one reference implementation</span> (an xmesh gateway prototype) and it realizes only a subset of
+        it. There is <span class="text-white/90">one reference implementation</span> (an xMesh gateway prototype) and it realizes only a subset of
         the pattern (see &ldquo;Reference implementation&rdquo; below); the core runtime is single-group. Adopt
         this as a topology pattern with a stated production-security bar, not as a shipped protocol feature.
 </p> </div> <h3 class="font-display text-base text-white/90 mb-3" id="multi-group-membership">5.9 Interior and Boundary (the composition idea)</h3> <p class="mb-4">
@@ -295,7 +295,7 @@ Federation crosses <span class="text-white/90">organizational trust boundaries</
         token. A boundary that accepts unsigned projections, trusts a self-declared origin, or authenticates with
         an admin credential is <span class="text-white/90">not safe for cross-org use</span>.
 </p> </div> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4"> <p class="font-mono text-xs tracking-wider uppercase text-white/40 mb-2">Reference implementation (prototype)</p> <p class="text-sm text-white/60">
-The xmesh reference gateway realizes a <span class="text-white/90">subset</span>: it computes a lossy summary of its
+The xMesh reference gateway realizes a <span class="text-white/90">subset</span>: it computes a lossy summary of its
         interior&rsquo;s cognition and HTTP-POSTs it to configured peers, which ingest it opaquely. It does
 <span class="text-white/90">not yet</span> admit inbound projections through SVAF, reproject them inward, sign or attest its
         projection, or echo-dedup; its projection is a summary object, not yet a schema-valid CAT7 CMB; and it

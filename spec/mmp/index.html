@@ -220,7 +220,7 @@ This document describes an 8-layer stack, but it is <strong>two documents in one
       (Class 1, &sect;17.1). Everything receiver-side &mdash; SVAF admission, memory tiers, remix
       behavior, the cognitive layers that together form
 <a href="/spec/mmp/architecture" class="text-purple-400 hover:text-purple-300 transition-colors">Mesh Cognition</a>
-&mdash; is <strong>documentation of the xmesh reference runtime</strong> (Class 2, &sect;17.2):
+&mdash; is <strong>documentation of the xMesh reference runtime</strong> (Class 2, &sect;17.2):
       published for transparency and audit, versioned with the runtime, and not a conformance target.
       None of it is closed as knowledge: the mechanism is fully documented under CC-BY-4.0, its
       reference implementation is open source (SYM, Apache 2.0), and the theory is published
@@ -229,7 +229,7 @@ This document describes an 8-layer stack, but it is <strong>two documents in one
 </p> <p class="mt-4">
 This specification is <strong>verified, not merely asserted</strong>: its Core wire claims are
       vector-tested, and its runtime-tier claims are re-derived against a mathematical formalization
-      of the deployed xmesh runtime, and where
+      of the deployed xMesh runtime, and where
       analysis finds a requirement unsatisfiable or a guarantee conditional &mdash; the basis of the
       redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade &mdash;
       the text is amended and the limit disclosed in place rather than left implicit (see the
@@ -243,14 +243,14 @@ This is a published specification, <strong>stable, sound, and complete at versio
       re-derived the specification&rsquo;s claims against a mathematical formalization of the deployed
       runtime, folding the soundness and completeness amendments in place and hardening the full
       corpus under adversarial review. With that verification complete, no further versions of this
-      open specification will be published; protocol development from here continues in the xmesh
+      open specification will be published; protocol development from here continues in the xMesh
       product, outside this document.
       Everything published here remains open in perpetuity (CC-BY-4.0; the reference substrate is
       Apache 2.0 &mdash; irrevocable for what is released). Errata &mdash; corrections that change
       no requirement &mdash; may still be applied in place. It reflects the protocol as
       implemented in the
 <a href="https://github.com/sym-bot/sym" class="text-purple-400 hover:text-purple-300 transition-colors">SYM</a>
-open substrate (Node.js &mdash; the reference implementation, on which the xmesh runtime is built),
+open substrate (Node.js &mdash; the reference implementation, on which the xMesh runtime is built),
       the <a href="https://github.com/sym-bot/sym-swift" class="text-purple-400 hover:text-purple-300 transition-colors">sym-swift</a>
 emitter SDK for Apple platforms, and the
 <a href="https://github.com/sym-bot/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">mesh-cognition</a>
@@ -266,11 +266,11 @@ Sections added by the 1.1.0 work layer &mdash; &sect;6.3 (Canon tier), &sect;6.7
       1.0.x-conformant (see &sect;17.5 for the requirements 1.1.0 adds).
 </p> <p>
 Feedback and errata: <a href="mailto:spec@meshcognition.org" class="text-purple-400 hover:text-purple-300 transition-colors">spec@meshcognition.org</a> or <a href="https://github.com/sym-bot/sym/issues" class="text-purple-400 hover:text-purple-300 transition-colors">github.com/sym-bot/sym/issues</a>.
-</p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Implementations</h2> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Language</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Project</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Maintainer</th><th class="text-left font-mono text-xs text-white/40 pb-2">Scope</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Node.js / TypeScript</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Reference implementation &mdash; the open SYM substrate (Apache 2.0); the xmesh runtime builds on it. Core + runtime tiers (Classes 1 and 2, &sect;17).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Swift</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym-swift" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym-swift</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Emitter SDK for macOS / iOS (Class 1 target). Speaks an earlier MMP revision; conformance with the current cmb1- scheme is in progress.</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">Python</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/mesh-cognition</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Research library &mdash; coupling kernel only (Layer 4 per-field admission + Layer 6 for CfC networks); not a full MMP node. Pure Python, zero external dependencies. <a href="https://pypi.org/project/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">pypi</a>.</td></tr> </tbody> </table> </div> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Change Log</h2> <p class="mb-3 text-sm"> <strong>Final — 1.1.0 &ldquo;The Work Layer&rdquo; (2026-07-05, updated 2026-07-07):</strong> grounding
+</p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Implementations</h2> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Language</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Project</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Maintainer</th><th class="text-left font-mono text-xs text-white/40 pb-2">Scope</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Node.js / TypeScript</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Reference implementation &mdash; the open SYM substrate (Apache 2.0); the xMesh runtime builds on it. Core + runtime tiers (Classes 1 and 2, &sect;17).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Swift</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym-swift" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym-swift</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Emitter SDK for macOS / iOS (Class 1 target). Speaks an earlier MMP revision; conformance with the current cmb1- scheme is in progress.</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">Python</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/mesh-cognition</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Research library &mdash; coupling kernel only (Layer 4 per-field admission + Layer 6 for CfC networks); not a full MMP node. Pure Python, zero external dependencies. <a href="https://pypi.org/project/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">pypi</a>.</td></tr> </tbody> </table> </div> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Change Log</h2> <p class="mb-3 text-sm"> <strong>Final — 1.1.0 &ldquo;The Work Layer&rdquo; (2026-07-05, updated 2026-07-07):</strong> grounding
       cognition in reality &mdash; &sect;6.7 outcomes carried by lineage, the &sect;6.3 Canon tier,
       &sect;14.12 work sessions as mesh members, plus the folded-in full-corpus coherence errata. The
       2026-07-07 update folds in the <strong>soundness &amp; completeness amendments from the formalization
-      of the xmesh runtime</strong>: &sect;9.2.1 redundancy invariants pinned to the nearest-anchor
+      of the xMesh runtime</strong>: &sect;9.2.1 redundancy invariants pinned to the nearest-anchor
       basis, the &sect;9.2 evaluation-time-dependence disclosure, the cold-start-capture threat row,
       &sect;6.7 repeat verification and the load-bearing failure channel, and the &sect;15.8 lineage tether.
       Wire-compatible with 1.0.x.

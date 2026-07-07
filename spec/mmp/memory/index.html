@@ -398,11 +398,16 @@ verification reports pass, and implementations <span class="text-green-400 font-
       history). &ldquo;Stored time&rdquo; is the <span class="text-white/90">receiver-local</span> time the entry entered the evaluating store
       &mdash; never the author-asserted <code class="text-purple-300/80">createdAt</code>, which is unwitnessed
       (&sect;6.6) and would let a backdated or future-dated attestation game the ordering. Authority modulates
-      whether to <em>act</em> on an attestation, not the temporal ordering of observations &mdash; but acting cuts
-      both ways: a receiver <em>SHOULD</em> weigh the author&rsquo;s resolved authority before letting a
-<code class="text-purple-300/80">failed:</code> from a low-authority author un-ground cognition whose
-<code class="text-purple-300/80">verified:</code> came from a validator or anchor (see the &sect;18.4 threat
-      note on outcome griefing).
+      whether to <em>act</em> on an attestation, not the temporal ordering of observations &mdash; and latest-wins
+      applies <span class="text-white/90">within an authority tier</span>, not across tiers. <span class="text-white/90">Hard-gate reading (normative):</span> a
+<code class="text-purple-300/80">failed:</code> from an author below the authority of the standing
+<code class="text-purple-300/80">verified:</code> <span class="text-red-400 font-mono text-xs">MUST NOT</span> un-ground it &mdash; a below-validator
+<code class="text-purple-300/80">failed:</code> cannot overturn a validator-or-above
+<code class="text-purple-300/80">verified:</code>. This is the tested-effective form: a soft
+      authority-weighted vote is defeated by sheer low-authority volume, whereas the tier gate holds a
+      validated outcome against any number of below-tier <code class="text-purple-300/80">failed:</code> reports
+      (see the &sect;18.4 threat note on outcome griefing). Within a tier &mdash; equal authority, or a genuine
+      same-authority regression &mdash; latest-wins still applies, so a real regression surfaces.
 </p> <p class="mb-4 text-sm"> <span class="text-white/90">Grounding never advances lifecycle by itself.</span> §6.5 stands unweakened: a CMB cannot self-grant effect,
       and a grounding CMB is a CMB. A node <em>MAY</em> advance its own store&rsquo;s entries to
 <code class="text-purple-300/80">validated</code> on grounding evidence &mdash; <span class="text-white/90">evidence-based

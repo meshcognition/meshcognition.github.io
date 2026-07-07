@@ -260,8 +260,8 @@ decision <span class="text-red-400 font-mono text-xs">MUST</span> be computed fr
         novelty never increases as memory grows. The form &ldquo;&delta;<sub>f</sub> non-increasing in
         similarity to the nearest relevant anchor&rdquo; is ill-posed for the fused readout &mdash;
         &delta;<sub>f</sub> is not a function of nearest-anchor similarity alone &mdash; and even its dominance
-        reading (x&prime; at least as similar to <em>every</em> anchor) is violated by the reference baseline on
-        &asymp;0.5% of random configurations, so no monotonicity requirement is placed on the graded score.</li> <li><span class="text-white/90">Cold-start / non-evaluable fields.</span> If A holds no anchor carrying field f, &delta;<sub>f</sub>
+        reading (x&prime; at least as similar to <em>every</em> anchor) is violable for the reference
+        baseline, so no monotonicity requirement is placed on the graded score.</li> <li><span class="text-white/90">Cold-start / non-evaluable fields.</span> If A holds no anchor carrying field f, &delta;<sub>f</sub>
 is undefined and that field <span class="text-red-400 font-mono text-xs">MUST</span> be excluded from the
 <code class="text-purple-300/80">fieldDrift</code> aggregation and the redundancy
 <code class="text-purple-300/80">max</code> &mdash; <em>not</em> treated as maximally novel. If no

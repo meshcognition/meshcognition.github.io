@@ -241,7 +241,7 @@ Complete version history of this specification. The versioning policy is stated 
 clause (positive-only grounding provably locks onto stale favourites; observed failures must not be
             selectively suppressed), and an informative note on consuming the outcome stream (decay-half-life
             theory); &sect;15.8 specifies the <strong>lineage tether</strong> &mdash; the root-anchored drift bound
-            that closes grounding-inheritance laundering (specified; not yet implemented); &sect;18.3.1 disclosed
+            that closes grounding-inheritance laundering; &sect;18.3.1 disclosed
             the <strong>enforcement scope</strong> of strict signature mode. Wire-compatible throughout: no new
             frames, no new fields.
 <br><br> <strong>The Work Layer &mdash; grounding cognition in reality.</strong> Through 1.0.x, the mesh could
@@ -963,8 +963,8 @@ Validation (§6.4&ndash;§6.5) records <em>judgment</em> &mdash; someone with au
 verification reports pass, and implementations <span class="text-green-400 font-mono text-xs">MAY</span> additionally rate-cap accepted groundings per
       (target, author) pair.
 </p> <p class="mb-4 text-sm"> <span class="text-white/90">The failure channel is load-bearing.</span> The signed outcome pair is not symmetric decoration:
-      analysis and simulation of the reinforcement loop show that when recall preferentially re-uses
-      highly-weighted rows, the <code class="text-purple-300/80">failed:</code> channel is the mechanism that
+      when recall preferentially re-uses highly-weighted rows, the
+<code class="text-purple-300/80">failed:</code> channel is the mechanism that
       makes preferential sampling self-correcting &mdash; a stale favourite&rsquo;s absorbed grounding traffic
       drives its weight <em>down</em> &mdash; while a positive-only mesh locks onto early favourites at
       chance-level precision. An agent that observes a failure outcome <span class="text-red-400 font-mono text-xs">MUST NOT</span> suppress it while
@@ -1298,8 +1298,8 @@ decision <span class="text-red-400 font-mono text-xs">MUST</span> be computed fr
         novelty never increases as memory grows. The form &ldquo;&delta;<sub>f</sub> non-increasing in
         similarity to the nearest relevant anchor&rdquo; is ill-posed for the fused readout &mdash;
         &delta;<sub>f</sub> is not a function of nearest-anchor similarity alone &mdash; and even its dominance
-        reading (x&prime; at least as similar to <em>every</em> anchor) is violated by the reference baseline on
-        &asymp;0.5% of random configurations, so no monotonicity requirement is placed on the graded score.</li> <li><span class="text-white/90">Cold-start / non-evaluable fields.</span> If A holds no anchor carrying field f, &delta;<sub>f</sub>
+        reading (x&prime; at least as similar to <em>every</em> anchor) is violable for the reference
+        baseline, so no monotonicity requirement is placed on the graded score.</li> <li><span class="text-white/90">Cold-start / non-evaluable fields.</span> If A holds no anchor carrying field f, &delta;<sub>f</sub>
 is undefined and that field <span class="text-red-400 font-mono text-xs">MUST</span> be excluded from the
 <code class="text-purple-300/80">fieldDrift</code> aggregation and the redundancy
 <code class="text-purple-300/80">max</code> &mdash; <em>not</em> treated as maximally novel. If no
@@ -2434,7 +2434,7 @@ Observing a <span class="text-white/90">real-world outcome</span> &mdash; a test
 <span class="text-white/90">clarification, not a carve-out</span>: no intent value exempts an emission from &sect;15.7, since a
       content-keyed exemption would hand every emitter a free-text bypass of the anti-echo invariant. What makes
       the grounding remix legal is the fresh observation behind it, not the label on it.
-</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="lineage-tether">15.8 Lineage Tether &mdash; the Root-Anchored Drift Bound <span class="text-white/30 font-mono text-xs">(specified; not yet implemented)</span></h3> <p class="mb-4 text-sm">
+</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="lineage-tether">15.8 Lineage Tether &mdash; the Root-Anchored Drift Bound</h3> <p class="mb-4 text-sm">
 Lineage guarantees provenance of <em>descent</em>, not semantic fidelity (&sect;15.1: the remix is new
       understanding, deliberately). Measured on deployment traffic, a single remix hop can land nearly
       orthogonal to its parent while carrying honest lineage &mdash; and everything lineage is <em>consumed
@@ -2451,7 +2451,12 @@ entry it can resolve; roots are always carried, &sect;15.2 &mdash; and across a 
       is the <span class="text-white/90">boundary root</span>, &sect;5.11, so the interior stays opaque) as if evaluating against a store
       holding only that anchor, and <span class="text-red-400 font-mono text-xs">MUST NOT</span> attach the lineage when that evaluation lands in the
 <span class="text-white/90">reject</span> band (&sect;9.2: content the anchor&rsquo;s own membrane would refuse as unrelated has no
-      honest claim to descend from it). The threshold is the existing reject floor &mdash; no new constant.
+      honest claim to descend from it). The evaluation is <span class="text-white/90">content-only</span> &mdash; the &sect;9.2 temporal
+      term does not apply, because the tether tests fidelity, not freshness &mdash; so the floor is the
+      &alpha;-weighted field drift against the anchor exceeding T<sub>guarded</sub>. Both sides of the
+      comparison <span class="text-red-400 font-mono text-xs">MUST</span> be encoded within a single kernel: vectors produced by different encoders are
+      not comparable, and thresholds are meaningful only within a pinned encoder (&sect;9.2.1). The
+      threshold is the existing reject floor &mdash; no new constant.
       Below the floor the node <span class="text-red-400 font-mono text-xs">MUST</span> store its CMB as a <span class="text-white/90">fresh root</span> instead (under &sect;8.2.1 this
       is simply minting with <code class="text-purple-300/80">role = root</code>: a root&rsquo;s key binds
       content only), and <span class="text-green-400 font-mono text-xs">MAY</span> record the departed source informally in its own fields; it <span class="text-red-400 font-mono text-xs">MUST NOT</span>

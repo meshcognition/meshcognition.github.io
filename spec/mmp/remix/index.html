@@ -322,7 +322,7 @@ Observing a <span class="text-white/90">real-world outcome</span> &mdash; a test
 <span class="text-white/90">clarification, not a carve-out</span>: no intent value exempts an emission from &sect;15.7, since a
       content-keyed exemption would hand every emitter a free-text bypass of the anti-echo invariant. What makes
       the grounding remix legal is the fresh observation behind it, not the label on it.
-</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="lineage-tether">15.8 Lineage Tether &mdash; the Root-Anchored Drift Bound <span class="text-white/30 font-mono text-xs">(specified; not yet implemented)</span></h3> <p class="mb-4 text-sm">
+</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="lineage-tether">15.8 Lineage Tether &mdash; the Root-Anchored Drift Bound</h3> <p class="mb-4 text-sm">
 Lineage guarantees provenance of <em>descent</em>, not semantic fidelity (&sect;15.1: the remix is new
       understanding, deliberately). Measured on deployment traffic, a single remix hop can land nearly
       orthogonal to its parent while carrying honest lineage &mdash; and everything lineage is <em>consumed
@@ -339,7 +339,12 @@ entry it can resolve; roots are always carried, &sect;15.2 &mdash; and across a 
       is the <span class="text-white/90">boundary root</span>, &sect;5.11, so the interior stays opaque) as if evaluating against a store
       holding only that anchor, and <span class="text-red-400 font-mono text-xs">MUST NOT</span> attach the lineage when that evaluation lands in the
 <span class="text-white/90">reject</span> band (&sect;9.2: content the anchor&rsquo;s own membrane would refuse as unrelated has no
-      honest claim to descend from it). The threshold is the existing reject floor &mdash; no new constant.
+      honest claim to descend from it). The evaluation is <span class="text-white/90">content-only</span> &mdash; the &sect;9.2 temporal
+      term does not apply, because the tether tests fidelity, not freshness &mdash; so the floor is the
+      &alpha;-weighted field drift against the anchor exceeding T<sub>guarded</sub>. Both sides of the
+      comparison <span class="text-red-400 font-mono text-xs">MUST</span> be encoded within a single kernel: vectors produced by different encoders are
+      not comparable, and thresholds are meaningful only within a pinned encoder (&sect;9.2.1). The
+      threshold is the existing reject floor &mdash; no new constant.
       Below the floor the node <span class="text-red-400 font-mono text-xs">MUST</span> store its CMB as a <span class="text-white/90">fresh root</span> instead (under &sect;8.2.1 this
       is simply minting with <code class="text-purple-300/80">role = root</code>: a root&rsquo;s key binds
       content only), and <span class="text-green-400 font-mono text-xs">MAY</span> record the departed source informally in its own fields; it <span class="text-red-400 font-mono text-xs">MUST NOT</span>

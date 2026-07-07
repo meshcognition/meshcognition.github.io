@@ -358,8 +358,8 @@ Validation (§6.4&ndash;§6.5) records <em>judgment</em> &mdash; someone with au
 verification reports pass, and implementations <span class="text-green-400 font-mono text-xs">MAY</span> additionally rate-cap accepted groundings per
       (target, author) pair.
 </p> <p class="mb-4 text-sm"> <span class="text-white/90">The failure channel is load-bearing.</span> The signed outcome pair is not symmetric decoration:
-      analysis and simulation of the reinforcement loop show that when recall preferentially re-uses
-      highly-weighted rows, the <code class="text-purple-300/80">failed:</code> channel is the mechanism that
+      when recall preferentially re-uses highly-weighted rows, the
+<code class="text-purple-300/80">failed:</code> channel is the mechanism that
       makes preferential sampling self-correcting &mdash; a stale favourite&rsquo;s absorbed grounding traffic
       drives its weight <em>down</em> &mdash; while a positive-only mesh locks onto early favourites at
       chance-level precision. An agent that observes a failure outcome <span class="text-red-400 font-mono text-xs">MUST NOT</span> suppress it while

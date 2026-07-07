@@ -4458,6 +4458,8 @@ The invariant. A remix asserts lineage only where the descent claim would surviv
 
 Why the anchor, not the parent. Per-hop checks compound — k hops at drift ε bound the chain only by kε, and the measured median substantive hop is far too large to squeeze without killing legitimate re-projection. A check against the root does not compound: every surviving chain certifies that _every_ depth stays above the floor with respect to its root, so the bound is depth-independent by construction. No vector crosses the wire: the root is content-addressed (§8.2.1 — embeddings are deliberately excluded from the address), so any holder of the root re-encodes its text and recomputes the tether; receivers SHOULD re-verify opportunistically when they hold the root, the same verify-if-resolvable posture as signatures (§18.3.1). A receiver that cannot resolve the root treats the tether as unverified — a trust state, not a rejection.
 
+Tether attestation and kernel identity. Every φ-space judgement is kernel-relative, so a tether record MUST name the kernel it was evaluated in: a short stable `kernelId` token identifying encoder and comparison dimensionality. Two tether verdicts are comparable _iff_ their `kernelId` values are equal; drifts MUST NOT be compared across kernels. The integrating node SHOULD record its evaluation as a signed tether attestation carried on the remix: a record binding the remix key, anchor key, `kernelId`, measured drift (fixed to six fractional digits so the signed bytes are implementation-independent), verdict (`tethered` | `severed`), integrator nodeId, and integrator time — serialized with the §8.2.1 length-prefix discipline under the domain tag `mmp-tether-v1` and signed with the integrator’s identity key (§18.3.1; verification resolves the key through §6.6). A receiver that cannot resolve the anchor MAY treat a verified attestation as the certificate’s standing — attested-by-integrator, weighed by the integrator’s resolved authority (§6.5–§6.6) — instead of unchecked; an attestation whose signature fails against the integrator’s resolved key MUST be discarded (a forged certificate is worse than an absent one). An attestation proves _who_ evaluated, in _which kernel_, with _what result_ — never that the evaluation was honest; honesty is weighed exactly as it is for admission attestations.
+
 Distinct from §15.7.1’s mint prohibition. Forwarding MUST NOT mint a fresh root because forwarded content is _unchanged_ — re-rooting it would forge novelty. Tether severance mints a fresh root because the content has _changed past the point of honest descent_ — keeping the lineage would forge fidelity. Same mechanism, opposite honesty conditions; both grow the DAG with claims that are true. Severance also interacts correctly with source-novel forwarding: a severed row is a genuinely new source, and its departed predecessor’s roots are no longer claimed by it.
 
 ### Q&A
@@ -4619,6 +4621,12 @@ Repeat verification & failure channel
 Implemented (Node.js)
 
 Lineage tether
+
+§15.8
+
+Implemented (Node.js)
+
+Tether attestation & kernel identity
 
 §15.8
 

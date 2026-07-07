@@ -357,6 +357,26 @@ carry the severed chain&rsquo;s <code class="text-purple-300/80">parents</code>/
       re-encodes its text and recomputes the tether; receivers <span class="text-yellow-400 font-mono text-xs">SHOULD</span> re-verify opportunistically when
       they hold the root, the same verify-if-resolvable posture as signatures (&sect;18.3.1). A receiver that
       cannot resolve the root treats the tether as unverified &mdash; a trust state, not a rejection.
+</p> <p class="mb-4 text-sm"> <span class="text-white/90">Tether attestation and kernel identity.</span> Every &phi;-space judgement is kernel-relative, so a
+      tether record <span class="text-red-400 font-mono text-xs">MUST</span> name the kernel it was evaluated in: a short stable
+<code class="text-purple-300/80">kernelId</code> token identifying encoder and comparison
+      dimensionality. Two tether verdicts are comparable <em>iff</em> their
+<code class="text-purple-300/80">kernelId</code> values are equal; drifts <span class="text-red-400 font-mono text-xs">MUST NOT</span> be compared
+      across kernels. The integrating node <span class="text-yellow-400 font-mono text-xs">SHOULD</span> record its evaluation as a <span class="text-white/90">signed tether
+      attestation</span> carried on the remix: a record binding the remix key, anchor key,
+<code class="text-purple-300/80">kernelId</code>, measured drift (fixed to six fractional digits so
+      the signed bytes are implementation-independent), verdict
+      (<code class="text-purple-300/80">tethered</code> | <code class="text-purple-300/80">severed</code>),
+      integrator nodeId, and integrator time &mdash; serialized with the &sect;8.2.1 length-prefix
+      discipline under the domain tag <code class="text-purple-300/80">mmp-tether-v1</code> and signed
+      with the integrator&rsquo;s identity key (&sect;18.3.1; verification resolves the key through
+      &sect;6.6). A receiver that cannot resolve the anchor <span class="text-green-400 font-mono text-xs">MAY</span> treat a verified attestation as the
+      certificate&rsquo;s standing &mdash; <span class="text-white/90">attested-by-integrator</span>, weighed by the integrator&rsquo;s
+      resolved authority (&sect;6.5&ndash;&sect;6.6) &mdash; instead of unchecked; an attestation whose
+      signature fails against the integrator&rsquo;s resolved key <span class="text-red-400 font-mono text-xs">MUST</span> be discarded (a forged
+      certificate is worse than an absent one). An attestation proves <em>who</em> evaluated, in
+<em>which kernel</em>, with <em>what result</em> &mdash; never that the evaluation was honest;
+      honesty is weighed exactly as it is for admission attestations.
 </p> <p class="mb-6 text-sm"> <span class="text-white/90">Distinct from &sect;15.7.1&rsquo;s mint prohibition.</span> Forwarding <span class="text-red-400 font-mono text-xs">MUST NOT</span> mint a fresh root
       because forwarded content is <em>unchanged</em> &mdash; re-rooting it would forge novelty. Tether
       severance mints a fresh root because the content has <em>changed past the point of honest descent</em>

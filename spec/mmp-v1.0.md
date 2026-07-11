@@ -88,7 +88,7 @@ Existing protocols at lower layers standardize tool access and task delegation b
 
 The problem is semantic, not transport. **Hidden state never crosses the wire** — each agent’s learned cognition stays sovereign on its own device; only Cognitive Memory Blocks (CMBs) propagate. Receiver-autonomous admission lets the mesh grow without re-introducing a master. MMP defines transport over TCP on local networks and WebSocket for internet relay, with length-prefixed JSON as the canonical wire format. Discovery uses DNS-SD (Bonjour) with zero configuration.
 
-This document describes an 8-layer stack, but it is **two documents in one**, and is read that way (§17). **MMP Core** is the open standard: the wire contract — identity, transport, connection, frames, the CAT7 block with its content address and signature — byte-testable against published vectors and implementable in an afternoon (Class 1, §17.1). Everything receiver-side — SVAF admission, memory tiers, remix behavior, the cognitive layers that together form [Mesh Cognition](/spec/mmp/architecture) — is **documentation of the xMesh reference runtime** (Class 2, §17.2): published for transparency and audit, versioned with the runtime, and not a conformance target. None of it is closed as knowledge: the mechanism is fully documented under CC-BY-4.0, its reference implementation is open source (SYM, Apache 2.0), and the theory is published (§21). Each page carries its tier banner. The protocol is open; the brain is the product; the science is open.
+This document describes an 8-layer stack, but it is **two documents in one**, and is read that way (§17). **MMP Core** is the open standard: the wire contract — identity, transport, connection, frames, the CAT7 block with its content address and signature — byte-testable against published Class 1 conformance vectors (Class 1, §17.1). Everything receiver-side — SVAF admission, memory tiers, remix behavior, the cognitive layers that together form [Mesh Cognition](/spec/mmp/architecture) — is **documentation of the SYM reference runtime** (Class 2, §17.2): published for transparency and audit, versioned with the runtime, and not a conformance target. None of it is closed as knowledge: the mechanism is fully documented under CC-BY-4.0, its reference implementation is open source (SYM, Apache 2.0), and the theory is published (§21). Each page carries its tier banner. The protocol is open; the brain is the product; the science is open.
 
 This specification is **verified, not merely asserted**: its Core wire claims are vector-tested, and its runtime-tier claims are re-derived against a mathematical formalization of the deployed xMesh runtime, and where analysis finds a requirement unsatisfiable or a guarantee conditional — the basis of the redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade — the text is amended and the limit disclosed in place rather than left implicit (see the [change log](/spec/mmp/changelog)’s soundness & completeness update). What the protocol promises is what survives derivation.
 
@@ -116,7 +116,7 @@ Node.js / TypeScript
 
 SYM.BOT
 
-Reference implementation — the open SYM substrate (Apache 2.0); the xMesh runtime builds on it. Core + runtime tiers (Classes 1 and 2, §17).
+Reference implementation — the open SYM substrate (Apache 2.0); the xMesh application builds on it. Core + runtime tiers (Classes 1 and 2, §17).
 
 Swift
 
@@ -285,7 +285,7 @@ Definition
 
 Node
 
-A sovereign participant in the mesh: a unique cryptographic identity, its own admission function (SVAF), and its own memory store. Every agent that participates in coupling is a full peer node; Layer 6 cognitive state (an LNN) is optional (Section 13). Reading tiers: wire-contract sections of this document are MMP Core, frozen and byte-testable (Class 1, Section 17.1); receiver-side sections document the xMesh reference runtime (Class 2, Section 17.2) — fully published, open-source reference, not a conformance target. A relay is pure routing infrastructure (Section 4.4) — it forwards frames and holds no identity, store, or cognitive state; it is not a node.
+A sovereign participant in the mesh: a unique cryptographic identity, its own admission function (SVAF), and its own memory store. Every agent that participates in coupling is a full peer node; Layer 6 cognitive state (an LNN) is optional (Section 13). Reading tiers: wire-contract sections of this document are MMP Core, frozen and byte-testable (Class 1, Section 17.1); receiver-side sections document the SYM reference runtime (Class 2, Section 17.2) — fully published, open-source reference, not a conformance target. A relay is pure routing infrastructure (Section 4.4) — it forwards frames and holds no identity, store, or cognitive state; it is not a node.
 
 Peer
 

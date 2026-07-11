@@ -6,7 +6,7 @@
 阅读理论基础 <span class="arrow">→</span> </a> <a class="pill secondary" href="/spec/mmp">
 使用协议开发 <span class="v">v1.1</span> <span class="arrow">→</span> </a> <a class="pill secondary" href="/implementations">
 查看部署案例 <span class="arrow">→</span> </a> </div> <div class="hero-mark"> <div style="display: flex; gap: 32px; align-items: center; opacity: 0.7;"> <span>WIRE PROTOCOL · MMP v1.1</span> <span style="width: 60px; height: 1px; background: var(--rule);"></span> <span>CC-BY-4.0</span> <span style="width: 60px; height: 1px; background: var(--rule);"></span> <span>EDITOR · HONGWEI XU</span> </div> </div>  </div> </div> </section>  <section class="paper-section" id="definition"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.02 <span class="dot">·</span> 定义</p>  <h2 class="display">什么是 Mesh Cognition?</h2> <p class="lede" style="max-width: 70ch;">
-Mesh Cognition 是一种<strong>网格智能架构范式</strong>:专业智能体通过有线协议共享语义类型化的观测数据,采用按字段准入(per-field admission)机制,同时每个智能体维护用户专属、跨用户不合并的主权学习状态。
+Mesh Cognition 是一种<strong>网格智能架构范式</strong>:专业智能体通过有线协议共享语义类型化的观测数据,采用按字段准入(per-field admission)机制,同时每个智能体维护节点专属、跨节点不合并的主权学习状态。
 </p> <p class="lede" style="margin-top: 16px; max-width: 70ch;">
 多个独立认知主体——人类、模型、流程——通过协议共享部分状态(注意力焦点、情绪倾向、意图、承诺)。每个接收方在本地自主决定:接纳哪些信息、如何重组、采取何种行动。
 </p> <p class="lede" style="margin-top: 16px; max-width: 70ch;">
@@ -16,10 +16,10 @@ MMP 承载认知内容传输。SVAF 决定字段级准入策略。内容哈希�
 </p> <p class="lede" style="margin-top: 16px;">
 该范式由五大核心特性定义。
 </p> <div class="card-grid cols-3"> <div class="card fade-up-card" style="animation-delay: 0s"> <div class="num">01</div> <h3 class="sub">按字段准入</h3> <p class="body">
-智能体逐字段接收或拒绝传入观测,而非整条消息全收/全拒。每个智能体针对不同类型的语义字段,携带学习得到的准入权重。该机制形式化定义为<strong>符号-向量注意力融合</strong>(Symbolic-Vector Attention Fusion, SVAF)——详见 <a class="inline-link" href="/research#svaf">SVAF 论文</a> 的形式化定义,及 <a class="inline-link" href="/spec/mmp#section-4">MMP §4</a> 规范中的有线协议实现。
+智能体逐字段接收或拒绝传入观测,而非整条消息全收/全拒。每个智能体针对不同类型的语义字段,携带学习得到的准入权重。该机制形式化定义为<strong>符号-向量注意力融合</strong>(Symbolic-Vector Attention Fusion, SVAF)——详见 <a class="inline-link" href="/research">SVAF 论文</a> 的形式化定义,及 <a class="inline-link" href="/spec/mmp">MMP §4</a> 规范中的有线协议实现。
 </p> </div> <div class="card fade-up-card" style="animation-delay: .1s"> <div class="num">02</div> <h3 class="sub">内容哈希溯源</h3> <p class="body">
-每条认知主张均可追溯至其原始观测源。<strong>认知记忆块</strong>(Cognitive Memory Blocks, CMBs)携带内容哈希键及父代/祖先引用,将集体记忆编织为可验证的重组图谱。接收方可随时回答:<em>「当前状态由哪些观测推导而来?」</em> </p> </div> <div class="card fade-up-card" style="animation-delay: .2s"> <div class="num">03</div> <h3 class="sub">用户主权模型状态</h3> <p class="body">
-架构设计层面确保跨用户状态零合并。每位用户的习得模型在结构上完全隔离——这并非策略选择,而是协议规范的内生属性。此处「主权」意为:<em>每位用户独享一个模型实例,协议层不执行跨用户状态聚合</em>。部署参考详见 <a class="inline-link" href="https://arxiv.org/abs/2604.10815">MeloTune 论文</a>。
+每条认知主张均可追溯至其原始观测源。<strong>认知记忆块</strong>(Cognitive Memory Blocks, CMBs)携带内容哈希键及父代/祖先引用,将集体记忆编织为可验证的重组图谱。接收方可随时回答:<em>「当前状态由哪些观测推导而来?」</em> </p> </div> <div class="card fade-up-card" style="animation-delay: .2s"> <div class="num">03</div> <h3 class="sub">节点主权模型状态</h3> <p class="body">
+架构设计层面确保跨用户状态零合并。每位用户的习得模型在结构上完全隔离——这并非策略选择,而是协议规范的内生属性。此处「主权」意为:<em>每个节点独享一个模型实例,协议层不执行跨用户状态聚合</em>。部署参考详见 <a class="inline-link" href="https://arxiv.org/abs/2604.10815">MeloTune 论文</a>。
 </p> </div> <div class="card fade-up-card" style="animation-delay: .3s"> <div class="num">04</div> <h3 class="sub">连续时间积分</h3> <p class="body">
 时间轨迹通过<strong>闭式连续时间网络</strong>进行积分,而非离散步长迭代。该设计原生支持不规则事件时序(无需重采样/事件分箱),并生成解析态状态更新,可在消费级硬件上实现亚毫秒级推理。
 </p> </div> <div class="card fade-up-card" style="animation-delay: .4s"> <div class="num">05</div> <h3 class="sub">默认端侧运行</h3> <p class="body">
@@ -28,8 +28,8 @@ MMP 承载认知内容传输。SVAF 决定字段级准入策略。内容哈希�
 准入 · 溯源 · 主权<br>
 连续时间 · 端侧优先
 </p> </div> </div>  </div> </div> </section>  <section class="paper-section" id="why"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.03 <span class="dot">·</span> 动机</p>  <h2 class="display">为何重要<span class="accent">?</span></h2> <p class="lede" style="max-width: 70ch;"> <strong>单智能体认知已成为瓶颈。</strong>单一模型、单一上下文、单一视角。复杂问题的求解,亟需专业智能体并行思考、共享状态。当前约束已非模型能力本身,而是认知主体间的<em>协同带宽</em>。
-</p> <p class="lede" style="margin-top: 24px; max-width: 70ch;"> <strong>中心化协调无法支撑自主扩展。</strong>若每个智能体均需向中央控制器请示,控制器即成为系统天花板。接收方自主准入机制使认知网格可无限扩展,同时避免重新引入主控节点——正如 TCP/IP 凭借去中心化战胜电路交换网络。
-</p> <p class="lede" style="margin-top: 24px; max-width: 70ch;"> <strong>主权架构赋能机构级应用。</strong>医院、实验室、金融机构无法将核心数据注入第三方「黑箱大脑」。但可通过本协议共享<em>观测数据</em>,同时确保状态主权归属本机构、认知链路全程可审计、合规与隐私内生于架构。
+</p> <p class="lede" style="margin-top: 24px; max-width: 70ch;"> <strong>中心化协调无法支撑自主扩展。</strong>若每个智能体均需向中央控制器请示,控制器即成为系统天花板。接收方自主准入机制避免以中央准入控制器成为扩展瓶颈,同时避免重新引入主控节点——正如 TCP/IP 凭借去中心化战胜电路交换网络。
+</p> <p class="lede" style="margin-top: 24px; max-width: 70ch;"> <strong>主权架构赋能机构级应用。</strong>医院、实验室、金融机构无法将核心数据注入第三方「黑箱大脑」。但可通过本协议共享<em>观测数据</em>,同时确保状态主权归属本机构、认知链路全程可审计、架构支持本地状态控制与可审计的交换边界；合规性取决于具体部署。
 </p> <div class="pullquote italic" style="margin-top: 56px; border-top: 0; padding-top: 0;"> <p> <em>认知的演进,正从「模型问题」转向「基础设施问题」。</em> </p> </div>  </div> </div> </section>  <section class="paper-section" id="positioning"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.04 <span class="dot">·</span> 定位</p>  <h2 class="display">定位<span class="accent">。</span></h2> <div class="pullquote"> <p> <span class="label">定位声明</span>
 Mesh Cognition 不是产品,不是编排器,也不是网络原语。它是面向网格智能、以用户主权为核心、形式化为开放协议的架构范式——智能体网格之下的认知基底，在行动的智能体之下承载认知状态（注意力焦点、情绪、意图、承诺）。
 </p> </div>  </div> </div> </section>  <section class="paper-section"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content" style="padding-top: 80px; padding-bottom: 80px;"> <p class="eyebrow">继续阅读 <span class="dot">·</span> CONTINUE</p> <p class="lede" style="max-width: 70ch; margin-bottom: 32px;">

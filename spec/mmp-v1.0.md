@@ -385,7 +385,7 @@ Mesh Cognition (Layers 4–7)
 
 7 APPLICATION Domain Agents — Music, Code, Fitness, Robotics, Agent Systems
 
-Where agents live and their LLMs reason on the remix subgraph. Mesh Cognition happens here.
+Where agents live and their LLMs reason on the remix subgraph, acting within a Mesh Cognition implementation.
 
 6 Cognitive State Per-Agent LNN — Continuous-Time Cognitive State
 
@@ -3840,9 +3840,9 @@ AI coding agents do not need this template — the agent is the LLM. The [agent 
 #### 14.3.4 Guidelines
 
 -   Be specific — numbers, timeframes, concrete details in each field
--   Share observations, not commands — the agent observes, other agents decide
+-   Emit observations, not commands — the agent observes, other agents decide
 -   One CMB per significant signal — do not flood the mesh
--   Close the loop — when acting on collective insight, share what was done
+-   Close the loop — when acting on collective insight, emit what was done
 -   Only include fields the agent can meaningfully extract — omit rather than guess
 
 ### 14.4 The Mesh Cognition Loop
@@ -3961,7 +3961,7 @@ Seven CMBs, six agents, three phases of validation. The breakthrough came from t
 
 Verified in production
 
-This pattern is verified with real agents. A knowledge explorer (Linux, GitHub Actions) and a researcher agent (macOS) coupled via relay with E2E encryption. The daemon shared its question CMBs to the knowledge feed via anchor sync on connection. SVAF accepted the question at drift 0.068. An iOS app (music agent) received the Cognitive State insight via APNs wake push. Three platforms, one mesh, autonomous coupling. See Section 14.7 for the full production log.
+This pattern is verified with real agents. A knowledge explorer (Linux, GitHub Actions) and a researcher agent (macOS) coupled via relay with E2E encryption. The daemon emitted its question CMBs to the knowledge feed via anchor sync on connection. SVAF accepted the question at drift 0.068. An iOS app (music agent) received the Cognitive State insight via APNs wake push. Three platforms, one mesh, autonomous coupling. See Section 14.7 for the full production log.
 
 #### 14.5.2 Consumer Agents
 
@@ -3973,7 +3973,7 @@ Reasons: “coding agent reported fatigue, fitness agent reported sedentary — 
 
 Acts: shifts curation to ambient/recovery
 
-Shares: CMB with `focus="shifted to calm ambient"`, `mood={valence:0.3, arousal:-0.3}`
+Emits: CMB with `focus="shifted to calm ambient"`, `mood={valence:0.3, arousal:-0.3}`
 
 Coding agent
 
@@ -3983,7 +3983,7 @@ Reasons: “music agent shifted to calm, fitness agent suggested break — user 
 
 Acts: suggests a break to the user
 
-Shares: CMB with `focus="recommended break"`, `issue="productivity declining"`
+Emits: CMB with `focus="recommended break"`, `issue="productivity declining"`
 
 Fitness agent
 
@@ -3993,7 +3993,7 @@ Reasons: “coding agent reported long session, music agent responded — coordi
 
 Acts: triggers movement notification
 
-Shares: CMB with `focus="sedentary 3hrs"`, `intent="movement break"`
+Emits: CMB with `focus="sedentary 3hrs"`, `intent="movement break"`
 
 None of these agents told each other what to do. Each reasoned on the collective signal and acted through its own domain lens. That is Mesh Cognition.
 
@@ -4003,7 +4003,7 @@ A single agent asking a single LLM gets one answer from one perspective. The mes
 
 1\. Ask
 
-The requesting agent shares a CMB with intent expressing the question. Example: focus="should we use UUID v7 or keep v4?", intent="seeking collective input on identity design".
+The requesting agent emits a CMB with intent expressing the question. Example: focus="should we use UUID v7 or keep v4?", intent="seeking collective input on identity design".
 
 2\. Respond
 
@@ -4042,7 +4042,7 @@ The following is a production log from two real MMP nodes — a knowledge feed a
 #    First contact — no shared cognitive history. This is correct.
 [knowledge-feed] Coupling with mesh-daemon: rejected (drift: 0.936)
 
-# 5. Knowledge feed shares CMBs anyway (Section 9.2: evaluate independently)
+# 5. Knowledge feed emits CMBs anyway (Section 9.2: evaluate independently)
 [knowledge-feed] E2E encrypted fields for peer 6089e935
 [knowledge-feed] Remembered: "focus: Sycophancy in AI systems..." → 1/1 peers
 
@@ -4150,7 +4150,7 @@ Linux (GitHub Actions)
 
 Knowledge explorer
 
-Received question via anchor sync, accepted (drift 0.068), shared relevant AI news CMBs
+Received question via anchor sync, accepted (drift 0.068), emitted relevant AI news CMBs
 
 Music agent (iOS)
 
@@ -4167,7 +4167,7 @@ Three agents on three different operating systems — macOS, Linux, iOS — conn
 -   Agents MUST implement CMB creation with CAT7 fields
 -   Agents MUST broadcast CMBs via `remember()` or `cmb` frames
 -   Agents SHOULD consume Cognitive State insights and respond appropriately
--   Agents SHOULD close the loop by sharing actions taken; the formalized loop-closure is a grounding CMB (§6.7) / session trail (§14.12)
+-   Agents SHOULD close the loop by emitting actions taken; the formalized loop-closure is a grounding CMB (§6.7) / session trail (§14.12)
 -   Agents MUST NOT send commands to other agents — emit observations, not instructions
 -   Agent coupling decisions are autonomous — no orchestrator, no policy override
 
@@ -4249,7 +4249,7 @@ A command-and-control system would force every agent to obey the operator. A mes
 
 §14.12 — New in 1.1.0 — work layer
 
-Section 14.12 is a normative application profile added in 1.1.0 (the work layer). §14.11 is reserved for Commissions. Everything below composes existing machinery — no new frames, fields, or gates.
+Within the Class 2 SYM reference-runtime documentation, Section 14.12 is a normative application profile added in 1.1.0 (the work layer); it is not a Class 1 conformance requirement. §14.11 is reserved for Commissions. Everything below composes existing machinery — no new frames, fields, or gates.
 
 ### 14.12 Work Sessions as Mesh Members (Session Capture)
 
@@ -4270,7 +4270,7 @@ The agent understands its domain — context, nuance, semantics. "User exhausted
 
 Why observations, not commands?
 
-Commands create coupling between agents — the sender must know what the receiver can do. Observations are decoupled. A coding agent shares "user is tired." It doesn’t know the music agent exists. The music agent hears the mood and autonomously curates calm music. Neither agent knows the other. The mesh connects them.
+Commands create coupling between agents — the sender must know what the receiver can do. Observations are decoupled. A coding agent emits "user is tired." It doesn’t know the music agent exists. The music agent hears the mood and autonomously curates calm music. Neither agent knows the other. The mesh connects them.
 
 Can an agent ignore mesh signals entirely?
 

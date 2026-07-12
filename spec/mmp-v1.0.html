@@ -169,14 +169,14 @@ This document describes an 8-layer stack, but it is <strong>two documents in one
       &mdash; identity, transport, connection, frames, the CAT7 block with its content address and
       signature &mdash; byte-testable against published Class 1 conformance vectors
       (Class 1, &sect;17.1). Everything receiver-side &mdash; SVAF admission, memory tiers, remix
-      behavior, the cognitive layers that together form
+      behavior, the cognitive layers that together implement
 <a href="/spec/mmp/architecture" class="text-purple-400 hover:text-purple-300 transition-colors">Mesh Cognition</a>
 &mdash; is <strong>documentation of the SYM reference runtime</strong> (Class 2, &sect;17.2):
       published for transparency and audit, versioned with the runtime, and not a conformance target.
-      None of it is closed as knowledge: the mechanism is fully documented under CC-BY-4.0, its
+      None of it is closed as knowledge: the mechanism is fully documented under CC BY 4.0, its
       reference implementation is open source (SYM, Apache 2.0), and the theory is published
-      (&sect;21). Each page carries its tier banner. The protocol is open; the brain is the product;
-      the science is open.
+      (&sect;21). Each page carries its tier banner. The protocol is open; the science is open;
+      the cognition layer is documented alongside its open-source reference runtime.
 </p> <p class="mt-4">
 This specification is <strong>verified, not merely asserted</strong>: its Core wire claims are
       vector-tested, and its runtime-tier claims are re-derived against a mathematical formalization
@@ -196,7 +196,7 @@ This is a published specification, <strong>stable, sound, and complete at versio
       corpus under adversarial review. With that verification complete, no further versions of this
       open specification will be published; protocol development from here continues in the xMesh
       product, outside this document.
-      Everything published here remains open in perpetuity (CC-BY-4.0; the reference substrate is
+      Everything published here remains open in perpetuity (CC BY 4.0; the reference substrate is
       Apache 2.0 &mdash; irrevocable for what is released). Errata &mdash; corrections that change
       no requirement &mdash; may still be applied in place. It reflects the protocol as
       implemented in the
@@ -232,7 +232,7 @@ This specification is published under the <a href="https://creativecommons.org/l
 </p> <p class="mb-4 text-sm">
 The reference implementations are published under the <a href="https://www.apache.org/licenses/LICENSE-2.0" class="text-purple-400 hover:text-purple-300 transition-colors">Apache Licence 2.0</a>.
 </p> <p class="text-sm text-white/40">
-SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0; the term "Mesh Cognition" is intentionally unmarked — the open-protocol category is free vocabulary.
+SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published under CC BY 4.0; the term "Mesh Cognition" is intentionally unmarked — the category name is free vocabulary.
 </p> </section> <section class="mt-16 pt-8 border-t border-white/[0.06]"> <p class="font-mono text-xs text-white/30 leading-relaxed">
 &copy; 2026 SYM.BOT. Specification text licenced under CC BY 4.0.
       Reference implementations licenced under Apache 2.0.
@@ -2253,12 +2253,12 @@ The critical verification: <span class="text-white/90">peer-level coupling rejec
       from 0.936 to 0.468 &mdash; content-driven convergence in action.
 </p> <h4 class="font-display text-sm text-white/80 mb-3">Three Platforms, One Mesh</h4> <p class="mb-4 text-sm">
 The verified loop ran across three platforms simultaneously:
-</p> <div class="overflow-x-auto mb-4"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Agent</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Platform</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Role</th> <th class="text-left font-mono text-xs text-white/40 pb-2">How it participated</th> </tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">mesh-daemon</td> <td class="py-2 pr-4 text-xs">macOS</td> <td class="py-2 pr-4 text-xs">Researcher agent</td> <td class="py-2 text-xs">Asked the question, shared observations, sent anchor CMBs to new peers on connection</td> </tr> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">knowledge-feed</td> <td class="py-2 pr-4 text-xs">Linux (GitHub Actions)</td> <td class="py-2 pr-4 text-xs">Knowledge explorer</td> <td class="py-2 text-xs">Received question via anchor sync, accepted (drift 0.068), shared relevant AI news CMBs</td> </tr> <tr> <td class="py-2 pr-4 font-mono text-xs text-purple-400">Music agent (iOS)</td> <td class="py-2 pr-4 text-xs">iPhone (iOS)</td> <td class="py-2 pr-4 text-xs">Domain agent</td> <td class="py-2 text-xs">Received Cognitive State insight via APNs wake push, woke from background to join the mesh</td> </tr> </tbody> </table> </div> <p class="mb-6 text-sm">
+</p> <div class="overflow-x-auto mb-4"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Agent</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Platform</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Role</th> <th class="text-left font-mono text-xs text-white/40 pb-2">How it participated</th> </tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">mesh-daemon</td> <td class="py-2 pr-4 text-xs">macOS</td> <td class="py-2 pr-4 text-xs">Researcher agent</td> <td class="py-2 text-xs">Asked the question, emitted observations, sent anchor CMBs to new peers on connection</td> </tr> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">knowledge-feed</td> <td class="py-2 pr-4 text-xs">Linux (GitHub Actions)</td> <td class="py-2 pr-4 text-xs">Knowledge explorer</td> <td class="py-2 text-xs">Received question via anchor sync, accepted (drift 0.068), shared relevant AI news CMBs</td> </tr> <tr> <td class="py-2 pr-4 font-mono text-xs text-purple-400">Music agent (iOS)</td> <td class="py-2 pr-4 text-xs">iPhone (iOS)</td> <td class="py-2 pr-4 text-xs">Domain agent</td> <td class="py-2 text-xs">Received Cognitive State insight via APNs wake push, woke from background to join the mesh</td> </tr> </tbody> </table> </div> <p class="mb-6 text-sm">
 Three agents on three different operating systems &mdash; macOS, Linux, iOS &mdash; connected via
       WebSocket relay with E2E encryption, coupled through SVAF, with Cognitive State LNN producing insights
       that <span class="text-white/90">woke a sleeping mobile device via APNs</span> to join the collective reasoning. No central server
       orchestrated this. Each agent acted autonomously on the collective signal.
-</p> <h3 class="font-display text-base text-white/90 mb-3">14.8 Implementation Requirements</h3> <ul class="list-disc list-inside mb-6 text-sm text-white/60 space-y-1"> <li>Agents <span class="text-red-400 font-mono text-xs">MUST</span> implement CMB creation with CAT7 fields</li> <li>Agents <span class="text-red-400 font-mono text-xs">MUST</span> broadcast CMBs via <code class="text-purple-300/80">remember()</code> or <code class="text-purple-300/80">cmb</code> frames</li> <li>Agents <span class="text-yellow-400 font-mono text-xs">SHOULD</span> consume Cognitive State insights and respond appropriately</li> <li>Agents <span class="text-yellow-400 font-mono text-xs">SHOULD</span> close the loop by sharing actions taken; the formalized loop-closure is a grounding CMB (&sect;6.7) / session trail (&sect;14.12)</li> <li>Agents <span class="text-red-400 font-mono text-xs">MUST NOT</span> send commands to other agents &mdash; share observations, not instructions</li> <li>Agent coupling decisions are autonomous &mdash; no orchestrator, no policy override</li> </ul> <h3 class="font-display text-base text-white/90 mb-3">14.9 Local Event Interface</h3> <p class="mb-4 text-sm">
+</p> <h3 class="font-display text-base text-white/90 mb-3">14.8 Implementation Requirements</h3> <ul class="list-disc list-inside mb-6 text-sm text-white/60 space-y-1"> <li>Agents <span class="text-red-400 font-mono text-xs">MUST</span> implement CMB creation with CAT7 fields</li> <li>Agents <span class="text-red-400 font-mono text-xs">MUST</span> broadcast CMBs via <code class="text-purple-300/80">remember()</code> or <code class="text-purple-300/80">cmb</code> frames</li> <li>Agents <span class="text-yellow-400 font-mono text-xs">SHOULD</span> consume Cognitive State insights and respond appropriately</li> <li>Agents <span class="text-yellow-400 font-mono text-xs">SHOULD</span> close the loop by sharing actions taken; the formalized loop-closure is a grounding CMB (&sect;6.7) / session trail (&sect;14.12)</li> <li>Agents <span class="text-red-400 font-mono text-xs">MUST NOT</span> send commands to other agents &mdash; emit observations, not instructions</li> <li>Agent coupling decisions are autonomous &mdash; no orchestrator, no policy override</li> </ul> <h3 class="font-display text-base text-white/90 mb-3">14.9 Local Event Interface</h3> <p class="mb-4 text-sm">
 A node&rsquo;s value to the mesh depends on the applications running on it. A music agent curates
       playlists. A coding tool suggests breaks. A dashboard visualises collective intelligence. These
       applications need <span class="text-white/90">real-time access</span> to mesh events &mdash; not polling, not batch retrieval,

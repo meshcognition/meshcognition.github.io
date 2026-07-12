@@ -88,13 +88,13 @@ Existing protocols at lower layers standardize tool access and task delegation b
 
 The problem is semantic, not transport. **Hidden state never crosses the wire** — each agent’s learned cognition stays sovereign on its own device; only Cognitive Memory Blocks (CMBs) propagate. Receiver-autonomous admission lets the mesh grow without re-introducing a master. MMP defines transport over TCP on local networks and WebSocket for internet relay, with length-prefixed JSON as the canonical wire format. Discovery uses DNS-SD (Bonjour) with zero configuration.
 
-This document describes an 8-layer stack, but it is **two documents in one**, and is read that way (§17). **MMP Core** is the open standard: the wire contract — identity, transport, connection, frames, the CAT7 block with its content address and signature — byte-testable against published Class 1 conformance vectors (Class 1, §17.1). Everything receiver-side — SVAF admission, memory tiers, remix behavior, the cognitive layers that together form [Mesh Cognition](/spec/mmp/architecture) — is **documentation of the SYM reference runtime** (Class 2, §17.2): published for transparency and audit, versioned with the runtime, and not a conformance target. None of it is closed as knowledge: the mechanism is fully documented under CC-BY-4.0, its reference implementation is open source (SYM, Apache 2.0), and the theory is published (§21). Each page carries its tier banner. The protocol is open; the brain is the product; the science is open.
+This document describes an 8-layer stack, but it is **two documents in one**, and is read that way (§17). **MMP Core** is the open standard: the wire contract — identity, transport, connection, frames, the CAT7 block with its content address and signature — byte-testable against published Class 1 conformance vectors (Class 1, §17.1). Everything receiver-side — SVAF admission, memory tiers, remix behavior, the cognitive layers that together implement [Mesh Cognition](/spec/mmp/architecture) — is **documentation of the SYM reference runtime** (Class 2, §17.2): published for transparency and audit, versioned with the runtime, and not a conformance target. None of it is closed as knowledge: the mechanism is fully documented under CC BY 4.0, its reference implementation is open source (SYM, Apache 2.0), and the theory is published (§21). Each page carries its tier banner. The protocol is open; the science is open; the cognition layer is documented alongside its open-source reference runtime.
 
 This specification is **verified, not merely asserted**: its Core wire claims are vector-tested, and its runtime-tier claims are re-derived against a mathematical formalization of the deployed xMesh runtime, and where analysis finds a requirement unsatisfiable or a guarantee conditional — the basis of the redundancy invariants, the evaluation-time admission window, the cold-start bootstrap trade — the text is amended and the limit disclosed in place rather than left implicit (see the [change log](/spec/mmp/changelog)’s soundness & completeness update). What the protocol promises is what survives derivation.
 
 ## Status of This Document
 
-This is a published specification, **stable, sound, and complete at version 1.1.0** — and final. 1.1.0 is the stabilization release: the wire contract has been stable since 0.2.3; the work layer completed the documented cognition surface; and the 2026-07-07 update re-derived the specification’s claims against a mathematical formalization of the deployed runtime, folding the soundness and completeness amendments in place and hardening the full corpus under adversarial review. With that verification complete, no further versions of this open specification will be published; protocol development from here continues in the xMesh product, outside this document. Everything published here remains open in perpetuity (CC-BY-4.0; the reference substrate is Apache 2.0 — irrevocable for what is released). Errata — corrections that change no requirement — may still be applied in place. It reflects the protocol as implemented in the [SYM](https://github.com/sym-bot/sym) open substrate (Node.js — the reference implementation, on which the xMesh runtime is built), the [sym-swift](https://github.com/sym-bot/sym-swift) emitter SDK for Apple platforms, and the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python research library (coupling kernel). The wire contract carried no new frames or fields after 0.2.3 (April 2026); the §8.2.1 content-address and §18.3.1 signing schemes are the one addition since. With this specification final, the version number does not advance further; errata are noted in the change log without a version bump.
+This is a published specification, **stable, sound, and complete at version 1.1.0** — and final. 1.1.0 is the stabilization release: the wire contract has been stable since 0.2.3; the work layer completed the documented cognition surface; and the 2026-07-07 update re-derived the specification’s claims against a mathematical formalization of the deployed runtime, folding the soundness and completeness amendments in place and hardening the full corpus under adversarial review. With that verification complete, no further versions of this open specification will be published; protocol development from here continues in the xMesh product, outside this document. Everything published here remains open in perpetuity (CC BY 4.0; the reference substrate is Apache 2.0 — irrevocable for what is released). Errata — corrections that change no requirement — may still be applied in place. It reflects the protocol as implemented in the [SYM](https://github.com/sym-bot/sym) open substrate (Node.js — the reference implementation, on which the xMesh runtime is built), the [sym-swift](https://github.com/sym-bot/sym-swift) emitter SDK for Apple platforms, and the [mesh-cognition](https://github.com/sym-bot/mesh-cognition) Python research library (coupling kernel). The wire contract carried no new frames or fields after 0.2.3 (April 2026); the §8.2.1 content-address and §18.3.1 signing schemes are the one addition since. With this specification final, the version number does not advance further; errata are noted in the change log without a version bump.
 
 Sections added by the 1.1.0 work layer — §6.3 (Canon tier), §6.7 (Grounding), §8.3.1 (well-known intent values), §14.12 (session capture), and §15.7.2 (outcomes are observations) — are marked **New in 1.1.0** in place. 1.1.0 is fully wire-compatible with 1.0.x: no new frames or fields; a 1.0.x node interoperates unchanged and remains 1.0.x-conformant (see §17.5 for the requirements 1.1.0 adds).
 
@@ -146,7 +146,7 @@ This specification is published under the [Creative Commons Attribution 4.0 Inte
 
 The reference implementations are published under the [Apache Licence 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0; the term "Mesh Cognition" is intentionally unmarked — the open-protocol category is free vocabulary.
+SYM and SYM.BOT are trademarks of SYM.BOT. The Mesh Memory Protocol is published under CC BY 4.0; the term "Mesh Cognition" is intentionally unmarked — the category name is free vocabulary.
 
 © 2026 SYM.BOT. Specification text licenced under CC BY 4.0. Reference implementations licenced under Apache 2.0.
 
@@ -4142,7 +4142,7 @@ macOS
 
 Researcher agent
 
-Asked the question, shared observations, sent anchor CMBs to new peers on connection
+Asked the question, emitted observations, sent anchor CMBs to new peers on connection
 
 knowledge-feed
 
@@ -4168,7 +4168,7 @@ Three agents on three different operating systems — macOS, Linux, iOS — conn
 -   Agents MUST broadcast CMBs via `remember()` or `cmb` frames
 -   Agents SHOULD consume Cognitive State insights and respond appropriately
 -   Agents SHOULD close the loop by sharing actions taken; the formalized loop-closure is a grounding CMB (§6.7) / session trail (§14.12)
--   Agents MUST NOT send commands to other agents — share observations, not instructions
+-   Agents MUST NOT send commands to other agents — emit observations, not instructions
 -   Agent coupling decisions are autonomous — no orchestrator, no policy override
 
 ### 14.9 Local Event Interface

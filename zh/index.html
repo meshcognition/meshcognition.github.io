@@ -6,13 +6,13 @@
 阅读理论基础 <span class="arrow">→</span> </a> <a class="pill secondary" href="/spec/mmp">
 使用协议开发 <span class="v">v1.1</span> <span class="arrow">→</span> </a> <a class="pill secondary" href="/implementations">
 查看部署案例 <span class="arrow">→</span> </a> </div> <div class="hero-mark"> <div style="display: flex; gap: 32px; align-items: center; opacity: 0.7;"> <span>WIRE PROTOCOL · MMP v1.1</span> <span style="width: 60px; height: 1px; background: var(--rule);"></span> <span>CC-BY-4.0</span> <span style="width: 60px; height: 1px; background: var(--rule);"></span> <span>EDITOR · HONGWEI XU</span> </div> </div>  </div> </div> </section>  <section class="paper-section" id="definition"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.02 <span class="dot">·</span> 定义</p>  <h2 class="display">什么是 Mesh Cognition?</h2> <p class="lede" style="max-width: 70ch;">
-Mesh Cognition 是一种<strong>网格智能架构范式</strong>:专业智能体通过有线协议共享语义类型化的观测数据,采用按字段准入(per-field admission)机制,同时每个智能体维护节点专属、跨节点不合并的主权学习状态。
+Mesh Cognition 是一种<strong>网格智能架构范式</strong>:每个专业智能体对外发射其自身认知状态的语义类型化投影——从不传输状态本身;每个接收方按字段准入(per-field admission)、以自己的条件将其纳入自己的主权存储。学习状态始终留在节点本地,永不跨节点合并。
 </p> <p class="lede" style="margin-top: 16px; max-width: 70ch;">
-多个独立认知主体——人类、模型、流程——通过协议共享部分状态(注意力焦点、情绪倾向、意图、承诺)。每个接收方在本地自主决定:接纳哪些信息、如何重组、采取何种行动。
+多个独立认知主体——人类、模型、流程——各自通过协议发出自身本地状态的类型化投影(注意力焦点、情绪倾向、意图、承诺)。每个接收方在本地自主决定:接纳哪些信息、如何重组、采取何种行动。
 </p> <p class="lede" style="margin-top: 16px; max-width: 70ch;">
-不是群体思维(hive mind)。不是传统联邦架构。更接近科研团队的协作方式:成员选择性接收相关信息,群体在无中心指挥下自然收敛共识。
+没有合并状态。没有协调权威。更接近科研团队的思考方式:成员选择性接收相关信息,群体在无人指挥下收敛。
 </p> <p class="lede" style="margin-top: 16px; max-width: 70ch;">
-MMP 承载认知内容传输。SVAF 决定字段级准入策略。内容哈希溯源确保认知链路可重建。
+MMP 承载类型化的认知记忆块(Cognitive Memory Blocks)。SVAF 决定字段级准入。内容哈希溯源确保认知链路可重建。
 </p> <p class="lede" style="margin-top: 16px;">
 该范式由五大核心特性定义。
 </p> <div class="card-grid cols-3"> <div class="card fade-up-card" style="animation-delay: 0s"> <div class="num">01</div> <h3 class="sub">按字段准入</h3> <p class="body">
@@ -27,11 +27,11 @@ MMP 承载认知内容传输。SVAF 决定字段级准入策略。内容哈希�
 </p> </div> <div class="card fade-up-card" style="animation-delay: .5s; justify-content: space-between; background: var(--ink); color: var(--paper);"> <div> <div class="num" style="color: rgba(244,241,234,0.4);">核心摘要</div> <h3 class="sub" style="color: var(--paper);">五大特性,一线贯通。</h3> </div> <p class="body" style="color: rgba(244,241,234,0.65); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em;">
 准入 · 溯源 · 主权<br>
 连续时间 · 端侧优先
-</p> </div> </div>  </div> </div> </section>  <section class="paper-section" id="why"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.03 <span class="dot">·</span> 动机</p>  <h2 class="display">为何重要<span class="accent">?</span></h2> <p class="lede" style="max-width: 70ch;"> <strong>单智能体认知已成为瓶颈。</strong>单一模型、单一上下文、单一视角。复杂问题的求解,亟需专业智能体并行思考、共享状态。当前约束已非模型能力本身,而是认知主体间的<em>协同带宽</em>。
-</p> <p class="lede" style="margin-top: 24px; max-width: 70ch;"> <strong>中心化协调无法支撑自主扩展。</strong>若每个智能体均需向中央控制器请示,控制器即成为系统天花板。接收方自主准入机制避免以中央准入控制器成为扩展瓶颈,同时避免重新引入主控节点——正如 TCP/IP 凭借去中心化战胜电路交换网络。
-</p> <p class="lede" style="margin-top: 24px; max-width: 70ch;"> <strong>主权架构赋能机构级应用。</strong>医院、实验室、金融机构无法将核心数据注入第三方「黑箱大脑」。但可通过本协议共享<em>观测数据</em>,同时确保状态主权归属本机构、认知链路全程可审计、架构支持本地状态控制与可审计的交换边界；合规性取决于具体部署。
+</p> </div> </div>  </div> </div> </section>  <section class="paper-section" id="why"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.03 <span class="dot">·</span> 动机</p>  <h2 class="display">为何重要<span class="accent">?</span></h2> <p class="lede" style="max-width: 70ch;"> <strong>智能体间协调本身就是瓶颈。</strong>单一模型、单一上下文、单一视角。复杂问题的求解,亟需专业智能体并行思考、在彼此的观测之上继续推进。当前约束已非模型能力本身,而是认知主体间的<em>协同带宽</em>。
+</p> <p class="lede" style="margin-top: 24px; max-width: 70ch;"> <strong>中心化协调无法支撑自主扩展。</strong>若每个智能体均需向中央控制器请示,控制器即成为系统天花板。接收方自主准入机制避免以中央准入控制器成为扩展瓶颈,同时避免重新引入主控节点。
+</p> <p class="lede" style="margin-top: 24px; max-width: 70ch;"> <strong>主权架构赋能机构级应用。</strong>机构需要对习得状态进行本地控制,并建立可审计的交换边界。它们可向本协议贡献<em>观测数据</em>——状态主权始终归属本机构,溯源链路全程可审计。
 </p> <div class="pullquote italic" style="margin-top: 56px; border-top: 0; padding-top: 0;"> <p> <em>认知的演进,正从「模型问题」转向「基础设施问题」。</em> </p> </div>  </div> </div> </section>  <section class="paper-section" id="positioning"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.04 <span class="dot">·</span> 定位</p>  <h2 class="display">定位<span class="accent">。</span></h2> <div class="pullquote"> <p> <span class="label">定位声明</span>
-Mesh Cognition 不是产品,不是编排器,也不是网络原语。它是面向网格智能、以用户主权为核心、形式化为开放协议的架构范式——在行动的智能体之下承载认知状态（注意力焦点、情绪、意图、承诺）。
+Mesh Cognition 不是产品,不是编排器,也不是网络原语。它是面向网格智能、以节点主权为核心、形式化为开放标准的架构范式——在行动的智能体之下承载认知状态的类型化投影（注意力焦点、情绪、意图、承诺）。
 </p> </div>  </div> </div> </section>  <section class="paper-section"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content" style="padding-top: 80px; padding-bottom: 80px;"> <p class="eyebrow">继续阅读 <span class="dot">·</span> CONTINUE</p> <p class="lede" style="max-width: 70ch; margin-bottom: 32px;">
 完整规范、参考实现、治理流程当前以英文形式发布于本站点的英文页面。
 </p> <div class="cta-row" style="margin-top: 0;"> <a class="pill primary" href="/spec/mmp">

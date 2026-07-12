@@ -551,7 +551,7 @@ A node is more precisely a membrane over an arbitrary interior: its interior MAY
 
 ### 2.5 The Mesh Cognition Loop
 
-Mesh Cognition is a closed loop connecting all layers. Each cycle, the remix graph grows and every agent understands more than it did before:
+The Mesh Cognition architecture closes into a loop across all layers. Each cycle, the remix graph grows and every agent understands more than it did before:
 
 SVAF evaluates inbound CMB per field
 

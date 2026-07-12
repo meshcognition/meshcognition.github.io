@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>The Cognition Node — Mesh Cognition</title><meta name="description" content="A cognition node is the unit of Mesh Cognition: a sovereign participant that holds its own memory, decides locally what to admit, and contributes typed observations with lineage. MMP carries observations, not weights or learned state."><link rel="canonical" href="https://meshcognition.org/node/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-node sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="The Cognition Node — Mesh Cognition"><meta property="og:description" content="A cognition node is the unit of Mesh Cognition: a sovereign participant that holds its own memory, decides locally what to admit, and contributes typed observations with lineage. MMP carries observations, not weights or learned state."><meta property="og:url" content="https://meshcognition.org/node/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="The Cognition Node — Mesh Cognition"><meta name="twitter:description" content="A cognition node is the unit of Mesh Cognition: a sovereign participant that holds its own memory, decides locally what to admit, and contributes typed observations with lineage. MMP carries observations, not weights or learned state."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Home of Mesh Cognition — the cognitive architecture of the agentic mesh: center-free inference and learning among sovereign nodes, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Home of Mesh Cognition and the Mesh Memory Protocol: the specification, research papers, and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/group-directory.LbKU39hk.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="active" href="/node">The Node</a> <a class="" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <section class="paper-section" id="node"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.02 <span class="dot">·</span> THE UNIT</p>  <h2 class="display">What is a <span class="accent">cognition node</span>?</h2> <p class="lede">
+If Mesh Cognition is the architecture, the cognition node is its unit. A node is a sovereign
+      participant in the mesh's exchange of typed observations — it holds its own memory, decides
+      locally, field by field, what to admit, and contributes observations with lineage. This
+      distinguishes the pattern from centrally orchestrated multi-agent systems.
+</p> <h3 class="sub" style="margin-top:48px;">Not an agent behind a router</h3> <p class="body">
+In the common multi-agent picture, an "agent" is a prompt-and-tools loop, and a central
+      orchestrator decides which one runs and what it sees. A cognition node is instead defined by its
+      local state and its admission boundary, not by an internal loop or a graph someone wired. MMP
+      requires no central orchestrator and no central admission registry. Three properties constitute
+      the node: its data model, receiver-autonomous per-field admission, and remix-with-lineage are
+      protocol-level; the self-selection that follows from them is the architectural pattern above the
+      protocol.
+</p> <h3 class="sub" style="margin-top:40px;">1 · Sovereign memory</h3> <p class="body">
+A node keeps its own store: the Cognitive Memory Blocks it authored, plus the ones it admitted
+      from peers — each carrying fields from the CAT7 typed vocabulary, and, when derived from another
+      block, retaining lineage to its source. A node may also learn locally from what it observes.
+      That learned state, like its memory, is <strong>per-node and not merged</strong>: MMP carries
+      observations, not weights, hidden state, or learned parameters, and it does not merge per-node
+      learned state. A node's internal learned state remains local. Sovereignty is what the protocol
+      carries and what it refuses to carry.
+</p> <h3 class="sub" style="margin-top:40px;">2 · A per-field admission boundary</h3> <p class="body">
+Every incoming block is evaluated by the receiver, field by field, under its own admission
+      policy — the mechanism the specification calls SVAF (§9). The receiver determines the admission
+      outcome for each field; admission is <strong>receiver-autonomous</strong>. When a node remixes
+      admitted material, the resulting block retains lineage to its source observations, so provenance
+      is preserved without merging state. A node may decline to contribute; silence is a valid outcome.
+</p> <h3 class="sub" style="margin-top:40px;">3 · Self-selection, not assignment</h3> <p class="body">
+Because admission is the node's own decision, participation is self-selected. Each node decides
+      locally whether to admit the input, act on it, and contribute an observation; the pattern does
+      not require a central component to assign participation. Coordination is an emergent product of
+      many receiver-local decisions rather than the output of a conductor — so the protocol introduces
+      no required central admission controller.
+</p> <h3 class="sub" style="margin-top:40px;">A node may itself be a mesh</h3> <p class="body">
+Because a node is defined by its boundary and not its internals, the participant behind an
+      admission boundary may be any participant form that honours the node contract: a single model,
+      a rules process, a person, or an entire multi-agent system. What the mesh sees is one sovereign
+      store, one admission boundary, and one self-selecting participant; how that participant decides
+      internally — a planner, a deliberation process, or a sub-mesh of its own — is private to it.
+      The definition is therefore recursive: a mesh of nodes can present as a single node to a larger
+      mesh, and the same node contract can be applied recursively across mesh boundaries. The topology
+      term for this case is the <strong>gateway</strong> — a node holding membership in two meshes at
+      once, admitting into each on its own terms. The distinction between one composite node and
+      several separate ones depends on where the boundary is drawn: agents behind a single admission
+      boundary are one node; agents each carrying their own boundary onto the parent mesh are several.
+      Composition does not change what grounds trust — a composite's contributions still stand on
+      consequences reality confirms, however elaborate its internal deliberation.
+</p> <h3 class="sub" style="margin-top:40px;">Grounding — the open edge</h3> <p class="body">
+A node admits typed <em>symbols</em>; connecting those symbols to <em>reality</em> — grounding —
+      is the open problem of the research program. Lineage establishes provenance (where a claim came
+      from), which is not the same as truth (whether it holds): MMP does not treat provenance as
+      evidence of truth. A node's standing is meant to follow from consequences reality confirms, not
+      from peers agreeing with it. How such consequences are measured and verified is outside MMP 1.x
+      and remains an open research question.
+</p> <h3 class="sub" style="margin-top:40px;">Why the unit matters</h3> <p class="body">
+The node definition establishes the protocol's boundaries for state, admission, and exchange.
+      Center-free coordination is what follows when sovereign nodes self-select through admission.
+      Remix lineage makes the provenance of derived blocks reconstructible. And because MMP requires no
+      central controller, the protocol imposes no central point of failure. The node is where
+      sovereignty, admission, and lineage meet — the reason a mesh of them can coordinate without a
+      center.
+</p> <p class="body" style="margin-top:40px; opacity:0.72;">
+The node is specified normatively in the <a class="inline-link" href="/spec/mmp">Mesh Memory
+      Protocol</a> (CAT7 blocks, per-field admission, remix-with-lineage), implemented by the listed
+<a class="inline-link" href="/implementations">projects</a>, and analysed in the
+<a class="inline-link" href="/research">research</a>.
+</p>  </div> </div> </section>  <footer class="footer"><div class="footer-inner"><div><div class="brand-line"><span class="brand-tick"></span> Mesh Cognition</div><p>Distributed intelligence on an open protocol.</p></div><div></div><div></div><div></div><div class="legal"><span>© 2026 SYM.BOT. The Mesh Memory Protocol is published under CC-BY-4.0.</span><span>SYMBOT LTD · Scotland, United Kingdom</span></div></div></footer> </body></html>

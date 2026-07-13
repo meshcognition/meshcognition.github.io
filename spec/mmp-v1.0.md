@@ -62,7 +62,7 @@ Published
 
 Last updated
 
-7 July 2026
+13 July 2026
 
 Author
 
@@ -165,6 +165,13 @@ Version
 Date
 
 Changes
+
+1.1.0  
+registry note
+
+2026-07-13
+
+**§16.4 registry: two Draft Candidate Extensions added** — no change to any core requirement, no version bump (extensions are the §16 growth path of a final specification). [Error Handling v0.1.0](/spec/mmp/extensions/error-handling) (failure as a first-class cognition event: evidence-carrying corrective requests with lineage-borne parentage, receiver-autonomous volunteering, one-level repair, separate grounding of failure and fix) and [CMB Trust Horizon v0.1.0](/spec/mmp/extensions/trust-horizon) (validator-attested, knowledge-scoped trust-weight invariants; grants ride content-bound CAT7 text; Canon-retention separation). Both application-layer CMB conventions over MMP v1.1; both Draft — a reference deployment reports an experimental implementation; independent interoperability not yet established.
 
 1.1.0
 

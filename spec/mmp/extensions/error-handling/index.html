@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MMP Extension: Error Handling — Mesh Memory Protocol</title><meta name="description" content="Failure as a first-class cognition event — the application-layer convention for publishing failed work with its evidence as an open corrective request, receiver-autonomous repair, and separate grounding of failure and fix. No wire-format changes."><link rel="canonical" href="https://meshcognition.org/spec/mmp/extensions/error-handling/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-node sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="MMP Extension: Error Handling — Mesh Memory Protocol"><meta property="og:description" content="Failure as a first-class cognition event — the application-layer convention for publishing failed work with its evidence as an open corrective request, receiver-autonomous repair, and separate grounding of failure and fix. No wire-format changes."><meta property="og:url" content="https://meshcognition.org/spec/mmp/extensions/error-handling/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="MMP Extension: Error Handling — Mesh Memory Protocol"><meta name="twitter:description" content="Failure as a first-class cognition event — the application-layer convention for publishing failed work with its evidence as an open corrective request, receiver-autonomous repair, and separate grounding of failure and fix. No wire-format changes."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Home of Mesh Cognition — the cognitive architecture of the agentic mesh: center-free inference and learning among sovereign nodes, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Home of Mesh Cognition and the Mesh Memory Protocol: the specification, research papers, and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/error-handling.Ct5BGV8R.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="" href="/node">The Node</a> <a class="active" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd id="spec-search-kbd" class="font-sans text-[11px] leading-none text-white/50 border border-white/10 rounded px-1.5 py-1">Ctrl K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-[#0f0f10]/25 backdrop-blur-[2px]"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#f4f1ea] border border-white/10 rounded-xl shadow-2xl shadow-black/25 overflow-hidden" data-paper> <div class="flex items-center gap-3 px-4 border-b border-white/10"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/50"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-[#0f0f10] placeholder:text-[#0f0f10]/40 outline-none"> <kbd class="font-sans text-[11px] text-white/50 border border-white/10 rounded px-1.5 py-1">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/40 border-t border-white/10">
+Type to search every section · <span class="text-white/60">↑↓</span> to navigate · <span class="text-white/60">↵</span> to open
+</div> </div> </div> </div> <script>
+  (function () {
+    var trigger = document.getElementById('spec-search-trigger');
+    var modal = document.getElementById('spec-search-modal');
+    var backdrop = document.getElementById('spec-search-backdrop');
+    var input = document.getElementById('spec-search-input');
+    var list = document.getElementById('spec-search-results');
+    var hint = document.getElementById('spec-search-hint');
+    if (!trigger || !modal || !backdrop || !input || !list || !hint) return;
+
+    // Shortcut hint: ⌘K on Mac, Ctrl K elsewhere (default markup is the legible "Ctrl K").
+    var isMac = /Mac|iPhone|iPad|iPod/.test((navigator.platform || '') + ' ' + (navigator.userAgent || ''));
+    var kbd = document.getElementById('spec-search-kbd');
+    if (kbd && isMac) kbd.textContent = '⌘K';
+
+    var index = null;
+    var loading = false;
+    var results = [];
+    var active = 0;
+
+    // Shown in the empty modal as one-tap entry points (keyboard-navigable like results).
+    var SUGGEST = [
+      { url: '/spec/mmp/architecture#hidden-state-locality', section: '§2.7', heading: 'Hidden State Locality', text: '' },
+      { url: '/spec/mmp/cmb', section: '§8', heading: 'CAT7 — Cognitive Memory Blocks', text: '' },
+      { url: '/spec/mmp/coupling#svaf', section: '§9.2', heading: 'SVAF — per-field evaluation', text: '' },
+      { url: '/spec/mmp/coupling', section: '§9.1', heading: 'Peer drift & coupling', text: '' },
+      { url: '/spec/mmp/blending', section: '§10', heading: 'State blending', text: '' },
+      { url: '/spec/mmp/remix', section: '§15', heading: 'Remix & lineage', text: '' },
+    ];
+
+    function ensureIndex() {
+      if (index || loading) return;
+      loading = true;
+      fetch('/spec/mmp/search-index.json', { cache: 'force-cache' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { index = data; if (input.value) { results = search(input.value); render(); } })
+        .catch(function () { index = []; })
+        .then(function () { loading = false; });
+    }
+
+    function esc(s) {
+      return s.replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+    function highlight(text, terms) {
+      var out = esc(text);
+      for (var i = 0; i < terms.length; i++) {
+        if (!terms[i]) continue;
+        var re = new RegExp('(' + terms[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+        out = out.replace(re, '<mark class="bg-[#ff5a1f]/25 rounded-sm px-0.5">$1</mark>');
+      }
+      return out;
+    }
+    // Window the snippet around the first matched term so the hit is always visible.
+    function snippet(text, terms) {
+      if (!text) return '';
+      var low = text.toLowerCase();
+      var at = -1;
+      for (var i = 0; i < terms.length; i++) {
+        var p = low.indexOf(terms[i]);
+        if (p !== -1 && (at === -1 || p < at)) at = p;
+      }
+      if (at <= 90) return text.slice(0, 200);
+      var start = Math.max(0, at - 70);
+      return '…' + text.slice(start, start + 200);
+    }
+
+    function search(q) {
+      if (!index) return [];
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!terms.length) return [];
+      var scored = [];
+      for (var j = 0; j < index.length; j++) {
+        var e = index[j];
+        var heading = e.heading.toLowerCase();
+        var section = e.section.toLowerCase();
+        var text = e.text.toLowerCase();
+        var score = 0, all = true;
+        for (var k = 0; k < terms.length; k++) {
+          var t = terms[k];
+          var inH = heading.indexOf(t) !== -1, inS = section.indexOf(t) !== -1, inT = text.indexOf(t) !== -1;
+          if (!inH && !inS && !inT) { all = false; break; }
+          if (heading.indexOf(t) === 0) score += 12;
+          else if (inH) score += 8;
+          if (inS) score += 3;
+          if (inT) score += 1;
+        }
+        if (all) scored.push({ e: e, s: score });
+      }
+      scored.sort(function (a, b) { return b.s - a.s; });
+      return scored.slice(0, 30).map(function (x) { return x.e; });
+    }
+
+    function rowsHTML(terms) {
+      return results.map(function (e, i) {
+        return '<li><a href="' + e.url + '" data-i="' + i + '" class="block px-4 py-2.5 ' +
+          (i === active ? 'bg-[#ff5a1f]/12' : 'hover:bg-white/[0.04]') + ' transition-colors">' +
+          '<div class="flex items-baseline gap-2">' +
+          '<span class="text-[15px] text-white/90">' + highlight(e.heading, terms) + '</span>' +
+          '<span class="ml-auto shrink-0 font-mono text-[10px] text-[#c2440f]">' + esc(e.section) + '</span>' +
+          '</div>' +
+          (e.text ? '<div class="mt-0.5 text-xs text-white/60 line-clamp-2">' + highlight(snippet(e.text, terms), terms) + '</div>' : '') +
+          '</a></li>';
+      }).join('');
+    }
+
+    function render() {
+      var q = (input.value || '').trim();
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!q) {
+        hint.style.display = '';
+        list.innerHTML = '<li class="px-4 pt-3 pb-1 text-[10px] font-mono uppercase tracking-[0.12em] text-white/40">Jump to</li>' + rowsHTML([]);
+        return;
+      }
+      hint.style.display = 'none';
+      if (!results.length) {
+        list.innerHTML = '<li class="px-4 py-6 text-sm text-white/40">No matches. Try a different term.</li>';
+        return;
+      }
+      list.innerHTML = rowsHTML(terms);
+    }
+
+    function openModal() {
+      ensureIndex();
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      results = SUGGEST.slice();
+      active = 0;
+      render();
+      setTimeout(function () { input.focus(); }, 30);
+    }
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function scrollActive() {
+      var el = list.querySelector('[data-i="' + active + '"]');
+      if (el) el.scrollIntoView({ block: 'nearest' });
+    }
+
+    trigger.addEventListener('click', openModal);
+    backdrop.addEventListener('click', closeModal);
+
+    input.addEventListener('input', function () {
+      results = input.value.trim() ? search(input.value) : SUGGEST.slice();
+      active = 0;
+      render();
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, results.length - 1); render(); scrollActive(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); render(); scrollActive(); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (results[active]) window.location.href = results[active].url; }
+      else if (e.key === 'Escape') { closeModal(); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var tag = document.activeElement ? document.activeElement.tagName : '';
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        if (modal.classList.contains('hidden')) openModal(); else closeModal();
+      } else if (e.key === '/' && modal.classList.contains('hidden') && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+  })();
+</script> <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
+MMP Specification v1.1.0 </a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> Overview </a><a href="/spec/mmp/conventions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 1. Conventions </a><a href="/spec/mmp/architecture" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 2. Architecture </a><a href="/spec/mmp/identity" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 3. Identity (L0) </a><a href="/spec/mmp/transport" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 4. Transport (L1) </a><a href="/spec/mmp/connection" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 5. Connection (L2) </a><a href="/spec/mmp/memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 6. Memory (L3) </a><a href="/spec/mmp/frames" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 7. Frame Types </a><a href="/spec/mmp/cmb" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8. CMBs (CAT7) </a><a href="/spec/mmp/coupling" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 9. Coupling &amp; SVAF (L4) </a><a href="/spec/mmp/blending" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 10. State Blending </a><a href="/spec/mmp/feedback" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 11. Feedback Modulation </a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 12. Synthetic Memory (L5) </a><a href="/spec/mmp/cognitive-state" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 13. Cognitive State (L6) </a><a href="/spec/mmp/application" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 14. Application (L7) </a><a href="/spec/mmp/remix" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 15. Remix </a><a href="/spec/mmp/extensions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 16. Extensions </a><a href="/spec/mmp/conformance" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 17. Conformance </a><a href="/spec/mmp/security" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 18. Security </a><a href="/spec/mmp/constants" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 19. Configuration </a><a href="/spec/mmp/schema" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 20. JSON Schema </a><a href="/spec/mmp/references" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 21. References </a> </div> </nav>   <div class="flex gap-2 pt-2"> <a href="/spec/mmp-v1.0.md" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page Markdown">
+.md
+</a> <a href="/spec/mmp-v1.0.html" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page HTML">
+.html
+</a> </div> </div> </div> </aside> <article class="flex-1 min-w-0"> <div class="space-y-10 text-white/70 leading-relaxed text-[15px]">  <article class="spec-md"> <h1 id="mmp-extension-error-handling">MMP Extension: Error Handling</h1>
+<p><strong>Failure as a First-Class Cognition Event</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Version</td><td>0.1.0</td></tr><tr><td>Status</td><td>Draft — Candidate Extension</td></tr><tr><td>Date</td><td>13 July 2026</td></tr><tr><td>Author</td><td>Hongwei Xu &#x3C;<a href="mailto:hongwei@sym.bot">hongwei@sym.bot</a>>, SYM.BOT</td></tr><tr><td>Extends</td><td><a href="/spec/mmp">MMP v1.1</a> — application-layer convention over §6.7 (grounding) and §9.2 (receiver-autonomous SVAF); no changes to the wire format</td></tr><tr><td>Canonical URL</td><td><a href="https://meshcognition.org/spec/mmp/extensions/error-handling">https://meshcognition.org/spec/mmp/extensions/error-handling</a></td></tr><tr><td>Licence</td><td>CC BY 4.0 (specification text)</td></tr></tbody></table>
+<hr>
+<h2 id="1-status">1. Status</h2>
+<p>This document is a <strong>Draft Candidate Extension</strong>. It defines an application-layer convention over MMP v1.1; it does not change the MMP wire format and does not require an MMP version bump. Promotion to <strong>Published</strong> status in the MMP §16 Extensions registry requires a second independent implementer to ship interoperable software per the criteria in §8 (Promotion Criteria). Until promotion, this document is published for community visibility and review; it is not yet a registered MMP §16 Extension. A Draft Candidate Extension introduces no protocol-level additions and no entries in the MMP §16 registry until promotion is earned.</p>
+<h2 id="2-conventions-and-conformance">2. Conventions and conformance</h2>
+<p>The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY in this document are to be interpreted as described in RFC 2119 and RFC 8174 when, and only when, they appear in all capitals. Conformance is claimed by a <strong>publisher</strong> (the harness that publishes failure events) and by a <strong>receiver</strong> (a node that admits and may act on them).</p>
+<h2 id="3-abstract">3. Abstract</h2>
+<p>Agent frameworks conventionally treat failure as an exception to suppress: retry the same agent, fall back, or escalate. A retry that keeps the failed attempt inside its own control flow and records only the final result destroys three things the failure produced — the <strong>evidence</strong> (the failing check’s output), the <strong>record</strong> (a repaired result becomes indistinguishable from a first-pass success), and the <strong>choice of who fixes it</strong> (pre-empted in favour of the agent that just failed). A deployment that assigns every repair to a fixed agent also bypasses receiver-autonomous volunteering for that repair.</p>
+<p>This extension specifies the alternative: <strong>failure is a cognition event</strong>. A mechanically detected failure on a completed claim is published to the mesh as an ordinary CMB carrying its evidence, with the failed claim in its lineage. From there the protocol’s existing machinery operates unchanged: every receiver’s own admission (§9.2) judges relevance, an admitting agent may take the corrective as work — nobody assigns — and the failure and any subsequent fix ground as <strong>separate</strong> §6.7 outcomes against the claimer and the fixer respectively.</p>
+<h2 id="4-the-failure-event">4. The failure event</h2>
+<p>When mechanical checks — executed and tallied by the harness outside the claimer’s generation step — fail on a completion claim, the harness SHOULD publish a <strong>corrective request CMB</strong>:</p>
+<ul>
+<li><strong>lineage</strong> — <code>lineage.parents</code> MUST contain the key of the failed completion claim. Parentage travels in lineage, never only in prose.</li>
+<li><strong>focus</strong> — a plain statement that completed work failed its checks, followed by the <strong>evidence</strong> (§4.1), followed by bounded context from the original task.</li>
+<li><strong>intent</strong> — <code>request</code>. The failure event is an <em>open invitation</em>, not an assignment.</li>
+<li><strong>commitment</strong> — the acceptance criteria of the original work, carried <strong>byte-for-byte inside a clearly delimited block</strong>, so the <em>same criteria govern the fix</em> — repaired means repaired, by the original bar.</li>
+<li><strong>issue</strong> — ordinary descriptive text (e.g. <code>check-failure</code>); it carries no normative routing semantics.</li>
+<li><strong>addressing</strong> — the corrective request MUST be a group-bound broadcast with no directed recipient, so §9.2 receiver-autonomous delivery and admission remain operative.</li>
+</ul>
+<h3 id="41-evidence">4.1 Evidence</h3>
+<p>The event MUST carry the failed check identifiers together with their captured <code>stdout</code>/<code>stderr</code>, subject to an operator-configured, non-zero byte limit per stream; when either stream is shortened, the event MUST carry an explicit truncation indicator. The numeric limit is implementation-defined. (Conformance test: a known <code>stderr</code> sentinel survives publication intact; oversized output arrives marked truncated.)</p>
+<h3 id="42-what-must-not-happen">4.2 What MUST NOT happen</h3>
+<ul>
+<li>Publication of a failure event MUST NOT suppress the original completion claim or its <code>failed:</code> grounding (§5). Error handling never hides the error.</li>
+<li>The publisher MUST NOT route, rank, or assign the repair. Publication is mechanical duty; coordination belongs to admission.</li>
+<li>A completion whose only failed checks are <strong>fabricable</strong> — satisfiable by the claimer’s own unverified action, such as bare file-existence checks — SHOULD NOT spawn a corrective event: there is no independent evidence to ground a fix on.</li>
+</ul>
+<p><em>Informative:</em> deployments typically also surface open, untaken correctives to a human operator through their normal attention surfaces; this document does not standardise that surface.</p>
+<h2 id="5-grounding--the-double-record">5. Grounding — the double record</h2>
+<p>The failure and the fix are <strong>separate grounded outcomes</strong>, each an ordinary §6.7 grounding CMB:</p>
+<ul>
+<li>the initial failure grounds against the <strong>claimer</strong>: a grounding CMB with a <code>failed:</code> commitment prefix whose <code>lineage.parents</code> names the original completion claim;</li>
+<li>a corrective’s result grounds against the <strong>fixer</strong>: a grounding CMB with a <code>verified:</code> or <code>failed:</code> commitment prefix whose <code>lineage.parents</code> names the corrective completion.</li>
+</ul>
+<p>Accountability follows the signed authors of those distinct CMBs. An implementation MUST NOT collapse the two into a single record: <em>who broke what and who fixed it</em> is precisely the signal a trust economy needs, and it is what a record-discarding retry destroys.</p>
+<h2 id="6-depth-rail">6. Depth rail</h2>
+<p>A corrective whose own checks fail MUST NOT spawn a further autonomous corrective. One level: a failed repair returns to human judgment. The bound comes from the grammar, not from a retry counter inside any agent.</p>
+<h2 id="7-reference-implementations">7. Reference implementations</h2>
+<p>A reference deployment (xMesh, SYM.BOT) reports an experimental implementation as of 2026-07-13, in which a published failure event carrying captured <code>stderr</code> was taken by a <em>different</em> agent than the one that failed, a failed corrective stopped at the depth rail, and claimer and fixer were grounded separately. Independent interoperability has not yet been established. A plain-English companion: <a href="https://sym.bot/blog/failure-first-class-cognition">Failure Is a First-Class Cognition Event</a>.</p>
+<h2 id="8-promotion-criteria">8. Promotion Criteria</h2>
+<p>Promotion to <strong>Published</strong> status in the MMP §16 registry requires all of:</p>
+<ol>
+<li><strong>A second independent implementation</strong> — a distinct codebase not derived from the reference deployment, maintained by a different implementer.</li>
+<li><strong>A cross-implementation conformance exchange</strong> — a documented run in which a failure event published by one implementation is admitted and repaired by an agent of the other, demonstrating: evidence carriage with the truncation indicator (§4.1), lineage-borne parentage (§4), separate claimer/fixer grounding (§5), and the depth rail (§6).</li>
+<li><strong>Review</strong> — maintainer and community review of this document against the exchange results.</li>
+</ol>
+<p>On promotion, the Status section is rewritten to <strong>Published</strong>, an Adopters list is added, and the §16.4 registry row is updated. No other sections change at promotion.</p> </article>  </div> </article> </div> </div>  <footer class="footer" style="padding: 40px 64px;"><div class="footer-inner" style="grid-template-columns: 1fr;"><div class="legal" style="margin-top: 0; padding-top: 0; border-top: 0;"><span>© 2026 SYMBOT LTD. The Mesh Memory Protocol is published under CC BY 4.0.</span><span>Pioneered by SYM.BOT · Scotland, United Kingdom</span></div></div></footer> </body></html>

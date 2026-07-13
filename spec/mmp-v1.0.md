@@ -4521,7 +4521,7 @@ Core types (this specification): MUST NOT be redefined by extensions. Extension 
 
 If both peers advertise the same extension in handshake, it is active. If only one peer advertises it, the extension is NOT active — the advertising peer MUST NOT send extension-specific frames to a peer that does not support them.
 
-### 16.4 Published Extensions
+### 16.4 Registered and Candidate Extensions
 
 Extension
 
@@ -4540,6 +4540,18 @@ group-directory-v0.1.0
 Draft
 
 [MMP Extension: Group Directory v0.1.0](/spec/mmp/extensions/group-directory) — persistent group metadata, admin approval workflow, and directory enumeration. Higher-layer extension building on §5.8 mesh groups for chat-platform-style UX (browse / request-to-join / approve). (Draft — pre-implementation; promotes on first reference impl per §16.5.)
+
+error-handling-v0.1.0
+
+Draft — Candidate Extension
+
+[MMP Extension: Error Handling v0.1.0](/spec/mmp/extensions/error-handling) — application-layer CMB convention; no wire-format change. Failure as a first-class cognition event: evidence-carrying corrective requests with lineage-borne parentage, receiver-autonomous volunteering, one-level repair, and separate grounding of failure and fix. (Draft — a reference deployment reports an experimental implementation; independent interoperability not yet established; promotes per the extension’s own Promotion Criteria.)
+
+trust-horizon-v0.1.0
+
+Draft — Candidate Extension
+
+[MMP Extension: CMB Trust Horizon v0.1.0](/spec/mmp/extensions/trust-horizon) — application-layer CMB convention; no wire-format change. Validator-attested, knowledge-scoped trust-weight invariants: a grant governs how earned influence persists (never how it is minted), interpreted per receiver under operator policy, with Canon-retention separation. (Draft — a reference deployment reports an experimental implementation; independent interoperability not yet established; promotes per the extension’s own Promotion Criteria.)
 
 ### 16.5 Extension Lifecycle
 

@@ -214,7 +214,7 @@ The problem is semantic, not transport. <strong>Hidden state never crosses the w
       DNS-SD (Bonjour) with zero configuration.
 </p> <p class="mt-4">
 This document describes an 8-layer stack, but it is <strong>two documents in one</strong>, and
-      is read that way (&sect;17). <strong>MMP Core</strong> is the open standard: the wire contract
+      is read that way (&sect;17). <strong>MMP Core</strong> is the normative wire contract
       &mdash; identity, transport, connection, frames, the CAT7 block with its content address and
       signature &mdash; byte-testable against published Class 1 conformance vectors
       (Class 1, &sect;17.1). Everything receiver-side &mdash; SVAF admission, memory tiers, remix
@@ -237,14 +237,18 @@ This specification is <strong>verified, not merely asserted</strong>: its Core w
       log</a>&rsquo;s soundness &amp; completeness update). What the protocol promises is what survives
       derivation.
 </p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4" id="status">Status of This Document</h2> <p class="mb-4">
-This is a published specification, <strong>stable, sound, and complete at version 1.1.0</strong>
-&mdash; and final. 1.1.0 is the stabilization release: the wire contract has been stable since
+This is a published specification, <strong>stable, sound, and complete at version 1.1.0</strong>.
+      1.1.0 is the current stable release: the wire contract has been stable since
       0.2.3; the work layer completed the documented cognition surface; and the 2026-07-07 update
       re-derived the specification&rsquo;s claims against a mathematical formalization of the deployed
       runtime, folding the soundness and completeness amendments in place and hardening the full
-      corpus under adversarial review. With that verification complete, no further versions of this
-      open specification will be published; protocol development from here continues in the xMesh
-      product, outside this document.
+      corpus under adversarial review.
+<strong>Stable does not mean closed.</strong> It means implementations can target the published
+      conformance contract with confidence. Normative changes follow the public RFC and versioning
+      process described on the
+<a href="/governance" class="text-purple-400 hover:text-purple-300 transition-colors">Governance</a>
+page: compatible clarifications and extensions may appear in minor releases, and breaking
+      changes require a major version with a published migration path and deprecation period.
       Everything published here remains open in perpetuity (CC BY 4.0; the reference substrate is
       Apache 2.0 &mdash; irrevocable for what is released). Errata &mdash; corrections that change
       no requirement &mdash; may still be applied in place. It reflects the protocol as
@@ -255,9 +259,9 @@ open substrate (Node.js &mdash; the reference implementation, on which the xMesh
 emitter SDK for Apple platforms, and the
 <a href="https://github.com/sym-bot/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">mesh-cognition</a>
 Python research library (coupling kernel). The wire contract carried no new frames or fields after 0.2.3 (April 2026); the &sect;8.2.1
-      content-address and &sect;18.3.1 signing schemes are the one addition since. With this
-      specification final, the version number does not advance further; errata are noted in the
-      change log without a version bump.
+      content-address and &sect;18.3.1 signing schemes are the one addition since. Errata &mdash;
+      corrections that change no requirement &mdash; are noted in the change log without a version
+      bump; anything that changes a requirement takes a version.
 </p> <p class="mb-4">
 Sections added by the 1.1.0 work layer &mdash; &sect;6.3 (Canon tier), &sect;6.7 (Grounding),
       &sect;8.3.1 (well-known intent values), &sect;14.12 (session capture), and &sect;15.7.2 (outcomes are

@@ -2,10 +2,10 @@
 </style>
 <link rel="stylesheet" href="/_astro/error-handling.Ct5BGV8R.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="" href="/node">The Node</a> <a class="" href="/spec/mmp">Spec</a> <a class="" href="/governance">Governance</a> <a class="active" href="/research">Research</a> <a class="" href="/implementations">Implementations</a> <a class="" href="/community">Community</a> </div> </div> </nav>  <section class="paper-section"> <div class="ps-rule"></div> <span class="ps-tick tl"></span><span class="ps-tick tr"></span><span class="ps-tick bl"></span><span class="ps-tick br"></span> <div class="ps-content"> <div class="fade-up"> <p class="eyebrow">FIG.08 <span class="dot">·</span> RESEARCH</p>  <h2 class="display" data-astro-cid-odi5jzfj>The science of <span class="accent" data-astro-cid-odi5jzfj>mesh cognition</span>.</h2> <p class="lede" data-astro-cid-odi5jzfj>
 Mesh Cognition is the architectural pattern for Mesh Intelligence — center-free inference and
-      learning among sovereign nodes — formalized as an open standard. Its foundational papers and
+      learning among sovereign nodes — formalized as an open specification. Its foundational papers and
       normative specification are published and citable here — the canonical record. The research that produced them is
       carried out at <a class="inline-link" href="https://sym.bot" data-astro-cid-odi5jzfj>SYM.BOT</a>, which pioneered the work and
-      maintains the open standard.
+      maintains the open specification.
 </p> <h3 class="sub" style="margin-top:48px;" data-astro-cid-odi5jzfj>What is Mesh Intelligence?</h3> <p class="lede" data-astro-cid-odi5jzfj>
 Mesh Intelligence is the emergent competence to infer and learn that arises, with no center, when
       sovereign agents each select what is relevant from what their peers emit and integrate it into their
@@ -45,4 +45,30 @@ In short: swarm couples simple, identical agents; federated learning averages ma
 </p> <p data-astro-cid-odi5jzfj>
 MMP is envelope-agnostic: SLIM, A2A, MCP or other transports can carry the blocks. It begins
       where authenticated delivery ends and semantic integration begins.
+</p> <h3 class="sub" style="margin-top:48px;" data-astro-cid-odi5jzfj>What the evidence supports</h3> <p style="margin-bottom:8px;" data-astro-cid-odi5jzfj><strong style="color:#a78bfa;" data-astro-cid-odi5jzfj>EVIDENCE</strong> &mdash; four real-world partial-observation datasets; 32 evaluated blocks.</p> <p data-astro-cid-odi5jzfj>
+Exchanging <em data-astro-cid-odi5jzfj>observations</em> improved on isolated learning by <strong data-astro-cid-odi5jzfj>63.6%&ndash;86.2%</strong> across
+      air quality (Beijing, 12 stations), electricity load (UCI, 12 clients) and two traffic benchmarks
+      (METR-LA, PEMS-BAY). Exchanging learned <em data-astro-cid-odi5jzfj>parameters</em> &mdash; what federated averaging does &mdash;
+      was <strong data-astro-cid-odi5jzfj>worse than not collaborating at all</strong> on three of the four datasets, and statistically
+      indistinguishable from isolation on the fourth. Averaging parameters across participants with genuinely
+      different data destroys the local fit each one needs and supplies no observation to compensate.
+      The partiality in these datasets is physical: a station measures its own air, and no budget buys it a
+      reading from another.
+</p> <p style="margin-bottom:8px;margin-top:24px;" data-astro-cid-odi5jzfj><strong style="color:#a78bfa;" data-astro-cid-odi5jzfj>EVIDENCE</strong> &mdash; informed-coordinator upper bound; 20 of 20 paired seeds.</p> <p data-astro-cid-odi5jzfj>
+The same experiments bound the claim from the other side. A prototype-averaging server that is
+<em data-astro-cid-odi5jzfj>given</em> the correct grouping of participants outperformed the sovereign mesh at every coverage
+      level tested. Strip that grouping away and have the same server infer it from data, and it falls behind.
+      The value was never in the aggregation &mdash; it was in knowing which participants belong together.
+</p> <p data-astro-cid-odi5jzfj>
+So the defensible claim is narrower than the numbers alone suggest: <strong data-astro-cid-odi5jzfj>where a trusted,
+      correctly grouped coordinator exists, use it.</strong> Sovereign observation exchange is for the
+      settings where none does, and cannot be constructed &mdash; competing institutions, jurisdictions that
+      cannot pool, membership that changes faster than it can be catalogued. Whether that price is justified,
+      or unavoidable, under real institutional and privacy constraints is the question the programme exists
+      to answer.
+</p> <p style="margin-bottom:8px;margin-top:24px;" data-astro-cid-odi5jzfj><strong style="color:#c4b5fd;" data-astro-cid-odi5jzfj>OPEN</strong></p> <p data-astro-cid-odi5jzfj>
+Current research is examining when receiver-local policies preserve collective diversity and
+      sufficiency, and when locally rational admission instead produces concentration or collapse.
+      Operational sovereignty under heterogeneous utilities, cost-derived abstention, and coordinator-free
+      collective sufficiency are open, not established.
 </p> <h3 class="sub" style="margin-top:48px;" data-astro-cid-odi5jzfj>Foundational papers</h3> <div class="impl-list" data-astro-cid-odi5jzfj> <div class="impl-row" data-astro-cid-odi5jzfj> <span class="pkg bare" data-astro-cid-odi5jzfj>Liquid Necessity</span> <p data-astro-cid-odi5jzfj>On the Necessity of a Liquid Substrate for Mesh Intelligence — two conditions any fixed-weight agent must meet to fold peers' projections online: an adaptive timescale, and a dependence on the elapsed gap between irregular arrivals that no gap-blind network recovers at any width or depth.</p> <span class="links" data-astro-cid-odi5jzfj><a href="https://arxiv.org/abs/2606.28413" data-astro-cid-odi5jzfj>arXiv:2606.28413 ↗</a></span> </div> <div class="impl-row" data-astro-cid-odi5jzfj> <span class="pkg bare" data-astro-cid-odi5jzfj>Mesh Inference</span> <p data-astro-cid-odi5jzfj>Mesh Inference: A Formal Model of Collective Inference Without a Center — one admission/emission policy, three proven properties: convergence, identification-completeness, and observation-only confidentiality.</p> <span class="links" data-astro-cid-odi5jzfj><a href="https://arxiv.org/abs/2606.19537" data-astro-cid-odi5jzfj>arXiv:2606.19537 ↗</a></span> </div> <div class="impl-row" data-astro-cid-odi5jzfj> <span class="pkg bare" data-astro-cid-odi5jzfj>MMP</span> <p data-astro-cid-odi5jzfj>Mesh Memory Protocol: Semantic Infrastructure for Multi-Agent LLM Systems.</p> <span class="links" data-astro-cid-odi5jzfj><a href="https://arxiv.org/abs/2604.19540" data-astro-cid-odi5jzfj>arXiv:2604.19540 ↗</a></span> </div> <div class="impl-row" data-astro-cid-odi5jzfj> <span class="pkg bare" data-astro-cid-odi5jzfj>MeloTune</span> <p data-astro-cid-odi5jzfj>MeloTune: On-Device Arousal Learning and Peer-to-Peer Mood Coupling for Proactive Music Curation — the first deployed reference.</p> <span class="links" data-astro-cid-odi5jzfj><a href="https://arxiv.org/abs/2604.10815" data-astro-cid-odi5jzfj>arXiv:2604.10815 ↗</a></span> </div> <div class="impl-row" data-astro-cid-odi5jzfj> <span class="pkg bare" data-astro-cid-odi5jzfj>SVAF</span> <p data-astro-cid-odi5jzfj>Symbolic-Vector Attention Fusion for Collective Intelligence — the per-field admission gate.</p> <span class="links" data-astro-cid-odi5jzfj><a href="https://arxiv.org/abs/2604.03955" data-astro-cid-odi5jzfj>arXiv:2604.03955 ↗</a></span> </div> </div> <h3 class="sub" style="margin-top:48px;" data-astro-cid-odi5jzfj>Normative specification</h3> <p data-astro-cid-odi5jzfj>The protocol is defined at <a class="inline-link" href="/spec/mmp" data-astro-cid-odi5jzfj>meshcognition.org/spec/mmp</a> under CC BY 4.0. Version 1.1.0 is the current citable normative specification — cite this for the canonical definition.</p> <div style="margin-top: 48px;" data-astro-cid-odi5jzfj> <a class="pill secondary" href="/" data-astro-cid-odi5jzfj><span class="arrow" data-astro-cid-odi5jzfj>←</span> Back to home</a> </div>  </div> </div> </section>   <footer class="footer"><div class="footer-inner"><div><div class="brand-line"><span class="brand-tick"></span> Mesh Cognition</div><p>Mesh Intelligence on an open protocol.</p></div><div></div><div></div><div></div><div class="legal"><span>© 2026 SYMBOT LTD. The Mesh Memory Protocol is published under CC BY 4.0.</span><span>Pioneered by SYM.BOT · Scotland, United Kingdom</span></div></div></footer> </body></html>

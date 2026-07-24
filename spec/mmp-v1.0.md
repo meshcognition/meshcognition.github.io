@@ -4548,11 +4548,11 @@ Draft
 
 [MMP Extension: Group Directory v0.1.0](/spec/mmp/extensions/group-directory) — persistent group metadata, admin approval workflow, and directory enumeration. Higher-layer extension building on §5.8 mesh groups for chat-platform-style UX (browse / request-to-join / approve). (Draft — pre-implementation; promotes on first reference impl per §16.5.)
 
-error-handling-v0.1.0
+error-handling-v0.2.0
 
 Draft — Candidate Extension
 
-[MMP Extension: Error Handling v0.1.0](/spec/mmp/extensions/error-handling) — application-layer CMB convention; no wire-format change. Failure as a first-class cognition event: evidence-carrying corrective requests with lineage-borne parentage, receiver-autonomous volunteering, one-level repair, and separate grounding of failure and fix. (Draft — a reference deployment reports an experimental implementation; independent interoperability not yet established; promotes per the extension’s own Promotion Criteria.)
+[MMP Extension: Error Handling v0.2.0](/spec/mmp/extensions/error-handling) — application-layer CMB convention; no wire-format change. Failure as a first-class cognition event: evidence-carrying corrective requests with lineage-borne parentage, receiver-autonomous volunteering, one-level repair, and separate grounding of failure and fix. **v0.2.0** adds a proposed receiver-local **Adaptation-on-Failure loop** (§6–§8): field accountability with a counterfactual-ablation guard, and a per-failure choice between decrementing the SVAF gate (boundary of responsibility) and ingesting to the CfC state (capability growth), routed by competence-distance. (Draft — the failure-event convention has an experimental reference implementation; the adaptation loop §6–§8 is _proposed, not yet implemented_, and gated on a register-first router-validation study; promotes per the extension’s own Promotion Criteria.)
 
 trust-horizon-v0.1.0
 

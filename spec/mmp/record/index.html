@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>8.2 Record Model — MMP Specification</title><meta name="description" content="The two-section CMB record, its content address, and its signature payload — the byte-exact constructions two implementations must agree on to verify each other."><link rel="canonical" href="https://meshcognition.org/spec/mmp/record/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-node sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="8.2 Record Model — MMP Specification"><meta property="og:description" content="The two-section CMB record, its content address, and its signature payload — the byte-exact constructions two implementations must agree on to verify each other."><meta property="og:url" content="https://meshcognition.org/spec/mmp/record/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="8.2 Record Model — MMP Specification"><meta name="twitter:description" content="The two-section CMB record, its content address, and its signature payload — the byte-exact constructions two implementations must agree on to verify each other."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Home of Mesh Cognition — the cognitive architecture of the agentic mesh: center-free inference and learning among sovereign nodes, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Home of Mesh Cognition and the Mesh Memory Protocol: the specification, research papers, and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/error-handling.DIaaxcV5.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="" href="/node">The Node</a><a class="" href="/#mission">Research</a><a class="active" href="/spec/mmp">Spec</a><a class="" href="/governance">Governance</a><a class="" href="/community">Community</a> </div> <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">MENU</button> </div> <div class="nav-mobile" id="nav-mobile" hidden> <a class="" href="/node">The Node</a><a class="" href="/#mission">Research</a><a class="active" href="/spec/mmp">Spec</a><a class="" href="/governance">Governance</a><a class="" href="/community">Community</a> </div> </nav> <script>
+  (() => {
+    const btn = document.querySelector('.nav-toggle');
+    const panel = document.getElementById('nav-mobile');
+    if (!btn || !panel) return;
+    const set = (open) => {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      btn.textContent = open ? 'CLOSE' : 'MENU';
+      panel.hidden = !open;
+    };
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    // A link tap navigates; close so a back-navigation does not restore an open panel.
+    panel.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
+    // Escape closes, and the toggle regains focus — keyboard users must not be stranded in the panel.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { set(false); btn.focus(); }
+    });
+  })();
+</script>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd id="spec-search-kbd" class="font-sans text-[11px] leading-none text-white/50 border border-white/10 rounded px-1.5 py-1">Ctrl K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-[#262320]/25 backdrop-blur-[2px]"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#f4f1ea] border border-white/10 rounded-xl shadow-2xl shadow-black/25 overflow-hidden" data-paper> <div class="flex items-center gap-3 px-4 border-b border-white/10"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/50"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-[#262320] placeholder:text-[#262320]/40 outline-none"> <kbd class="font-sans text-[11px] text-white/50 border border-white/10 rounded px-1.5 py-1">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/40 border-t border-white/10">
+Type to search every section · <span class="text-white/60">↑↓</span> to navigate · <span class="text-white/60">↵</span> to open
+</div> </div> </div> </div> <script>
+  (function () {
+    var trigger = document.getElementById('spec-search-trigger');
+    var modal = document.getElementById('spec-search-modal');
+    var backdrop = document.getElementById('spec-search-backdrop');
+    var input = document.getElementById('spec-search-input');
+    var list = document.getElementById('spec-search-results');
+    var hint = document.getElementById('spec-search-hint');
+    if (!trigger || !modal || !backdrop || !input || !list || !hint) return;
+
+    // Shortcut hint: ⌘K on Mac, Ctrl K elsewhere (default markup is the legible "Ctrl K").
+    var isMac = /Mac|iPhone|iPad|iPod/.test((navigator.platform || '') + ' ' + (navigator.userAgent || ''));
+    var kbd = document.getElementById('spec-search-kbd');
+    if (kbd && isMac) kbd.textContent = '⌘K';
+
+    var index = null;
+    var loading = false;
+    var results = [];
+    var active = 0;
+
+    // Shown in the empty modal as one-tap entry points (keyboard-navigable like results).
+    var SUGGEST = [
+      { url: '/spec/mmp/architecture#hidden-state-locality', section: '§2.7', heading: 'Hidden State Locality', text: '' },
+      { url: '/spec/mmp/cmb', section: '§8', heading: 'CAT7 — Cognitive Memory Blocks', text: '' },
+      { url: '/spec/mmp/coupling#svaf', section: '§9.2', heading: 'SVAF — per-field evaluation', text: '' },
+      { url: '/spec/mmp/coupling', section: '§9.1', heading: 'Peer drift & coupling', text: '' },
+      { url: '/spec/mmp/blending', section: '§10', heading: 'State blending', text: '' },
+      { url: '/spec/mmp/remix', section: '§15', heading: 'Remix & lineage', text: '' },
+    ];
+
+    function ensureIndex() {
+      if (index || loading) return;
+      loading = true;
+      fetch('/spec/mmp/search-index.json', { cache: 'force-cache' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { index = data; if (input.value) { results = search(input.value); render(); } })
+        .catch(function () { index = []; })
+        .then(function () { loading = false; });
+    }
+
+    function esc(s) {
+      return s.replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+    function highlight(text, terms) {
+      var out = esc(text);
+      for (var i = 0; i < terms.length; i++) {
+        if (!terms[i]) continue;
+        var re = new RegExp('(' + terms[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+        out = out.replace(re, '<mark class="bg-[oklch(0.55 0.08 40)]/25 rounded-sm px-0.5">$1</mark>');
+      }
+      return out;
+    }
+    // Window the snippet around the first matched term so the hit is always visible.
+    function snippet(text, terms) {
+      if (!text) return '';
+      var low = text.toLowerCase();
+      var at = -1;
+      for (var i = 0; i < terms.length; i++) {
+        var p = low.indexOf(terms[i]);
+        if (p !== -1 && (at === -1 || p < at)) at = p;
+      }
+      if (at <= 90) return text.slice(0, 200);
+      var start = Math.max(0, at - 70);
+      return '…' + text.slice(start, start + 200);
+    }
+
+    function search(q) {
+      if (!index) return [];
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!terms.length) return [];
+      var scored = [];
+      for (var j = 0; j < index.length; j++) {
+        var e = index[j];
+        var heading = e.heading.toLowerCase();
+        var section = e.section.toLowerCase();
+        var text = e.text.toLowerCase();
+        var score = 0, all = true;
+        for (var k = 0; k < terms.length; k++) {
+          var t = terms[k];
+          var inH = heading.indexOf(t) !== -1, inS = section.indexOf(t) !== -1, inT = text.indexOf(t) !== -1;
+          if (!inH && !inS && !inT) { all = false; break; }
+          if (heading.indexOf(t) === 0) score += 12;
+          else if (inH) score += 8;
+          if (inS) score += 3;
+          if (inT) score += 1;
+        }
+        if (all) scored.push({ e: e, s: score });
+      }
+      scored.sort(function (a, b) { return b.s - a.s; });
+      return scored.slice(0, 30).map(function (x) { return x.e; });
+    }
+
+    function rowsHTML(terms) {
+      return results.map(function (e, i) {
+        return '<li><a href="' + e.url + '" data-i="' + i + '" class="block px-4 py-2.5 ' +
+          (i === active ? 'bg-[oklch(0.55 0.08 40)]/12' : 'hover:bg-white/[0.04]') + ' transition-colors">' +
+          '<div class="flex items-baseline gap-2">' +
+          '<span class="text-[15px] text-white/90">' + highlight(e.heading, terms) + '</span>' +
+          '<span class="ml-auto shrink-0 font-mono text-[10px] text-[#c2440f]">' + esc(e.section) + '</span>' +
+          '</div>' +
+          (e.text ? '<div class="mt-0.5 text-xs text-white/60 line-clamp-2">' + highlight(snippet(e.text, terms), terms) + '</div>' : '') +
+          '</a></li>';
+      }).join('');
+    }
+
+    function render() {
+      var q = (input.value || '').trim();
+      var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!q) {
+        hint.style.display = '';
+        list.innerHTML = '<li class="px-4 pt-3 pb-1 text-[10px] font-mono uppercase tracking-[0.12em] text-white/40">Jump to</li>' + rowsHTML([]);
+        return;
+      }
+      hint.style.display = 'none';
+      if (!results.length) {
+        list.innerHTML = '<li class="px-4 py-6 text-sm text-white/40">No matches. Try a different term.</li>';
+        return;
+      }
+      list.innerHTML = rowsHTML(terms);
+    }
+
+    function openModal() {
+      ensureIndex();
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      results = SUGGEST.slice();
+      active = 0;
+      render();
+      setTimeout(function () { input.focus(); }, 30);
+    }
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function scrollActive() {
+      var el = list.querySelector('[data-i="' + active + '"]');
+      if (el) el.scrollIntoView({ block: 'nearest' });
+    }
+
+    trigger.addEventListener('click', openModal);
+    backdrop.addEventListener('click', closeModal);
+
+    input.addEventListener('input', function () {
+      results = input.value.trim() ? search(input.value) : SUGGEST.slice();
+      active = 0;
+      render();
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, results.length - 1); render(); scrollActive(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); render(); scrollActive(); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (results[active]) window.location.href = results[active].url; }
+      else if (e.key === 'Escape') { closeModal(); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var tag = document.activeElement ? document.activeElement.tagName : '';
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        if (modal.classList.contains('hidden')) openModal(); else closeModal();
+      } else if (e.key === '/' && modal.classList.contains('hidden') && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+  })();
+</script> <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
+MMP Specification v2.0 </a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> Overview </a><a href="/spec/mmp/conventions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 1. Conventions </a><a href="/spec/mmp/architecture" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 2. Architecture </a><a href="/spec/mmp/identity" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 3. Identity (L0) </a><a href="/spec/mmp/transport" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 4. Transport (L1) </a><a href="/spec/mmp/connection" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 5. Connection (L2) </a><a href="/spec/mmp/memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 6. Memory (L3) </a><a href="/spec/mmp/frames" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 7. Frame Types </a><a href="/spec/mmp/cmb" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8. CMBs (CAT7) </a><a href="/spec/mmp/record" class="text-xs py-1 px-2 rounded transition-colors text-purple-400 bg-purple-500/10" title=""> 8.2 Record Model </a><a href="/spec/mmp/coupling" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 9. Coupling &amp; SVAF (L4) </a><a href="/spec/mmp/blending" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 10. State Blending </a><a href="/spec/mmp/feedback" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 11. Feedback Modulation </a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 12. Synthetic Memory (L5) </a><a href="/spec/mmp/cognitive-state" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 13. Cognitive State (L6) </a><a href="/spec/mmp/application" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 14. Application (L7) </a><a href="/spec/mmp/remix" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 15. Remix </a><a href="/spec/mmp/extensions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 16. Extensions </a><a href="/spec/mmp/conformance" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 17. Conformance </a><a href="/spec/mmp/security" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 18. Security </a><a href="/spec/mmp/constants" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 19. Configuration </a><a href="/spec/mmp/schema" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 20. JSON Schema </a><a href="/spec/mmp/references" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 21. References </a> </div> </nav> <div class="flex justify-between text-xs"> <a href="/spec/mmp/cmb" class="text-white/40 hover:text-purple-400 transition-colors">
+← 8. CMBs (CAT7) </a> <a href="/spec/mmp/coupling" class="text-white/40 hover:text-purple-400 transition-colors"> 9. Coupling &amp; SVAF (L4) →
+</a> </div>  <div class="flex gap-2 pt-2"> <a href="/spec/mmp-v2.0.md" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page Markdown">
+.md
+</a> <a href="/spec/mmp-v2.0.html" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page HTML">
+.html
+</a> </div> </div> </div> </aside> <article class="flex-1 min-w-0"> <div class="space-y-10 text-white/70 leading-relaxed text-[15px]">  <section> <h2 class="font-display text-xl text-white mb-4" id="record">8.2 Record Model</h2> <p class="mb-6 text-sm text-white/50">
+This section specifies the three constructions an independent implementation <span class="text-red-400 font-mono text-xs">MUST</span> reproduce
+      byte-for-byte to interoperate: the record's <strong>shape</strong>, its <strong>content
+      address</strong>, and its <strong>signature payload</strong>. Everything else about how a node
+      stores, indexes, caches or evaluates records is a local matter and is out of scope here.
+</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="record-shape">8.2.1 Two-section record</h3> <p class="body mb-4">
+A record has exactly two top-level sections. <code class="text-purple-300/80">fields</code>
+carries the CAT7 content; <code class="text-purple-300/80">metadata</code> carries every provable
+      fact about the record — its address, its author, its time, its audience and its descent.
+</p> <p class="body mb-4"> <span class="text-white/90">A note on names.</span> The seven members are <strong>categories</strong>; the wire key that
+      carries them is <code class="text-purple-300/80">fields</code>. The two differ because the
+      terminology was corrected before the wire was, and the wire is not changed for wording alone.
+      The container's key name never enters any preimage in §8.2.3 or §8.2.4, so an implementation that
+      reads it under either name computes identical addresses and signatures.
+</p> <p class="body mb-4"> <span class="text-white/90">Why the split is normative.</span> The address is a function of the categories alone (§8.2.3), and
+      the signature is a function of the metadata plus a commitment to per-category descent (§8.2.4).
+      Keeping them in separate sections means the same content always yields the same address
+      regardless of who authored it, when, or into which room — which is what makes identical
+      observations from different nodes collapse to one address.
+</p> <pre class="text-xs bg-black/40 border border-white/10 rounded p-4 overflow-x-auto mb-6"><code>{
+  &quot;$schema&quot;: &quot;https://json-schema.org/draft/2020-12/schema&quot;,
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;fields&quot;, &quot;metadata&quot;],
+  &quot;properties&quot;: {
+    &quot;fields&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;description&quot;: &quot;The CAT7 container. Seven categories, each {text, …}; see §8. The wire key is &quot;fields&quot;; prose calls its members categories.&quot;,
+      &quot;required&quot;: [&quot;focus&quot;,&quot;issue&quot;,&quot;intent&quot;,&quot;motivation&quot;,&quot;commitment&quot;,&quot;perspective&quot;,&quot;mood&quot;]
+    },
+    &quot;metadata&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;required&quot;: [&quot;key&quot;, &quot;createdBy&quot;, &quot;createdTimestamp&quot;],
+      &quot;properties&quot;: {
+        &quot;key&quot;:              { &quot;type&quot;: &quot;string&quot;, &quot;pattern&quot;: &quot;^cmb-[0-9a-f]{64}$&quot;, &quot;description&quot;: &quot;Content address (§8.2.3)&quot; },
+        &quot;createdBy&quot;:        { &quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;Authoring node identity&quot; },
+        &quot;createdTimestamp&quot;: { &quot;type&quot;: &quot;integer&quot;, &quot;minimum&quot;: 0, &quot;description&quot;: &quot;Milliseconds since epoch&quot; },
+        &quot;lineage&quot;:          { &quot;type&quot;: [&quot;object&quot;,&quot;null&quot;], &quot;description&quot;: &quot;Descent; null for a root record&quot; },
+        &quot;room&quot;:             { &quot;type&quot;: [&quot;string&quot;,&quot;null&quot;], &quot;description&quot;: &quot;Audience boundary&quot; },
+        &quot;to&quot;:               { &quot;type&quot;: [&quot;string&quot;,&quot;null&quot;], &quot;description&quot;: &quot;Directed recipient, or null for broadcast&quot; },
+        &quot;sig&quot;:              { &quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;base64url Ed25519 over the §8.2.4 payload&quot; },
+        &quot;sigAlg&quot;:           { &quot;const&quot;: &quot;ed25519&quot; }
+      }
+    }
+  }
+}</code></pre> <p class="body mb-6">
+Implementations <span class="text-red-400 font-mono text-xs">MUST</span> treat <code class="text-purple-300/80">metadata.key</code> as the record's
+      identity. A record carrying two CAT7 containers <span class="text-red-400 font-mono text-xs">MUST NOT</span> be processed; it is malformed, and a
+      receiver <span class="text-red-400 font-mono text-xs">MUST</span> refuse it rather than choose between them.
+</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="framing">8.2.2 Canonical framing</h3> <p class="body mb-4">
+Two primitives are used throughout §8.2.3 and §8.2.4, and both exist so that no preimage depends on a
+      formatting choice.
+</p> <ul class="body mb-6 space-y-2 list-disc pl-5"> <li> <strong>Length-prefix.</strong> <code class="text-purple-300/80">lp(s)</code> is
+<code class="text-purple-300/80">&lt;utf8-byte-length&gt;":"&lt;utf8 bytes&gt;</code>. It is
+        injection-proof: a delimiter inside a text cannot shift a category boundary.
+</li> <li> <strong>Canonical decimal.</strong> Integers enter as ASCII decimal — no leading zeros, no sign,
+        no separators, no exponent — and <span class="text-red-400 font-mono text-xs">MUST</span> be non-negative. A float or a negative reaching a
+        preimage produces bytes another implementation cannot reproduce.
+</li> </ul> <p class="body mb-6">
+Text entering any preimage <span class="text-red-400 font-mono text-xs">MUST</span> be Unicode NFC-normalised. Mood contributes its
+<strong>text only</strong>; its scalar valence and arousal are excluded, so no preimage contains a
+      floating-point number and there is no number-formatting hazard across languages.
+</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="content-address">8.2.3 Content address</h3> <p class="body mb-4">
+The address is <code class="text-purple-300/80">"cmb-"</code> followed by 64 lowercase hex
+      characters. A key is valid <em>iff</em> it matches exactly that form; implementations <span class="text-red-400 font-mono text-xs">MUST</span>
+reject anything else rather than attempt a legacy interpretation.
+</p> <p class="body mb-4"><strong>Per-category key.</strong> For each of the seven categories:</p> <pre class="text-xs bg-black/40 border border-white/10 rounded p-4 overflow-x-auto mb-4"><code>categoryKey(name, text) = SHA-256( &quot;mmp-cmb-v1\n&quot; ‖ lp(name) ‖ lp(NFC(text)) )</code></pre> <p class="body mb-6">
+The <strong>category name is a preimage input</strong> and <span class="text-red-400 font-mono text-xs">MUST NOT</span> be omitted. Without it,
+      identical text collapses across positions — <code class="text-purple-300/80">focus:"done"</code>
+would share an address with <code class="text-purple-300/80">commitment:"done"</code>, and every
+      empty category everywhere would collapse together. With the name bound in, corroboration is
+      per <em>(category, text)</em>: two agents said the same thing about the same category.
+</p> <p class="body mb-4"><strong>Root.</strong> The seven category keys, in the fixed CAT7 order, are
+    combined by a Merkle root with <strong>promote-odd</strong>:</p> <pre class="text-xs bg-black/40 border border-white/10 rounded p-4 overflow-x-auto mb-4"><code>leaf_i    = SHA-256( 0x00 ‖ decode_hex(categoryKey_i) )
+node(a,b) = SHA-256( 0x01 ‖ a ‖ b )
+odd node  → PROMOTED unchanged to the next level; never duplicated
+key       = &quot;cmb-&quot; ‖ hex(root)</code></pre> <ul class="body mb-6 space-y-2 list-disc pl-5"> <li> <strong>Leaves and internal nodes are domain-separated</strong> (0x00 / 0x01), so no value can
+        be read as a leaf at one level and an internal node at another.
+</li> <li> <strong>Operands are decoded bytes, not hex text</strong>, so the preimage is not a function of
+        an encoding choice.
+</li> <li> <strong>No length-prefixing here</strong>, and this is the one place its absence is correct:
+        both operands are fixed-width 32 bytes and therefore self-delimiting.
+</li> <li> <strong>Promote-odd is binding.</strong> Seven is odd, so the rule fires on <em>every</em>
+record. An implementation that duplicates the last node instead — a common Merkle convention —
+        computes a different address for the same content, and the divergence is silent.
+</li> </ul> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="signature">8.2.4 Signature payload</h3> <p class="body mb-4">
+A record is signed with the author's Ed25519 identity key over the following bytes. After the
+      domain tag the payload is <strong>uniformly length-prefixed ASCII</strong> — no raw bytes
+      anywhere, every hash as lowercase hex text. The tag itself is raw with a trailing newline,
+      because a fixed leading constant is self-delimiting.
+</p> <pre class="text-xs bg-black/40 border border-white/10 rounded p-4 overflow-x-auto mb-4"><code>&quot;mmp-sig-v2\n&quot;
+  ‖ lp(key)                       full prefixed address — binds the scheme, not just the digest
+  ‖ lp(NFC(createdBy))
+  ‖ lp(decimal(createdTimestamp))
+  ‖ lp(NFC(room))                 &quot;&quot; when absent
+  ‖ lp(NFC(to))                   &quot;&quot; when absent
+  ‖ lp(decimal(count(parents)))
+  ‖ lp(parent) for each parent    bytewise-sorted
+  ‖ lp(categoryParentsCommitment)</code></pre> <p class="body mb-4">
+Parents are a <strong>set</strong>: they <span class="text-red-400 font-mono text-xs">MUST</span> be sorted bytewise before framing, so their
+      order cannot change the signed bytes. The <strong>audience is signed</strong> — a signature is
+      valid only for the room and recipient it was made for, which is what stops a directed record
+      being replayed as a broadcast.
+</p> <p class="body mb-4"><strong>Category-parents commitment.</strong> Per-category descent is bound
+    alongside the root rather than folded into it:</p> <pre class="text-xs bg-black/40 border border-white/10 rounded p-4 overflow-x-auto mb-4"><code>SHA-256( &quot;mmp-fp-v1\n&quot; ‖ for each category in CAT7 order:
+             lp(categoryName) ‖ lp(decimal(count(refs))) ‖ lp(ref)… )</code></pre> <p class="body mb-6">
+Counts are length-prefixed at both levels, so <code class="text-purple-300/80">["ab","c"]</code>
+and <code class="text-purple-300/80">["a","bc"]</code> cannot collide, and a category with no
+      asserted descent stays distinguishable from an absent category. It has its own domain tag and its
+      own version because it is its own construction with its own lifecycle.
+</p> <p class="body mb-6"> <span class="text-white/90">Why descent is not in the root.</span> Folding lineage into the content address would make the
+      address lineage-dependent, and identical observations from different nodes would then no longer
+      collapse to one address. The root stays content-only; descent is attested beside it.
+</p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="verification">8.2.5 Verification</h3> <p class="body mb-6">
+A verifier <span class="text-red-400 font-mono text-xs">MUST</span> recompute the address from the categories and compare it to
+<code class="text-purple-300/80">metadata.key</code> before checking the signature; a record whose
+      key does not match its content is rejected without reference to its signature. A verifier that
+      cannot read a record's categories — absent, or ciphertext it holds no key for — <span class="text-red-400 font-mono text-xs">MUST NOT</span> report
+      the record as valid: <strong>it reports that it cannot verify.</strong> Absence is never silence.
+</p> </section>  </div> </article> </div> </div>  <footer class="footer" style="padding: 40px 64px;"><div class="footer-inner" style="grid-template-columns: 1fr;"><div class="legal" style="margin-top: 0; padding-top: 0; border-top: 0;"><span>© 2026 SYMBOT LTD. The Mesh Memory Protocol is published under CC BY 4.0.</span><span>Pioneered by SYM.BOT · Scotland, United Kingdom</span></div></div></footer> </body></html>

@@ -2,7 +2,7 @@
 
 > A Mesh Protocol for Collective Intelligence
 >
-> **Version:** 2.0  ·  **Published:** 27 March 2026  ·  **Last updated:** 9 August 2026  ·  **Editor:** Hongwei Xu  ·  **License:** CC BY 4.0
+> **Version:** 2.0  ·  **Published:** 27 March 2026  ·  **Last updated:** 10 August 2026  ·  **Editor:** Hongwei Xu  ·  **License:** CC BY 4.0
 >
 > **Canonical:** https://meshcognition.org/spec/mmp  ·  **arXiv:** https://arxiv.org/abs/2604.19540
 
@@ -63,7 +63,7 @@ First published
 
 This version
 
-9 August 2026
+10 August 2026
 
 Author
 
@@ -149,7 +149,7 @@ Research library — coupling kernel only (Layer 4 per-category evaluation + Lay
 
 ## Change Log
 
-**Current — 2.0 “Re-derived from the implementation” (9 August 2026):** the record model advanced in the runtime while the published text continued to describe the earlier shape, and 2.0 closes that gap. New [§8.2 Record Model](/spec/mmp/record) gives the two-section record, the byte-exact content address (a promote-odd Merkle root over the seven per-category keys) and the byte-exact signature payload. The normative address form is corrected to `cmb-` + 64 lowercase hex — 1.x declared a version-tagged prefix instead, which the runtime rejects. Admission wording is corrected to per-category _evaluation_ on which the receiver decides for itself; receiver autonomy is unchanged. CAT7 members are named **categories** throughout, and the wire key is untouched.
+**Current — 2.0 “Re-derived from the implementation” (10 August 2026):** the record model advanced in the runtime while the published text continued to describe the earlier shape, and 2.0 closes that gap. New [§8.2 Record Model](/spec/mmp/record) gives the two-section record, the byte-exact content address (a promote-odd Merkle root over the seven per-category keys) and the byte-exact signature payload. The normative address form is corrected to `cmb-` + 64 lowercase hex — 1.x declared a version-tagged prefix instead, which the runtime rejects. Admission wording is corrected to per-category _evaluation_ on which the receiver decides for itself; receiver autonomy is unchanged. CAT7 members are named **categories** throughout, and the wire key is untouched.
 
 **1.1.0 “The Work Layer” (2026-07-05, updated 2026-07-07):** grounding cognition in reality — §6.7 outcomes carried by lineage, the §6.3 Canon tier, §14.12 work sessions as mesh members, plus the folded-in full-corpus coherence errata. The 2026-07-07 update folds in the **soundness & completeness amendments from the formalization of the open-source runtime**: §9.2.1 redundancy invariants pinned to the nearest-anchor basis, the §9.2 evaluation-time-dependence disclosure, the cold-start-capture threat row, §6.7 repeat verification and the load-bearing failure channel, and the §15.8 lineage tether. Wire-compatible with 1.0.x.
 
@@ -187,13 +187,13 @@ Changes
 
 **Re-derived from the running implementation.** 1.0 and 1.1 were implemented and interoperating across Windows, macOS and iOS, over LAN and relay. What changed is that the runtime’s record model advanced — a two-section record, a Merkle-derived address, a new signing payload — while the published text continued to describe the earlier shape. Every normative clause below was re-checked against the **open-source runtime** — the reference substrate this protocol is implemented by. Where the two disagreed the code was taken as correct.  
   
-**§8.2 Record Model — new, and the reason for the version.** The record is **two-section**: `fields` carries CAT7, `metadata` carries the address, author, timestamp, audience and descent. 1.x described a flat record with `createdAt` at the top level; the runtime has never emitted that shape. §8.2 gives the byte-exact **address** (per-category keys under a domain tag, combined by a _promote-odd_ Merkle root — never duplicate-the-last, which silently yields a different address) and the byte-exact **signature payload** (uniformly length-prefixed, audience-bound, with per-category descent committed alongside the root rather than inside it, so identical observations still collapse to one address).  
+**§8.2 Record Model — new, and the reason for the version.** The record is **two-section**: `categories` carries CAT7, `metadata` carries the address, author, timestamp, audience and descent. 1.x described a flat record with `createdAt` at the top level; the runtime has never emitted that shape. §8.2 gives the byte-exact **address** (per-category keys under a domain tag, combined by a _promote-odd_ Merkle root — never duplicate-the-last, which silently yields a different address) and the byte-exact **signature payload** (uniformly length-prefixed, audience-bound, with per-category descent committed alongside the root rather than inside it, so identical observations still collapse to one address).  
   
 **Address form corrected.** 1.x declared a version-tagged address prefix as normative. The runtime _rejects_ that form: a key is valid _iff_ it is `cmb-` plus exactly 64 lowercase hex. An implementation built to the 1.x text would have minted keys every deployed node refuses — interoperation failure from following the specification.  
   
 **Admission wording.** The receiver evaluates each of the seven categories against its own anchors and then decides locally what to accept. 1.x called this “per-field admission” and described an admission outcome per category; measured against the runtime, the per-category step is _evaluation_. **Receiver autonomy is unchanged and unqualified** — no sender and no coordinator can force admission of anything.  
   
-**CAT7 terminology.** The seven members are **categories** throughout, replacing mixed use of “dimensions” and “fields” in prose. A category is the semantic member; a dimension is the length of the vector encoding it. The wire key remains `fields`; it never enters an address or signature preimage, so nothing an implementation computes is affected.  
+**CAT7 terminology.** The seven members are **categories** throughout, replacing mixed use of “dimensions” and “fields” in prose. A category is the semantic member; a dimension is the length of the vector encoding it. The wire key is `categories` too — prose and wire now use one word. It never enters an address or signature preimage, so the rename moved no address and invalidated no signature.  
   
 **Single-file artifacts** are now `/spec/mmp-v2.0.md` and `.html`. `mmp-v1.0.*` remain published, frozen, for existing citations.
 
@@ -954,7 +954,7 @@ CMB frame:
     "key": "cmb-b2c3d4e5f6a7b8c9",
     "createdBy": "sensor-a",
     "createdAt": 1711540800000,
-    "fields": {
+    "categories": {
       "focus":       { "text": "user coding for 3 hours, energy declining" },
       "issue":       { "text": "sedentary since morning, skipping lunch" },
       "intent":      { "text": "recommend movement break before fatigue worsens" },
@@ -2429,9 +2429,9 @@ This section specifies the three constructions an independent implementation MUS
 
 ### 8.2.1 Two-section record
 
-A record has exactly two top-level sections. `fields` carries the CAT7 content; `metadata` carries every provable fact about the record — its address, its author, its time, its audience and its descent.
+A record has exactly two top-level sections. `categories` carries the CAT7 content; `metadata` carries every provable fact about the record — its address, its author, its time, its audience and its descent.
 
-A note on names. The seven members are **categories**; the wire key that carries them is `fields`. The two differ because the terminology was corrected before the wire was, and the wire is not changed for wording alone. The container's key name never enters any preimage in §8.2.3 or §8.2.4, so an implementation that reads it under either name computes identical addresses and signatures.
+One name. The seven members are **categories**, and so is the wire key that carries them. They were briefly different — the terminology was corrected before the wire was — and that gap is now closed: the runtime emits `categories` and reads nothing else. A record carrying the retired name does not resolve, which is deliberate: it is legible at the boundary rather than half-read further in. The container’s key name never enters any preimage in §8.2.3 or §8.2.4, so the rename moved no address and invalidated no signature.
 
 Why the split is normative. The address is a function of the categories alone (§8.2.3), and the signature is a function of the metadata plus a commitment to per-category descent (§8.2.4). Keeping them in separate sections means the same content always yields the same address regardless of who authored it, when, or into which room — which is what makes identical observations from different nodes collapse to one address.
 
@@ -2439,11 +2439,11 @@ Why the split is normative. The address is a function of the categories alone (�
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "required": ["fields", "metadata"],
+  "required": ["categories", "metadata"],
   "properties": {
-    "fields": {
+    "categories": {
       "type": "object",
-      "description": "The CAT7 container. Seven categories, each {text, …}; see §8. The wire key is "fields"; prose calls its members categories.",
+      "description": "The CAT7 container. Seven categories, each {text, …}; see §8. The wire key and the prose term are the same word: categories.",
       "required": ["focus","issue","intent","motivation","commitment","perspective","mood"]
     },
     "metadata": {
@@ -3021,7 +3021,7 @@ Feedback CMB (dismissal with reasoning). A validator node dismisses a prior CMB.
     "key": "cmb-a1b2c3d4e5f6",
     "createdBy": "validator-node",
     "createdAt": 1775485628563,
-    "fields": {
+    "categories": {
       "focus": { "text": "Dismissed: Frontend framework release flagged as relevant", "vector": ["..."] },
       "issue": { "text": "Dismissal reasoning: frontend tooling, outside this mesh's review scope", "vector": ["..."] },
       "intent": { "text": "operator dismissed — frontend tooling, out of scope for a backend review mesh", "vector": ["..."] },
@@ -3049,7 +3049,7 @@ Directive CMB (standalone teaching, no parents). A validator injects domain know
     "key": "cmb-d7e8f9a0b1c2",
     "createdBy": "validator-node",
     "createdAt": 1775485630000,
-    "fields": {
+    "categories": {
       "focus": { "text": "Frontend framework releases are a separate concern from backend review", "vector": ["..."] },
       "issue": { "text": "Feed signals about frontend tooling are out-of-scope noise here", "vector": ["..."] },
       "intent": { "text": "Analytical frame: distinguish backend runtime signals from frontend tooling", "vector": ["..."] },
@@ -3962,7 +3962,7 @@ None
 
 Returns latest Cognitive State collective intelligence (Layer 6)
 
-The `fields` parameter MUST be a structured object with CAT7 category keys. Each category contains `text` (human-readable, MUST). The text is the normative content; each _receiver_ encodes it into a vector in its own encoder, and vectors MUST NOT be emitted in a record (§9.2.1). The `mood` category MAY additionally carry `valence` (−1 to 1) and `arousal` (−1 to 1) — RECOMMENDED when the agent has reliable circumplex data (e.g. mood wheels, physiological sensors), omit when it would be a guess. omitted categories default to `"neutral"`.
+The `categories` parameter MUST be a structured object with CAT7 category keys. Each category contains `text` (human-readable, MUST). The text is the normative content; each _receiver_ encodes it into a vector in its own encoder, and vectors MUST NOT be emitted in a record (§9.2.1). The `mood` category MAY additionally carry `valence` (−1 to 1) and `arousal` (−1 to 1) — RECOMMENDED when the agent has reliable circumplex data (e.g. mood wheels, physiological sensors), omit when it would be a guess. omitted categories default to `"neutral"`.
 
 #### 14.3.3 LLM Prompt Template
 
@@ -4347,7 +4347,7 @@ cmb-accepted
 
 A peer CMB passes SVAF evaluation (aligned or guarded)
 
-`key`, `source`, `fields` (CAT7), `timestamp`, `decision` (aligned/guarded), `drift`
+`key`, `source`, `categories` (CAT7), `timestamp`, `decision` (aligned/guarded), `drift`
 
 message
 
@@ -4978,7 +4978,7 @@ Relay operator, intermediaries
 
 Only the intended peer can decrypt category text
 
-The encryption scheme SHOULD use the Ed25519 keypair from Layer 0 (Section 3) for key exchange, with X25519 Diffie-Hellman for shared secret derivation and XChaCha20-Poly1305 for symmetric encryption. The encrypted payload replaces the `fields` object in the CMB:
+The encryption scheme SHOULD use the Ed25519 keypair from Layer 0 (Section 3) for key exchange, with X25519 Diffie-Hellman for shared secret derivation and XChaCha20-Poly1305 for symmetric encryption. The encrypted payload replaces the `categories` object in the CMB:
 
 ```
 {
@@ -4988,7 +4988,7 @@ The encryption scheme SHOULD use the Ed25519 keypair from Layer 0 (Section 3) fo
     "key": "cmb-b2c3d4e5f6a7b8c9",
     "createdBy": "agent-a",
     "createdAt": 1711540800000,
-    "fields": "<encrypted>",        // opaque ciphertext
+    "categories": "<encrypted>",        // opaque ciphertext
     "nonce": "base64-encoded-nonce", // per-frame nonce
     "lineage": { ... }              // lineage stays cleartext for graph traversal
   }
@@ -5574,7 +5574,7 @@ Temporal drift contribution
 
 Formal JSON Schema definitions for core frame types — the schemas are the contract, and any implementation (the reference included) conforms to them. Implementations SHOULD validate frames against these schemas. `additionalProperties` is `true` by design: §8 requires unrecognised categories to be silently ignored, so a schema SHOULD not reject a forward-compatible extension. The single-page [downloadable specification](/spec/mmp-v2.0.md) carries the full rendered spec. Machine-readable schema files are [published in the protocol repository](https://github.com/sym-bot/mesh-memory-protocol/tree/main/schema) — handshake, CMB (including the §15.8 tether attestation), the cmb frame, and the cmb-fetch pair — and the reference implementation’s suite validates its real wire objects against them, so it cannot drift from this contract. The published schema set above is the final normative set; frame types without a published schema are validated against their §7 definitions.
 
-Two scope notes. These are the _wire_ schemas: receiver-local fields (`source`, `originTimestamp`, `storedAt`, `confidence`, `provenance`) are set on receipt and never cross the wire, so they are not listed. And the CMB schema describes the _decrypted_ form: under end-to-end encryption (§18.2.1) a CMB in transit carries `fields` as ciphertext plus `_e2e.nonce`, and the object schema below applies after decryption. Each category also carries a `vector` embedding; it is _advisory_ and encoder-specific (§18.7) — not part of the content address (§8.2.1), and a receiver recomputes it locally rather than trusting the sender’s. Optional application-level fields (`meta`, `payload`) MAY also be present and are permitted by `additionalProperties`.
+Two scope notes. These are the _wire_ schemas: receiver-local fields (`source`, `originTimestamp`, `storedAt`, `confidence`, `provenance`) are set on receipt and never cross the wire, so they are not listed. And the CMB schema describes the _decrypted_ form: under end-to-end encryption (§18.2.1) a CMB in transit carries `categories` as ciphertext plus `_e2e.nonce`, and the object schema below applies after decryption. Each category also carries a `vector` embedding; it is _advisory_ and encoder-specific (§18.7) — not part of the content address (§8.2.1), and a receiver recomputes it locally rather than trusting the sender’s. Optional application-level fields (`meta`, `payload`) MAY also be present and are permitted by `additionalProperties`.
 
 ### 20.1 Handshake Frame Schema
 
@@ -5607,10 +5607,10 @@ The `cmb` object within a `cmb` frame:
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "description": "The two-section record. Normative construction of the address and signature is §8.2.",
-  "required": ["fields", "metadata"],
+  "required": ["categories", "metadata"],
   "additionalProperties": true,
   "properties": {
-    "fields": {
+    "categories": {
       "type": "object",
       "description": "The CAT7 container (§8). Seven categories, each an object with a required 'text'.",
       "required": ["focus", "issue", "intent", "motivation", "commitment", "perspective", "mood"],
@@ -5645,7 +5645,7 @@ The `cmb` object within a `cmb` frame:
         "to": { "type": ["string", "null"], "description": "Directed recipient; null or empty for a broadcast. Also signature-bound." },
         "sig": { "type": "string", "description": "base64url Ed25519 over the §7.3 payload. SHOULD be present; a receiver holding the author key MUST verify it." },
         "sigAlg": { "const": "ed25519", "description": "A verifier MUST pin this value rather than trust what the record asserts." },
-        "_e2e": { "type": "object", "description": "Present only when the container is E2E-encrypted in transit (§18.2.1): then 'fields' is a ciphertext string, not the object above. A receiver that cannot decrypt MUST report cannot-verify, never valid.", "properties": { "nonce": { "type": "string" } } }
+        "_e2e": { "type": "object", "description": "Present only when the container is E2E-encrypted in transit (§18.2.1): then 'categories' is a ciphertext string, not the object above. A receiver that cannot decrypt MUST report cannot-verify, never valid.", "properties": { "nonce": { "type": "string" } } }
       }
     }
   }
@@ -5659,7 +5659,7 @@ Complete `cmb` frame with CMB:
   "type": "cmb",
   "timestamp": 1774326000000,
   "cmb": {
-    "fields": {
+    "categories": {
       "focus":       { "text": "user coding for 3 hours, energy declining" },
       "issue":       { "text": "sedentary since morning, skipping lunch" },
       "intent":      { "text": "recommend movement break before fatigue worsens" },
@@ -5677,7 +5677,7 @@ Complete `cmb` frame with CMB:
 }
 ```
 
-The container above is the `fields` section of a record; §8.2 defines the accompanying `metadata` section, the address (`cmb-` + 64 lowercase hex) and the signature payload, byte-exactly.
+The container above is the `categories` section of a record; §8.2 defines the accompanying `metadata` section, the address (`cmb-` + 64 lowercase hex) and the signature payload, byte-exactly.
 
 
 

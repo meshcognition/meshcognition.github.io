@@ -208,7 +208,7 @@ Complete version history of this specification. <strong>Every published version 
 <strong>open-source runtime</strong> — the reference substrate this protocol is
             implemented by. Where the two disagreed the code was taken as correct.
 <br><br> <strong>&sect;8.2 Record Model &mdash; new, and the reason for the version.</strong> The
-            record is <strong>two-section</strong>: <code class="text-purple-300/80">fields</code>
+            record is <strong>two-section</strong>: <code class="text-purple-300/80">categories</code>
 carries CAT7, <code class="text-purple-300/80">metadata</code> carries the address, author,
             timestamp, audience and descent. 1.x described a flat record with
 <code class="text-purple-300/80">createdAt</code> at the top level; the runtime has never
@@ -232,8 +232,9 @@ carries CAT7, <code class="text-purple-300/80">metadata</code> carries the addre
 <br><br> <strong>CAT7 terminology.</strong> The seven members are <strong>categories</strong>
 throughout, replacing mixed use of &ldquo;dimensions&rdquo; and &ldquo;fields&rdquo; in
             prose. A category is the semantic member; a dimension is the length of the vector encoding
-            it. The wire key remains <code class="text-purple-300/80">fields</code>; it never enters an
-            address or signature preimage, so nothing an implementation computes is affected.
+            it. The wire key is <code class="text-purple-300/80">categories</code> too — prose and wire now use one
+            word. It never enters an address or signature preimage, so the rename moved no address and
+            invalidated no signature.
 <br><br> <strong>Single-file artifacts</strong> are now
 <code class="text-purple-300/80">/spec/mmp-v2.0.md</code> and
 <code class="text-purple-300/80">.html</code>.

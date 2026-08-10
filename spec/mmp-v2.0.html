@@ -87,7 +87,7 @@
     <p class="meta">
       <span>Version 2.0</span>
       <span>Published 27 March 2026</span>
-      <span>Last updated 9 August 2026</span>
+      <span>Last updated 10 August 2026</span>
       <span>Editor · Hongwei Xu</span>
       <span>CC BY 4.0</span>
     </p>
@@ -134,7 +134,7 @@ Protocol Specification
 Mesh Memory Protocol (MMP)
 </h1> <p class="text-white/50 text-lg md:text-xl leading-relaxed mb-4">
 A Mesh Protocol for Collective Intelligence
-</p> <div class="overflow-x-auto mb-6"> <table class="text-sm"> <tbody class="text-white/50"> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Version</td><td>2.0</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Status</td><td>Published</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">First published</td><td>27 March 2026</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">This version</td><td>9 August 2026</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Author</td><td>Hongwei Xu &lt;editor@meshcognition.org&gt;</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Organisation</td><td>SYM.BOT</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Canonical URL</td><td><a href="https://meshcognition.org/spec/mmp" class="text-purple-400">https://meshcognition.org/spec/mmp</a></td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Licence</td><td>CC BY 4.0 (specification text); Apache 2.0 (reference implementations)</td></tr> </tbody> </table> </div> <div class="h-px bg-gradient-to-r from-purple-500/40 via-cyan/20 to-transparent"></div> </header> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Introduction</h2> <p class="mb-4">
+</p> <div class="overflow-x-auto mb-6"> <table class="text-sm"> <tbody class="text-white/50"> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Version</td><td>2.0</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Status</td><td>Published</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">First published</td><td>27 March 2026</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">This version</td><td>10 August 2026</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Author</td><td>Hongwei Xu &lt;editor@meshcognition.org&gt;</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Organisation</td><td>SYM.BOT</td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Canonical URL</td><td><a href="https://meshcognition.org/spec/mmp" class="text-purple-400">https://meshcognition.org/spec/mmp</a></td></tr> <tr><td class="pr-8 py-1 font-mono text-xs text-white/30">Licence</td><td>CC BY 4.0 (specification text); Apache 2.0 (reference implementations)</td></tr> </tbody> </table> </div> <div class="h-px bg-gradient-to-r from-purple-500/40 via-cyan/20 to-transparent"></div> </header> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Introduction</h2> <p class="mb-4">
 Multi-agent LLM systems in production coordinate cognitive work on shared tasks spanning
       hours, days, and weeks &mdash; generator/quality/auditor pipelines running for days; research
       investigations spanning weeks across session restarts; a coding agent, a music agent, and a
@@ -229,7 +229,7 @@ That is checkable rather than assertable. The constructions in
       1.0.x-conformant (see &sect;17.5 for the requirements 1.1.0 adds).
 </p> <p>
 Feedback and errata: <a href="mailto:spec@meshcognition.org" class="text-purple-400 hover:text-purple-300 transition-colors">spec@meshcognition.org</a> or <a href="https://github.com/sym-bot/sym/issues" class="text-purple-400 hover:text-purple-300 transition-colors">github.com/sym-bot/sym/issues</a>.
-</p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Implementations</h2> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Language</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Project</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Maintainer</th><th class="text-left font-mono text-xs text-white/40 pb-2">Scope</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Node.js / TypeScript</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Reference implementation &mdash; the open SYM substrate (Apache 2.0). Core + runtime tiers (Classes 1 and 2, &sect;17).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Swift</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym-swift" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym-swift</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Emitter SDK for macOS / iOS (Class 1 target). Speaks an earlier MMP revision; conformance with the current cmb- scheme is in progress.</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">Python</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/mesh-cognition</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Research library &mdash; coupling kernel only (Layer 4 per-category evaluation + Layer 6 for CfC networks); not a full MMP node. Pure Python, zero external dependencies. <a href="https://pypi.org/project/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">pypi</a>.</td></tr> </tbody> </table> </div> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Change Log</h2> <p class="mb-3 text-sm"> <strong>Current — 2.0 &ldquo;Re-derived from the implementation&rdquo; (9 August 2026):</strong> the
+</p> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Implementations</h2> <div class="overflow-x-auto"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Language</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Project</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Maintainer</th><th class="text-left font-mono text-xs text-white/40 pb-2">Scope</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Node.js / TypeScript</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Reference implementation &mdash; the open SYM substrate (Apache 2.0). Core + runtime tiers (Classes 1 and 2, &sect;17).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">Swift</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/sym-swift" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/sym-swift</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Emitter SDK for macOS / iOS (Class 1 target). Speaks an earlier MMP revision; conformance with the current cmb- scheme is in progress.</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">Python</td><td class="py-2 pr-4"><a href="https://github.com/sym-bot/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">sym-bot/mesh-cognition</a></td><td class="py-2 pr-4">SYM.BOT</td><td class="py-2">Research library &mdash; coupling kernel only (Layer 4 per-category evaluation + Layer 6 for CfC networks); not a full MMP node. Pure Python, zero external dependencies. <a href="https://pypi.org/project/mesh-cognition" class="text-purple-400 hover:text-purple-300 transition-colors">pypi</a>.</td></tr> </tbody> </table> </div> </section> <section class="mb-10"> <h2 class="font-display text-xl text-white mb-4">Change Log</h2> <p class="mb-3 text-sm"> <strong>Current — 2.0 &ldquo;Re-derived from the implementation&rdquo; (10 August 2026):</strong> the
       record model advanced in the runtime while the published text continued to describe the earlier
       shape, and 2.0 closes that gap. New <a href="/spec/mmp/record" class="text-purple-400 hover:text-purple-300 transition-colors">&sect;8.2
       Record Model</a> gives the two-section record, the byte-exact content address (a promote-odd
@@ -277,7 +277,7 @@ Complete version history of this specification. <strong>Every published version 
 <strong>open-source runtime</strong> — the reference substrate this protocol is
             implemented by. Where the two disagreed the code was taken as correct.
 <br><br> <strong>&sect;8.2 Record Model &mdash; new, and the reason for the version.</strong> The
-            record is <strong>two-section</strong>: <code class="text-purple-300/80">fields</code>
+            record is <strong>two-section</strong>: <code class="text-purple-300/80">categories</code>
 carries CAT7, <code class="text-purple-300/80">metadata</code> carries the address, author,
             timestamp, audience and descent. 1.x described a flat record with
 <code class="text-purple-300/80">createdAt</code> at the top level; the runtime has never
@@ -301,8 +301,9 @@ carries CAT7, <code class="text-purple-300/80">metadata</code> carries the addre
 <br><br> <strong>CAT7 terminology.</strong> The seven members are <strong>categories</strong>
 throughout, replacing mixed use of &ldquo;dimensions&rdquo; and &ldquo;fields&rdquo; in
             prose. A category is the semantic member; a dimension is the length of the vector encoding
-            it. The wire key remains <code class="text-purple-300/80">fields</code>; it never enters an
-            address or signature preimage, so nothing an implementation computes is affected.
+            it. The wire key is <code class="text-purple-300/80">categories</code> too — prose and wire now use one
+            word. It never enters an address or signature preimage, so the rename moved no address and
+            invalidated no signature.
 <br><br> <strong>Single-file artifacts</strong> are now
 <code class="text-purple-300/80">/spec/mmp-v2.0.md</code> and
 <code class="text-purple-300/80">.html</code>.
@@ -613,7 +614,7 @@ Payload: {&quot;type&quot;:&quot;ping&quot;}</pre> </div> <p class="mb-3 text-sm
     &quot;key&quot;: &quot;cmb-b2c3d4e5f6a7b8c9&quot;,
     &quot;createdBy&quot;: &quot;sensor-a&quot;,
     &quot;createdAt&quot;: 1711540800000,
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;focus&quot;:       { &quot;text&quot;: &quot;user coding for 3 hours, energy declining&quot; },
       &quot;issue&quot;:       { &quot;text&quot;: &quot;sedentary since morning, skipping lunch&quot; },
       &quot;intent&quot;:      { &quot;text&quot;: &quot;recommend movement break before fatigue worsens&quot; },
@@ -1343,14 +1344,16 @@ This section specifies the three constructions an independent implementation <sp
       address</strong>, and its <strong>signature payload</strong>. Everything else about how a node
       stores, indexes, caches or evaluates records is a local matter and is out of scope here.
 </p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="record-shape">8.2.1 Two-section record</h3> <p class="body mb-4">
-A record has exactly two top-level sections. <code class="text-purple-300/80">fields</code>
+A record has exactly two top-level sections. <code class="text-purple-300/80">categories</code>
 carries the CAT7 content; <code class="text-purple-300/80">metadata</code> carries every provable
       fact about the record — its address, its author, its time, its audience and its descent.
-</p> <p class="body mb-4"> <span class="text-white/90">A note on names.</span> The seven members are <strong>categories</strong>; the wire key that
-      carries them is <code class="text-purple-300/80">fields</code>. The two differ because the
-      terminology was corrected before the wire was, and the wire is not changed for wording alone.
-      The container's key name never enters any preimage in §8.2.3 or §8.2.4, so an implementation that
-      reads it under either name computes identical addresses and signatures.
+</p> <p class="body mb-4"> <span class="text-white/90">One name.</span> The seven members are <strong>categories</strong>, and so is the wire key that
+      carries them. They were briefly different — the terminology was corrected before the wire was —
+      and that gap is now closed: the runtime emits
+<code class="text-purple-300/80">categories</code> and reads nothing else. A record carrying the
+      retired name does not resolve, which is deliberate: it is legible at the boundary rather than
+      half-read further in. The container’s key name never enters any preimage in §8.2.3 or §8.2.4,
+      so the rename moved no address and invalidated no signature.
 </p> <p class="body mb-4"> <span class="text-white/90">Why the split is normative.</span> The address is a function of the categories alone (§8.2.3), and
       the signature is a function of the metadata plus a commitment to per-category descent (§8.2.4).
       Keeping them in separate sections means the same content always yields the same address
@@ -1359,11 +1362,11 @@ carries the CAT7 content; <code class="text-purple-300/80">metadata</code> carri
 </p> <pre class="text-xs bg-black/40 border border-white/10 rounded p-4 overflow-x-auto mb-6"><code>{
   &quot;$schema&quot;: &quot;https://json-schema.org/draft/2020-12/schema&quot;,
   &quot;type&quot;: &quot;object&quot;,
-  &quot;required&quot;: [&quot;fields&quot;, &quot;metadata&quot;],
+  &quot;required&quot;: [&quot;categories&quot;, &quot;metadata&quot;],
   &quot;properties&quot;: {
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;type&quot;: &quot;object&quot;,
-      &quot;description&quot;: &quot;The CAT7 container. Seven categories, each {text, …}; see §8. The wire key is &quot;fields&quot;; prose calls its members categories.&quot;,
+      &quot;description&quot;: &quot;The CAT7 container. Seven categories, each {text, …}; see §8. The wire key and the prose term are the same word: categories.&quot;,
       &quot;required&quot;: [&quot;focus&quot;,&quot;issue&quot;,&quot;intent&quot;,&quot;motivation&quot;,&quot;commitment&quot;,&quot;perspective&quot;,&quot;mood&quot;]
     },
     &quot;metadata&quot;: {
@@ -1881,7 +1884,7 @@ Directive feedback is the protocol equivalent of <span class="text-white/90">pre
     &quot;key&quot;: &quot;cmb-a1b2c3d4e5f6&quot;,
     &quot;createdBy&quot;: &quot;validator-node&quot;,
     &quot;createdAt&quot;: 1775485628563,
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;focus&quot;: { &quot;text&quot;: &quot;Dismissed: Frontend framework release flagged as relevant&quot;, &quot;vector&quot;: [&quot;...&quot;] },
       &quot;issue&quot;: { &quot;text&quot;: &quot;Dismissal reasoning: frontend tooling, outside this mesh&#39;s review scope&quot;, &quot;vector&quot;: [&quot;...&quot;] },
       &quot;intent&quot;: { &quot;text&quot;: &quot;operator dismissed — frontend tooling, out of scope for a backend review mesh&quot;, &quot;vector&quot;: [&quot;...&quot;] },
@@ -1905,7 +1908,7 @@ Directive feedback is the protocol equivalent of <span class="text-white/90">pre
     &quot;key&quot;: &quot;cmb-d7e8f9a0b1c2&quot;,
     &quot;createdBy&quot;: &quot;validator-node&quot;,
     &quot;createdAt&quot;: 1775485630000,
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;focus&quot;: { &quot;text&quot;: &quot;Frontend framework releases are a separate concern from backend review&quot;, &quot;vector&quot;: [&quot;...&quot;] },
       &quot;issue&quot;: { &quot;text&quot;: &quot;Feed signals about frontend tooling are out-of-scope noise here&quot;, &quot;vector&quot;: [&quot;...&quot;] },
       &quot;intent&quot;: { &quot;text&quot;: &quot;Analytical frame: distinguish backend runtime signals from frontend tooling&quot;, &quot;vector&quot;: [&quot;...&quot;] },
@@ -2371,7 +2374,7 @@ node.remember({
   perspective: &quot;fitness agent, post-workout&quot;,
   mood:       { text: &quot;energized&quot;, valence: 0.7, arousal: 0.6 },
 })</pre> </div> </div> </div> <h4 class="font-display text-sm text-white/80 mb-3">14.3.2 API</h4> <div class="overflow-x-auto mb-6"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Method</th><th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Input</th><th class="text-left font-mono text-xs text-white/40 pb-2">Behaviour</th></tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">remember(fields, parents?)</td><td class="py-2 pr-4">CAT7 categories + optional parent CMBs</td><td class="py-2">Creates CMB, computes lineage from parents automatically, stores locally, broadcasts <code class="text-purple-300/80">cmb</code> to all peers. Pass parent CMBs when remixing (Section 15).</td></tr> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">recall(query)</td><td class="py-2 pr-4">Search string</td><td class="py-2">Returns matching CMBs from local memory store</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">insight()</td><td class="py-2 pr-4">None</td><td class="py-2">Returns latest Cognitive State collective intelligence (Layer 6)</td></tr> </tbody> </table> </div> <p class="mb-4 text-sm">
-The <code class="text-purple-300/80">fields</code> parameter <span class="text-red-400 font-mono text-xs">MUST</span> be a structured object with CAT7 category keys.
+The <code class="text-purple-300/80">categories</code> parameter <span class="text-red-400 font-mono text-xs">MUST</span> be a structured object with CAT7 category keys.
       Each category contains <code class="text-purple-300/80">text</code> (human-readable, <span class="text-red-400 font-mono text-xs">MUST</span>). The text is the
       normative content; each <em>receiver</em> encodes it into a vector in its own encoder, and vectors <span class="text-red-400 font-mono text-xs">MUST NOT</span>
 be emitted in a record (&sect;9.2.1).
@@ -2518,7 +2521,7 @@ Implementations <span class="text-red-400 font-mono text-xs">MUST</span> provide
       mechanism that provides persistent bidirectional communication.
 </p> <h4 class="font-display text-sm text-white/80 mb-3">14.9.1 Required Events</h4> <p class="mb-4 text-sm">
 A node <span class="text-red-400 font-mono text-xs">MUST</span> emit the following events to local subscribers:
-</p> <div class="overflow-x-auto mb-6"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Event</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Fires when</th> <th class="text-left font-mono text-xs text-white/40 pb-2">Data</th> </tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">cmb-accepted</td> <td class="py-2 pr-4 text-xs">A peer CMB passes SVAF evaluation (aligned or guarded)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">key</code>, <code class="text-purple-300/80">source</code>, <code class="text-purple-300/80">fields</code> (CAT7), <code class="text-purple-300/80">timestamp</code>, <code class="text-purple-300/80">decision</code> (aligned/guarded), <code class="text-purple-300/80">drift</code></td> </tr> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">message</td> <td class="py-2 pr-4 text-xs">A direct message frame arrives from a peer (Section 7)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">from</code>, <code class="text-purple-300/80">content</code>, <code class="text-purple-300/80">timestamp</code></td> </tr> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">peer-joined</td> <td class="py-2 pr-4 text-xs">A new peer connects (any transport)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">peerId</code>, <code class="text-purple-300/80">name</code>, <code class="text-purple-300/80">source</code> (bonjour/relay)</td> </tr> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">peer-left</td> <td class="py-2 pr-4 text-xs">A peer disconnects (all transports closed)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">peerId</code>, <code class="text-purple-300/80">name</code></td> </tr> <tr> <td class="py-2 pr-4 font-mono text-xs text-purple-400">mood-delivered</td> <td class="py-2 pr-4 text-xs">a mood category is delivered from a rejected CMB (Section 9.3)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">from</code>, <code class="text-purple-300/80">mood</code> (text, valence, arousal)</td> </tr> </tbody> </table> </div> <h4 class="font-display text-sm text-white/80 mb-3">14.9.2 subscriber category weights</h4> <p class="mb-4 text-sm">
+</p> <div class="overflow-x-auto mb-6"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Event</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Fires when</th> <th class="text-left font-mono text-xs text-white/40 pb-2">Data</th> </tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">cmb-accepted</td> <td class="py-2 pr-4 text-xs">A peer CMB passes SVAF evaluation (aligned or guarded)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">key</code>, <code class="text-purple-300/80">source</code>, <code class="text-purple-300/80">categories</code> (CAT7), <code class="text-purple-300/80">timestamp</code>, <code class="text-purple-300/80">decision</code> (aligned/guarded), <code class="text-purple-300/80">drift</code></td> </tr> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">message</td> <td class="py-2 pr-4 text-xs">A direct message frame arrives from a peer (Section 7)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">from</code>, <code class="text-purple-300/80">content</code>, <code class="text-purple-300/80">timestamp</code></td> </tr> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">peer-joined</td> <td class="py-2 pr-4 text-xs">A new peer connects (any transport)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">peerId</code>, <code class="text-purple-300/80">name</code>, <code class="text-purple-300/80">source</code> (bonjour/relay)</td> </tr> <tr class="border-b border-white/[0.04]"> <td class="py-2 pr-4 font-mono text-xs text-purple-400">peer-left</td> <td class="py-2 pr-4 text-xs">A peer disconnects (all transports closed)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">peerId</code>, <code class="text-purple-300/80">name</code></td> </tr> <tr> <td class="py-2 pr-4 font-mono text-xs text-purple-400">mood-delivered</td> <td class="py-2 pr-4 text-xs">a mood category is delivered from a rejected CMB (Section 9.3)</td> <td class="py-2 text-xs"><code class="text-purple-300/80">from</code>, <code class="text-purple-300/80">mood</code> (text, valence, arousal)</td> </tr> </tbody> </table> </div> <h4 class="font-display text-sm text-white/80 mb-3">14.9.2 subscriber category weights</h4> <p class="mb-4 text-sm">
 A subscriber <span class="text-green-400 font-mono text-xs">MAY</span> declare its own per-category weights (&alpha;<sub>f</sub>) when subscribing.
       If declared, the node <span class="text-yellow-400 font-mono text-xs">SHOULD</span> evaluate incoming CMBs against the subscriber&rsquo;s weights
       before delivering the event. This enables domain-specific filtering at the node level:
@@ -2931,7 +2934,7 @@ When CMBs transit a relay, implementations <span class="text-red-400 font-mono t
 </p> <div class="overflow-x-auto mb-4"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Layer</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">What it protects</th> <th class="text-left font-mono text-xs text-white/40 pb-2">What it doesn&rsquo;t protect</th> </tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">WSS (TLS)</td><td class="py-2 pr-4">Wire eavesdroppers</td><td class="py-2">Relay operator sees plaintext JSON</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">E2E CMB encryption</td><td class="py-2 pr-4">Relay operator, intermediaries</td><td class="py-2">Only the intended peer can decrypt category text</td></tr> </tbody> </table> </div> <p class="mb-4 text-sm">
 The encryption scheme <span class="text-yellow-400 font-mono text-xs">SHOULD</span> use the Ed25519 keypair from Layer 0 (Section 3) for key exchange,
       with X25519 Diffie-Hellman for shared secret derivation and XChaCha20-Poly1305 for symmetric encryption.
-      The encrypted payload replaces the <code class="text-purple-300/80">fields</code> object in the CMB:
+      The encrypted payload replaces the <code class="text-purple-300/80">categories</code> object in the CMB:
 </p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-xs text-purple-300/80 overflow-x-auto"> <pre>{
   &quot;type&quot;: &quot;cmb&quot;,
   &quot;timestamp&quot;: 1711540800000,
@@ -2939,7 +2942,7 @@ The encryption scheme <span class="text-yellow-400 font-mono text-xs">SHOULD</sp
     &quot;key&quot;: &quot;cmb-b2c3d4e5f6a7b8c9&quot;,
     &quot;createdBy&quot;: &quot;agent-a&quot;,
     &quot;createdAt&quot;: 1711540800000,
-    &quot;fields&quot;: &quot;&lt;encrypted&gt;&quot;,        // opaque ciphertext
+    &quot;categories&quot;: &quot;&lt;encrypted&gt;&quot;,        // opaque ciphertext
     &quot;nonce&quot;: &quot;base64-encoded-nonce&quot;, // per-frame nonce
     &quot;lineage&quot;: { ... }              // lineage stays cleartext for graph traversal
   }
@@ -3077,7 +3080,7 @@ Two scope notes. These are the <em>wire</em> schemas: receiver-local fields
 <code class="text-purple-300/80">storedAt</code>, <code class="text-purple-300/80">confidence</code>,
 <code class="text-purple-300/80">provenance</code>) are set on receipt and never cross the wire, so
       they are not listed. And the CMB schema describes the <em>decrypted</em> form: under end-to-end
-      encryption (§18.2.1) a CMB in transit carries <code class="text-purple-300/80">fields</code> as
+      encryption (§18.2.1) a CMB in transit carries <code class="text-purple-300/80">categories</code> as
       ciphertext plus <code class="text-purple-300/80">_e2e.nonce</code>, and the object schema below applies
       after decryption. Each category also carries a <code class="text-purple-300/80">vector</code> embedding;
       it is <em>advisory</em> and encoder-specific (§18.7) &mdash; not part of the content address
@@ -3106,10 +3109,10 @@ The <code class="text-purple-300/80">cmb</code> object within a <code class="tex
   &quot;$schema&quot;: &quot;https://json-schema.org/draft/2020-12/schema&quot;,
   &quot;type&quot;: &quot;object&quot;,
   &quot;description&quot;: &quot;The two-section record. Normative construction of the address and signature is §8.2.&quot;,
-  &quot;required&quot;: [&quot;fields&quot;, &quot;metadata&quot;],
+  &quot;required&quot;: [&quot;categories&quot;, &quot;metadata&quot;],
   &quot;additionalProperties&quot;: true,
   &quot;properties&quot;: {
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;type&quot;: &quot;object&quot;,
       &quot;description&quot;: &quot;The CAT7 container (§8). Seven categories, each an object with a required &#39;text&#39;.&quot;,
       &quot;required&quot;: [&quot;focus&quot;, &quot;issue&quot;, &quot;intent&quot;, &quot;motivation&quot;, &quot;commitment&quot;, &quot;perspective&quot;, &quot;mood&quot;],
@@ -3144,7 +3147,7 @@ The <code class="text-purple-300/80">cmb</code> object within a <code class="tex
         &quot;to&quot;: { &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;], &quot;description&quot;: &quot;Directed recipient; null or empty for a broadcast. Also signature-bound.&quot; },
         &quot;sig&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;base64url Ed25519 over the §7.3 payload. SHOULD be present; a receiver holding the author key MUST verify it.&quot; },
         &quot;sigAlg&quot;: { &quot;const&quot;: &quot;ed25519&quot;, &quot;description&quot;: &quot;A verifier MUST pin this value rather than trust what the record asserts.&quot; },
-        &quot;_e2e&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;description&quot;: &quot;Present only when the container is E2E-encrypted in transit (§18.2.1): then &#39;fields&#39; is a ciphertext string, not the object above. A receiver that cannot decrypt MUST report cannot-verify, never valid.&quot;, &quot;properties&quot;: { &quot;nonce&quot;: { &quot;type&quot;: &quot;string&quot; } } }
+        &quot;_e2e&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;description&quot;: &quot;Present only when the container is E2E-encrypted in transit (§18.2.1): then &#39;categories&#39; is a ciphertext string, not the object above. A receiver that cannot decrypt MUST report cannot-verify, never valid.&quot;, &quot;properties&quot;: { &quot;nonce&quot;: { &quot;type&quot;: &quot;string&quot; } } }
       }
     }
   }
@@ -3152,7 +3155,7 @@ The <code class="text-purple-300/80">cmb</code> object within a <code class="tex
   &quot;type&quot;: &quot;cmb&quot;,
   &quot;timestamp&quot;: 1774326000000,
   &quot;cmb&quot;: {
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;focus&quot;:       { &quot;text&quot;: &quot;user coding for 3 hours, energy declining&quot; },
       &quot;issue&quot;:       { &quot;text&quot;: &quot;sedentary since morning, skipping lunch&quot; },
       &quot;intent&quot;:      { &quot;text&quot;: &quot;recommend movement break before fatigue worsens&quot; },
@@ -3168,7 +3171,7 @@ The <code class="text-purple-300/80">cmb</code> object within a <code class="tex
     }
   }
 }</pre> </div> <p class="mb-6 text-xs text-white/40">
-The container above is the <code class="text-purple-300/80">fields</code> section of a record;
+The container above is the <code class="text-purple-300/80">categories</code> section of a record;
       &sect;8.2 defines the accompanying <code class="text-purple-300/80">metadata</code> section, the
       address (<code class="text-purple-300/80">cmb-</code> + 64 lowercase hex) and the signature
       payload, byte-exactly.

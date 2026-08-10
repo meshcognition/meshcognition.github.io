@@ -202,14 +202,16 @@ This section specifies the three constructions an independent implementation <sp
       address</strong>, and its <strong>signature payload</strong>. Everything else about how a node
       stores, indexes, caches or evaluates records is a local matter and is out of scope here.
 </p> <h3 class="font-display text-base text-white/90 mb-3 mt-8" id="record-shape">8.2.1 Two-section record</h3> <p class="body mb-4">
-A record has exactly two top-level sections. <code class="text-purple-300/80">fields</code>
+A record has exactly two top-level sections. <code class="text-purple-300/80">categories</code>
 carries the CAT7 content; <code class="text-purple-300/80">metadata</code> carries every provable
       fact about the record — its address, its author, its time, its audience and its descent.
-</p> <p class="body mb-4"> <span class="text-white/90">A note on names.</span> The seven members are <strong>categories</strong>; the wire key that
-      carries them is <code class="text-purple-300/80">fields</code>. The two differ because the
-      terminology was corrected before the wire was, and the wire is not changed for wording alone.
-      The container's key name never enters any preimage in §8.2.3 or §8.2.4, so an implementation that
-      reads it under either name computes identical addresses and signatures.
+</p> <p class="body mb-4"> <span class="text-white/90">One name.</span> The seven members are <strong>categories</strong>, and so is the wire key that
+      carries them. They were briefly different — the terminology was corrected before the wire was —
+      and that gap is now closed: the runtime emits
+<code class="text-purple-300/80">categories</code> and reads nothing else. A record carrying the
+      retired name does not resolve, which is deliberate: it is legible at the boundary rather than
+      half-read further in. The container’s key name never enters any preimage in §8.2.3 or §8.2.4,
+      so the rename moved no address and invalidated no signature.
 </p> <p class="body mb-4"> <span class="text-white/90">Why the split is normative.</span> The address is a function of the categories alone (§8.2.3), and
       the signature is a function of the metadata plus a commitment to per-category descent (§8.2.4).
       Keeping them in separate sections means the same content always yields the same address
@@ -218,11 +220,11 @@ carries the CAT7 content; <code class="text-purple-300/80">metadata</code> carri
 </p> <pre class="text-xs bg-black/40 border border-white/10 rounded p-4 overflow-x-auto mb-6"><code>{
   &quot;$schema&quot;: &quot;https://json-schema.org/draft/2020-12/schema&quot;,
   &quot;type&quot;: &quot;object&quot;,
-  &quot;required&quot;: [&quot;fields&quot;, &quot;metadata&quot;],
+  &quot;required&quot;: [&quot;categories&quot;, &quot;metadata&quot;],
   &quot;properties&quot;: {
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;type&quot;: &quot;object&quot;,
-      &quot;description&quot;: &quot;The CAT7 container. Seven categories, each {text, …}; see §8. The wire key is &quot;fields&quot;; prose calls its members categories.&quot;,
+      &quot;description&quot;: &quot;The CAT7 container. Seven categories, each {text, …}; see §8. The wire key and the prose term are the same word: categories.&quot;,
       &quot;required&quot;: [&quot;focus&quot;,&quot;issue&quot;,&quot;intent&quot;,&quot;motivation&quot;,&quot;commitment&quot;,&quot;perspective&quot;,&quot;mood&quot;]
     },
     &quot;metadata&quot;: {

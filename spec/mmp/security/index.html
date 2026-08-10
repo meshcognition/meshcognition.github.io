@@ -219,7 +219,7 @@ When CMBs transit a relay, implementations <span class="text-red-400 font-mono t
 </p> <div class="overflow-x-auto mb-4"> <table class="w-full text-sm"> <thead><tr class="border-b border-white/10"> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">Layer</th> <th class="text-left font-mono text-xs text-white/40 pb-2 pr-4">What it protects</th> <th class="text-left font-mono text-xs text-white/40 pb-2">What it doesn&rsquo;t protect</th> </tr></thead> <tbody class="text-white/60"> <tr class="border-b border-white/[0.04]"><td class="py-2 pr-4 font-mono text-xs">WSS (TLS)</td><td class="py-2 pr-4">Wire eavesdroppers</td><td class="py-2">Relay operator sees plaintext JSON</td></tr> <tr><td class="py-2 pr-4 font-mono text-xs">E2E CMB encryption</td><td class="py-2 pr-4">Relay operator, intermediaries</td><td class="py-2">Only the intended peer can decrypt category text</td></tr> </tbody> </table> </div> <p class="mb-4 text-sm">
 The encryption scheme <span class="text-yellow-400 font-mono text-xs">SHOULD</span> use the Ed25519 keypair from Layer 0 (Section 3) for key exchange,
       with X25519 Diffie-Hellman for shared secret derivation and XChaCha20-Poly1305 for symmetric encryption.
-      The encrypted payload replaces the <code class="text-purple-300/80">fields</code> object in the CMB:
+      The encrypted payload replaces the <code class="text-purple-300/80">categories</code> object in the CMB:
 </p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-4 font-mono text-xs text-purple-300/80 overflow-x-auto"> <pre>{
   &quot;type&quot;: &quot;cmb&quot;,
   &quot;timestamp&quot;: 1711540800000,
@@ -227,7 +227,7 @@ The encryption scheme <span class="text-yellow-400 font-mono text-xs">SHOULD</sp
     &quot;key&quot;: &quot;cmb-b2c3d4e5f6a7b8c9&quot;,
     &quot;createdBy&quot;: &quot;agent-a&quot;,
     &quot;createdAt&quot;: 1711540800000,
-    &quot;fields&quot;: &quot;&lt;encrypted&gt;&quot;,        // opaque ciphertext
+    &quot;categories&quot;: &quot;&lt;encrypted&gt;&quot;,        // opaque ciphertext
     &quot;nonce&quot;: &quot;base64-encoded-nonce&quot;, // per-frame nonce
     &quot;lineage&quot;: { ... }              // lineage stays cleartext for graph traversal
   }

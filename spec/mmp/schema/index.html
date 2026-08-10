@@ -217,7 +217,7 @@ Two scope notes. These are the <em>wire</em> schemas: receiver-local fields
 <code class="text-purple-300/80">storedAt</code>, <code class="text-purple-300/80">confidence</code>,
 <code class="text-purple-300/80">provenance</code>) are set on receipt and never cross the wire, so
       they are not listed. And the CMB schema describes the <em>decrypted</em> form: under end-to-end
-      encryption (§18.2.1) a CMB in transit carries <code class="text-purple-300/80">fields</code> as
+      encryption (§18.2.1) a CMB in transit carries <code class="text-purple-300/80">categories</code> as
       ciphertext plus <code class="text-purple-300/80">_e2e.nonce</code>, and the object schema below applies
       after decryption. Each category also carries a <code class="text-purple-300/80">vector</code> embedding;
       it is <em>advisory</em> and encoder-specific (§18.7) &mdash; not part of the content address
@@ -246,10 +246,10 @@ The <code class="text-purple-300/80">cmb</code> object within a <code class="tex
   &quot;$schema&quot;: &quot;https://json-schema.org/draft/2020-12/schema&quot;,
   &quot;type&quot;: &quot;object&quot;,
   &quot;description&quot;: &quot;The two-section record. Normative construction of the address and signature is §8.2.&quot;,
-  &quot;required&quot;: [&quot;fields&quot;, &quot;metadata&quot;],
+  &quot;required&quot;: [&quot;categories&quot;, &quot;metadata&quot;],
   &quot;additionalProperties&quot;: true,
   &quot;properties&quot;: {
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;type&quot;: &quot;object&quot;,
       &quot;description&quot;: &quot;The CAT7 container (§8). Seven categories, each an object with a required &#39;text&#39;.&quot;,
       &quot;required&quot;: [&quot;focus&quot;, &quot;issue&quot;, &quot;intent&quot;, &quot;motivation&quot;, &quot;commitment&quot;, &quot;perspective&quot;, &quot;mood&quot;],
@@ -284,7 +284,7 @@ The <code class="text-purple-300/80">cmb</code> object within a <code class="tex
         &quot;to&quot;: { &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;], &quot;description&quot;: &quot;Directed recipient; null or empty for a broadcast. Also signature-bound.&quot; },
         &quot;sig&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;base64url Ed25519 over the §7.3 payload. SHOULD be present; a receiver holding the author key MUST verify it.&quot; },
         &quot;sigAlg&quot;: { &quot;const&quot;: &quot;ed25519&quot;, &quot;description&quot;: &quot;A verifier MUST pin this value rather than trust what the record asserts.&quot; },
-        &quot;_e2e&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;description&quot;: &quot;Present only when the container is E2E-encrypted in transit (§18.2.1): then &#39;fields&#39; is a ciphertext string, not the object above. A receiver that cannot decrypt MUST report cannot-verify, never valid.&quot;, &quot;properties&quot;: { &quot;nonce&quot;: { &quot;type&quot;: &quot;string&quot; } } }
+        &quot;_e2e&quot;: { &quot;type&quot;: &quot;object&quot;, &quot;description&quot;: &quot;Present only when the container is E2E-encrypted in transit (§18.2.1): then &#39;categories&#39; is a ciphertext string, not the object above. A receiver that cannot decrypt MUST report cannot-verify, never valid.&quot;, &quot;properties&quot;: { &quot;nonce&quot;: { &quot;type&quot;: &quot;string&quot; } } }
       }
     }
   }
@@ -292,7 +292,7 @@ The <code class="text-purple-300/80">cmb</code> object within a <code class="tex
   &quot;type&quot;: &quot;cmb&quot;,
   &quot;timestamp&quot;: 1774326000000,
   &quot;cmb&quot;: {
-    &quot;fields&quot;: {
+    &quot;categories&quot;: {
       &quot;focus&quot;:       { &quot;text&quot;: &quot;user coding for 3 hours, energy declining&quot; },
       &quot;issue&quot;:       { &quot;text&quot;: &quot;sedentary since morning, skipping lunch&quot; },
       &quot;intent&quot;:      { &quot;text&quot;: &quot;recommend movement break before fatigue worsens&quot; },
@@ -308,7 +308,7 @@ The <code class="text-purple-300/80">cmb</code> object within a <code class="tex
     }
   }
 }</pre> </div> <p class="mb-6 text-xs text-white/40">
-The container above is the <code class="text-purple-300/80">fields</code> section of a record;
+The container above is the <code class="text-purple-300/80">categories</code> section of a record;
       &sect;8.2 defines the accompanying <code class="text-purple-300/80">metadata</code> section, the
       address (<code class="text-purple-300/80">cmb-</code> + 64 lowercase hex) and the signature
       payload, byte-exactly.

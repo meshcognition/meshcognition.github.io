@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://meshcognition.org/spec/mmp/schema/cmb-frame.schema.json",
+  "title": "MMP v2.0 unencrypted CMB frame",
+  "description": "Allowed only by an explicitly selected cleartext/migration profile. Core Secure uses encrypted-cmb-frame.schema.json.",
+  "type": "object",
+  "required": ["type", "protocolVersion", "cmb"],
+  "additionalProperties": false,
+  "properties": {
+    "type": { "const": "cmb" },
+    "protocolVersion": { "const": "2.0" },
+    "cmb": { "$ref": "cmb.schema.json" }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://meshcognition.org/spec/mmp/schema/cmb.schema.json",
+  "title": "MMP v2.0 Cognitive Memory Block — corrected Core Secure profile",
+  "description": "The decrypted logical record has exactly two top-level sections. CAT7 cognition is content-addressed; metadata carries authenticated authorship, audience, descent and optional application bytes.",
+  "type": "object",
+  "required": ["categories", "metadata"],
+  "additionalProperties": false,
+  "properties": {
+    "categories": {
+      "type": "object",
+      "required": ["focus", "issue", "intent", "motivation", "commitment", "perspective", "mood"],
+      "additionalProperties": false,
+      "properties": {
+        "focus": { "$ref": "#/$defs/category" },
+        "issue": { "$ref": "#/$defs/category" },
+        "intent": { "$ref": "#/$defs/category" },
+        "motivation": { "$ref": "#/$defs/category" },
+        "commitment": { "$ref": "#/$defs/category" },
+        "perspective": { "$ref": "#/$defs/category" },
+        "mood": { "$ref": "#/$defs/moodCategory" }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "key", "addressScheme", "assertionId", "signatureSuite",
+        "createdByNodeId", "createdBy", "createdTimestamp", "room", "to",
+        "lineage", "sigAlg", "sig"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "key": { "type": "string", "pattern": "^cmb-[0-9a-f]{64}$" },
+        "addressScheme": { "const": "mmp-cmb-merkle-v2" },
+        "assertionId": { "type": "string", "pattern": "^asrt-[0-9a-f]{64}$" },
+        "signatureSuite": { "const": "mmp-sig-v2.0" },
+        "createdByNodeId": { "type": "string", "format": "uuid" },
+        "createdBy": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Signed display label. Never used for identity resolution or routing."
+        },
+        "createdTimestamp": { "type": "integer", "minimum": 0 },
+        "room": { "type": "string", "minLength": 1 },
+        "to": {
+          "anyOf": [
+            { "type": "string", "format": "uuid" },
+            { "type": "null" }
+          ]
+        },
+        "lineage": {
+          "anyOf": [
+            { "$ref": "#/$defs/lineage" },
+            { "type": "null" }
+          ]
+        },
+        "application": {
+          "anyOf": [
+            { "$ref": "application.schema.json" },
+            { "type": "null" }
+          ]
+        },
+        "sigAlg": { "const": "ed25519" },
+        "sig": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{86}$",
+          "description": "Unpadded base64url Ed25519 signature over mmp-sig-v2.0."
+        },
+        "extensions": {
+          "type": "object",
+          "description": "Negotiated extension data. Core readers ignore unsupported extension members only when their extension was negotiated.",
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "categoryMeta": {
+      "type": "object",
+      "required": ["key", "parents"],
+      "additionalProperties": false,
+      "properties": {
+        "key": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "parents": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "category": {
+      "type": "object",
+      "required": ["text", "meta"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string" },
+        "meta": { "$ref": "#/$defs/categoryMeta" }
+      }
+    },
+    "moodCategory": {
+      "type": "object",
+      "required": ["text", "meta"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string" },
+        "meta": { "$ref": "#/$defs/categoryMeta" },
+        "valence": { "type": "number", "minimum": -1, "maximum": 1 },
+        "arousal": { "type": "number", "minimum": -1, "maximum": 1 }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "required": ["parents", "method"],
+      "additionalProperties": false,
+      "properties": {
+        "parents": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^cmb-[0-9a-f]{64}$" }
+        },
+        "method": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

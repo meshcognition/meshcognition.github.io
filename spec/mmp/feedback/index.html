@@ -1,4 +1,8 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>11. Feedback Modulation — MMP Specification</title><meta name="description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><link rel="canonical" href="https://meshcognition.org/spec/mmp/feedback/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-node sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="11. Feedback Modulation — MMP Specification"><meta property="og:description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><meta property="og:url" content="https://meshcognition.org/spec/mmp/feedback/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="11. Feedback Modulation — MMP Specification"><meta name="twitter:description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Home of Mesh Cognition — the cognitive architecture of the agentic mesh: center-free inference and learning among sovereign nodes, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Home of Mesh Cognition and the Mesh Memory Protocol: the specification, research papers, and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><link rel="stylesheet" href="/_astro/error-handling.Dcxi-eEu.css"></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="" href="/node">The Node</a><a class="" href="/#mission">Research</a><a class="active" href="/spec/mmp">Spec</a><a class="" href="/governance">Governance</a><a class="" href="/community">Community</a> </div> <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">MENU</button> </div> <div class="nav-mobile" id="nav-mobile" hidden> <a class="" href="/node">The Node</a><a class="" href="/#mission">Research</a><a class="active" href="/spec/mmp">Spec</a><a class="" href="/governance">Governance</a><a class="" href="/community">Community</a> </div> </nav> <script>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>11. Feedback Modulation — MMP Specification</title><meta name="description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><link rel="canonical" href="https://meshcognition.org/spec/mmp/feedback/"><meta name="author" content="Hongwei Xu"><meta name="publisher" content="SYM.BOT"><meta name="keywords" content="Mesh Cognition, Mesh Memory Protocol, MMP, SVAF, Symbolic-Vector Attention Fusion, distributed intelligence, multi-agent systems, collective intelligence, open protocol, per-node sovereignty, content-hash lineage, Cognitive Memory Blocks, CMB, on-device AI, CfC, Liquid Neural Networks, Hongwei Xu, SYM.BOT"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#f4f1ea"><meta property="og:type" content="website"><meta property="og:site_name" content="Mesh Cognition"><meta property="og:title" content="11. Feedback Modulation — MMP Specification"><meta property="og:description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><meta property="og:url" content="https://meshcognition.org/spec/mmp/feedback/"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="11. Feedback Modulation — MMP Specification"><meta name="twitter:description" content="How collective intelligence becomes self-correcting through neuroscience-grounded feedback modulation of SVAF coupling and CfC temporal adaptation."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org","description":"Home of Mesh Cognition — the cognitive architecture of the agentic mesh: center-free inference and learning among sovereign nodes, formalized as the Mesh Memory Protocol (MMP). Pioneered by SYM.BOT.","founder":{"@type":"Organization","name":"SYM.BOT","url":"https://sym.bot"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mesh Cognition","alternateName":"meshcognition.org","url":"https://meshcognition.org","description":"Home of Mesh Cognition and the Mesh Memory Protocol: the specification, research papers, and reference implementations.","publisher":{"@type":"Organization","name":"Mesh Cognition","url":"https://meshcognition.org"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script><style>article h2,article h3,article h4{scroll-margin-top:5rem}article pre{max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}article code,article a{overflow-wrap:anywhere}article img,article svg,article video{max-width:100%;height:auto}article table{min-width:40rem}@media (max-width: 640px){article table{min-width:34rem}article .spec-md table{display:block;width:100%;min-width:0;max-width:100%;overflow-x:auto}article .spec-md th,article .spec-md td{min-width:9rem}}
+</style>
+<link rel="stylesheet" href="/_astro/error-handling.CkLXkyXD.css">
+<style>.spec-code-block[data-astro-cid-fqsmfhgl] pre[data-astro-cid-fqsmfhgl]{overflow-wrap:anywhere;word-break:normal;-moz-tab-size:2;-o-tab-size:2;tab-size:2;scrollbar-color:rgba(255,255,255,.22) transparent;scrollbar-width:thin}
+</style></head> <body data-paper> <nav class="nav"> <div class="nav-inner"> <a class="brand" href="/"><span class="brand-tick"></span>Mesh Cognition</a> <div class="nav-links"> <a class="" href="/node">The Node</a><a class="" href="/#mission">Research</a><a class="active" href="/spec/mmp">Spec</a><a class="" href="/governance">Governance</a><a class="" href="/community">Community</a> </div> <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">MENU</button> </div> <div class="nav-mobile" id="nav-mobile" hidden> <a class="" href="/node">The Node</a><a class="" href="/#mission">Research</a><a class="active" href="/spec/mmp">Spec</a><a class="" href="/governance">Governance</a><a class="" href="/community">Community</a> </div> </nav> <script>
   (() => {
     const btn = document.querySelector('.nav-toggle');
     const panel = document.getElementById('nav-mobile');
@@ -17,7 +21,7 @@
       if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { set(false); btn.focus(); }
     });
   })();
-</script>  <div class="max-w-5xl mx-auto px-6 py-16 md:py-24"> <div class="flex flex-col md:flex-row gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd id="spec-search-kbd" class="font-sans text-[11px] leading-none text-white/50 border border-white/10 rounded px-1.5 py-1">Ctrl K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-[#262320]/25 backdrop-blur-[2px]"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#f4f1ea] border border-white/10 rounded-xl shadow-2xl shadow-black/25 overflow-hidden" data-paper> <div class="flex items-center gap-3 px-4 border-b border-white/10"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/50"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-[#262320] placeholder:text-[#262320]/40 outline-none"> <kbd class="font-sans text-[11px] text-white/50 border border-white/10 rounded px-1.5 py-1">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/40 border-t border-white/10">
+</script>  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-24"> <h1 class="sr-only">11. Feedback Modulation — MMP Specification</h1> <div class="flex flex-col md:flex-row gap-6 md:gap-8"> <aside class="md:w-56 shrink-0"> <div class="md:sticky md:top-16"> <div class="space-y-6"> <button id="spec-search-trigger" type="button" class="w-full flex items-center gap-2 text-xs text-white/40 hover:text-white/70 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2 mb-3 transition-colors" aria-label="Search the specification"> <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <span class="flex-1 text-left">Search the spec…</span> <kbd id="spec-search-kbd" class="font-sans text-[11px] leading-none text-white/50 border border-white/10 rounded px-1.5 py-1">Ctrl K</kbd> </button> <div id="spec-search-modal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Spec search"> <div id="spec-search-backdrop" class="absolute inset-0 bg-[#262320]/25 backdrop-blur-[2px]"></div> <div class="relative mx-auto mt-[12vh] w-[92%] max-w-xl"> <div class="bg-[#f4f1ea] border border-white/10 rounded-xl shadow-2xl shadow-black/25 overflow-hidden" data-paper> <div class="flex items-center gap-3 px-4 border-b border-white/10"> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-white/50"> <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path> </svg> <input id="spec-search-input" type="text" autocomplete="off" spellcheck="false" placeholder="Search the Mesh Memory Protocol spec…" class="flex-1 bg-transparent py-3.5 text-[15px] text-[#262320] placeholder:text-[#262320]/40 outline-none"> <kbd class="font-sans text-[11px] text-white/50 border border-white/10 rounded px-1.5 py-1">Esc</kbd> </div> <ul id="spec-search-results" class="max-h-[55vh] overflow-y-auto py-2"></ul> <div id="spec-search-hint" class="px-4 py-3 text-xs text-white/40 border-t border-white/10">
 Type to search every section · <span class="text-white/60">↑↓</span> to navigate · <span class="text-white/60">↵</span> to open
 </div> </div> </div> </div> <script>
   (function () {
@@ -189,14 +193,14 @@ Type to search every section · <span class="text-white/60">↑↓</span> to nav
       }
     });
   })();
-</script> <nav class="bg-white/[0.02] border border-white/[0.06] rounded-lg p-4"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
+</script> <details class="md:hidden bg-white/[0.02] border border-white/[0.06] rounded-lg group"> <summary class="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-xs text-white/60 [&::-webkit-details-marker]:hidden"> <span class="font-mono text-purple-400">11. Feedback Modulation</span> <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-white/30 group-open:hidden">Sections +</span> <span class="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-white/30 group-open:inline">Close −</span> </summary> <nav class="border-t border-white/[0.06] p-3" aria-label="MMP specification sections"> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">Overview</a><a href="/spec/mmp/conventions" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">1. Conventions</a><a href="/spec/mmp/architecture" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">2. Architecture</a><a href="/spec/mmp/identity" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">3. Identity (L0)</a><a href="/spec/mmp/transport" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">4. Transport (L1)</a><a href="/spec/mmp/connection" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">5. Connection (L2)</a><a href="/spec/mmp/memory" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">6. Memory (L3)</a><a href="/spec/mmp/frames" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">7. Frame Types</a><a href="/spec/mmp/cmb" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">8. CMBs (CAT7)</a><a href="/spec/mmp/record" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">8.8 Record Model</a><a href="/spec/mmp/coupling" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">9. Coupling &amp; SVAF (L4)</a><a href="/spec/mmp/blending" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">10. State Blending</a><a href="/spec/mmp/feedback" class="text-xs py-1.5 px-2 rounded transition-colors text-purple-400 bg-purple-500/10">11. Feedback Modulation</a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">12. Synthetic Memory (L5)</a><a href="/spec/mmp/cognitive-state" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">13. Cognitive State (L6)</a><a href="/spec/mmp/application" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">14. Application (L7)</a><a href="/spec/mmp/remix" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">15. Remix</a><a href="/spec/mmp/extensions" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">16. Extensions</a><a href="/spec/mmp/conformance" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">17. Conformance</a><a href="/spec/mmp/security" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">18. Security</a><a href="/spec/mmp/constants" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">19. Configuration</a><a href="/spec/mmp/schema" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">20. JSON Schema</a><a href="/spec/mmp/references" class="text-xs py-1.5 px-2 rounded transition-colors text-white/45 hover:text-white/70">21. References</a> </div> </nav> </details> <nav class="hidden md:block bg-white/[0.02] border border-white/[0.06] rounded-lg p-4" aria-label="MMP specification sections"> <p class="font-mono text-xs text-white/30 mb-3"> <a href="/spec/mmp" class="text-purple-400 hover:text-purple-300 transition-colors">
 MMP Specification v2.0 </a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> Overview </a><a href="/spec/mmp/conventions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 1. Conventions </a><a href="/spec/mmp/architecture" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 2. Architecture </a><a href="/spec/mmp/identity" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 3. Identity (L0) </a><a href="/spec/mmp/transport" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 4. Transport (L1) </a><a href="/spec/mmp/connection" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 5. Connection (L2) </a><a href="/spec/mmp/memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 6. Memory (L3) </a><a href="/spec/mmp/frames" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 7. Frame Types </a><a href="/spec/mmp/cmb" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8. CMBs (CAT7) </a><a href="/spec/mmp/record" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 8.8 Record Model </a><a href="/spec/mmp/coupling" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 9. Coupling &amp; SVAF (L4) </a><a href="/spec/mmp/blending" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 10. State Blending </a><a href="/spec/mmp/feedback" class="text-xs py-1 px-2 rounded transition-colors text-purple-400 bg-purple-500/10" title=""> 11. Feedback Modulation </a><a href="/spec/mmp/synthetic-memory" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 12. Synthetic Memory (L5) </a><a href="/spec/mmp/cognitive-state" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 13. Cognitive State (L6) </a><a href="/spec/mmp/application" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 14. Application (L7) </a><a href="/spec/mmp/remix" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 15. Remix </a><a href="/spec/mmp/extensions" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 16. Extensions </a><a href="/spec/mmp/conformance" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 17. Conformance </a><a href="/spec/mmp/security" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 18. Security </a><a href="/spec/mmp/constants" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 19. Configuration </a><a href="/spec/mmp/schema" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 20. JSON Schema </a><a href="/spec/mmp/references" class="text-xs py-1 px-2 rounded transition-colors text-white/40 hover:text-white/70" title=""> 21. References </a> </div> </nav> <div class="flex justify-between text-xs"> <a href="/spec/mmp/blending" class="text-white/40 hover:text-purple-400 transition-colors">
 ← 10. State Blending </a> <a href="/spec/mmp/synthetic-memory" class="text-white/40 hover:text-purple-400 transition-colors"> 12. Synthetic Memory (L5) →
 </a> </div>  <div class="flex gap-2 pt-2"> <a href="/spec/mmp-v2.0.md" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page Markdown">
 .md
 </a> <a href="/spec/mmp-v2.0.html" download class="text-xs px-2 py-1 rounded bg-white/[0.04] border border-white/10 hover:border-purple-500/30 transition-all text-white/40 font-mono" title="Download single-page HTML">
 .html
-</a> </div> </div> </div> </aside> <article class="flex-1 min-w-0"> <div class="space-y-10 text-white/70 leading-relaxed text-[15px]">  <section> <h2 class="font-display text-xl text-white mb-4">11. Feedback Modulation</h2> <p class="mb-6">
+</a> </div> </div> </div> </aside> <article class="flex-1 min-w-0"> <div class="space-y-10 text-white/70 leading-relaxed text-[15px]">  <section> <h2 class="font-display text-xl text-white mb-4" id="feedback">11. Feedback Modulation</h2> <p class="mb-6">
 Feedback modulation is the mechanism by which collective intelligence becomes self-correcting.
       It is not a separate system &mdash; it is the mesh cognition loop (Section 10.6) processing a
       specific class of signals: human judgment expressed as CMBs with validator authority and per-category
@@ -278,54 +282,179 @@ This CMB enters the mesh with anchor weight 2.0, no lineage. It becomes a <span 
 Directive feedback is the protocol equivalent of <span class="text-white/90">prefrontal top-down control</span> in neuroscience:
       the prefrontal cortex does not do the sensory processing, but it sends signals that modulate how
       sensory cortex interprets future input.
-</p>  <h3 class="font-display text-base text-white/90 mb-3 mt-10">11.4 Wire Examples</h3> <p class="mb-4 text-sm"> <span class="text-white/90">Feedback CMB (dismissal with reasoning).</span> A validator node dismisses a prior CMB.
-      The <code class="text-purple-300/80">lineage.parents</code> array links to the dismissed signal:
-</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-6 font-mono text-xs text-purple-300 overflow-x-auto"> <pre>{
+</p>  <h3 class="font-display text-base text-white/90 mb-3 mt-10" id="wire-examples">11.4 Wire Examples</h3> <p class="mb-4 text-sm"> <span class="text-white/90">Feedback CMB (dismissal with reasoning).</span> A validator node dismisses a prior CMB.
+      The <code class="text-purple-300/80">metadata.lineage.parents</code> array links to the dismissed signal:
+</p> <div class="spec-code-block mb-6 overflow-hidden rounded-xl border border-black/15 bg-[#171716] shadow-sm" data-astro-cid-fqsmfhgl> <div class="spec-code-header flex min-h-10 items-center justify-between gap-4 border-b border-white/10 px-4 py-2" data-astro-cid-fqsmfhgl> <div class="spec-code-meta flex min-w-0 items-center gap-2.5" data-astro-cid-fqsmfhgl> <span class="spec-code-dot h-1.5 w-1.5 shrink-0 rounded-full bg-[#ff4b2b]" aria-hidden="true" data-astro-cid-fqsmfhgl></span> <span class="spec-code-label truncate font-mono text-[10px] uppercase tracking-[0.18em] text-white/55" data-astro-cid-fqsmfhgl>MMP 2.0 · JSON · Dismissal</span> </div> <a class="spec-code-link shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-white/55 transition-colors hover:text-white" href="/spec/mmp/examples/v2/feedback-dismissal.json" target="_blank" rel="noreferrer" data-astro-cid-fqsmfhgl> Open fixture <span aria-hidden="true" data-astro-cid-fqsmfhgl>↗</span> </a> </div> <pre class="spec-code-pre m-0 max-h-[34rem] overflow-y-auto whitespace-pre-wrap break-words px-5 py-5 font-mono text-[11px] leading-[1.6] text-[#f0d8cf]" data-astro-cid-fqsmfhgl><code data-astro-cid-fqsmfhgl>{
   &quot;type&quot;: &quot;cmb&quot;,
-  &quot;timestamp&quot;: 1775485628563,
+  &quot;protocolVersion&quot;: &quot;2.0&quot;,
   &quot;cmb&quot;: {
-    &quot;key&quot;: &quot;cmb-a1b2c3d4e5f6&quot;,
-    &quot;createdBy&quot;: &quot;validator-node&quot;,
-    &quot;createdAt&quot;: 1775485628563,
     &quot;categories&quot;: {
-      &quot;focus&quot;: { &quot;text&quot;: &quot;Dismissed: Frontend framework release flagged as relevant&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;issue&quot;: { &quot;text&quot;: &quot;Dismissal reasoning: frontend tooling, outside this mesh&#39;s review scope&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;intent&quot;: { &quot;text&quot;: &quot;operator dismissed — frontend tooling, out of scope for a backend review mesh&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;motivation&quot;: { &quot;text&quot;: &quot;Operator reasoning: prevents wasted analysis on out-of-scope signals&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;commitment&quot;: { &quot;text&quot;: &quot;Dismissed [cmb-876c99c6]: framework-release analysis&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;perspective&quot;: { &quot;text&quot;: &quot;operator, via dashboard&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;mood&quot;: { &quot;text&quot;: &quot;corrective&quot;, &quot;valence&quot;: -0.1, &quot;arousal&quot;: 0.2, &quot;vector&quot;: [&quot;...&quot;] }
+      &quot;focus&quot;: {
+        &quot;text&quot;: &quot;Dismissed: frontend framework release flagged as relevant&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;1098110d99fd82e060663f47b3a688be3d1f71f0d853f84cbc88faeb20846a8c&quot;,
+          &quot;parents&quot;: [
+            &quot;cmb-2020202020202020202020202020202020202020202020202020202020202020&quot;
+          ]
+        }
+      },
+      &quot;issue&quot;: {
+        &quot;text&quot;: &quot;Dismissal reasoning: frontend tooling is outside this mesh review scope&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;7335845db5b6d18fec3d4032d13e7bfe9088efa446a7c59fdf432934bcde35a8&quot;,
+          &quot;parents&quot;: [
+            &quot;cmb-2020202020202020202020202020202020202020202020202020202020202020&quot;
+          ]
+        }
+      },
+      &quot;intent&quot;: {
+        &quot;text&quot;: &quot;Record the operator dismissal as evidence, not as an unsigned command&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;abbecadc34e8a0afa5d2f252ae1ccb182b2fc88fdffc66808e938dbaccea2532&quot;,
+          &quot;parents&quot;: [
+            &quot;cmb-2020202020202020202020202020202020202020202020202020202020202020&quot;
+          ]
+        }
+      },
+      &quot;motivation&quot;: {
+        &quot;text&quot;: &quot;Prevent wasted analysis on out-of-scope signals&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;18df2082a9e1fe1ce597e0f7b4ae21d3c07458ef7c8af932a70e6299cf41f495&quot;,
+          &quot;parents&quot;: [
+            &quot;cmb-2020202020202020202020202020202020202020202020202020202020202020&quot;
+          ]
+        }
+      },
+      &quot;commitment&quot;: {
+        &quot;text&quot;: &quot;Dismissed cmb-2020202020202020202020202020202020202020202020202020202020202020: framework-release analysis&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;346b26a61d9b10bd960484f81634026966b190bdf60f5b217a81d1170250c0a2&quot;,
+          &quot;parents&quot;: [
+            &quot;cmb-2020202020202020202020202020202020202020202020202020202020202020&quot;
+          ]
+        }
+      },
+      &quot;perspective&quot;: {
+        &quot;text&quot;: &quot;operator, via dashboard&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;81927cfe85def1e8b208099e0322cac37311ea2a0191779a39494ec9d20e4f5b&quot;,
+          &quot;parents&quot;: [
+            &quot;cmb-2020202020202020202020202020202020202020202020202020202020202020&quot;
+          ]
+        }
+      },
+      &quot;mood&quot;: {
+        &quot;text&quot;: &quot;corrective&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;38d9fed8e85c9b3ea9a32a89593b771e1bc3cd7a8b774996efc2aa85d222f9fb&quot;,
+          &quot;parents&quot;: [
+            &quot;cmb-2020202020202020202020202020202020202020202020202020202020202020&quot;
+          ]
+        },
+        &quot;valence&quot;: -0.1,
+        &quot;arousal&quot;: 0.2
+      }
     },
-    &quot;lineage&quot;: {
-      &quot;parents&quot;: [&quot;cmb-876c99c6&quot;],
-      &quot;ancestors&quot;: [&quot;cmb-876c99c6&quot;],
-      &quot;method&quot;: &quot;SVAF-v2&quot;
+    &quot;metadata&quot;: {
+      &quot;key&quot;: &quot;cmb-cbd2d06f46844b9623ca888664af301fd0adf09048acbb345f401a8ca39302f3&quot;,
+      &quot;addressScheme&quot;: &quot;mmp-cmb-merkle-v2&quot;,
+      &quot;signatureSuite&quot;: &quot;mmp-sig-v2.0&quot;,
+      &quot;createdByNodeId&quot;: &quot;018f47a0-7b21-7abc-8def-bbbbbbbbbbbb&quot;,
+      &quot;createdBy&quot;: &quot;validator-node&quot;,
+      &quot;createdTimestamp&quot;: 1775485628563,
+      &quot;room&quot;: &quot;spec-examples&quot;,
+      &quot;to&quot;: null,
+      &quot;lineage&quot;: {
+        &quot;parents&quot;: [
+          &quot;cmb-2020202020202020202020202020202020202020202020202020202020202020&quot;
+        ],
+        &quot;method&quot;: &quot;operator-dismissal&quot;
+      },
+      &quot;application&quot;: null,
+      &quot;assertionId&quot;: &quot;asrt-548a512089399362b3b22985560899bfd1aae76a3d26cb2e97f11202baa4d146&quot;,
+      &quot;sigAlg&quot;: &quot;ed25519&quot;,
+      &quot;sig&quot;: &quot;b4Ddr8esa3i1V7_l9jC--g93A2dGXqSpjyFZg6LDbVE04vkULizzB4kwSgnmgSCmQphh6cReXDq-sXK-5TGoAA&quot;
     }
   }
-}</pre> </div> <p class="mb-4 text-sm"> <span class="text-white/90">Directive CMB (standalone teaching, no parents).</span> A validator injects domain knowledge
-      without referencing a prior signal. The <code class="text-purple-300/80">lineage</code> arrays are empty &mdash; a root CMB (&sect;12.6):
-</p> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4 mb-6 font-mono text-xs text-purple-300 overflow-x-auto"> <pre>{
+}</code></pre> </div>  <p class="mb-4 text-sm"> <span class="text-white/90">Directive CMB (standalone teaching, no parents).</span> A validator injects domain knowledge
+      without referencing a prior signal. The <code class="text-purple-300/80">metadata.lineage</code> arrays are empty &mdash; a root CMB (&sect;12.6):
+</p> <div class="spec-code-block mb-6 overflow-hidden rounded-xl border border-black/15 bg-[#171716] shadow-sm" data-astro-cid-fqsmfhgl> <div class="spec-code-header flex min-h-10 items-center justify-between gap-4 border-b border-white/10 px-4 py-2" data-astro-cid-fqsmfhgl> <div class="spec-code-meta flex min-w-0 items-center gap-2.5" data-astro-cid-fqsmfhgl> <span class="spec-code-dot h-1.5 w-1.5 shrink-0 rounded-full bg-[#ff4b2b]" aria-hidden="true" data-astro-cid-fqsmfhgl></span> <span class="spec-code-label truncate font-mono text-[10px] uppercase tracking-[0.18em] text-white/55" data-astro-cid-fqsmfhgl>MMP 2.0 · JSON · Directive</span> </div> <a class="spec-code-link shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-white/55 transition-colors hover:text-white" href="/spec/mmp/examples/v2/feedback-directive.json" target="_blank" rel="noreferrer" data-astro-cid-fqsmfhgl> Open fixture <span aria-hidden="true" data-astro-cid-fqsmfhgl>↗</span> </a> </div> <pre class="spec-code-pre m-0 max-h-[34rem] overflow-y-auto whitespace-pre-wrap break-words px-5 py-5 font-mono text-[11px] leading-[1.6] text-[#f0d8cf]" data-astro-cid-fqsmfhgl><code data-astro-cid-fqsmfhgl>{
   &quot;type&quot;: &quot;cmb&quot;,
-  &quot;timestamp&quot;: 1775485630000,
+  &quot;protocolVersion&quot;: &quot;2.0&quot;,
   &quot;cmb&quot;: {
-    &quot;key&quot;: &quot;cmb-d7e8f9a0b1c2&quot;,
-    &quot;createdBy&quot;: &quot;validator-node&quot;,
-    &quot;createdAt&quot;: 1775485630000,
     &quot;categories&quot;: {
-      &quot;focus&quot;: { &quot;text&quot;: &quot;Frontend framework releases are a separate concern from backend review&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;issue&quot;: { &quot;text&quot;: &quot;Feed signals about frontend tooling are out-of-scope noise here&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;intent&quot;: { &quot;text&quot;: &quot;Analytical frame: distinguish backend runtime signals from frontend tooling&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;motivation&quot;: { &quot;text&quot;: &quot;Prevents wasted analysis on signals outside the mesh&#39;s scope&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;commitment&quot;: { &quot;text&quot;: &quot;Standing directive — applies to all future feed analysis&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;perspective&quot;: { &quot;text&quot;: &quot;operator, mesh steward&quot;, &quot;vector&quot;: [&quot;...&quot;] },
-      &quot;mood&quot;: { &quot;text&quot;: &quot;clarifying&quot;, &quot;valence&quot;: 0.1, &quot;arousal&quot;: 0.2, &quot;vector&quot;: [&quot;...&quot;] }
+      &quot;focus&quot;: {
+        &quot;text&quot;: &quot;Frontend framework releases are separate from backend review&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;28bdff5fc8e5981a7f257cad6a6372aa89e8f9d8b9cd38c8da0c07af615201a6&quot;,
+          &quot;parents&quot;: []
+        }
+      },
+      &quot;issue&quot;: {
+        &quot;text&quot;: &quot;Feed signals about frontend tooling are out-of-scope noise here&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;ddab5bb9ceeb5033d27b578a75b31381b2a112b75c5cc49795e69f4f2953e88e&quot;,
+          &quot;parents&quot;: []
+        }
+      },
+      &quot;intent&quot;: {
+        &quot;text&quot;: &quot;Distinguish backend runtime signals from frontend tooling&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;9f0a01c0d7c81c2ce036c16c803be1601e9a3d5a3c3b04414fcf2d1c36a5e802&quot;,
+          &quot;parents&quot;: []
+        }
+      },
+      &quot;motivation&quot;: {
+        &quot;text&quot;: &quot;Prevent wasted analysis outside the mesh scope&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;c7493654f1c92c147e83856b431b2822acccc55a7afbf9ac86295205d7669fb7&quot;,
+          &quot;parents&quot;: []
+        }
+      },
+      &quot;commitment&quot;: {
+        &quot;text&quot;: &quot;Standing directive: apply this scope to future feed analysis&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;a0909abb4996c4869e27206d5151d4d1b69b0164fd0062f50f459b859cff7121&quot;,
+          &quot;parents&quot;: []
+        }
+      },
+      &quot;perspective&quot;: {
+        &quot;text&quot;: &quot;operator, mesh steward&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;b540ebef88dfdbf1d7e13d931dedbdf67b5b4592100ed3dd2f15bded92671182&quot;,
+          &quot;parents&quot;: []
+        }
+      },
+      &quot;mood&quot;: {
+        &quot;text&quot;: &quot;clarifying&quot;,
+        &quot;meta&quot;: {
+          &quot;key&quot;: &quot;9bb093f516f54cc64fdd8abd2c0958fce700fe61105eba938b5207c4b73eac2e&quot;,
+          &quot;parents&quot;: []
+        },
+        &quot;valence&quot;: 0.1,
+        &quot;arousal&quot;: 0.2
+      }
     },
-    &quot;lineage&quot;: {
-      &quot;parents&quot;: [],
-      &quot;ancestors&quot;: []
+    &quot;metadata&quot;: {
+      &quot;key&quot;: &quot;cmb-809112897b32a2245ccfebe36def98f3c08a336c0d804beca9ff45bdaaaed80c&quot;,
+      &quot;addressScheme&quot;: &quot;mmp-cmb-merkle-v2&quot;,
+      &quot;signatureSuite&quot;: &quot;mmp-sig-v2.0&quot;,
+      &quot;createdByNodeId&quot;: &quot;018f47a0-7b21-7abc-8def-bbbbbbbbbbbb&quot;,
+      &quot;createdBy&quot;: &quot;validator-node&quot;,
+      &quot;createdTimestamp&quot;: 1775485630000,
+      &quot;room&quot;: &quot;spec-examples&quot;,
+      &quot;to&quot;: null,
+      &quot;lineage&quot;: {
+        &quot;parents&quot;: [],
+        &quot;method&quot;: &quot;operator-directive&quot;
+      },
+      &quot;application&quot;: null,
+      &quot;assertionId&quot;: &quot;asrt-6cce78098e171e3b33e4ced3a055180d4aa0d43eb89c57dd6ab698ffd809a25e&quot;,
+      &quot;sigAlg&quot;: &quot;ed25519&quot;,
+      &quot;sig&quot;: &quot;p9O9f-SNSj2D7vnyB4PxILcHXlJ4dJkrL-N7CsUaLUS3rh2E9M0SLdbK9VStFqR0-evFW8QH6jNnglY0iqlvBg&quot;
     }
   }
-}</pre> </div> <p class="mb-6 text-sm text-white/50"> <code class="text-purple-300/80">createdBy</code> identifies the author, and it is bound to the
+}</code></pre> </div>  <p class="mb-6 text-sm text-white/50"> <code class="text-purple-300/80">metadata.createdBy</code> identifies the author, and <code class="text-purple-300/80">metadata.createdByNodeId</code> is bound to the
       author&rsquo;s key by the CMB signature (&sect;18.3.1). Validator authority <span class="text-red-400 font-mono text-xs">MUST</span> be resolved through
       the signed role-grant chain rooted at the pinned anchor (&sect;6.5&ndash;&sect;6.6) before anchor
       weight 2.0 is applied. A <code class="text-purple-300/80">lifecycleRole</code> self-declared in the
@@ -357,4 +486,4 @@ Prompt updates are out-of-band: they bypass the mesh, leave no lineage, produce 
 </p> </div> </div> <div class="bg-white/[0.03] border border-white/[0.06] rounded-lg p-4"> <p class="text-sm text-white/50"> <span class="text-purple-400 font-mono text-xs">Learn more</span> &nbsp;
 <a href="https://meshcognition.org" class="text-purple-400 hover:text-purple-300 transition-colors">Mesh Cognition</a> &mdash;
         the theoretical foundation, Kuramoto synchronisation, and the full architecture.
-</p> </div> </section>  </div> </article> </div> </div>  <footer class="footer" style="padding: 40px 64px;"><div class="footer-inner" style="grid-template-columns: 1fr;"><div class="legal" style="margin-top: 0; padding-top: 0; border-top: 0;"><span>© 2026 SYMBOT LTD. The Mesh Memory Protocol is published under CC BY 4.0.</span><span>Pioneered by SYM.BOT · Scotland, United Kingdom</span></div></div></footer> </body></html>
+</p> </div> </section>  </div> </article> </div> </div>   <footer class="footer" style="padding: 40px 64px;"><div class="footer-inner" style="grid-template-columns: 1fr;"><div class="legal" style="margin-top: 0; padding-top: 0; border-top: 0;"><span>© 2026 SYMBOT LTD. The Mesh Memory Protocol is published under CC BY 4.0.</span><span>Pioneered by SYM.BOT · Scotland, United Kingdom</span></div></div></footer> </body></html>

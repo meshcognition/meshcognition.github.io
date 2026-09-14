@@ -244,6 +244,20 @@ throughout, replacing mixed use of &ldquo;dimensions&rdquo; and &ldquo;fields&rd
 <code class="text-purple-300/80">.html</code>.
 <code class="text-purple-300/80">mmp-v1.0.*</code> remain published, frozen, for existing
             citations.
+<br><br> <strong>v2.0 conformance errata (2026-09-14; no version bump).</strong> Ed25519 signature
+            bytes are excluded from the reproduction requirement in §17.4 and §20.3: WebKit and Apple's
+            CryptoKit both sign with added randomness, so a correct implementation returns different valid
+            bytes on every call and a suite asserting byte equality fails on Safari and on every browser on
+            iOS. Pinned signatures — <code class="text-purple-300/80">expectedSignature</code> and the
+            handshake proofs — are for VERIFICATION, never reproduction; every other pinned value remains
+            deterministic and must reproduce exactly. The §17.5 release criterion claiming Node and Swift
+            reproduce identical signature bytes is withdrawn, having been measured unmeetable. On the
+            unencrypted CMB frame, <code class="text-purple-300/80">protocolVersion</code> and
+<code class="text-purple-300/80">timestamp</code> are now OPTIONAL rather than required: the
+            protocol version is agreed once in the authenticated §5.2 handshake and carried in a signed
+            transcript, and the mandatory timestamp is
+<code class="text-purple-300/80">metadata.createdTimestamp</code> inside the record, which the
+            signature covers.
 <br><br> <strong>v2.0 alignment errata (2026-08-13; no version bump).</strong> The current corpus now
             enforces direct-parent-only wire lineage and derives transitive provenance by traversing
             locally verified parent records; CAT7 embeddings are explicitly receiver-local rather than

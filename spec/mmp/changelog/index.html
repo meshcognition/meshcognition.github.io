@@ -244,6 +244,20 @@ throughout, replacing mixed use of &ldquo;dimensions&rdquo; and &ldquo;fields&rd
 <code class="text-purple-300/80">.html</code>.
 <code class="text-purple-300/80">mmp-v1.0.*</code> remain published, frozen, for existing
             citations.
+<br><br> <strong>Terminology: group &rarr; room, completed (2026-09-16; no version bump).</strong> The core
+            renamed this concept to <em>room</em> on 13 August, but only where the text was being
+            rewritten: the handshake block and §5.8's body moved, while §5.8's heading still read
+            "Mesh Groups", the §5.2 field table still listed a <code class="text-purple-300/80">group</code>
+field the published schema does not define, and §5.9, §4 and the glossary still said group.
+            Those are corrected. The two extensions were the last documents in the old vocabulary and
+            are renamed with them: <code class="text-purple-300/80">mesh-group-v0.1.0</code> &rarr;
+<code class="text-purple-300/80">mesh-room-v0.2.0</code> and
+<code class="text-purple-300/80">group-directory-v0.1.0</code> &rarr;
+<code class="text-purple-300/80">room-directory-v0.2.0</code>, including their identifiers
+            (<code class="text-purple-300/80">group_id</code>, <code class="text-purple-300/80">groupId</code>,
+<code class="text-purple-300/80">group_label</code>, <code class="text-purple-300/80">group_token</code>
+and the Bonjour service type). Nothing implemented the old names, so they are superseded
+            rather than aliased. The previous URLs redirect.
 <br><br> <strong>v2.0 conformance errata (2026-09-14; no version bump).</strong> Ed25519 signature
             bytes are excluded from the reproduction requirement in §17.4 and §20.3: WebKit and Apple's
             CryptoKit both sign with added randomness, so a correct implementation returns different valid

@@ -253,7 +253,7 @@ MMP Specification v2.0 </a> </p> <div class="grid gap-0.5"> <a href="/spec/mmp" 
 <li><strong>intent</strong> — <code>request</code>. The failure event is an <em>open invitation</em>, not an assignment.</li>
 <li><strong>commitment</strong> — the acceptance criteria of the original work, carried <strong>byte-for-byte inside a clearly delimited block</strong>, so the <em>same criteria govern the fix</em> — repaired means repaired, by the original bar.</li>
 <li><strong>issue</strong> — ordinary descriptive text (e.g. <code>check-failure</code>); it carries no normative routing semantics.</li>
-<li><strong>addressing</strong> — the corrective request MUST be a group-bound broadcast with no directed recipient, so §9.2 receiver-autonomous delivery and admission remain operative.</li>
+<li><strong>addressing</strong> — the corrective request MUST be a room-bound broadcast with no directed recipient, so §9.2 receiver-autonomous delivery and admission remain operative.</li>
 </ul>
 <h3 id="41-evidence">4.1 Evidence</h3>
 <p>The event MUST carry the failed check identifiers together with their captured <code>stdout</code>/<code>stderr</code>, subject to an operator-configured, non-zero byte limit per stream; when either stream is shortened, the event MUST carry an explicit truncation indicator. The numeric limit is implementation-defined. (Conformance test: a known <code>stderr</code> sentinel survives publication intact; oversized output arrives marked truncated.)</p>

@@ -244,6 +244,29 @@ throughout, replacing mixed use of &ldquo;dimensions&rdquo; and &ldquo;fields&rd
 <code class="text-purple-300/80">.html</code>.
 <code class="text-purple-300/80">mmp-v1.0.*</code> remain published, frozen, for existing
             citations.
+<br><br> <strong>&sect;5.8.1 Room Admission added (2026-09-16; no version bump).</strong> The
+            room-join grant existed in the reference runtime and in no version of this specification.
+            &sect;5.8.1 states it: a gated room has one owner; a grant binds room, grantee, grantee key and
+            expiry under one signature; a grant binding no key is a bearer token and MUST be refused; the
+            bound key MUST be compared against a key the peer PROVED, and refused when no proof exists; the
+            24-hour lifetime cap MUST be enforced by the verifier, because revocation is live gossip with no
+            replay and the lifetime therefore IS the offline exposure.
+<br><br>
+One clause is new to both the specification and the implementation, and it came from outside
+            this document. A simulation built against MMP found a node publishing into a room it had never
+            joined; reading the reference runtime for the same shape found it there too, arrived at
+            independently &mdash; admission was decided from the handshake and every other frame was
+            dispatched on trust. So the door is now <strong>consulted per frame, not once per greeting</strong>:
+            a receiver MUST record its admission decision and consult it on every content-bearing frame, and
+            MUST NOT process content from a peer for which no decision was ever made while the room is gated.
+            Handshake frames are exempt or a grant-holder could never join; liveness frames MAY be answered.
+<br><br>
+The section also states what admission does NOT do. Consent to hear is not consent to believe:
+            every admitted record is still evaluated by SVAF (&sect;9.2) and membership confers no standing
+            there. And in an ungated room there is nothing to enforce &mdash; declaring the room IS membership
+            &mdash; so an interface reporting a room's gating MUST distinguish <em>ungated</em> from <em>not
+            determined</em>. No shipped deployment gates a room, so no existing implementation becomes
+            non-conformant; the gated-room deployment remains untried and the section says so.
 <br><br> <strong>Terminology: group &rarr; room, completed (2026-09-16; no version bump).</strong> The core
             renamed this concept to <em>room</em> on 13 August, but only where the text was being
             rewritten: the handshake block and §5.8's body moved, while §5.8's heading still read
